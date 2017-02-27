@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
+import './chat.css';
 
 const base = Rebase.createClass({
   apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
@@ -30,8 +31,8 @@ class NewChat extends React.Component {
 
 	render() {
 		return (
-			<div className='col-md-12'>
-				<form onSubmit={ this._newChat.bind(this) } className='form-group col-md-8'>
+			<div className='container'>
+				<form onSubmit={ this._newChat.bind(this) } className='media comment-backing'>
 					<input ref='title' type='text' placeholder='Title' className='form-control' />
 					<textarea ref='message'  placeholder='Message' className='form-control' />
 					<input type='submit' className='btn btn-success' />

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import Rebase from 're-base';
 import Container from './components/Container';
 import NewChat from './components/NewChat';
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
 
 const base = Rebase.createClass({
   apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",

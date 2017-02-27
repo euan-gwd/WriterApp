@@ -1,0 +1,65 @@
+.fa-times {
+  color: grey;
+}
+
+.fa-times:hover {
+  color: red;
+}
+
+.fa-reply {
+  color: grey;
+}
+
+.fa-reply:hover {
+  color: #025aa5;
+}
+
+.fa-retweet {
+  color: grey;
+}
+
+.fa-retweet:hover {
+  color: #96890f;
+}
+
+.fa-star {
+  color: grey;
+}
+
+.fa-star:hover {
+  color: green;
+}
+
+.btn-secondary {
+  color: #0275d8 !important;
+  background-color: #ccc !important;
+  border-color: #ccc;
+}
+
+.btn-secondary:hover {
+  color: #025aa5 !important;
+  border-color: #025aa5 !important;
+}
+
+.comment-backing {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  background-color: #ccc;
+  align-items: center;
+}
+
+.comment-backplate {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  align-items: center;
+}
+
+.media-body-image {
+  height: 20.5vh;
+}
