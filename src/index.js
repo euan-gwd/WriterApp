@@ -12,7 +12,7 @@ const base = Rebase.createClass({
   databaseURL: "https://tchatapp-586ab.firebaseio.com",
   storageBucket: "tchatapp-586ab.appspot.com",
   messagingSenderId: "846810590536"
-})
+});
 
 class Main extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Main extends React.Component {
 				this.state= {
 					messages: []
 				}
-  }
+  };
 
 		componentWillMount() {
 			base.bindtoState('chats',{
@@ -28,7 +28,7 @@ class Main extends React.Component {
 				state: 'messages',
 				asArray: true
 			})
-		}
+		};
 
   render() {
     return (
@@ -38,7 +38,7 @@ class Main extends React.Component {
       </div>
     );
   }
-}
+};
 
 ReactDOM.render(
   <Main />,
