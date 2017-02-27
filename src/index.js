@@ -23,7 +23,7 @@ class Main extends React.Component {
   };
 
 		componentWillMount() {
-			base.bindtoState('chats',{
+			base.bindToState('chats',{
 				context: this,
 				state: 'messages',
 				asArray: true
@@ -33,7 +33,7 @@ class Main extends React.Component {
   render() {
     return (
       <div style={ { paddingTop: '30px' } }>
-							<NewChat chats={ this.state.messages}/>
+							<NewChat chats={this.state.messages}/>
 							<Container />
       </div>
     );

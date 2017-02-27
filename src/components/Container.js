@@ -1,6 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
-import Message from './Messages';
+import Message from './Message';
 
 const base = Rebase.createClass({
   apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
@@ -48,12 +48,16 @@ class Container extends React.Component {
 			});
 		};
 
+ _messages()  {
+
+	}
+
 			render() {
-				let messages = this.state.message.map((item, index) => {
+				let messages = this.state.messages.map((item, index) => {
 					return (
 						<Message thread={item} show={ this.state.show === index} removeMessage={this._removeMessage.bind(this, index)} handleClick={this._toggleView.bind(this.index)} key={index}/>
 					);
-				});
+				})
 
 				return (
 					<div className="col-md-12">
