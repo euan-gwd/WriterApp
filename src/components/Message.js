@@ -10,6 +10,7 @@ class Message extends React.Component {
 								<strong className="mt-0">{ this.props.thread.title }</strong>
 								<hr/>
 								<p>{ this.props.thread.message }</p>
+								<img src="http://placehold.it/350x150" alt="payload" className="media-body-image" />
 								<div className="d-flex flex-row">
 									<button className="btn btn-link" type="button">
 										<i className="fa fa-reply" aria-hidden="true" >Reply</i>

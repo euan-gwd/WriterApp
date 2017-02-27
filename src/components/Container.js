@@ -14,8 +14,7 @@ class Container extends React.Component {
 		constructor(props) {
 			super(props);
 			this.state = {
-				messages : [],
-				show: null
+				messages : []
 			};
 		};
 
@@ -37,15 +36,8 @@ class Container extends React.Component {
 			arr.splice(index,1);
 
 			this.setState({
-				messages: arr,
-				show: null
+				messages: arr
 			})
-		}
-
-		_toggleView(index) {
-			this.setState({
-				show: index
-			});
 		}
 
 			render() {
@@ -56,7 +48,7 @@ class Container extends React.Component {
 				})
 
 				return (
-					<div className="col-md-12">
+					<div className="container">
 						<div className="col-md-8">
 							<h1 className="text-center mt-3">{ (this.state.messages.length || 0) + ' messages' }</h1>
 							<ul>{ messages }</ul>
@@ -64,7 +56,6 @@ class Container extends React.Component {
 					</div>
 				);
 			}
-
 }
 
 export default Container;

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
+import NavBar from './components/Navbar';
 import Container from './components/Container';
 import NewChat from './components/NewChat';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -32,7 +33,9 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div style={ { paddingTop: '30px' } }>
+      <div>
+							<NavBar />
+							<br/>
 							<NewChat chats={this.state.messages}/>
 							<Container />
       </div>
