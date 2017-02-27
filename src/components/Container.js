@@ -46,16 +46,12 @@ class Container extends React.Component {
 			this.setState({
 				show: index
 			});
-		};
-
- _messages()  {
-
-	}
+		}
 
 			render() {
 				let messages = this.state.messages.map((item, index) => {
 					return (
-						<Message thread={item} show={ this.state.show === index} removeMessage={this._removeMessage.bind(this, index)} handleClick={this._toggleView.bind(this.index)} key={index}/>
+						<Message thread={item} show={ this.state.show === index} removeMessage={this._removeMessage.bind(this, index)} handleClick={this._toggleView.bind(this, index)} key={index}/>
 					);
 				})
 
