@@ -13,6 +13,13 @@ const base = Rebase.createClass({
 
 class NewChat extends React.Component {
 
+	constructor() {
+		super();
+		this.state = {
+			characters: 0
+		};
+	}
+
 	_newChat(e) {
 	  e.preventDefault();
 			base.post('chats', {
@@ -25,8 +32,16 @@ class NewChat extends React.Component {
         console.log('POSTED');
       }
 			});
+
 			ReactDOM.findDOMNode(this.refs.message).value = '';
    ReactDOM.findDOMNode(this.refs.title).value = '';
+			this.setState({ characters: 0 });
+	}
+
+	_handleCharacterCount() {
+		this.setState({
+			characters: this.refs.message.value.length
+		});
 	}
 
 	render() {
@@ -34,8 +49,17 @@ class NewChat extends React.Component {
 			<div className='container'>
 				<form onSubmit={ this._newChat.bind(this) } className='media comment-backing'>
 					<input ref='title' type='text' placeholder='Title' className='form-control' />
-					<textarea ref='message'  placeholder='Message' className='form-control' />
-					<input type='submit' className='btn btn-success' />
+					<textarea ref='message'  placeholder='Message' className='form-control' onChange={this._handleCharacterCount.bind(this)}/>
+					<div className="d-flex justify-content-start">
+						<button className="btn btn-secondary mr-1" type="button">
+							<i className="fa fa-camera" aria-hidden="true" />
+						</button>
+						<button className="btn btn-secondary mr-1" type="button">
+							<i className="fa fa-video-camera" aria-hidden="true" />
+						</button>
+					</div>
+					<small className="ml-auto text-muted align-self-center mr-1">{this.state.characters} characters</small>
+					<button className="btn btn-primary mt-1" type="submit"><i className="fa fa-paper-plane fa-fw" aria-hidden="true" /> Send</button>
 				</form>
 			</div>
 		);
