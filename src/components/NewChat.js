@@ -4,11 +4,11 @@ import Rebase from 're-base';
 import './chat.css';
 
 const base = Rebase.createClass({
-  apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
-  authDomain: "tchatapp-586ab.firebaseapp.com",
-  databaseURL: "https://tchatapp-586ab.firebaseio.com",
-  storageBucket: "tchatapp-586ab.appspot.com",
-  messagingSenderId: "846810590536"
+	apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
+	authDomain: "tchatapp-586ab.firebaseapp.com",
+	databaseURL: "https://tchatapp-586ab.firebaseio.com",
+	storageBucket: "tchatapp-586ab.appspot.com",
+	messagingSenderId: "846810590536"
 });
 
 class NewChat extends React.Component {
@@ -21,21 +21,21 @@ class NewChat extends React.Component {
 	}
 
 	_newChat(e) {
-	  e.preventDefault();
-			base.post('chats', {
-				data: this.props.chats.concat([{
-        title: ReactDOM.findDOMNode(this.refs.title).value,
-        message: ReactDOM.findDOMNode(this.refs.message).value
-      }]),
-				context: this,
-				then: () => {
-        console.log('POSTED');
-      }
-			});
+		e.preventDefault();
+		base.post('chats', {
+			data: this.props.chats.concat([{
+				title: ReactDOM.findDOMNode(this.refs.title).value,
+				message: ReactDOM.findDOMNode(this.refs.message).value
+			}]),
+			context: this,
+			then: () => {
+				console.log('POSTED');
+			}
+		});
 
-			ReactDOM.findDOMNode(this.refs.message).value = '';
-   ReactDOM.findDOMNode(this.refs.title).value = '';
-			this.setState({ characters: 0 });
+		ReactDOM.findDOMNode(this.refs.message).value = '';
+		ReactDOM.findDOMNode(this.refs.title).value = '';
+		this.setState({ characters: 0 });
 	}
 
 	_handleCharacterCount() {
@@ -47,15 +47,12 @@ class NewChat extends React.Component {
 	render() {
 		return (
 			<div className='container'>
-				<form onSubmit={ this._newChat.bind(this) } className='media comment-backing'>
-					<input ref='title' type='text' placeholder='Title' className='form-control' />
-					<textarea ref='message'  placeholder='Message' className='form-control' onChange={this._handleCharacterCount.bind(this)}/>
+				<form onSubmit={this._newChat.bind(this)} className='media comment-backing bg-faded'>
+					<input ref='title' type='text' placeholder='Title' className='form-control bg-faded' />
+					<textarea ref='message' placeholder='Message' className='form-control bg-faded' onChange={this._handleCharacterCount.bind(this)} />
 					<div className="d-flex justify-content-start">
-						<button className="btn btn-secondary mr-1" type="button">
+						<button className="btn btn-secondary mr-1 mt-1" type="button">
 							<i className="fa fa-camera" aria-hidden="true" />
-						</button>
-						<button className="btn btn-secondary mr-1" type="button">
-							<i className="fa fa-video-camera" aria-hidden="true" />
 						</button>
 					</div>
 					<small className="ml-auto text-muted align-self-center mr-1">{this.state.characters} characters</small>

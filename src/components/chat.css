@@ -32,8 +32,8 @@
 
 .btn-secondary {
   color: #0275d8 !important;
-  background-color: #ccc !important;
-  border-color: #ccc;
+  background-color: #f7f7f7 !important;
+  border-color: #f7f7f7 !important;
 }
 
 .btn-secondary:hover {
@@ -47,7 +47,6 @@
   padding: 0.75rem 1.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  background-color: #ccc;
   align-items: center;
 }
 
