@@ -46,10 +46,10 @@ class NewChat extends React.Component {
 
 	render() {
 		return (
-			<div className='container'>
+			<div className='col-8 mx-auto'>
 				<form onSubmit={this._newChat.bind(this)} className='media comment-backing bg-faded'>
-					<input ref='title' type='text' placeholder='Title' className='form-control bg-faded' />
-					<textarea ref='message' placeholder='Message' className='form-control bg-faded' onChange={this._handleCharacterCount.bind(this)} />
+					<input ref='title' type='text' placeholder='Title' className='form-control' />
+					<textarea ref='message' placeholder='Message' className='form-control' onChange={this._handleCharacterCount.bind(this)} />
 					<div className="d-flex justify-content-start">
 						<button className="btn btn-secondary mr-1 mt-1" type="button">
 							<i className="fa fa-camera" aria-hidden="true" />

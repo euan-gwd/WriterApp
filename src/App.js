@@ -1,6 +1,5 @@
 import React from 'react';
 import Rebase from 're-base';
-// import NavBar from './components/Navbar';
 import Container from './components/Container';
 import NewChat from './components/NewChat';
 
