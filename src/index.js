@@ -18,26 +18,26 @@ const base = Rebase.createClass({
 class Main extends React.Component {
   constructor(props) {
     super(props)
-				this.state= {
-					messages: []
-				}
+    this.state = {
+      messages: []
+    }
   };
 
-		componentWillMount() {
-			base.bindToState('chats',{
-				context: this,
-				state: 'messages',
-				asArray: true
-			})
-		};
+  componentWillMount() {
+    base.bindToState('chats', {
+      context: this,
+      state: 'messages',
+      asArray: true
+    })
+  };
 
   render() {
     return (
       <div>
-							<NavBar />
-							<br/>
-							<NewChat chats={this.state.messages}/>
-							<Container />
+        <NavBar />
+        <br />
+        <NewChat chats={this.state.messages} />
+        <Container />
       </div>
     );
   }
