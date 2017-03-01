@@ -9,7 +9,7 @@ const base = Rebase.createClass({
   databaseURL: "https://tchatapp-586ab.firebaseio.com",
   storageBucket: "tchatapp-586ab.appspot.com",
   messagingSenderId: "846810590536"
-});
+}, 'App');
 
 class App extends React.Component {
   constructor(props) {

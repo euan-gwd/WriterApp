@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import Root from './Root';
-import App from './App';
+import App from './components/chat/App';
 import FourOFour from './pages/FourOFour';
 import Notifications from './pages/Notifications';
 import 'bootstrap/dist/css/bootstrap.css';

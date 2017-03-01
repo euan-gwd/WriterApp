@@ -27,10 +27,7 @@ class NewChat extends React.Component {
 				title: ReactDOM.findDOMNode(this.refs.title).value,
 				message: ReactDOM.findDOMNode(this.refs.message).value
 			}]),
-			context: this,
-			then: () => {
-				console.log('POSTED');
-			}
+			context: this
 		});
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
