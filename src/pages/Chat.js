@@ -30,8 +30,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-							<NewChat chats={this.state.messages} />
-							<Container />
+        <NewChat chats={this.state.messages} />
+        <Container />
       </div>
     );
   }
