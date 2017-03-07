@@ -27,6 +27,19 @@ class App extends React.Component {
     })
   };
 
+  componentDidMount() {
+    let currentUid = null;
+    base.auth().onAuthStateChanged(function (user) {
+      if (user && user.uid !== currentUid) {
+        currentUid = user.uid;
+        console.log(`Congrats ${user.displayName}, you are done! ${user.email}`);
+      } else {
+        currentUid = null;
+        console.log("no user signed in");
+      }
+    });
+  }
+
   render() {
     return (
       <div>

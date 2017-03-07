@@ -3,3 +3,9 @@ body {
   position: relative;
   margin: 0;
 }
+
+.login-window {
+  min-height: 100vh;
+  background: linear-gradient(black, white);
+}
+
