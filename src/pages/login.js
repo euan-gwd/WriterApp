@@ -11,41 +11,19 @@ const base = Rebase.createClass({
 });
 
 const uiConfig = {
-  // callbacks: {
-  //     signInSuccess: function (currentUser, credential, redirectUrl) {
-  //         window.open('/widget', 'Sign In', 'width=985,height=735');
-  //         return true;
-  //     },
-  //     uiShown: function () {
-  //         // The widget is rendered.
-  //         // Hide the loader.
-  //         document.getElementById('loader').style.display = 'none';
-  //         // ReactDOM.findDOMNode(this.ref.loader).style.display = 'none';
-  //     }
-  // },
-  // credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
-  // // Query parameter name for mode.
-  // queryParameterForWidgetMode: 'mode',
-  // // Query parameter name for sign in success url.
-  // queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
-  // // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  // signInFlow: 'popup',
-  // signInSuccessUrl: "/chat",
-  // signInOptions: [
-  //     // Leave the lines as is for the providers you want to offer your users.
-  //     base.auth.EmailAuthProvider.PROVIDER_ID
-  // ]
-  signInSuccessUrl: '/chat',
+  signInSuccessUrl: '/SignedIn',
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [
     base.auth.EmailAuthProvider.PROVIDER_ID
   ]
 };
 
+const ui = new firebaseui.auth.AuthUI(base.auth());
+
 class Login extends React.Component {
 
   handleSignIn = (evt) => {
-    evt.stopPropagation();
-    const ui = new firebaseui.auth.AuthUI(base.auth());
+    evt.preventDefault();
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 

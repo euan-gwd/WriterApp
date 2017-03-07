@@ -9,7 +9,7 @@ const base = Rebase.createClass({
   databaseURL: "https://tchatapp-586ab.firebaseio.com",
   storageBucket: "tchatapp-586ab.appspot.com",
   messagingSenderId: "846810590536"
-}, 'App');
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -26,19 +26,6 @@ class App extends React.Component {
       asArray: true
     })
   };
-
-  componentDidMount() {
-    let currentUid = null;
-    base.auth().onAuthStateChanged(function (user) {
-      if (user && user.uid !== currentUid) {
-        currentUid = user.uid;
-        console.log(`Congrats ${user.displayName}, you are done! ${user.email}`);
-      } else {
-        currentUid = null;
-        console.log("no user signed in");
-      }
-    });
-  }
 
   render() {
     return (
