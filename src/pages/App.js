@@ -63,15 +63,15 @@ class App extends React.Component {
     return (
       <div>
         <div id="user-signed-in" className="hidden">
-          <nav className="nav bg-faded justify-content-end">
-            <div id="name" className="nav-item mr-3 align-self-center"></div>
+          <nav className="nav bg-faded d-flex justify-content-end">
+            <div id="name" className="nav-item mr-3 d-flex align-self-center"></div>
             <button type="button" id="sign-out" className="btn btn-outline-danger my-2 mr-3" onClick={this.handleSignedOutUser} >Sign Out</button>
           </nav>
           <br />
           <Chat />
         </div>
         <div id="user-signed-out" className="hidden">
-          <nav className="nav bg-faded justify-content-center">
+          <nav className="nav bg-faded d-flex justify-content-center">
             <h4 className="nav-item mr-3 my-2">You are signed out.</h4>
           </nav>
           <br />

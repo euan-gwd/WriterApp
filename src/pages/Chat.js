@@ -27,6 +27,14 @@ class Chat extends React.Component {
     })
   };
 
+  componentDidMount() {
+    base.bindToState('chats', {
+      context: this,
+      state: 'messages',
+      asArray: true
+    })
+  };
+
   render() {
     return (
       <div>
