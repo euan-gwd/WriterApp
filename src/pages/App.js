@@ -67,7 +67,6 @@ class App extends React.Component {
             <div id="name" className="nav-item mr-3 d-flex align-self-center"></div>
             <button type="button" id="sign-out" className="btn btn-outline-danger my-2 mr-3" onClick={this.handleSignedOutUser} >Sign Out</button>
           </nav>
-          <br />
           <Chat />
         </div>
         <div id="user-signed-out" className="hidden">

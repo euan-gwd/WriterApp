@@ -24,14 +24,14 @@ class NewChat extends React.Component {
 		e.preventDefault();
 		base.post('chats', {
 			data: this.props.chats.concat([{
-				title: ReactDOM.findDOMNode(this.refs.title).value,
+				// title: ReactDOM.findDOMNode(this.refs.title).value,
 				message: ReactDOM.findDOMNode(this.refs.message).value
 			}]),
 			context: this
 		});
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
-		ReactDOM.findDOMNode(this.refs.title).value = '';
+		// ReactDOM.findDOMNode(this.refs.title).value = '';
 		this.setState({ characters: 0 });
 	}
 
@@ -45,7 +45,6 @@ class NewChat extends React.Component {
 		return (
 			<div className='col-8 mx-auto'>
 				<form onSubmit={this._newChat.bind(this)} className='media comment-backing bg-faded'>
-					<input ref='title' type='text' placeholder='Title' className='form-control' />
 					<textarea ref='message' placeholder='Message' className='form-control' onChange={this._handleCharacterCount.bind(this)} />
 					<div className="d-flex justify-content-start">
 						<button className="btn btn-secondary mr-1 mt-1" type="button">
