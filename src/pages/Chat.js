@@ -1,17 +1,9 @@
 import React from 'react';
-import Rebase from 're-base';
 import Container from './components/Container';
 import NewChat from './components/NewChat';
+import { base } from './Login';
 
-const base = Rebase.createClass({
-  apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
-  authDomain: "tchatapp-586ab.firebaseapp.com",
-  databaseURL: "https://tchatapp-586ab.firebaseio.com",
-  storageBucket: "tchatapp-586ab.appspot.com",
-  messagingSenderId: "846810590536"
-});
-
-class App extends React.Component {
+class Chat extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,7 +11,7 @@ class App extends React.Component {
     }
   };
 
-  componentWillMount() {
+  componentWillUpdate() {
     base.bindToState('chats', {
       context: this,
       state: 'messages',
@@ -37,4 +29,4 @@ class App extends React.Component {
   }
 };
 
-export default App;
+export default Chat;
