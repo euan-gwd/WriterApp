@@ -43,16 +43,31 @@ class NewChat extends React.Component {
 
 	render() {
 		return (
-			<div className='col-8 mx-auto'>
-				<form onSubmit={this._newChat.bind(this)} className='media comment-backing bg-faded'>
-					<textarea ref='message' placeholder='Message' className='form-control' onChange={this._handleCharacterCount.bind(this)} />
-					<div className="d-flex justify-content-start">
-						<button className="btn btn-secondary mr-1 mt-1" type="button">
-							<i className="fa fa-camera" aria-hidden="true" />
+			<div className=''>
+				<form onSubmit={this._newChat.bind(this)} className='box'>
+					<div className="control has-addons">
+						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this._handleCharacterCount.bind(this)} />
+						<button className="button is-primary is-outlined" type="submit">
+							<span className="icon">
+								<i className="fa fa-paper-plane fa-fw" aria-hidden="true" />
+							</span>
+							<span>Send</span>
 						</button>
 					</div>
-					<small className="ml-auto text-muted align-self-center mr-1">{this.state.characters} characters</small>
-					<button className="btn btn-primary mt-1" type="submit"><i className="fa fa-paper-plane fa-fw" aria-hidden="true" /> Send</button>
+					<div className="level">
+						<div className="level-left">
+							<div className="level-item">
+								<button className="button is-light is-outlined" type="button">
+									<i className="fa fa-camera" aria-hidden="true" />
+								</button>
+							</div>
+						</div>
+						<div className="level-right">
+							<div className="level-item">
+								<small className="">{this.state.characters} characters</small>
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 		);
