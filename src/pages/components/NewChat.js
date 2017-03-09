@@ -11,12 +11,14 @@ const base = Rebase.createClass({
 	messagingSenderId: "846810590536"
 });
 
+const  max_chars = 160;
+
 class NewChat extends React.Component {
 
 	constructor() {
 		super();
 		this.state = {
-			characters: 0
+			chars_left: max_chars
 		};
 	}
 
@@ -32,21 +34,22 @@ class NewChat extends React.Component {
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
 		// ReactDOM.findDOMNode(this.refs.title).value = '';
-		this.setState({ characters: 0 });
+		// this.setState({ characters: 0 });
 	}
 
-	_handleCharacterCount() {
+	handleCharacterCount() {
+		let input_chars = this.refs.message.value.length;
 		this.setState({
-			characters: this.refs.message.value.length
+			chars_left: max_chars - input_chars
 		});
 	}
 
 	render() {
 		return (
-			<div className=''>
+			<div>
 				<form onSubmit={this._newChat.bind(this)} className='box'>
 					<div className="control">
-						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this._handleCharacterCount.bind(this)} />
+						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} />
 					</div>
 					<div className="level">
 						<div className="level-left">
@@ -58,7 +61,7 @@ class NewChat extends React.Component {
 						</div>
 						<div className="level-right">
 							<div className="level-item">
-								<small className="">{this.state.characters} characters</small>
+								<small className="">{this.state.chars_left} characters</small>
 							</div>
 							<div className="level-item">
 								<button className="button is-info" type="submit">
