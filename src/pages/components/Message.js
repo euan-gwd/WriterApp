@@ -11,29 +11,29 @@ class Message extends React.Component {
 						</figure>
 					</div>
 					<div className="media-content">
-						<div class="content">
+						<div className="content">
 							<p>
-								<strong>DisplayName</strong><small>@email</small><small>time</small>
+								<strong>DisplayName</strong> <small>@email</small> <small className="is-disabled">x mins ago</small>
 								<br />
 								{this.props.thread.message}
 							</p>
-							<div className="level">
-								<div class="level-left">
-									<a className="level-item">
-										<span class="icon"><i className="fa fa-reply" aria-hidden="true" ></i></span>
-									</a>
-									<a className="level-item" type="button">
-										<span class="icon"><i className="fa fa-retweet" aria-hidden="true" ></i></span>
-									</a>
-									<a className="level-item" type="button">
-										<span class="icon"><i className="fa fa-star" aria-hidden="true" ></i></span>
-									</a>
-									<a onClick={this.props.removeMessage.bind(null)} className='level-item'>
-										<span class="icon"><i className="fa fa-times" aria-hidden="true" ></i></span>
-									</a>
-								</div>
-							</div>
 						</div>
+						<nav className="level">
+							<div className="level-left">
+								<a className="level-item">
+									<span className="icon is-small"><i className="fa fa-reply" aria-hidden="true" ></i></span>
+								</a>
+								<a className="level-item" type="button">
+									<span className="icon is-small"><i className="fa fa-retweet" aria-hidden="true" ></i></span>
+								</a>
+								<a className="level-item" type="button">
+									<span className="icon is-small"><i className="fa fa-star" aria-hidden="true" ></i></span>
+								</a>
+								<a onClick={this.props.removeMessage.bind(null)} className='level-item'>
+									<span className="icon is-small"><i className="fa fa-times" aria-hidden="true" ></i></span>
+								</a>
+							</div>
+						</nav>
 					</div>
 				</div>
 			</div>

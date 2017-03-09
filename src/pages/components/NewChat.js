@@ -45,19 +45,13 @@ class NewChat extends React.Component {
 		return (
 			<div className=''>
 				<form onSubmit={this._newChat.bind(this)} className='box'>
-					<div className="control has-addons">
+					<div className="control">
 						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this._handleCharacterCount.bind(this)} />
-						<button className="button is-primary is-outlined" type="submit">
-							<span className="icon">
-								<i className="fa fa-paper-plane fa-fw" aria-hidden="true" />
-							</span>
-							<span>Send</span>
-						</button>
 					</div>
 					<div className="level">
 						<div className="level-left">
 							<div className="level-item">
-								<button className="button is-light is-outlined" type="button">
+								<button className="button is-light" type="button">
 									<i className="fa fa-camera" aria-hidden="true" />
 								</button>
 							</div>
@@ -65,6 +59,14 @@ class NewChat extends React.Component {
 						<div className="level-right">
 							<div className="level-item">
 								<small className="">{this.state.characters} characters</small>
+							</div>
+							<div className="level-item">
+								<button className="button is-info" type="submit">
+									<span className="icon">
+										<i className="fa fa-paper-plane fa-fw" aria-hidden="true" />
+									</span>
+									<span>Send</span>
+								</button>
 							</div>
 						</div>
 					</div>

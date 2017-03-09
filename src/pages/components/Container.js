@@ -43,13 +43,13 @@ class Container extends React.Component {
 			render() {
 				let messages = this.state.messages.map((item, index) => {
 					return (
-						<Message thread={item} removeMessage={this._removeMessage.bind(this, index)} key={index} />
+						<Message thread={item} removeMessage={this._removeMessage.bind(this, index)} key={index} className="container"/>
 					);
 				})
 
 				return (
 					<div className="">
-						<h1 className="">{ (this.state.messages.length || 0) + ' messages' }</h1>
+						<h1 className="subtitle is-6 has-text-centered">{ (this.state.messages.length || 0) + ' messages' }</h1>
 						<ul>{ messages }</ul>
 					</div>
 				);
