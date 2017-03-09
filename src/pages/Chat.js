@@ -37,7 +37,8 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <div className="mt-2">
+      <div className="container is-fluid">
+        <br />
         <NewChat chats={this.state.messages} />
         <Container />
       </div>

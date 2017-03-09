@@ -2,6 +2,8 @@ import React from 'react';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import Chat from './Chat';
+import logo from '../logo.svg';
+import './App.css';
 
 const base = Rebase.createClass({
   apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
@@ -63,15 +65,43 @@ class App extends React.Component {
     return (
       <div>
         <div id="user-signed-in" className="hidden">
-          <nav className="nav bg-faded d-flex justify-content-end">
-            <div id="name" className="nav-item mr-3 d-flex align-self-center"></div>
-            <button type="button" id="sign-out" className="btn btn-outline-danger my-2 mr-3" onClick={this.handleSignedOutUser} >Sign Out</button>
+          <nav className="nav">
+            <div className="nav-left">
+              <div className="nav-item">
+                <h1>React Chat App</h1>
+              </div>
+            </div>
+            <div className="nav-center">
+              <div className="nav-item">
+                <img src={logo} alt="logo" className="App-logo" />
+              </div>
+            </div>
+            <div className="nav-right">
+              <div className="nav-item">
+                <div id="name" className=""></div>
+              </div>
+              <div className="nav-item">
+                <a id="sign-out" className="button is-danger is-outlined" onClick={this.handleSignedOutUser} >
+                  <span className="icon">
+                    <i className="fa fa-sign-out"></i>
+                  </span>
+                  <span>Sign Out</span>
+                </a>
+              </div>
+            </div>
           </nav>
           <Chat />
         </div>
         <div id="user-signed-out" className="hidden">
-          <nav className="nav bg-faded d-flex justify-content-center">
-            <h4 className="nav-item mr-3 my-2">You are signed out.</h4>
+          <nav className="nav">
+            <div className="nav-left">
+              <div className="nav-item">
+                <img src={logo} alt="logo" />
+              </div>
+            </div>
+            <div className="nav-right">
+              <h4 className="nav-item">You are signed out.</h4>
+            </div>
           </nav>
           <br />
           <div id="firebaseui-spa">

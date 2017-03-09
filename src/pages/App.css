@@ -1,0 +1,13 @@
+.nav {
+ border-bottom: 1px solid rgba(0, 0, 0, 0.125); 
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 60px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

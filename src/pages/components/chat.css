@@ -30,7 +30,7 @@
   color: green;
 }
 
-.btn-secondary {
+/*.btn-secondary {
   color: #0275d8 !important;
   background-color: #f7f7f7 !important;
   border-color: #f7f7f7 !important;
@@ -39,15 +39,12 @@
 .btn-secondary:hover {
   color: #025aa5 !important;
   border-color: #025aa5 !important;
-}
+}*/
 
 .comment-backing {
-  display: flex;
-  flex-flow: row wrap;
   padding: 0.75rem 1.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  align-items: center;
 }
 
 .comment-backplate {
@@ -57,8 +54,4 @@
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   align-items: center;
-}
-
-.media-body-image {
-  height: 20.5vh;
 }
