@@ -3,31 +3,40 @@ import React from 'react';
 class Message extends React.Component {
 	render() {
 		return (
-     <div className="container">
-						<div className="media comment-backplate">
-							<i className="d-flex align-self-start mr-3 rounded fa fa-user-circle fa-2x" />
-							<div className="media-body">
-								<strong className="mt-0"> username </strong>
-								<hr/>
-								<p>{ this.props.thread.message }</p>
-								<img src="http://placehold.it/350x150" alt="payload" className="media-body-image" />
-								<div className="d-flex flex-row">
-									<button className="btn btn-link" type="button">
-										<i className="fa fa-reply" aria-hidden="true" >Reply</i>
-									</button>
-									<button className="btn btn-link" type="button">
-										<i className="fa fa-retweet" aria-hidden="true" >Retweet</i>
-									</button>
-									<button className="btn btn-link" type="button">
-										<i className="fa fa-star" aria-hidden="true" >Favorite</i>
-									</button>
-									<button onClick={ this.props.removeMessage.bind(null) } className='btn btn-link'>
-										<i className="fa fa-times" aria-hidden="true" >Delete</i>
-									</button>
+			<div className="box">
+				<div className="media">
+					<div className="media-left">
+						<figure className="image is-64x64">
+							<img src="http://placehold.it/128x128" alt="profile" />
+						</figure>
+					</div>
+					<div className="media-content">
+						<div class="content">
+							<p>
+								<strong>DisplayName</strong><small>@email</small><small>time</small>
+								<br />
+								{this.props.thread.message}
+							</p>
+							<div className="level">
+								<div class="level-left">
+									<a className="level-item">
+										<span class="icon"><i className="fa fa-reply" aria-hidden="true" ></i></span>
+									</a>
+									<a className="level-item" type="button">
+										<span class="icon"><i className="fa fa-retweet" aria-hidden="true" ></i></span>
+									</a>
+									<a className="level-item" type="button">
+										<span class="icon"><i className="fa fa-star" aria-hidden="true" ></i></span>
+									</a>
+									<a onClick={this.props.removeMessage.bind(null)} className='level-item'>
+										<span class="icon"><i className="fa fa-times" aria-hidden="true" ></i></span>
+									</a>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
 		);
 	}
 
