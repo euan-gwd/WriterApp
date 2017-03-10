@@ -2,7 +2,7 @@ import React from 'react';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import MessageList from './components/MessageList';
-import logo from '../logo.svg';
+import logo from './logo.svg';
 import './App.css';
 
 const base = Rebase.createClass({
