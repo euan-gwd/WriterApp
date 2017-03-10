@@ -64,7 +64,7 @@ class App extends React.Component {
   }
 
   initApp() {
-    base.auth().onAuthStateChanged((user) => {
+    base.auth(base.initializedApp).onAuthStateChanged((user) => {
       if (user && user.uid === currentUid) {
         this.setState({
           currentUserName: user.displayName,

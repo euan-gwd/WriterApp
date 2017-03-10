@@ -19,11 +19,6 @@ class Message extends React.Component {
 									<br />
 									{this.props.thread.message}
 								</p>
-								<div class="media-content">
-									<div class="content">
-										<img src="http://placehold.it/480x320" alt="messageImg" />
-									</div>
-								</div>
 							</div>
 							<nav className="level">
 								<div className="level-left">
