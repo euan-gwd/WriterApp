@@ -16,7 +16,7 @@ const base = Rebase.createClass({
 const uiConfig = {
   callbacks: {
     // Called when the user has been successfully signed in.
-    'signInSuccess': function (user, credential, redirectUrl) {
+    'signInSuccess': function (user) {
       this.handleSignIn(user);
       return false;
     }
