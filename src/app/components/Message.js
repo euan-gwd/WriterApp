@@ -23,13 +23,13 @@ class Message extends React.Component {
 							<nav className="level">
 								<div className="level-left">
 									<a className="level-item">
-										<span className="icon is-small"><i className="fa fa-reply" aria-hidden="true" ></i></span>
+										<span className="icon"><i className="fa fa-reply" aria-hidden="true" ></i></span>
 									</a>
 									<a className="level-item" type="button">
-										<span className="icon is-small"><i className="fa fa-pencil" aria-hidden="true" ></i></span>
+										<span className="icon"><i className="fa fa-pencil" aria-hidden="true" ></i></span>
 									</a>
 									<a onClick={this.props.removeMessage.bind(null)} className='level-item'>
-										<span className="icon is-small"><i className="fa fa-times" aria-hidden="true" ></i></span>
+										<span className="icon"><i className="fa fa-times" aria-hidden="true" ></i></span>
 									</a>
 								</div>
 							</nav>
