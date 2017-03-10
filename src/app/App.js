@@ -32,6 +32,14 @@ let currentUid = null;
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state ={
+      currentUser: []
+    }
+  }
+  
+
   handleSignedInUser = (user) => {
     currentUid = user.uid;
     document.getElementById('user-signed-in').style.display = 'block';
@@ -49,6 +57,9 @@ class App extends React.Component {
   initApp() {
     base.auth().onAuthStateChanged((user) => {
       if (user && user.uid === currentUid) {
+        this.setState({
+          currentUser : user
+        });
         return;
       } else {
         currentUid = null;
@@ -58,7 +69,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.initApp()
+    this.initApp();
   }
 
   render() {
