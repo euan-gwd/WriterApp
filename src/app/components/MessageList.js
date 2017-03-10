@@ -1,5 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
+import NewMessage from './NewMessage';
 import Message from './Message';
 
 const base = Rebase.createClass({
@@ -10,7 +11,7 @@ const base = Rebase.createClass({
 	messagingSenderId: "846810590536"
 });
 
-class Container extends React.Component {
+class MessageList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,7 +20,7 @@ class Container extends React.Component {
 	};
 
 	componentWillMount() {
-		this.ref = base.syncState('chats', {
+		this.ref = base.syncState('msgList', {
 			context: this,
 			state: 'messages',
 			asArray: true
@@ -48,12 +49,14 @@ class Container extends React.Component {
 		})
 
 		return (
-			<div className="">
-				<h1 className="subtitle is-6 has-text-centered">{(this.state.messages.length || 0) + ' messages'}</h1>
+			<div className="container">
+				<br />
+				<NewMessage msgList={this.state.messages} />
+				<br />
 				<ul>{messages}</ul>
 			</div>
 		);
 	}
 }
 
-export default Container;
+export default MessageList;

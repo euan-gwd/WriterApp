@@ -1,0 +1,31 @@
+.fa-times {
+  color: grey;
+}
+
+.fa-times:hover {
+  color: red;
+}
+
+.fa-reply {
+  color: grey;
+}
+
+.fa-reply:hover {
+  color: #025aa5;
+}
+
+.fa-retweet {
+  color: grey;
+}
+
+.fa-retweet:hover {
+  color: #96890f;
+}
+
+.fa-star {
+  color: grey;
+}
+
+.fa-star:hover {
+  color: green;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
-import Chat from './Chat';
+import MessageList from './components/MessageList';
 import logo from '../logo.svg';
 import './App.css';
 
@@ -78,7 +78,7 @@ class App extends React.Component {
             </div>
             <div className="nav-right">
               <div className="nav-item">
-                <div id="name" className=""></div>
+                <div id="name"></div>
               </div>
               <div className="nav-item">
                 <a id="sign-out" className="button is-danger is-outlined" onClick={this.handleSignedOutUser} >
@@ -90,7 +90,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <Chat />
+          <MessageList />
         </div>
         <div id="user-signed-out" className="hidden">
           <nav className="nav">

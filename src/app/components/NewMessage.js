@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
-import './chat.css';
+import './messages.css';
 
 const base = Rebase.createClass({
 	apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
@@ -11,30 +11,30 @@ const base = Rebase.createClass({
 	messagingSenderId: "846810590536"
 });
 
-const  max_chars = 160;
+const max_chars = 160;
+let timeCreated = new Date();
 
-class NewChat extends React.Component {
+class NewMessage extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			chars_left: max_chars
 		};
 	}
 
-	_newChat(e) {
+	handleSubmit(e) {
 		e.preventDefault();
-		base.post('chats', {
-			data: this.props.chats.concat([{
-				// title: ReactDOM.findDOMNode(this.refs.title).value,
+		console.log(timeCreated);
+		base.post('msgList', {
+			data: this.props.msgList.concat([{
 				message: ReactDOM.findDOMNode(this.refs.message).value
 			}]),
 			context: this
 		});
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
-		// ReactDOM.findDOMNode(this.refs.title).value = '';
-		// this.setState({ characters: 0 });
+		this.setState({ chars_left: max_chars });
 	}
 
 	handleCharacterCount() {
@@ -47,7 +47,7 @@ class NewChat extends React.Component {
 	render() {
 		return (
 			<div>
-				<form onSubmit={this._newChat.bind(this)} className='box'>
+				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="control">
 						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} />
 					</div>
@@ -80,4 +80,4 @@ class NewChat extends React.Component {
 
 }
 
-export default NewChat;
+export default NewMessage;
