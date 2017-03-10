@@ -12,7 +12,6 @@ const base = Rebase.createClass({
 });
 
 const max_chars = 160;
-let timeCreated = new Date();
 
 class NewMessage extends React.Component {
 
@@ -25,7 +24,6 @@ class NewMessage extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log(timeCreated);
 		base.post('msgList', {
 			data: this.props.msgList.concat([{
 				message: ReactDOM.findDOMNode(this.refs.message).value
