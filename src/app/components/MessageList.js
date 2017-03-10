@@ -33,12 +33,13 @@ class MessageList extends React.Component {
 
 	_removeMessage(index, e) {
 		e.stopPropagation();
-		let arr = this.state.messages.concat([]);
-		arr.splice(index, 1);
-
-		this.setState({
-			messages: arr
-		})
+		if (confirm('Are you sure you want to delete this message?')) {
+			let arr = this.state.messages.concat([]);
+			arr.splice(index, 1);
+			this.setState({
+				messages: arr
+			})
+		}
 	}
 
 	render() {
