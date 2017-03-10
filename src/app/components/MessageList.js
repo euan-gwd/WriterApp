@@ -44,14 +44,14 @@ class MessageList extends React.Component {
 	render() {
 		let messages = this.state.messages.map((item, index) => {
 			return (
-				<Message thread={item} removeMessage={this._removeMessage.bind(this, index)} key={index} className="container" />
+				<Message thread={item} removeMessage={this._removeMessage.bind(this, index)} key={index} />
 			);
 		})
 
 		return (
 			<div className="container">
 				<br />
-				<NewMessage msgList={this.state.messages} />
+				<NewMessage msgList={this.state.messages} userName={this.props.userName} />
 				<br />
 				<ul>{messages}</ul>
 			</div>

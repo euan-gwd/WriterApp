@@ -26,7 +26,8 @@ class NewMessage extends React.Component {
 		e.preventDefault();
 		base.post('msgList', {
 			data: this.props.msgList.concat([{
-				message: ReactDOM.findDOMNode(this.refs.message).value
+				message: ReactDOM.findDOMNode(this.refs.message).value,
+				currentUser: this.props.userName
 			}]),
 			context: this
 		});
