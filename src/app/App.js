@@ -115,7 +115,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail}/>
+          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} />
         </div>
         <div id="user-signed-out" className="hidden">
           <nav className="nav">

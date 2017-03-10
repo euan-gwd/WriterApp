@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
-import './messages.css';
 
 const base = Rebase.createClass({
 	apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
@@ -48,14 +47,14 @@ class NewMessage extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="new-message-box">
 				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="control">
-						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+						<input ref='message' placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
 					</div>
-					<div className="level">
+					<div className="level is-mobile">
 						<div className="level-left">
-							<div className="level-item">
+							<div className="level-item has-text-centered">
 								<button className="button is-light" type="button">
 									<i className="fa fa-camera" aria-hidden="true" />
 								</button>

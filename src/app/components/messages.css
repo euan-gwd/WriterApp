@@ -3,7 +3,7 @@
 }
 
 .fa-times:hover {
-  color: red;
+  color: #DC143C;
 }
 
 .fa-reply {
@@ -11,21 +11,22 @@
 }
 
 .fa-reply:hover {
-  color: #025aa5;
+  color: 	#1E90FF;
 }
 
-.fa-retweet {
+.fa-pencil {
   color: grey;
 }
 
-.fa-retweet:hover {
-  color: #96890f;
+.fa-pencil:hover {
+  color: 	#90EE90;
 }
 
-.fa-star {
-  color: grey;
+.messages-list {
+  /*max-width: 30vw;*/
+  padding: 1vh;
 }
 
-.fa-star:hover {
-  color: green;
+.new-message-box {
+  margin: 1vh;
 }

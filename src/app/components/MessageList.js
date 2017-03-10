@@ -31,7 +31,7 @@ class MessageList extends React.Component {
 		base.removeBinding(this.ref);
 	}
 
-	_removeMessage(index, e) {
+	deleteMessage(index, e) {
 		e.stopPropagation();
 		let arr = this.state.messages.concat([]);
 		let messageUID = arr[0].userName;
@@ -47,16 +47,14 @@ class MessageList extends React.Component {
 	render() {
 		let messages = this.state.messages.map((item, index) => {
 			return (
-				<Message thread={item} removeMessage={this._removeMessage.bind(this, index)} key={index} />
+				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} />
 			);
 		})
 
 		return (
 			<div className="container">
-				<br />
-				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} />
-				<br />
-				<ul>{messages}</ul>
+				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="new-message-box" />
+				<ul className="">{messages}</ul>
 			</div>
 		);
 	}
