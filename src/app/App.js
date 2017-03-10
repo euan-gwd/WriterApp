@@ -35,7 +35,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUserName: null,
+      currentUserEmail: null
     }
   }
 
@@ -46,7 +47,8 @@ class App extends React.Component {
     document.getElementById('user-signed-out').style.display = 'none';
     document.getElementById('name').textContent = user.displayName;
     this.setState({
-      currentUser: user.displayName
+      currentUserName: user.displayName,
+      currentUserEmail: user.email
     });
   }
 
@@ -56,7 +58,8 @@ class App extends React.Component {
     document.getElementById('user-signed-out').style.display = 'block';
     ui.start('#firebaseui-auth-container', uiConfig);
     this.setState({
-      currentUser: null
+      currentUserName: null,
+      currentUserEmail: null
     });
   }
 
@@ -64,11 +67,16 @@ class App extends React.Component {
     base.auth().onAuthStateChanged((user) => {
       if (user && user.uid === currentUid) {
         this.setState({
-          currentUser: user.displayName
+          currentUserName: user.displayName,
+          currentUserEmail: user.email
         });
         return;
       } else {
         currentUid = null;
+        this.setState({
+          currentUserName: null,
+          currentUserEmail: null
+        });
       }
       user ? this.handleSignedInUser(user) : this.handleSignedOutUser();
     });
@@ -107,7 +115,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <MessageList userName={this.state.currentUser}/>
+          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail}/>
         </div>
         <div id="user-signed-out" className="hidden">
           <nav className="nav">

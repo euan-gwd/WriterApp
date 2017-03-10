@@ -13,7 +13,7 @@ class Message extends React.Component {
 					<div className="media-content">
 						<div className="content">
 							<p>
-								<strong>{this.props.thread.currentUser}</strong> <small>@email</small>
+								<strong>{this.props.thread.userName}</strong> <small>{this.props.thread.userEmail}</small>
 								<br />
 								{this.props.thread.message}
 							</p>
