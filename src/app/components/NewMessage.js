@@ -24,14 +24,16 @@ class NewMessage extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		base.post('msgList', {
-			data: this.props.msgList.concat([{
-				message: ReactDOM.findDOMNode(this.refs.message).value,
-				userName: this.props.userName,
-				userEmail: this.props.userEmail
-			}]),
-			context: this
-		});
+		if (this.state.chars_left >= 0) {
+			base.post('msgList', {
+				data: this.props.msgList.concat([{
+					message: ReactDOM.findDOMNode(this.refs.message).value,
+					userName: this.props.userName,
+					userEmail: this.props.userEmail
+				}]),
+				context: this
+			});
+		}
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
 		this.setState({ chars_left: max_chars });
@@ -49,7 +51,7 @@ class NewMessage extends React.Component {
 			<div>
 				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="control">
-						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} />
+						<input ref='message' placeholder='What is happening?' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
 					</div>
 					<div className="level">
 						<div className="level-left">
