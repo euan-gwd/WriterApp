@@ -19,7 +19,7 @@ class MessageList extends React.Component {
 		};
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		this.ref = base.syncState('msgList', {
 			context: this,
 			state: 'messages',
@@ -33,8 +33,10 @@ class MessageList extends React.Component {
 
 	_removeMessage(index, e) {
 		e.stopPropagation();
-		if (confirm('Are you sure you want to delete this message?')) {
-			let arr = this.state.messages.concat([]);
+		let arr = this.state.messages.concat([]);
+		let messageUID = arr[0].userName;
+		let currentUID = this.props.userName;
+		if (messageUID === currentUID) {
 			arr.splice(index, 1);
 			this.setState({
 				messages: arr
