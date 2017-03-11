@@ -4,11 +4,11 @@ import NewMessage from './NewMessage';
 import Message from './Message';
 
 const base = Rebase.createClass({
-	apiKey: "AIzaSyDYliJuBFjLAQO_vfH0rlioWUiKrRe_ZL4",
-	authDomain: "tchatapp-586ab.firebaseapp.com",
-	databaseURL: "https://tchatapp-586ab.firebaseio.com",
-	storageBucket: "tchatapp-586ab.appspot.com",
-	messagingSenderId: "846810590536"
+	apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
+	authDomain: "react-chat-app-f64bb.firebaseapp.com",
+	databaseURL: "https://react-chat-app-f64bb.firebaseio.com",
+	storageBucket: "react-chat-app-f64bb.appspot.com",
+	messagingSenderId: "962792118288"
 });
 
 class MessageList extends React.Component {
