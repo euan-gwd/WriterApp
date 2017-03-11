@@ -1,5 +1,5 @@
 import React from 'react';
-import Time from 'react-time';
+import placeholdImg from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
@@ -10,13 +10,13 @@ class Message extends React.Component {
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">
-								<img src="http://placehold.it/128x128" alt="profile" />
+								<img src={placeholdImg} alt="profile" />
 							</figure>
 						</div>
 						<div className="media-content">
 							<div className="content">
 								<p>
-									<strong>{this.props.thread.userName}</strong> <small>{this.props.thread.userEmail}</small> - <small><Time value={this.props.thread.datetime} titleFormat="YYYY/MM/DD HH:mm" relative /></small>
+									<strong>{this.props.thread.userName}</strong> <small>{this.props.thread.userEmail}</small> - <small>{this.props.thread.datetime}</small>
 									<br />
 									{this.props.thread.message}
 								</p>
