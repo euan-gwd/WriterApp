@@ -12,21 +12,42 @@ const base = Rebase.createClass({
 
 const max_chars = 160;
 
+
 class NewMessage extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			chars_left: max_chars
+			chars_left: max_chars,
+			date: new Date()
 		};
+	}
+
+	componentDidMount() {
+		this.timerID = setInterval(
+			() => this.tick(),
+			1000
+		);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timerID);
+	}
+
+	tick() {
+		this.setState({
+			date: new Date()
+		});
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
+		let msgTime = this.state.date;
 		if (this.state.chars_left >= 0) {
 			base.post('msgList', {
 				data: this.props.msgList.concat([{
 					message: ReactDOM.findDOMNode(this.refs.message).value,
+					timestamp: `${msgTime}`,
 					userName: this.props.userName,
 					userEmail: this.props.userEmail
 				}]),
