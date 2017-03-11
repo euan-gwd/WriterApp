@@ -81,7 +81,7 @@ class App extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.initApp();
   }
 

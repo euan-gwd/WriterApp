@@ -19,7 +19,7 @@ class MessageList extends React.Component {
 		};
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		this.ref = base.syncState('msgList', {
 			context: this,
 			state: 'messages',
