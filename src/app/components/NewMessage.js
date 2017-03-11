@@ -47,7 +47,7 @@ class NewMessage extends React.Component {
 			base.post('msgList', {
 				data: this.props.msgList.concat([{
 					message: ReactDOM.findDOMNode(this.refs.message).value,
-					timestamp: `${msgTime}`,
+					datetime: `${msgTime}`,
 					userName: this.props.userName,
 					userEmail: this.props.userEmail
 				}]),

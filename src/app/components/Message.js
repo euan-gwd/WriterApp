@@ -1,4 +1,5 @@
 import React from 'react';
+import Time from 'react-time';
 import './messages.css';
 
 class Message extends React.Component {
@@ -15,7 +16,7 @@ class Message extends React.Component {
 						<div className="media-content">
 							<div className="content">
 								<p>
-									<strong>{this.props.thread.userName}</strong> <small>{this.props.thread.userEmail}</small>
+									<strong>{this.props.thread.userName}</strong> <small>{this.props.thread.userEmail}</small> - <small><Time value={this.props.thread.datetime} titleFormat="YYYY/MM/DD HH:mm" relative /></small>
 									<br />
 									{this.props.thread.message}
 								</p>
