@@ -15,7 +15,6 @@ const base = Rebase.createClass({
 
 const uiConfig = {
   callbacks: {
-    // Called when the user has been successfully signed in.
     'signInSuccess': function (user) {
       this.handleSignIn(user);
       return false;
@@ -64,7 +63,7 @@ class App extends React.Component {
   }
 
   initApp() {
-    base.auth(base.initializedApp).onAuthStateChanged((user) => {
+    base.auth().onAuthStateChanged((user) => {
       if (user && user.uid === currentUid) {
         this.setState({
           currentUserName: user.displayName,
