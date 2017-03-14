@@ -39,3 +39,9 @@
     position: absolute;
     z-index: -1;
 }
+
+.remove-image {
+    top: 5vh;
+    left: 9vw;
+    z-index: 2;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
+import "./messages.css";
 
 const base = Rebase.createClass({
 	apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
@@ -12,7 +13,6 @@ const base = Rebase.createClass({
 
 const max_chars = 160;
 
-
 class NewMessage extends React.Component {
 
 	constructor(props) {
@@ -21,7 +21,8 @@ class NewMessage extends React.Component {
 			chars_left: max_chars,
 			date: new Date().toLocaleString(),
 			file: '',
-			imagePreviewUrl: ''
+			imagePreviewUrl: '',
+			imageUrl: ''
 		};
 	}
 
@@ -44,23 +45,62 @@ class NewMessage extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		let msgTime = this.state.date;
 		let file = this.state.file;
 		let userId = this.props.userEmail;
-		let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
-		storageRef.put(file);
-		if (this.state.chars_left >= 0) {
-			base.post('msgList', {
-				data: this.props.msgList.concat([{
-					message: ReactDOM.findDOMNode(this.refs.message).value,
-					datetime: `${msgTime}`,
-					image: this.state.file,
-					userName: this.props.userName,
-					userEmail: this.props.userEmail
-				}]),
-				context: this
+		let messageText = ReactDOM.findDOMNode(this.refs.message).value;
+		let datetime = this.state.date;
+		let userName = this.props.userName;
+		let userEmail = this.props.userEmail;
+
+		if (file !== '') {
+			let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
+			let uploadTask = storageRef.put(file);
+			uploadTask.on('state_changed', function (snapshot) {
+				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				console.log('Upload is ' + progress + '% done');
+			}, function (error) {
+				// Handle unsuccessful uploads
+			}, function () {
+				// Handle successful uploads on complete
+				let postKey = base.database().ref('msgList/').push().key;
+				let downloadURL = uploadTask.snapshot.downloadURL;
+				let updates = {};
+				let postData = {
+					message: messageText,
+					messageImage: downloadURL,
+					datetime: datetime,
+					userName: userName,
+					userEmail: userEmail
+				}
+				updates['/msgList/' + postKey] = postData;
+				base.database().ref().update(updates);
 			});
+		} else {
+			if (this.state.chars_left >= 0) {
+				let postKey = base.database().ref('msgList/').push().key;
+				let updates = {};
+				let postData = {
+					message: messageText,
+					datetime: datetime,
+					userName: userName,
+					userEmail: userEmail
+				}
+				updates['/msgList/' + postKey] = postData;
+				base.database().ref().update(updates);
+			}
 		}
+
+		// if (this.state.chars_left >= 0) {
+		// 	base.post('msgList', {
+		// 		data: this.props.msgList.concat([{
+		// 			message: ReactDOM.findDOMNode(this.refs.message).value,
+		// 			datetime: this.state.date,
+		// 			userName: this.props.userName,
+		// 			userEmail: this.props.userEmail
+		// 		}]),
+		// 		context: this
+		// 	});
+		// }
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
 		this.setState(
@@ -91,11 +131,20 @@ class NewMessage extends React.Component {
 		reader.readAsDataURL(file)
 	}
 
+	// removeImgUpload() {
+	// 	this.setState({
+	// 		file: '',
+	// 		imagePreviewUrl: ''
+	// 	});
+	// }
+
 	render() {
-		let { imagePreviewUrl } = this.state;
 		let $imagePreview = null;
+		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
-			$imagePreview = (<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />);
+			$imagePreview = (<span><a className="delete"></a><img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} /></span>);
+		} else {
+			$imagePreview = null;
 		}
 		return (
 			<div className="new-message-box">
