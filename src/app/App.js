@@ -60,6 +60,7 @@ class App extends React.Component {
       currentUserName: null,
       currentUserEmail: null
     });
+    currentUid = null;
   }
 
   initApp() {
@@ -71,13 +72,6 @@ class App extends React.Component {
         });
         return;
       }
-      //  else {
-      //   currentUid = null;
-      //   this.setState({
-      //     currentUserName: null,
-      //     currentUserEmail: null
-      //   });
-      // }
       user ? this.handleSignedInUser(user) : this.handleSignedOutUser();
     });
   }

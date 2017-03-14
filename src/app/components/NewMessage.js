@@ -46,8 +46,8 @@ class NewMessage extends React.Component {
 		e.preventDefault();
 		let msgTime = this.state.date;
 		let file = this.state.file;
-		let userID = this.props.userEmail;
-		let storageRef = base.storage().ref('/images/'+ userID + '/' + file.name);
+		let userId = this.props.userEmail;
+		let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
 		storageRef.put(file);
 		if (this.state.chars_left >= 0) {
 			base.post('msgList', {
