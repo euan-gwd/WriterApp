@@ -1,32 +1,41 @@
 .fa-times {
-  color: grey;
+    color: grey;
 }
 
 .fa-times:hover {
-  color: #DC143C;
+    color: #DC143C;
 }
 
 .fa-reply {
-  color: grey;
+    color: grey;
 }
 
 .fa-reply:hover {
-  color: 	#1E90FF;
+    color: #1E90FF;
 }
 
 .fa-pencil {
-  color: grey;
+    color: grey;
 }
 
 .fa-pencil:hover {
-  color: 	#90EE90;
+    color: #90EE90;
 }
 
 .messages-list {
-  /*max-width: 30vw;*/
-  padding: 1vh;
+    /*max-width: 30vw;*/
+    padding: 1vh;
 }
 
 .new-message-box {
-  margin: 1vh;
+    margin: 1vh;
+}
+
+.input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }

@@ -70,18 +70,19 @@ class App extends React.Component {
           currentUserEmail: user.email
         });
         return;
-      } else {
-        currentUid = null;
-        this.setState({
-          currentUserName: null,
-          currentUserEmail: null
-        });
       }
+      // } else {
+      //   currentUid = null;
+      //   this.setState({
+      //     currentUserName: null,
+      //     currentUserEmail: null
+      //   });
+      // }
       user ? this.handleSignedInUser(user) : this.handleSignedOutUser();
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.initApp();
   }
 

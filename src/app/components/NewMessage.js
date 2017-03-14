@@ -19,7 +19,8 @@ class NewMessage extends React.Component {
 		super(props);
 		this.state = {
 			chars_left: max_chars,
-			date: new Date()
+			date: new Date().toLocaleString(),
+			photoAdded: false
 		};
 	}
 
@@ -36,7 +37,7 @@ class NewMessage extends React.Component {
 
 	tick() {
 		this.setState({
-			date: new Date()
+			date: new Date().toLocaleString()
 		});
 	}
 
@@ -66,6 +67,12 @@ class NewMessage extends React.Component {
 		});
 	}
 
+	handlePhotoUpload(e) {
+		this.setState({ photoAdded: !this.state.photoAdded });
+		// let uploadPic = this.refs.file.getDOMNode().files[0];
+
+	}
+
 	render() {
 		return (
 			<div className="new-message-box">
@@ -76,9 +83,10 @@ class NewMessage extends React.Component {
 					<div className="level is-mobile">
 						<div className="level-left">
 							<div className="level-item has-text-centered">
-								<button className="button is-light" type="button">
+								<input type="file" accept="image/*" name="file" id="file" className="input-file" />
+								<label htmlFor="file" className="button is-light" type="button" onClick={this.handlePhotoUpload.bind(this)} >
 									<i className="fa fa-camera" aria-hidden="true" />
-								</button>
+								</label>
 							</div>
 						</div>
 						<div className="level-right">
