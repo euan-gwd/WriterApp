@@ -71,7 +71,7 @@ class App extends React.Component {
         });
         return;
       }
-      // } else {
+      //  else {
       //   currentUid = null;
       //   this.setState({
       //     currentUserName: null,

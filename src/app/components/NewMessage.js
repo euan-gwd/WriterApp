@@ -20,7 +20,8 @@ class NewMessage extends React.Component {
 		this.state = {
 			chars_left: max_chars,
 			date: new Date().toLocaleString(),
-			photoAdded: false
+			file: '',
+			imagePreviewUrl: ''
 		};
 	}
 
@@ -44,11 +45,16 @@ class NewMessage extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		let msgTime = this.state.date;
+		let file = this.state.file;
+		let userID = this.props.userEmail;
+		let storageRef = base.storage().ref('/images/'+ userID + '/' + file.name);
+		storageRef.put(file);
 		if (this.state.chars_left >= 0) {
 			base.post('msgList', {
 				data: this.props.msgList.concat([{
 					message: ReactDOM.findDOMNode(this.refs.message).value,
 					datetime: `${msgTime}`,
+					image: this.state.file,
 					userName: this.props.userName,
 					userEmail: this.props.userEmail
 				}]),
@@ -57,7 +63,12 @@ class NewMessage extends React.Component {
 		}
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
-		this.setState({ chars_left: max_chars });
+		this.setState(
+			{
+				chars_left: max_chars,
+				file: '',
+				imagePreviewUrl: ''
+			});
 	}
 
 	handleCharacterCount() {
@@ -67,24 +78,37 @@ class NewMessage extends React.Component {
 		});
 	}
 
-	handlePhotoUpload(e) {
-		this.setState({ photoAdded: !this.state.photoAdded });
-		// let uploadPic = this.refs.file.getDOMNode().files[0];
-
+	handleImgUpload = (e) => {
+		e.preventDefault();
+		let reader = new FileReader();
+		let file = e.target.files[0];
+		reader.onloadend = () => {
+			this.setState({
+				file: file,
+				imagePreviewUrl: reader.result
+			});
+		}
+		reader.readAsDataURL(file)
 	}
 
 	render() {
+		let { imagePreviewUrl } = this.state;
+		let $imagePreview = null;
+		if (imagePreviewUrl) {
+			$imagePreview = (<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />);
+		}
 		return (
 			<div className="new-message-box">
 				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="control">
-						<input ref='message' placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+						{$imagePreview}
+						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
 					</div>
 					<div className="level is-mobile">
 						<div className="level-left">
-							<div className="level-item has-text-centered">
-								<input type="file" accept="image/*" name="file" id="file" className="input-file" />
-								<label htmlFor="file" className="button is-light" type="button" onClick={this.handlePhotoUpload.bind(this)} >
+							<div className="level-item">
+								<input type="file" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
+								<label htmlFor="fileUpload" className="button is-light" type="button" >
 									<i className="fa fa-camera" aria-hidden="true" />
 								</label>
 							</div>
