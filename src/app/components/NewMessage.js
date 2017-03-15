@@ -126,7 +126,9 @@ class NewMessage extends React.Component {
 		reader.readAsDataURL(file)
 	}
 
-	removeImgUpload() {
+	removeImgUpload = (e) => {
+		e.preventDefault();
+		ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
 		this.setState({
 			file: '',
 			imagePreviewUrl: ''
@@ -137,7 +139,7 @@ class NewMessage extends React.Component {
 		let $imagePreview = null;
 		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
-			$imagePreview = (<span><a className="upload-image-remove delete"></a>
+			$imagePreview = (<span><a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
 				<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />
 			</span>);
 		} else {
@@ -155,13 +157,13 @@ class NewMessage extends React.Component {
 						<div className="media-content">
 							<div className="control">
 								{$imagePreview}
-								<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+								<input ref='message' placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
 								<span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
 							</div>
 							<div className="level">
 								<div className="level-left">
 									<div className="level-item">
-										<input type="file" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
+										<input type="file" accept="image/*" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
 										<label htmlFor="fileUpload" className="button is-light" type="button" >
 											<i className="fa fa-camera" aria-hidden="true" />
 										</label>

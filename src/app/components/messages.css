@@ -73,10 +73,14 @@ nav.level {
     padding: 0 2vw;
 }
 
+.imagePreview {
+    padding: 0 0.5vw;
+}
+
 .upload-image-remove {
     position: relative;
     left: 9vw;
-    top: 3vh;
+    padding: 0;
     z-index: 2;
 }
 
