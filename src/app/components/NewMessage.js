@@ -57,8 +57,12 @@ class NewMessage extends React.Component {
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', function (snapshot) {
 				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				document.getElementById('uploadBar').style.display = 'block';
-				document.getElementById('uploadBar').value = progress;
+				if (progress < 100) {
+					document.getElementById('uploadBar').style.display = 'block';
+				} else {
+					document.getElementById('uploadBar').style.display = 'none';
+				}
+				// document.getElementById('uploadBar').value = progress;
 			}, function (error) {
 				// Handle unsuccessful uploads
 			}, function () {
@@ -142,7 +146,7 @@ class NewMessage extends React.Component {
 					<div className="control">
 						{$imagePreview}
 						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
-						<progress className="progress is-info is-small" max="100" id="uploadBar"></progress>
+						<span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
 					</div>
 					<div className="level is-mobile">
 						<div className="level-left">

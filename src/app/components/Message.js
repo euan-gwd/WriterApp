@@ -42,7 +42,7 @@ class Message extends React.Component {
 						</div>
 						<div className="media-right">
 							<a onClick={this.props.removeMessage.bind(null)}>
-								<span className="icon"><i className="fa fa-times" aria-hidden="true" ></i></span>
+								<span className="icon is-small"><i className="fa fa-times" aria-hidden="true" ></i></span>
 							</a>
 						</div>
 					</div>
