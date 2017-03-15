@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
+import placeholdImg from '../assets/128x128.png';
 import "./messages.css";
 
 const base = Rebase.createClass({
@@ -143,31 +144,40 @@ class NewMessage extends React.Component {
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit.bind(this)} className='box is-light'>
-					<div className="control">
-						{$imagePreview}
-						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
-						<span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
-					</div>
-					<div className="level is-mobile">
-						<div className="level-left">
-							<div className="level-item">
-								<input type="file" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
-								<label htmlFor="fileUpload" className="button is-light" type="button" >
-									<i className="fa fa-camera" aria-hidden="true" />
-								</label>
-							</div>
+					<div className="media">
+						<div className="media-left">
+							<figure className="image is-48x48">
+								<img src={placeholdImg} alt="profile" />
+							</figure>
 						</div>
-						<div className="level-right">
-							<div className="level-item">
-								<small className="is-light">{this.state.chars_left}</small>
+						<div className="media-content">
+							<div className="control">
+								{$imagePreview}
+								<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+								<span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
 							</div>
-							<div className="level-item">
-								<button className="button is-info" type="submit">
-									<span className="icon">
-										<i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" />
-									</span>
-									<span>Scribe</span>
-								</button>
+							<div className="level">
+								<div className="level-left">
+									<div className="level-item">
+										<input type="file" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
+										<label htmlFor="fileUpload" className="button is-light" type="button" >
+											<i className="fa fa-camera" aria-hidden="true" />
+										</label>
+									</div>
+								</div>
+								<div className="level-right">
+									<div className="level-item">
+										<small className="is-light">{this.state.chars_left}</small>
+									</div>
+									<div className="level-item">
+										<button className="button is-info" type="submit">
+											<span className="icon">
+												<i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" />
+											</span>
+											<span>Scribe</span>
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
