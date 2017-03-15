@@ -126,12 +126,12 @@ class NewMessage extends React.Component {
 		reader.readAsDataURL(file)
 	}
 
-	// removeImgUpload() {
-	// 	this.setState({
-	// 		file: '',
-	// 		imagePreviewUrl: ''
-	// 	});
-	// }
+	removeImgUpload() {
+		this.setState({
+			file: '',
+			imagePreviewUrl: ''
+		});
+	}
 
 	render() {
 		let $imagePreview = null;
