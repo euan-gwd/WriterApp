@@ -47,11 +47,7 @@ class MessageList extends React.Component {
 			this.setState({
 				messages: arr
 			})
-			deleteImgRef.delete().then(function () {
-				console.log('File deleted successfully');
-			}).catch(function (error) {
-				console.log(error);
-			})
+			deleteImgRef.delete();
 		}
 	}
 
