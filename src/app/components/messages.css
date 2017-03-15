@@ -3,7 +3,7 @@
 }
 
 .fa-times:hover {
-    color: #DC143C;
+    color: black;
 }
 
 .fa-reply {
@@ -11,20 +11,77 @@
 }
 
 .fa-reply:hover {
-    color: #1E90FF;
+    color: blue;
 }
 
-.fa-pencil {
+.fa-retweet {
     color: grey;
 }
 
-.fa-pencil:hover {
-    color: #90EE90;
+.fa-retweet:hover {
+    color: limegreen;
 }
 
-.messages-list {
-    /*max-width: 30vw;*/
+.fa-heart {
+    color: grey;
+}
+
+.fa-heart:hover {
+    color: darkred;
+}
+
+.centered-main {
+    display: flex;
+    padding-top: 1vh;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+}
+
+.centered {
+    display: flex;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.panel {
+    min-width: 60vw;
+}
+
+.media {
+    width: 100%;
+}
+
+form.box {
+    background-color: #E5EAEF;
+}
+
+.messages-padding {
     padding: 1vh;
+}
+
+nav.level {
+    padding-top: 2vh;
+}
+
+.px-2 {
+    padding: 0 2vw;
+}
+
+.imagePreview {
+    padding: 0 0.5vw;
+}
+
+.upload-image-remove {
+    position: relative;
+    left: 9vw;
+    padding: 0;
+    z-index: 2;
 }
 
 .new-message-box {

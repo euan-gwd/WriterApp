@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
+import placeholdImg from '../assets/128x128.png';
 import "./messages.css";
 
 const base = Rebase.createClass({
@@ -57,8 +58,12 @@ class NewMessage extends React.Component {
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', function (snapshot) {
 				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				document.getElementById('uploadBar').style.display = 'block';
-				document.getElementById('uploadBar').value = progress;
+				if (progress < 100) {
+					document.getElementById('uploadBar').style.display = 'block';
+				} else {
+					document.getElementById('uploadBar').style.display = 'none';
+				}
+				// document.getElementById('uploadBar').value = progress;
 			}, function (error) {
 				// Handle unsuccessful uploads
 			}, function () {
@@ -121,49 +126,62 @@ class NewMessage extends React.Component {
 		reader.readAsDataURL(file)
 	}
 
-	// removeImgUpload() {
-	// 	this.setState({
-	// 		file: '',
-	// 		imagePreviewUrl: ''
-	// 	});
-	// }
+	removeImgUpload = (e) => {
+		e.preventDefault();
+		ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
+		this.setState({
+			file: '',
+			imagePreviewUrl: ''
+		});
+	}
 
 	render() {
 		let $imagePreview = null;
 		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
-			$imagePreview = (<span><img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} /></span>);
+			$imagePreview = (<span><a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
+				<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />
+			</span>);
 		} else {
 			$imagePreview = null;
 		}
 		return (
-			<div className="new-message-box">
+			<div>
 				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
-					<div className="control">
-						{$imagePreview}
-						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
-						<progress className="progress is-info is-small" max="100" id="uploadBar"></progress>
-					</div>
-					<div className="level is-mobile">
-						<div className="level-left">
-							<div className="level-item">
-								<input type="file" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
-								<label htmlFor="fileUpload" className="button is-light" type="button" >
-									<i className="fa fa-camera" aria-hidden="true" />
-								</label>
-							</div>
+					<div className="media">
+						<div className="media-left">
+							<figure className="image is-48x48">
+								<img src={placeholdImg} alt="profile" />
+							</figure>
 						</div>
-						<div className="level-right">
-							<div className="level-item">
-								<small className="">{this.state.chars_left} characters</small>
+						<div className="media-content">
+							<div className="control">
+								{$imagePreview}
+								<input ref='message' placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+								<span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
 							</div>
-							<div className="level-item">
-								<button className="button is-info" type="submit">
-									<span className="icon">
-										<i className="fa fa-paper-plane fa-fw" aria-hidden="true" />
-									</span>
-									<span>Send</span>
-								</button>
+							<div className="level">
+								<div className="level-left">
+									<div className="level-item">
+										<input type="file" accept="image/*" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload} />
+										<label htmlFor="fileUpload" className="button is-light" type="button" >
+											<i className="fa fa-camera" aria-hidden="true" />
+										</label>
+									</div>
+								</div>
+								<div className="level-right">
+									<div className="level-item">
+										<small className="is-light">{this.state.chars_left}</small>
+									</div>
+									<div className="level-item">
+										<button className="button is-info" type="submit">
+											<span className="icon">
+												<i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" />
+											</span>
+											<span>Scribe</span>
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
