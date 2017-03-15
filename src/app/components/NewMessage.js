@@ -63,7 +63,6 @@ class NewMessage extends React.Component {
 				} else {
 					document.getElementById('uploadBar').style.display = 'none';
 				}
-				// document.getElementById('uploadBar').value = progress;
 			}, function (error) {
 				// Handle unsuccessful uploads
 			}, function () {
