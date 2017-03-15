@@ -35,15 +35,15 @@ class MessageList extends React.Component {
 		base.removeBinding(this.ref);
 	}
 
-	deleteMessage(key, e) {
+	deleteMessage(index, e) {
 		e.stopPropagation();
 		let arr = this.state.messages.concat([]);
-		let messageUID = arr[key].userName;
-		let imgRef = arr[key].messageImage;
+		let messageUID = arr[index].userName;
+		let imgRef = arr[index].messageImage;
 		let deleteImgRef = base.storage().refFromURL(imgRef);
 		let currentUID = this.props.userName;
 		if (messageUID === currentUID) {
-			arr.splice(key, 1);
+			arr.splice(index, 1);
 			this.setState({
 				messages: arr
 			})
@@ -56,9 +56,9 @@ class MessageList extends React.Component {
 	}
 
 	render() {
-		let messages = this.state.messages.map((item) => {
+		let messages = this.state.messages.map((item, index) => {
 			return (
-				<Message thread={item} removeMessage={this.deleteMessage.bind(this, item.key)} key={item.key} />
+				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} />
 			);
 		})
 

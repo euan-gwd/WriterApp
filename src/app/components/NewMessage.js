@@ -57,7 +57,6 @@ class NewMessage extends React.Component {
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', function (snapshot) {
 				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				console.log('Upload is ' + progress + '% done');
 				document.getElementById('uploadBar').style.display = 'block';
 				document.getElementById('uploadBar').value = progress;
 			}, function (error) {
@@ -76,6 +75,7 @@ class NewMessage extends React.Component {
 				}
 				updates['/msgList/' + postKey] = postData;
 				base.database().ref().update(updates);
+				document.getElementById('uploadBar').style.display = 'none';
 			});
 		} else {
 			if (this.state.chars_left >= 0) {
@@ -99,7 +99,6 @@ class NewMessage extends React.Component {
 				file: '',
 				imagePreviewUrl: ''
 			});
-		document.getElementById('uploadBar').style.display = 'none';
 	}
 
 	handleCharacterCount() {
