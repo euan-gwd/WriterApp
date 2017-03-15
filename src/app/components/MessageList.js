@@ -54,19 +54,23 @@ class MessageList extends React.Component {
 	render() {
 		let messages = this.state.messages.map((item, index) => {
 			return (
-				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} />
+				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} className="panel-block" />
 			);
 		})
 
 		return (
 			<div className="container">
-				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="new-message-box" />
-				<div className="has-text-centered">
-					{this.state.loading === true ? <span className="icon">
-						<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-						<span className="sr-only">Loading...</span>
-					</span> : <ul>{messages}</ul>}
-				</div>
+				{this.state.loading === true
+					? <div className="centered">
+						<span className="icon">
+							<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+							<span className="sr-only">Loading...</span>
+						</span>
+					</div>
+					: <div class="panel">
+						<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="panel-block" />
+						<ul>{messages}</ul>
+					</div>}
 			</div>
 		);
 	}
