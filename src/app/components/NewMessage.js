@@ -155,7 +155,7 @@ class NewMessage extends React.Component {
 						</div>
 						<div className="level-right">
 							<div className="level-item">
-								<small className="">{this.state.chars_left} characters</small>
+								<small className="is-light">{this.state.chars_left}</small>
 							</div>
 							<div className="level-item">
 								<button className="button is-info" type="submit">
