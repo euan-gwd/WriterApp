@@ -37,16 +37,17 @@ class MessageList extends React.Component {
 
 	deleteMessage(index, e) {
 		e.stopPropagation();
-		const storage = base.storage();
 		let arr = this.state.messages.concat([]);
-		let messageUID = arr[0].userName;
-		let imgRef = arr[0].messageImage;
+		let messageUID = arr[index].userName;
+		let imgRef = arr[index].messageImage;
+		let deleteImgRef = base.storage().refFromURL(imgRef);
 		let currentUID = this.props.userName;
 		if (messageUID === currentUID) {
 			arr.splice(index, 1);
 			this.setState({
 				messages: arr
 			})
+			deleteImgRef.delete();
 		}
 	}
 

@@ -45,3 +45,7 @@
     left: 9vw;
     z-index: 2;
 }
+
+#uploadBar {
+    display: none;
+}
