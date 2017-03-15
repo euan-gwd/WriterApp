@@ -6,8 +6,8 @@ class Message extends React.Component {
 
 	render() {
 		return (
-			<div className="messages-padding">
-				<div className="box">
+			<div className="">
+				<div className="panel-block">
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">
@@ -50,7 +50,6 @@ class Message extends React.Component {
 			</div>
 		);
 	}
-
 }
 
 export default Message;

@@ -137,8 +137,8 @@ class NewMessage extends React.Component {
 			$imagePreview = null;
 		}
 		return (
-			<div className="new-message-box">
-				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
+			<div>
+				<form onSubmit={this.handleSubmit.bind(this)} className='box is-light'>
 					<div className="control">
 						{$imagePreview}
 						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
@@ -160,9 +160,9 @@ class NewMessage extends React.Component {
 							<div className="level-item">
 								<button className="button is-info" type="submit">
 									<span className="icon">
-										<i className="fa fa-paper-plane fa-fw" aria-hidden="true" />
+										<i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" />
 									</span>
-									<span>Send</span>
+									<span>Scribe</span>
 								</button>
 							</div>
 						</div>

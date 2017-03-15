@@ -54,12 +54,12 @@ class MessageList extends React.Component {
 	render() {
 		let messages = this.state.messages.map((item, index) => {
 			return (
-				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} className="panel-block" />
+				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} />
 			);
 		})
 
 		return (
-			<div className="container">
+			<div className="centered-main">
 				{this.state.loading === true
 					? <div className="centered">
 						<span className="icon">
@@ -67,9 +67,9 @@ class MessageList extends React.Component {
 							<span className="sr-only">Loading...</span>
 						</span>
 					</div>
-					: <div class="panel">
+					: <div className="panel">
 						<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="panel-block" />
-						<ul>{messages}</ul>
+						<ul className="">{messages}</ul>
 					</div>}
 			</div>
 		);

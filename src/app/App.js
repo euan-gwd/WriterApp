@@ -87,7 +87,7 @@ class App extends React.Component {
           <nav className="nav">
             <div className="nav-left">
               <div className="nav-item">
-                <h1>React Chat App</h1>
+                <h1>Scriber</h1>
               </div>
             </div>
             <div className="nav-center">

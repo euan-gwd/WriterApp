@@ -30,17 +30,38 @@
     color: darkred;
 }
 
+.centered-main {
+    display: flex;
+    padding-top: 2vh;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+}
+
 .centered {
     display: flex;
-    min-height: 90vh;
+    min-height: 100vh;
     padding: 0;
     margin: 0;
     justify-content: center;
     align-items: center;
+    align-content: center;
+}
+
+.panel {
+    min-width: 60vw;
+}
+
+.media {
+    width: 100%;
+}
+
+form.box {
+    background-color: #E5EAEF;
 }
 
 .messages-padding {
-    /*max-width: 30vw;*/
     padding: 1vh;
 }
 
