@@ -58,6 +58,8 @@ class NewMessage extends React.Component {
 			uploadTask.on('state_changed', function (snapshot) {
 				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				console.log('Upload is ' + progress + '% done');
+				document.getElementById('uploadBar').style.display = 'block';
+				document.getElementById('uploadBar').value = progress;
 			}, function (error) {
 				// Handle unsuccessful uploads
 			}, function () {
@@ -97,6 +99,7 @@ class NewMessage extends React.Component {
 				file: '',
 				imagePreviewUrl: ''
 			});
+		document.getElementById('uploadBar').style.display = 'none';
 	}
 
 	handleCharacterCount() {
@@ -140,6 +143,7 @@ class NewMessage extends React.Component {
 					<div className="control">
 						{$imagePreview}
 						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
+						<progress className="progress is-info" max="100" id="uploadBar"></progress>
 					</div>
 					<div className="level is-mobile">
 						<div className="level-left">

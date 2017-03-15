@@ -35,25 +35,30 @@ class MessageList extends React.Component {
 		base.removeBinding(this.ref);
 	}
 
-	deleteMessage(index, e) {
+	deleteMessage(key, e) {
 		e.stopPropagation();
-		const storage = base.storage();
 		let arr = this.state.messages.concat([]);
-		let messageUID = arr[0].userName;
-		let imgRef = arr[0].messageImage;
+		let messageUID = arr[key].userName;
+		let imgRef = arr[key].messageImage;
+		let deleteImgRef = base.storage().refFromURL(imgRef);
 		let currentUID = this.props.userName;
 		if (messageUID === currentUID) {
-			arr.splice(index, 1);
+			arr.splice(key, 1);
 			this.setState({
 				messages: arr
+			})
+			deleteImgRef.delete().then(function () {
+				console.log('File deleted successfully');
+			}).catch(function (error) {
+				console.log(error);
 			})
 		}
 	}
 
 	render() {
-		let messages = this.state.messages.map((item, index) => {
+		let messages = this.state.messages.map((item) => {
 			return (
-				<Message thread={item} removeMessage={this.deleteMessage.bind(this, index)} key={index} />
+				<Message thread={item} removeMessage={this.deleteMessage.bind(this, item.key)} key={item.key} />
 			);
 		})
 
