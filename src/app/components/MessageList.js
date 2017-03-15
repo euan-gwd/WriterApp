@@ -15,7 +15,8 @@ class MessageList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			messages: []
+			messages: [],
+			loading: true
 		};
 	};
 
@@ -23,7 +24,10 @@ class MessageList extends React.Component {
 		this.ref = base.syncState('msgList', {
 			context: this,
 			state: 'messages',
-			asArray: true
+			asArray: true,
+			then() {
+				this.setState({ loading: false })
+			}
 		})
 	};
 
@@ -33,8 +37,10 @@ class MessageList extends React.Component {
 
 	deleteMessage(index, e) {
 		e.stopPropagation();
+		const storage = base.storage();
 		let arr = this.state.messages.concat([]);
 		let messageUID = arr[0].userName;
+		let imgRef = arr[0].messageImage;
 		let currentUID = this.props.userName;
 		if (messageUID === currentUID) {
 			arr.splice(index, 1);
@@ -54,7 +60,12 @@ class MessageList extends React.Component {
 		return (
 			<div className="container">
 				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="new-message-box" />
-				<ul className="">{messages}</ul>
+				<div className="has-text-centered">
+					{this.state.loading === true ? <span className="icon">
+						<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+						<span className="sr-only">Loading...</span>
+					</span> : <ul>{messages}</ul>}
+				</div>
 			</div>
 		);
 	}
