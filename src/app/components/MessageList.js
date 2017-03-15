@@ -53,7 +53,7 @@ class MessageList extends React.Component {
 
 		return (
 			<div className="container">
-				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} userID={this.props.userID} className="new-message-box" />
+				<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="new-message-box" />
 				<ul className="">{messages}</ul>
 			</div>
 		);

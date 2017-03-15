@@ -52,7 +52,7 @@ class NewMessage extends React.Component {
 		let userName = this.props.userName;
 		let userEmail = this.props.userEmail;
 
-		if (file !== '') {
+		if (file !== '' && this.state.chars_left >= 0) {
 			let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', function (snapshot) {
@@ -89,18 +89,6 @@ class NewMessage extends React.Component {
 				base.database().ref().update(updates);
 			}
 		}
-
-		// if (this.state.chars_left >= 0) {
-		// 	base.post('msgList', {
-		// 		data: this.props.msgList.concat([{
-		// 			message: ReactDOM.findDOMNode(this.refs.message).value,
-		// 			datetime: this.state.date,
-		// 			userName: this.props.userName,
-		// 			userEmail: this.props.userEmail
-		// 		}]),
-		// 		context: this
-		// 	});
-		// }
 
 		ReactDOM.findDOMNode(this.refs.message).value = '';
 		this.setState(
@@ -142,7 +130,7 @@ class NewMessage extends React.Component {
 		let $imagePreview = null;
 		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
-			$imagePreview = (<span><a className="delete"></a><img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} /></span>);
+			$imagePreview = (<span><img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} /></span>);
 		} else {
 			$imagePreview = null;
 		}

@@ -3,6 +3,7 @@ import placeholdImg from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
+
 	render() {
 		return (
 			<div className="messages-list">
@@ -21,6 +22,12 @@ class Message extends React.Component {
 									{this.props.thread.message}
 								</p>
 							</div>
+							{this.props.thread.hasOwnProperty("messageImage") ?
+								<div className="media-content">
+									<div className="content">
+										<img src={this.props.thread.messageImage} alt="messageImage" className="image"/>
+									</div>
+								</div> : null}
 							<nav className="level">
 								<div className="level-left">
 									<a className="level-item">
