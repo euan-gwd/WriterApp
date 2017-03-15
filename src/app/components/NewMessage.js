@@ -67,31 +67,31 @@ class NewMessage extends React.Component {
 				// Handle unsuccessful uploads
 			}, function () {
 				// Handle successful uploads on complete
-				let postKey = base.database().ref('msgList/').push().key;
+				let scribeKey = base.database().ref('msgList/').push().key;
 				let downloadURL = uploadTask.snapshot.downloadURL;
 				let updates = {};
-				let postData = {
+				let scribeData = {
 					message: messageText,
 					messageImage: downloadURL,
 					datetime: datetime,
 					userName: userName,
 					userEmail: userEmail
 				}
-				updates['/msgList/' + postKey] = postData;
+				updates['/msgList/' + scribeKey] = scribeData;
 				base.database().ref().update(updates);
 				document.getElementById('uploadBar').style.display = 'none';
 			});
 		} else {
 			if (this.state.chars_left >= 0) {
-				let postKey = base.database().ref('msgList/').push().key;
+				let scribeKey = base.database().ref('msgList/').push().key;
 				let updates = {};
-				let postData = {
+				let scribeData = {
 					message: messageText,
 					datetime: datetime,
 					userName: userName,
 					userEmail: userEmail
 				}
-				updates['/msgList/' + postKey] = postData;
+				updates['/msgList/' + scribeKey] = scribeData;
 				base.database().ref().update(updates);
 			}
 		}

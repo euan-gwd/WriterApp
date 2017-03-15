@@ -40,15 +40,26 @@ class MessageList extends React.Component {
 		let arr = this.state.messages.concat([]);
 		let messageUID = arr[index].userName;
 		let imgRef = arr[index].messageImage;
-		let deleteImgRef = base.storage().refFromURL(imgRef);
-		let currentUID = this.props.userName;
-		if (messageUID === currentUID) {
-			arr.splice(index, 1);
-			this.setState({
-				messages: arr
-			})
-			deleteImgRef.delete();
+		if (arr[index].hasOwnProperty(imgRef)) {
+			let deleteImgRef = base.storage().refFromURL(imgRef);
+			let currentUID = this.props.userName;
+			if (messageUID === currentUID) {
+				arr.splice(index, 1);
+				this.setState({
+					messages: arr
+				})
+				deleteImgRef.delete();
+			}
+		} else {
+			let currentUID = this.props.userName;
+			if (messageUID === currentUID) {
+				arr.splice(index, 1);
+				this.setState({
+					messages: arr
+				})
+			}
 		}
+
 	}
 
 	render() {
