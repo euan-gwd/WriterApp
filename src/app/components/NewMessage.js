@@ -137,13 +137,15 @@ class NewMessage extends React.Component {
 		let $imagePreview = null;
 		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
-			$imagePreview = (<span><img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} /></span>);
+			$imagePreview = (<span><a className="upload-image-remove delete"></a>
+				<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />
+			</span>);
 		} else {
 			$imagePreview = null;
 		}
 		return (
 			<div>
-				<form onSubmit={this.handleSubmit.bind(this)} className='box is-light'>
+				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">

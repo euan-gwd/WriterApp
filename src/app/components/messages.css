@@ -73,6 +73,13 @@ nav.level {
     padding: 0 2vw;
 }
 
+.upload-image-remove {
+    position: relative;
+    left: 9vw;
+    top: 3vh;
+    z-index: 2;
+}
+
 .new-message-box {
     margin: 1vh;
 }
