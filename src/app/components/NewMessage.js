@@ -142,7 +142,7 @@ class NewMessage extends React.Component {
 					<div className="control">
 						{$imagePreview}
 						<input ref='message' accept="image/*" placeholder='Say something good...' className='input is-expanded' onChange={this.handleCharacterCount.bind(this)} required />
-						<progress className="progress is-info" max="100" id="uploadBar"></progress>
+						<progress className="progress is-info is-small" max="100" id="uploadBar"></progress>
 					</div>
 					<div className="level is-mobile">
 						<div className="level-left">
