@@ -69,8 +69,8 @@ form.box {
   padding: 1vh;
 }
 
-nav.level {
-  padding-top: 2vh;
+.pt {
+  padding-top: 0.5vh;
 }
 
 .pr-1 {
@@ -87,6 +87,9 @@ nav.level {
 
 .char-count {
   align-self: center;
+}
+
+.char-count-focus {
   color: #00d1b2;
 }
 

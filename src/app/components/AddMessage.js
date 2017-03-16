@@ -146,7 +146,7 @@ class AddMessage extends React.Component {
                   <span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
                 </p>
               </div>
-              <div className="field">
+              <div className="pt">
                 <div className="columns is-mobile is-gapless">
                   <div className="column is-narrow">
                     <div className="control">
