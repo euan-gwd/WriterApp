@@ -16,8 +16,8 @@ class Message extends React.Component {
           <div className="media-content">
             <div className="content">
               <p>
-                <strong>{this.props.thread.userName}</strong>
-                <small>{this.props.thread.userEmail}</small>
+                <span className="title is-5 pr-1">{this.props.thread.userName}</span>
+                <span className="subtitle is-6">{this.props.thread.userEmail}</span>
               </p>
               {this.props.thread.message}
             </div>

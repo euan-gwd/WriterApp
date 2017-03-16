@@ -77,6 +77,10 @@ nav.level {
   padding: 0 2vw;
 }
 
+.pr-1 {
+  padding-right: 0.5vw;
+}
+
 .imagePreview {
   padding: 0 0.5vw;
 }
