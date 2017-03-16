@@ -3,6 +3,7 @@ import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import MessageList from './components/MessageList';
 import logo from './logo.svg';
+import noUserPhoto from './assets/128x128.png';
 import './App.css';
 
 const base = Rebase.createClass({
@@ -46,7 +47,7 @@ class App extends React.Component {
     currentUser = base.auth().currentUser;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
-    document.getElementById('name').textContent = user.displayName;
+    // document.getElementById('name').textContent = user.displayName;
     this.setState({
       currentUserName: user.displayName,
       currentUserEmail: user.email,
@@ -102,7 +103,14 @@ class App extends React.Component {
             </div>
             <div className="nav-right">
               <div className="nav-item">
-                <div id="name"></div>
+                {this.state.hasOwnProperty("currentUserPhoto")
+                  ? <figure className="image is-24x24">
+                    <img src={this.state.currentUserPhoto} alt="profilePic" />
+                  </figure>
+                  : <figure className="image is-24x24">
+                    <img src={noUserPhoto} alt="noprofilePic" />
+                  </figure>
+                }
               </div>
               <div className="nav-item">
                 <a id="sign-out" className="button is-danger is-outlined" onClick={this.handleSignedOutUser} >
