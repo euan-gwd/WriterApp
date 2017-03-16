@@ -3,7 +3,6 @@ import placeholdImg from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
-
 	render() {
 		return (
 			<div className="">

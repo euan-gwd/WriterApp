@@ -22,7 +22,8 @@ const uiConfig = {
   },
   credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [
-    base.auth.EmailAuthProvider.PROVIDER_ID
+    base.auth.EmailAuthProvider.PROVIDER_ID,
+    base.auth.GoogleAuthProvider.PROVIDER_ID
   ]
 };
 
