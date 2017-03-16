@@ -3,7 +3,6 @@ import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import MessageList from './components/MessageList';
 import logo from './logo.svg';
-import noUserPhoto from './assets/128x128.png';
 import './App.css';
 
 const base = Rebase.createClass({
@@ -48,6 +47,7 @@ class App extends React.Component {
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
     // document.getElementById('name').textContent = user.displayName;
+    document.getElementById('profilePic').style.display = 'block';
     this.setState({
       currentUserName: user.displayName,
       currentUserEmail: user.email,
@@ -57,15 +57,16 @@ class App extends React.Component {
 
   handleSignedOutUser = () => {
     base.unauth();
+    currentUser = null;
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'block';
+    document.getElementById('profilePic').style.display = 'none';
     ui.start('#firebaseui-auth-container', uiConfig);
     this.setState({
       currentUserName: null,
       currentUserEmail: null,
       currentUserPhoto: null
     });
-    currentUser = null;
   }
 
   initApp() {
@@ -75,8 +76,13 @@ class App extends React.Component {
           currentUserName: user.displayName,
           currentUserEmail: user.email,
           currentUserPhoto: user.photoURL
-        });
-        return;
+        })
+      } else {
+        this.setState({
+          currentUserName: null,
+          currentUserEmail: null,
+          currentUserPhoto: null
+        })
       }
       user ? this.handleSignedInUser(user) : this.handleSignedOutUser();
     });
@@ -103,14 +109,14 @@ class App extends React.Component {
             </div>
             <div className="nav-right">
               <div className="nav-item">
-                {this.state.hasOwnProperty("currentUserPhoto")
-                  ? <figure className="image is-24x24">
-                    <img src={this.state.currentUserPhoto} alt="profilePic" />
-                  </figure>
-                  : <figure className="image is-24x24">
-                    <img src={noUserPhoto} alt="noprofilePic" />
-                  </figure>
-                }
+                <div id="profilePic">
+                  {this.state.currentUserPhoto 
+                    ? <figure className="image is-24x24">
+                      <img src={this.state.currentUserPhoto} alt="profilePic" />
+                    </figure>
+                    : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                  }
+                </div>
               </div>
               <div className="nav-item">
                 <a id="sign-out" className="button is-danger is-outlined" onClick={this.handleSignedOutUser} >

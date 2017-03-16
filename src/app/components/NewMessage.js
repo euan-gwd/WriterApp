@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
-import noUserPhoto from '../assets/128x128.png';
 import "./messages.css";
 
 const base = Rebase.createClass({
@@ -152,12 +151,10 @@ class NewMessage extends React.Component {
 				<form onSubmit={this.handleSubmit.bind(this)} className='box'>
 					<div className="media">
 						<div className="media-left">
-							{this.props.hasOwnProperty("userPhoto")
-								? <figure className="image is-48x48">
-									<img src={this.props.userPhoto} alt="profilePic" />
-								</figure>
+							{(this.props.userPhoto === null) ?
+								<i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
 								: <figure className="image is-48x48">
-									<img src={noUserPhoto} alt="noprofilePic" />
+									<img src={this.props.userPhoto} alt="profilePic" />
 								</figure>
 							}
 						</div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import noUserPhoto from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
@@ -13,9 +12,7 @@ class Message extends React.Component {
 								? <figure className="image is-48x48">
 									<img src={this.props.thread.userPhoto} alt="profilePic" />
 								</figure>
-								: <figure className="image is-48x48">
-									<img src={noUserPhoto} alt="noprofilePic" />
-								</figure>
+								: <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
 							}
 						</div>
 						<div className="media-content">
