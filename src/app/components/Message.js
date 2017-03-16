@@ -5,7 +5,7 @@ class Message extends React.Component {
   render() {
     return (
       <div className="panel-block">
-        <div className="media">
+        <article className="media">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
@@ -30,7 +30,7 @@ class Message extends React.Component {
                   ? <div className="media-content px-1">
                       <img src={this.props.thread.messageImage} alt="messageImage" className="image message-image-rounded"/>
                     </div>
-                  : <div></div>}
+                  : <div className="px-1"></div>}
               </div>
               <div className="">
                 <a className="pr-1">
@@ -42,8 +42,9 @@ class Message extends React.Component {
                 <small className="has-text-right">{this.props.thread.datetime}</small>
               </div>
             </div>
+
           </div>
-        </div>
+        </article>
       </div>
     );
   }
