@@ -141,7 +141,7 @@ class NewMessage extends React.Component {
 		let { imagePreviewUrl } = this.state;
 		if (imagePreviewUrl) {
 			$imagePreview = (<span><a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
-				<img src={imagePreviewUrl} className="image is-128x128" alt={this.state.file.name} />
+				<img src={imagePreviewUrl} className="image is-128x128 message-image-rounded" alt={this.state.file.name} />
 			</span>);
 		} else {
 			$imagePreview = null;
@@ -154,7 +154,7 @@ class NewMessage extends React.Component {
 							{(this.props.userPhoto === null) ?
 								<i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
 								: <figure className="image is-48x48">
-									<img src={this.props.userPhoto} alt="profilePic" />
+									<img src={this.props.userPhoto} alt="profilePic" className="message-image-rounded" />
 								</figure>
 							}
 						</div>

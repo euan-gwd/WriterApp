@@ -10,7 +10,7 @@ class Message extends React.Component {
 						<div className="media-left">
 							{this.props.thread.hasOwnProperty("userPhoto")
 								? <figure className="image is-48x48">
-									<img src={this.props.thread.userPhoto} alt="profilePic" />
+									<img src={this.props.thread.userPhoto} alt="profilePic" className="message-image-rounded" />
 								</figure>
 								: <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
 							}
@@ -25,7 +25,7 @@ class Message extends React.Component {
 							</div>
 							{this.props.thread.hasOwnProperty("messageImage") ?
 								<div className="media-content">
-									<img src={this.props.thread.messageImage} alt="messageImage" className="image" />
+									<img src={this.props.thread.messageImage} alt="messageImage" className="image message-image-rounded" />
 								</div> : null}
 							<nav className="level">
 								<div className="level-left">

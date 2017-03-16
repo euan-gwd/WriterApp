@@ -30,6 +30,10 @@
     color: yellow;
 }
 
+.message-image-rounded {
+    border-radius: 5px;
+}
+
 .centered-main {
     display: flex;
     padding-top: 1vh;

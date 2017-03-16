@@ -15,7 +15,7 @@ const base = Rebase.createClass({
 
 const uiConfig = {
   callbacks: {
-    'signInSuccess': function (user) {
+    'signInSuccess': function(user) {
       this.handleSignIn(user);
       return false;
     }
@@ -110,12 +110,9 @@ class App extends React.Component {
             <div className="nav-right">
               <div className="nav-item">
                 <div id="profilePic">
-                  {this.state.currentUserPhoto
-                    ? <figure className="image is-24x24">
-                      <img src={this.state.currentUserPhoto} alt="profilePic" />
-                    </figure>
-                    : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                  }
+                  { (this.state.currentUserPhoto)
+        ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded" /></figure>
+        : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i> }
                 </div>
               </div>
               <div className="nav-item">
@@ -147,7 +144,7 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-    );
+      );
   }
 }
 
