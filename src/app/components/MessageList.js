@@ -1,6 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
-import NewMessage from './NewMessage';
+import AddMessage from './AddMessage';
 import Message from './Message';
 
 const base = Rebase.createClass({
@@ -78,7 +78,7 @@ class MessageList extends React.Component {
 						</span>
 					</div>
 					: <div className="panel">
-						<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block" />
+						<AddMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block" />
 						<ul className="">{messages}</ul>
 					</div>}
 			</div>

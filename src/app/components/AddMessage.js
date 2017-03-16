@@ -13,7 +13,7 @@ const base = Rebase.createClass({
 
 const max_chars = 160;
 
-class NewMessage extends React.Component {
+class AddMessage extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -196,4 +196,4 @@ class NewMessage extends React.Component {
 
 }
 
-export default NewMessage;
+export default AddMessage;
