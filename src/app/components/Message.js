@@ -1,4 +1,5 @@
 import React from 'react';
+import noUserPhoto from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
@@ -8,9 +9,14 @@ class Message extends React.Component {
 				<div className="panel-block">
 					<div className="media">
 						<div className="media-left">
-							<figure className="image is-48x48">
-								<img src={this.props.thread.userPhoto} alt="profile" />
-							</figure>
+							{this.props.thread.hasOwnProperty("userPhoto")
+								? <figure className="image is-48x48">
+									<img src={this.props.thread.userPhoto} alt="profilePic" />
+								</figure>
+								: <figure className="image is-48x48">
+									<img src={noUserPhoto} alt="noprofilePic" />
+								</figure>
+							}
 						</div>
 						<div className="media-content">
 							<div className="content">
