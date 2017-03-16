@@ -32,10 +32,10 @@ class Message extends React.Component {
 										<span className="icon is-small"><i className="fa fa-reply" aria-hidden="true" ></i></span>
 									</a>
 									<a className="level-item px-2" type="button">
-										<span className="icon is-small"><i className="fa fa-retweet" aria-hidden="true" ></i></span>
+										<span className="icon is-small"><i className="fa fa-pencil" aria-hidden="true" ></i></span>
 									</a>
 									<a className="level-item px-2" type="button">
-										<span className="icon is-small"><i className="fa fa-heart" aria-hidden="true" ></i></span>
+										<span className="icon is-small"><i className="fa fa-star" aria-hidden="true" ></i></span>
 									</a>
 								</div>
 							</nav>

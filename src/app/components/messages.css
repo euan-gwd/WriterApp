@@ -3,7 +3,7 @@
 }
 
 .fa-times:hover {
-    color: black;
+    color: red;
 }
 
 .fa-reply {
@@ -14,20 +14,20 @@
     color: blue;
 }
 
-.fa-retweet {
+.fa-pencil {
     color: grey;
 }
 
-.fa-retweet:hover {
+.fa-pencil:hover {
     color: limegreen;
 }
 
-.fa-heart {
+.fa-star {
     color: grey;
 }
 
-.fa-heart:hover {
-    color: darkred;
+.fa-star:hover {
+    color: yellow;
 }
 
 .centered-main {
