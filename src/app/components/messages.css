@@ -124,6 +124,10 @@ nav.level {
   display: none;
 }
 
+.textarea {
+  min-height: 0 !important;
+}
+
 .selected-message:hover {
   background-color: whitesmoke;
 }
