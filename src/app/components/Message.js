@@ -4,7 +4,7 @@ import './messages.css';
 class Message extends React.Component {
   render() {
     return (
-      <div className="panel-block">
+      <a className="panel-block is-info is-focused">
         <article className="media">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
@@ -42,10 +42,9 @@ class Message extends React.Component {
                 <small className="has-text-right">{this.props.thread.datetime}</small>
               </div>
             </div>
-
           </div>
         </article>
-      </div>
+      </a>
     );
   }
 }
