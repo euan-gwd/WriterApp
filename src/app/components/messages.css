@@ -1,112 +1,112 @@
 .fa-times {
-    color: grey;
+  color: grey;
 }
 
 .fa-times:hover {
-    color: red;
+  color: red;
 }
 
 .fa-reply {
-    color: grey;
+  color: grey;
 }
 
 .fa-reply:hover {
-    color: blue;
+  color: blue;
 }
 
 .fa-pencil {
-    color: grey;
+  color: grey;
 }
 
 .fa-pencil:hover {
-    color: limegreen;
+  color: limegreen;
 }
 
 .fa-star {
-    color: grey;
+  color: grey;
 }
 
 .fa-star:hover {
-    color: yellow;
+  color: yellow;
 }
 
 .message-image-rounded {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .centered-main {
-    display: flex;
-    padding-top: 1vh;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    width: 80vw;
+  display: flex;
+  padding-top: 1vh;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
 }
 
 .centered {
-    display: flex;
-    min-height: 100vh;
-    padding: 0;
-    margin: 0;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+  display: flex;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .panel {
-    min-width: 60vw;
+  min-width: 60vw;
 }
 
 .media {
-    width: 100%;
+  width: 100%;
 }
 
 form.box {
-    background-color: #E5EAEF;
+  background-color: #e5eaef;
 }
 
 .messages-padding {
-    padding: 1vh;
+  padding: 1vh;
 }
 
 nav.level {
-    padding-top: 2vh;
+  padding-top: 2vh;
 }
 
 .px-2 {
-    padding: 0 2vw;
+  padding: 0 2vw;
 }
 
 .imagePreview {
-    padding: 0 0.5vw;
+  padding: 0 0.5vw;
 }
 
 .upload-image-remove {
-    position: relative;
-    left: 9vw;
-    padding: 0;
-    z-index: 2;
+  position: relative;
+  left: 9vw;
+  padding: 0;
+  z-index: 2;
 }
 
 .new-message-box {
-    margin: 1vh;
+  margin: 1vh;
 }
 
 .input-file {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .remove-image {
-    top: 5vh;
-    left: 9vw;
-    z-index: 2;
+  top: 5vh;
+  left: 9vw;
+  z-index: 2;
 }
 
 #uploadBar {
-    display: none;
+  display: none;
 }
