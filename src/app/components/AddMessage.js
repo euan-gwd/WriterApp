@@ -156,11 +156,9 @@ class AddMessage extends React.Component {
                       </label>
                     </div>
                   </div>
-
-                  <div className="column has-text-right">
-                    <small className="is-light pr">{this.state.chars_left}</small>
+                  <div className="column has-text-right char-count">
+                    <div className="pr">{this.state.chars_left}</div>
                   </div>
-
                   <div className="column is-narrow">
                     <button className="button is-info" type="submit">
                       <span className="icon">

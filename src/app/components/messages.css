@@ -85,6 +85,11 @@ nav.level {
   padding: 1vh 0;
 }
 
+.char-count {
+  align-self: center;
+  color: green;
+}
+
 .imagePreview {
   padding: 0 0.5vw;
 }
