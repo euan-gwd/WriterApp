@@ -28,7 +28,7 @@ const uiConfig = {
 };
 
 const ui = new firebaseui.auth.AuthUI(base.auth());
-let currentUser = null;
+let currentUid = null;
 
 class App extends React.Component {
 
@@ -43,10 +43,9 @@ class App extends React.Component {
 
 
   handleSignedInUser = (user) => {
-    currentUser = base.auth().currentUser;
+    currentUid = user.uid;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
-    // document.getElementById('name').textContent = user.displayName;
     document.getElementById('profilePic').style.display = 'block';
     this.setState({
       currentUserName: user.displayName,
@@ -56,33 +55,34 @@ class App extends React.Component {
   }
 
   handleSignedOutUser = () => {
-    base.unauth();
-    currentUser = null;
+    currentUid = null;
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'block';
     document.getElementById('profilePic').style.display = 'none';
-    ui.start('#firebaseui-auth-container', uiConfig);
     this.setState({
       currentUserName: null,
       currentUserEmail: null,
       currentUserPhoto: null
     });
+    base.unauth();
+    ui.start('#firebaseui-auth-container', uiConfig);
   }
 
   initApp() {
     base.auth().onAuthStateChanged((user) => {
-      if (user === currentUser) {
+      if (user && user.id === currentUid) {
         this.setState({
           currentUserName: user.displayName,
           currentUserEmail: user.email,
           currentUserPhoto: user.photoURL
-        })
+        });
+        return;
       } else {
         this.setState({
           currentUserName: null,
           currentUserEmail: null,
           currentUserPhoto: null
-        })
+        });
       }
       user ? this.handleSignedInUser(user) : this.handleSignedOutUser();
     });
@@ -110,7 +110,7 @@ class App extends React.Component {
             <div className="nav-right">
               <div className="nav-item">
                 <div id="profilePic">
-                  {this.state.currentUserPhoto 
+                  {this.state.currentUserPhoto
                     ? <figure className="image is-24x24">
                       <img src={this.state.currentUserPhoto} alt="profilePic" />
                     </figure>
