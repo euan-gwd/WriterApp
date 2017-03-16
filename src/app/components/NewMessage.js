@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
-import placeholdImg from '../assets/128x128.png';
 import "./messages.css";
 
 const base = Rebase.createClass({
@@ -52,6 +51,7 @@ class NewMessage extends React.Component {
 		let datetime = this.state.date;
 		let userName = this.props.userName;
 		let userEmail = this.props.userEmail;
+		let userPhoto = this.props.userPhoto;
 
 		if (file !== '' && this.state.chars_left >= 0) {
 			let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
@@ -75,7 +75,8 @@ class NewMessage extends React.Component {
 					messageImage: downloadURL,
 					datetime: datetime,
 					userName: userName,
-					userEmail: userEmail
+					userEmail: userEmail,
+					userPhoto: userPhoto
 				}
 				updates['/msgList/' + scribeKey] = scribeData;
 				base.database().ref().update(updates);
@@ -89,7 +90,8 @@ class NewMessage extends React.Component {
 					message: messageText,
 					datetime: datetime,
 					userName: userName,
-					userEmail: userEmail
+					userEmail: userEmail,
+					userPhoto: userPhoto
 				}
 				updates['/msgList/' + scribeKey] = scribeData;
 				base.database().ref().update(updates);
@@ -150,7 +152,7 @@ class NewMessage extends React.Component {
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">
-								<img src={placeholdImg} alt="profile" />
+								<img src={this.props.userPhoto} alt="profile" />
 							</figure>
 						</div>
 						<div className="media-content">

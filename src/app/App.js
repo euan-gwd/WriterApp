@@ -28,7 +28,7 @@ const uiConfig = {
 };
 
 const ui = new firebaseui.auth.AuthUI(base.auth());
-let currentUid = null;
+let currentUser = null;
 
 class App extends React.Component {
 
@@ -36,40 +36,44 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUserName: null,
-      currentUserEmail: null
+      currentUserEmail: null,
+      currentUserPhoto: null
     }
   }
 
 
   handleSignedInUser = (user) => {
-    currentUid = user.uid;
+    currentUser = base.auth().currentUser;
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
     document.getElementById('name').textContent = user.displayName;
     this.setState({
       currentUserName: user.displayName,
-      currentUserEmail: user.email
+      currentUserEmail: user.email,
+      currentUserPhoto: user.photoURL
     });
   }
 
   handleSignedOutUser = () => {
-    base.auth().signOut();
+    base.unauth();
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'block';
     ui.start('#firebaseui-auth-container', uiConfig);
     this.setState({
       currentUserName: null,
-      currentUserEmail: null
+      currentUserEmail: null,
+      currentUserPhoto: null
     });
-    currentUid = null;
+    currentUser = null;
   }
 
   initApp() {
     base.auth().onAuthStateChanged((user) => {
-      if (user && user.uid === currentUid) {
+      if (user === currentUser) {
         this.setState({
           currentUserName: user.displayName,
-          currentUserEmail: user.email
+          currentUserEmail: user.email,
+          currentUserPhoto: user.photoURL
         });
         return;
       }
@@ -84,7 +88,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div id="user-signed-in" className="hidden">
+        <div id="user-signed-in">
           <nav className="nav">
             <div className="nav-left">
               <div className="nav-item">
@@ -110,9 +114,9 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} />
+          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto} />
         </div>
-        <div id="user-signed-out" className="hidden">
+        <div id="user-signed-out">
           <nav className="nav">
             <div className="nav-left">
               <div className="nav-item">

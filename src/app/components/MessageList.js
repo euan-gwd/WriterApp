@@ -59,7 +59,6 @@ class MessageList extends React.Component {
 				})
 			}
 		}
-
 	}
 
 	render() {
@@ -79,7 +78,7 @@ class MessageList extends React.Component {
 						</span>
 					</div>
 					: <div className="panel">
-						<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} className="panel-block" />
+						<NewMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block" />
 						<ul className="">{messages}</ul>
 					</div>}
 			</div>

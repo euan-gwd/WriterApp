@@ -1,5 +1,4 @@
 import React from 'react';
-import placeholdImg from '../assets/128x128.png';
 import './messages.css';
 
 class Message extends React.Component {
@@ -10,7 +9,7 @@ class Message extends React.Component {
 					<div className="media">
 						<div className="media-left">
 							<figure className="image is-48x48">
-								<img src={placeholdImg} alt="profile" />
+								<img src={this.props.thread.userPhoto} alt="profile" />
 							</figure>
 						</div>
 						<div className="media-content">
