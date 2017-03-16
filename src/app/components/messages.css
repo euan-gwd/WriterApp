@@ -118,3 +118,7 @@ nav.level {
 #uploadBar {
   display: none;
 }
+
+.selected-message:hover {
+  background-color: whitesmoke;
+}

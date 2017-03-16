@@ -4,7 +4,7 @@ import './messages.css';
 class Message extends React.Component {
   render() {
     return (
-      <div className="panel-block is-info is-focused">
+      <div className="panel-block selected-message">
         <article className="media">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
