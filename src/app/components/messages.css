@@ -27,7 +27,7 @@
 }
 
 .fa-star:hover {
-  color: yellow;
+  color: green;
 }
 
 .message-image-rounded {
@@ -73,12 +73,16 @@ nav.level {
   padding-top: 2vh;
 }
 
-.px-2 {
-  padding: 0 2vw;
+.pr-1 {
+  padding-right: 1vw;
 }
 
-.pr-1 {
+.pr {
   padding-right: 0.5vw;
+}
+
+.px-1 {
+  padding: 1vh 0;
 }
 
 .imagePreview {
