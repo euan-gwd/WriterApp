@@ -31,30 +31,25 @@ class MessageList extends React.Component {
 
   deleteMessage(index, item, e) {
     e.stopPropagation();
-    // let arr = this.state.messages.concat([]);
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
     let imgRef = item.messageImage;
     let messageUID = item.userName;
-
     if (item.hasOwnProperty(imgRef)) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
       let currentUID = this.props.userName;
       if (messageUID === currentUID) {
-        // arr.splice(index, 1);
-        // this.setState({messages: arr})
         deleteImgRef.delete(); //removes item from storageBucket
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     } else {
       let currentUID = this.props.userName;
       if (messageUID === currentUID) {
-        // arr.splice(index, 1);
-        // this.setState({messages: arr})
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
 
+    // let arr = this.state.messages.concat([]);
     // let messageUID = arr[index].userName;
     // let imgRef = arr[index].messageImage;
     // if (arr[index].hasOwnProperty(imgRef)) {
