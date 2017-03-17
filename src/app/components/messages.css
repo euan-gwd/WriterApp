@@ -133,4 +133,5 @@ form.box {
 
 .selected-message:hover {
   background-color: whitesmoke;
+  cursor: pointer;
 }

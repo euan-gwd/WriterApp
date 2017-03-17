@@ -48,9 +48,11 @@ class AddMessage extends React.Component {
       uploadTask.on('state_changed', function (snapshot) {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         if (progress < 100) {
-          document.getElementById('uploadBar').style.display = 'block';
+          // document.getElementById('uploadBar').style.display = 'block';
+          ReactDOM.findDOMNode(this.refs.uploadBar).style.display = 'block';
         } else {
-          document.getElementById('uploadBar').style.display = 'none';
+          // document.getElementById('uploadBar').style.display = 'none';
+          ReactDOM.findDOMNode(this.refs.uploadBar).style.display = 'none';
         }
       }, function (error) {
         // Handle unsuccessful uploads
@@ -143,7 +145,7 @@ class AddMessage extends React.Component {
                 <p className="control">
                   {$imagePreview}
                   <textarea ref='message' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar">Sending message now...</span>
+                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadBar">Sending message now...</span>
                 </p>
               </div>
               <div className="pt">

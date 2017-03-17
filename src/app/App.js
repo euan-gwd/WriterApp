@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import MessageList from './components/MessageList';
@@ -34,17 +35,23 @@ class App extends React.Component {
 
   handleSignedInUser = (user) => {
     currentUid = user.uid;
-    document.getElementById('user-signed-in').style.display = 'block';
-    document.getElementById('user-signed-out').style.display = 'none';
-    document.getElementById('profilePic').style.display = 'block';
+    // document.getElementById('user-signed-in').style.display = 'block';
+    ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'block';
+    // document.getElementById('user-signed-out').style.display = 'none';
+    ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'none';
+    // document.getElementById('profilePic').style.display = 'block';
+    ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'block';
     this.setState({currentUserName: user.displayName, currentUserEmail: user.email, currentUserPhoto: user.photoURL});
   }
 
   handleSignedOutUser = () => {
     currentUid = null;
-    document.getElementById('user-signed-in').style.display = 'none';
-    document.getElementById('user-signed-out').style.display = 'block';
-    document.getElementById('profilePic').style.display = 'none';
+    // document.getElementById('user-signed-in').style.display = 'none';
+    ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'none';
+    // document.getElementById('user-signed-out').style.display = 'block';
+    ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'block';
+    // document.getElementById('profilePic').style.display = 'none';
+    ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'none';
     this.setState({currentUserName: null, currentUserEmail: null, currentUserPhoto: null});
     base.unauth();
     ui.start('#firebaseui-auth-container', uiConfig);
@@ -71,7 +78,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div id="user-signed-in">
+        <div id="user-signed-in" ref="userSignedIn">
           <nav className="nav">
             <div className="nav-left">
               <div className="nav-item">
@@ -85,7 +92,7 @@ class App extends React.Component {
             </div>
             <div className="nav-right">
               <div className="nav-item">
-                <div id="profilePic">
+                <div id="profilePic" ref="profilePic">
                   {(this.state.currentUserPhoto)
                     ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
                     : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
@@ -103,7 +110,7 @@ class App extends React.Component {
           </nav>
           <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
         </div>
-        <div id="user-signed-out">
+        <div id="user-signed-out" ref="userSignedOut">
           <nav className="nav">
             <div className="nav-left">
               <div className="nav-item">
