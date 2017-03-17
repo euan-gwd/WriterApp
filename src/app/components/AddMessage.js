@@ -71,7 +71,8 @@ class AddMessage extends React.Component {
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        document.getElementById('uploadBar').style.display = 'none';
+        // document.getElementById('uploadBar').style.display = 'none';
+        ReactDOM.findDOMNode(this.refs.uploadBar).style.display = 'none';
       });
     } else {
       if (this.state.chars_left >= 0) {
