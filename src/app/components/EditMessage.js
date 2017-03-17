@@ -56,7 +56,7 @@ class EditMessage extends React.Component {
         // Handle unsuccessful uploads
       }, function () {
         // Handle successful uploads on complete
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -67,13 +67,13 @@ class EditMessage extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/msgList/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
         document.getElementById('uploadBar').style.display = 'none';
       });
     } else {
       if (this.state.chars_left >= 0) {
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/').push().key;
         let updates = {};
         let scribeData = {
           message: messageText,
@@ -82,7 +82,7 @@ class EditMessage extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/msgList/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }

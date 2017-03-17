@@ -36,7 +36,7 @@ class Message extends React.Component {
                 <a className="pr-1">
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
-                <a className="pr-1">
+                <a className="pr-1" onClick={this.props.modifyMessage.bind(null)}>
                   <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                 </a>
                 <small className="has-text-right">{this.props.thread.datetime}</small>
