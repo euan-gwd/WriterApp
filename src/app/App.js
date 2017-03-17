@@ -84,7 +84,7 @@ class App extends React.Component {
                 </a>
                 <a className="nav-item is-tab">
                   <span className="icon">
-                    <i className="fa fa-bell"></i>
+                    <i className="fa fa-bell-o"></i>
                   </span>
                   <span className="pr">Notifications</span>
                 </a>
