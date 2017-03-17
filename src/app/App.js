@@ -76,9 +76,24 @@ class App extends React.Component {
           <nav className="nav has-shadow">
             <div className="container is-fluid">
               <div className="nav-left">
-                <a className="nav-item is-tab is-active">Home</a>
-                <a className="nav-item is-tab ">Notifications</a>
-                <a className="nav-item is-tab ">Messages</a>
+                <a className="nav-item is-tab is-active">
+                  <span className="icon">
+                    <i className="fa fa-home"></i>
+                  </span>
+                  <span className="pr">Home</span>
+                </a>
+                <a className="nav-item is-tab">
+                  <span className="icon">
+                    <i className="fa fa-bell"></i>
+                  </span>
+                  <span className="pr">Notifications</span>
+                </a>
+                <a className="nav-item is-tab">
+                  <span className="icon">
+                    <i className="fa fa-comments-o"></i>
+                  </span>
+                  <span className="pr">Messages</span>
+                </a>
               </div>
               <div className="nav-center">
                 <div className="nav-item">
