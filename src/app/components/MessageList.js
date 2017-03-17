@@ -29,7 +29,7 @@ class MessageList extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  deleteMessage(index, item, e) {
+  deleteMessage(item, e) {
     e.stopPropagation();
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
@@ -50,8 +50,8 @@ class MessageList extends React.Component {
   }
 
   render() {
-    let messages = this.state.messages.map((item, index) => {
-      return (<Message thread={item} removeMessage={this.deleteMessage.bind(this, index, item)} key={item.key}/>);
+    let messages = this.state.messages.map((item) => {
+      return (<Message thread={item} removeMessage={this.deleteMessage.bind(this, item)} key={item.key}/>);
     })
 
     return (
