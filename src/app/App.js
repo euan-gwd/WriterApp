@@ -78,21 +78,15 @@ class App extends React.Component {
               <div className="nav-left">
                 <a className="nav-item is-tab is-active">
                   <span className="icon">
-                    <i className="fa fa-home"></i>
+                    <i className="fa fa-home fa-fw"></i>
                   </span>
-                  <span className="pr">Home</span>
+                  <span>&nbsp; Home</span>
                 </a>
                 <a className="nav-item is-tab">
                   <span className="icon">
-                    <i className="fa fa-bell-o"></i>
+                    <i className="fa fa-comments-o fa-fw"></i>
                   </span>
-                  <span className="pr">Notifications</span>
-                </a>
-                <a className="nav-item is-tab">
-                  <span className="icon">
-                    <i className="fa fa-comments-o"></i>
-                  </span>
-                  <span className="pr">Messages</span>
+                  <span>&nbsp; Messages</span>
                 </a>
               </div>
               <div className="nav-center">
@@ -103,7 +97,7 @@ class App extends React.Component {
               </div>
               <div className="nav-right">
                 <a className="nav-item is-tab">
-                  <div id="profilePic" ref="profilePic">
+                  <div id="profilePic" ref="profilePic" className="">
                     {(this.state.currentUserPhoto)
                       ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
                       : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
