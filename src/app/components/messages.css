@@ -104,10 +104,6 @@ form.box {
   z-index: 2;
 }
 
-.new-message-box {
-  margin: 1vh;
-}
-
 .input-file {
   width: 0.1px;
   height: 0.1px;

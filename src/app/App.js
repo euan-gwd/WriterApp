@@ -35,22 +35,16 @@ class App extends React.Component {
 
   handleSignedInUser = (user) => {
     currentUid = user.uid;
-    // document.getElementById('user-signed-in').style.display = 'block';
     ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'block';
-    // document.getElementById('user-signed-out').style.display = 'none';
     ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'none';
-    // document.getElementById('profilePic').style.display = 'block';
     ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'block';
     this.setState({currentUserName: user.displayName, currentUserEmail: user.email, currentUserPhoto: user.photoURL});
   }
 
   handleSignedOutUser = () => {
     currentUid = null;
-    // document.getElementById('user-signed-in').style.display = 'none';
     ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'none';
-    // document.getElementById('user-signed-out').style.display = 'block';
     ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'block';
-    // document.getElementById('profilePic').style.display = 'none';
     ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'none';
     this.setState({currentUserName: null, currentUserEmail: null, currentUserPhoto: null});
     base.unauth();
@@ -79,46 +73,51 @@ class App extends React.Component {
     return (
       <div>
         <div id="user-signed-in" ref="userSignedIn">
-          <nav className="nav">
-            <div className="nav-left">
-              <div className="nav-item">
-                <h1 className="title">Scriber</h1>
+          <nav className="nav has-shadow">
+            <div className="container is-fluid">
+              <div className="nav-left">
+                <a className="nav-item is-tab is-active">Home</a>
+                <a className="nav-item is-tab ">Notifications</a>
+                <a className="nav-item is-tab ">Messages</a>
               </div>
-            </div>
-            <div className="nav-center">
-              <div className="nav-item">
-                <img src={logo} alt="logo" className="App-logo"/>
-              </div>
-            </div>
-            <div className="nav-right">
-              <div className="nav-item">
-                <div id="profilePic" ref="profilePic">
-                  {(this.state.currentUserPhoto)
-                    ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
-                    : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
+              <div className="nav-center">
+                <div className="nav-item">
+                  <img src={logo} alt="logo" className="App-logo"/>
+                  <h1 className="title is-hidden-mobile">Scriber</h1>
                 </div>
               </div>
-              <div className="nav-item">
-                <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
-                  <span className="icon is-small">
-                    <i className="fa fa-sign-out"></i>
-                  </span>
-                  <span>Sign Out</span>
+              <div className="nav-right">
+                <a className="nav-item is-tab">
+                  <div id="profilePic" ref="profilePic">
+                    {(this.state.currentUserPhoto)
+                      ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
+                      : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
+                  </div>
                 </a>
+                <div className="nav-item">
+                  <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
+                    <span className="icon is-small">
+                      <i className="fa fa-sign-out"></i>
+                    </span>
+                    <span>Sign Out</span>
+                  </a>
+                </div>
               </div>
             </div>
           </nav>
           <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
         </div>
         <div id="user-signed-out" ref="userSignedOut">
-          <nav className="nav">
-            <div className="nav-left">
-              <div className="nav-item">
-                <img src={logo} alt="logo"/>
+          <nav className="nav has-shadow">
+            <div className="container">
+              <div className="nav-left">
+                <div className="nav-item">
+                  <img src={logo} alt="logo"/>
+                </div>
               </div>
-            </div>
-            <div className="nav-right">
-              <h4 className="nav-item">You are signed out.</h4>
+              <div className="nav-right">
+                <h4 className="nav-item">You are signed out.</h4>
+              </div>
             </div>
           </nav>
           <br/>
