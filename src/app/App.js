@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
-import MessageList from './components/MessageList';
+import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
 
@@ -120,7 +120,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <MessageList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
+          <ScribeList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
         </div>
         <div id="user-signed-out" ref="userSignedOut">
           <nav className="nav has-shadow">

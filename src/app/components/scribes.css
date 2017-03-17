@@ -30,7 +30,7 @@
   color: green;
 }
 
-.message-image-rounded {
+.scribe-image-rounded {
   border-radius: 5px;
 }
 
@@ -65,7 +65,7 @@ form.box {
   background-color: #e5eaef;
 }
 
-.messages-padding {
+.scribes-padding {
   padding: 1vh;
 }
 
@@ -127,7 +127,7 @@ form.box {
   min-height: 0 !important;
 }
 
-.selected-message:hover {
+.selected-scribe:hover {
   background-color: whitesmoke;
   cursor: pointer;
 }

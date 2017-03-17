@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Rebase from 're-base';
-import "./messages.css";
+import "./scribes.css";
 
 const base = Rebase.createClass({apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY", authDomain: "react-chat-app-f64bb.firebaseapp.com", databaseURL: "https://react-chat-app-f64bb.firebaseio.com", storageBucket: "react-chat-app-f64bb.appspot.com", messagingSenderId: "962792118288"});
 
 const max_chars = 160;
 
-class AddMessage extends React.Component {
+class AddScribe extends React.Component {
 
   constructor(props) {
     super(props);
@@ -36,7 +36,7 @@ class AddMessage extends React.Component {
     e.preventDefault();
     let file = this.state.file;
     let userId = this.props.userEmail;
-    let messageText = ReactDOM.findDOMNode(this.refs.message).value;
+    let scribeText = ReactDOM.findDOMNode(this.refs.scribe).value;
     let datetime = this.state.date;
     let userName = this.props.userName;
     let userEmail = this.props.userEmail;
@@ -60,8 +60,8 @@ class AddMessage extends React.Component {
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
-          message: messageText,
-          messageImage: downloadURL,
+          scribe: scribeText,
+          scribeImage: downloadURL,
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
@@ -76,7 +76,7 @@ class AddMessage extends React.Component {
         let scribeKey = base.database().ref('msgList/').push().key;
         let updates = {};
         let scribeData = {
-          message: messageText,
+          scribe: scribeText,
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
@@ -87,12 +87,12 @@ class AddMessage extends React.Component {
       }
     }
 
-    ReactDOM.findDOMNode(this.refs.message).value = '';
+    ReactDOM.findDOMNode(this.refs.scribe).value = '';
     this.setState({chars_left: max_chars, file: '', imagePreviewUrl: ''});
   }
 
   handleCharacterCount() {
-    let input_chars = this.refs.message.value.length;
+    let input_chars = this.refs.scribe.value.length;
     this.setState({
       chars_left: max_chars - input_chars
     });
@@ -121,7 +121,7 @@ class AddMessage extends React.Component {
       $imagePreview = (
         <span>
           <a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
-          <img src={imagePreviewUrl} className="image is-128x128 message-image-rounded" alt={this.state.file.name}/>
+          <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
         </span>
       );
     } else {
@@ -135,15 +135,15 @@ class AddMessage extends React.Component {
               {(this.props.userPhoto === null)
                 ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                 : <figure className="image is-48x48">
-                  <img src={this.props.userPhoto} alt="profilePic" className="message-image-rounded"/>
+                  <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
             <div className="media-content">
               <div className="field">
                 <p className="control">
                   {$imagePreview}
-                  <textarea ref='message' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Sending message now...</span>
+                  <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
+                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Sending scribe now...</span>
                 </p>
               </div>
               <div className="pt">
@@ -178,4 +178,4 @@ class AddMessage extends React.Component {
 
 }
 
-export default AddMessage;
+export default AddScribe;

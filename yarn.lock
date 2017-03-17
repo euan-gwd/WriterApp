@@ -242,7 +242,7 @@ babel-core@6.22.1, babel-core@^6.0.0:
     babel-code-frame "^6.22.0"
     babel-generator "^6.22.0"
     babel-helpers "^6.22.0"
-    babel-messages "^6.22.0"
+    babel-scribes "^6.22.0"
     babel-register "^6.22.0"
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
@@ -266,7 +266,7 @@ babel-core@^6.24.0:
     babel-code-frame "^6.22.0"
     babel-generator "^6.24.0"
     babel-helpers "^6.23.0"
-    babel-messages "^6.23.0"
+    babel-scribes "^6.23.0"
     babel-register "^6.24.0"
     babel-runtime "^6.22.0"
     babel-template "^6.23.0"
@@ -297,7 +297,7 @@ babel-generator@^6.18.0, babel-generator@^6.22.0, babel-generator@^6.24.0:
   version "6.24.0"
   resolved "https://registry.yarnpkg.com/babel-generator/-/babel-generator-6.24.0.tgz#eba270a8cc4ce6e09a61be43465d7c62c1f87c56"
   dependencies:
-    babel-messages "^6.23.0"
+    babel-scribes "^6.23.0"
     babel-runtime "^6.22.0"
     babel-types "^6.23.0"
     detect-indent "^4.0.0"
@@ -403,7 +403,7 @@ babel-helper-replace-supers@^6.22.0, babel-helper-replace-supers@^6.23.0:
   resolved "https://registry.yarnpkg.com/babel-helper-replace-supers/-/babel-helper-replace-supers-6.23.0.tgz#eeaf8ad9b58ec4337ca94223bacdca1f8d9b4bfd"
   dependencies:
     babel-helper-optimise-call-expression "^6.23.0"
-    babel-messages "^6.23.0"
+    babel-scribes "^6.23.0"
     babel-runtime "^6.22.0"
     babel-template "^6.23.0"
     babel-traverse "^6.23.0"
@@ -433,9 +433,9 @@ babel-loader@6.2.10:
     mkdirp "^0.5.1"
     object-assign "^4.0.1"
 
-babel-messages@^6.22.0, babel-messages@^6.23.0:
+babel-scribes@^6.22.0, babel-scribes@^6.23.0:
   version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-messages/-/babel-messages-6.23.0.tgz#f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
+  resolved "https://registry.yarnpkg.com/babel-scribes/-/babel-scribes-6.23.0.tgz#f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
   dependencies:
     babel-runtime "^6.22.0"
 
@@ -533,7 +533,7 @@ babel-plugin-transform-es2015-classes@^6.6.0:
     babel-helper-function-name "^6.23.0"
     babel-helper-optimise-call-expression "^6.23.0"
     babel-helper-replace-supers "^6.23.0"
-    babel-messages "^6.23.0"
+    babel-scribes "^6.23.0"
     babel-runtime "^6.22.0"
     babel-template "^6.23.0"
     babel-traverse "^6.23.0"
@@ -856,7 +856,7 @@ babel-traverse@^6.15.0, babel-traverse@^6.18.0, babel-traverse@^6.22.0, babel-tr
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.23.1.tgz#d3cb59010ecd06a97d81310065f966b699e14f48"
   dependencies:
     babel-code-frame "^6.22.0"
-    babel-messages "^6.23.0"
+    babel-scribes "^6.23.0"
     babel-runtime "^6.22.0"
     babel-types "^6.23.0"
     babylon "^6.15.0"
@@ -3844,7 +3844,7 @@ postcss-calc@^5.2.0:
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-5.3.1.tgz#77bae7ca928ad85716e2fda42f261bf7c1d65b5e"
   dependencies:
     postcss "^5.0.2"
-    postcss-message-helpers "^2.0.0"
+    postcss-scribe-helpers "^2.0.0"
     reduce-css-calc "^1.2.6"
 
 postcss-colormin@^2.1.8:
@@ -3956,9 +3956,9 @@ postcss-merge-rules@^2.0.3:
     postcss-selector-parser "^2.2.2"
     vendors "^1.0.0"
 
-postcss-message-helpers@^2.0.0:
+postcss-scribe-helpers@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-message-helpers/-/postcss-message-helpers-2.0.0.tgz#a4f2f4fab6e4fe002f0aed000478cdf52f9ba60e"
+  resolved "https://registry.yarnpkg.com/postcss-scribe-helpers/-/postcss-scribe-helpers-2.0.0.tgz#a4f2f4fab6e4fe002f0aed000478cdf52f9ba60e"
 
 postcss-minify-font-values@^1.0.2:
   version "1.0.5"

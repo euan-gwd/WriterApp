@@ -1,15 +1,15 @@
 import React from 'react';
 import Rebase from 're-base';
-import AddMessage from './AddMessage';
-import Message from './Message';
+import AddScribe from './AddScribe';
+import Scribe from './Scribe';
 
 const base = Rebase.createClass({apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY", authDomain: "react-chat-app-f64bb.firebaseapp.com", databaseURL: "https://react-chat-app-f64bb.firebaseio.com", storageBucket: "react-chat-app-f64bb.appspot.com", messagingSenderId: "962792118288"});
 
-class MessageList extends React.Component {
+class ScribeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [],
+      scribes: [],
       loading: true
     };
   };
@@ -17,7 +17,7 @@ class MessageList extends React.Component {
   componentDidMount() {
     this.ref = base.syncState('msgList', {
       context: this,
-      state: 'messages',
+      state: 'scribes',
       asArray: true,
       then() {
         this.setState({loading: false})
@@ -29,50 +29,50 @@ class MessageList extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  deleteMessage(item, e) {
+  deleteScribe(item, e) {
     e.stopPropagation();
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
-    let imgRef = item.messageImage;
-    let messageUID = item.userName;
+    let imgRef = item.scribeImage;
+    let scribeUID = item.userName;
     let currentUID = this.props.userName;
-    if (item.hasOwnProperty("messageImage")) {
+    if (item.hasOwnProperty("scribeImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
-      if (messageUID === currentUID) {
+      if (scribeUID === currentUID) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
-      if (messageUID === currentUID) {
+      if (scribeUID === currentUID) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
   }
 
-  editMessage(item, e) {
+  editScribe(item, e) {
     e.stopPropagation();
     console.log(item);
     // let msgListRef = base.database().ref('msgList/');
     // let itemId = item.key;
-    // let imgRef = item.messageImage;
-    // let messageUID = item.userName;
+    // let imgRef = item.scribeImage;
+    // let scribeUID = item.userName;
     // let currentUID = this.props.userName;
-    // // if (item.hasOwnProperty("messageImage")) {
+    // // if (item.hasOwnProperty("scribeImage")) {
     //   let deleteImgRef = base.storage().refFromURL(imgRef);
-    //   if (messageUID === currentUID) {
+    //   if (scribeUID === currentUID) {
     //     // msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
     //     // deleteImgRef.delete(); //removes item from storageBucket
     //   }
     // } else {
-    //   if (messageUID === currentUID) {
+    //   if (scribeUID === currentUID) {
     //     // msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
     //   }
     // }
   }
 
   render() {
-    let messages = this.state.messages.map((item) => {
-      return (<Message thread={item} removeMessage={this.deleteMessage.bind(this, item)} modifyMessage={this.editMessage.bind(this, item)} key={item.key}/>);
+    let scribes = this.state.scribes.map((item) => {
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} modifyScribe={this.editScribe.bind(this, item)} key={item.key}/>);
     })
 
     return (
@@ -85,12 +85,12 @@ class MessageList extends React.Component {
               </span>
             </div>
           : <div className="panel">
-            <AddMessage msgList={this.state.messages} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block"/>
-            <ul className="">{messages}</ul>
+            <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block"/>
+            <ul className="">{scribes}</ul>
           </div>}
       </div>
     );
   }
 }
 
-export default MessageList;
+export default ScribeList;
