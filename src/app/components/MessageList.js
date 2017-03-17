@@ -35,15 +35,14 @@ class MessageList extends React.Component {
     let itemId = item.key;
     let imgRef = item.messageImage;
     let messageUID = item.userName;
-    if (item.hasOwnProperty(imgRef)) {
+    let currentUID = this.props.userName;
+    if (item.hasOwnProperty("messageImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
-      let currentUID = this.props.userName;
       if (messageUID === currentUID) {
-        deleteImgRef.delete(); //removes item from storageBucket
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
-      let currentUID = this.props.userName;
       if (messageUID === currentUID) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
