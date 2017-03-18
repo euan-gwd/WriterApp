@@ -47,11 +47,9 @@ class AddScribe extends React.Component {
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', function (snapshot) {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        if (progress < 100) {
-          document.getElementById('uploadBar').style.display = 'block';
-        } else {
-          document.getElementById('uploadBar').style.display = 'none';
-        }
+        (progress < 100)
+          ? document.getElementById('uploadBar').style.display = 'block'
+          : document.getElementById('uploadBar').style.display = 'none';
       }, function (error) {
         // Handle unsuccessful uploads
       }, function () {
@@ -143,7 +141,7 @@ class AddScribe extends React.Component {
                 <p className="control">
                   {$imagePreview}
                   <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Sending scribe now...</span>
+                  <span className="help is-primary has-text-centered" id="uploadBar">Sending scribe now...</span>
                 </p>
               </div>
               <div className="pt">

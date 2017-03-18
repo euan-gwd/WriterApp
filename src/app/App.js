@@ -1,16 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import firebaseui from 'firebaseui';
 import Rebase from 're-base';
 import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
 
-const base = Rebase.createClass({apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY", authDomain: "react-chat-app-f64bb.firebaseapp.com", databaseURL: "https://react-chat-app-f64bb.firebaseio.com", storageBucket: "react-chat-app-f64bb.appspot.com", messagingSenderId: "962792118288"});
+const base = Rebase.createClass({
+  apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
+  authDomain: "react-chat-app-f64bb.firebaseapp.com",
+  databaseURL: "https://react-chat-app-f64bb.firebaseio.com",
+  storageBucket: "react-chat-app-f64bb.appspot.com",
+  messagingSenderId: "962792118288"
+});
 
 const uiConfig = {
   callbacks: {
-    'signInSuccess': function (user) {
+    'signInSuccess': function(user) {
       this.handleSignIn(user);
       return false;
     }
@@ -35,29 +40,51 @@ class App extends React.Component {
 
   handleSignedInUser = (user) => {
     currentUid = user.uid;
-    ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'block';
-    ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'none';
-    ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'block';
-    this.setState({currentUserName: user.displayName, currentUserEmail: user.email, currentUserPhoto: user.photoURL});
+    this.setState({
+      currentUserName: user.displayName,
+      currentUserEmail: user.email,
+      currentUserPhoto: user.photoURL,
+      userSignedIn: 'show',
+      userSignedOut: 'hide',
+      profilePic: 'show'
+    });
   }
 
   handleSignedOutUser = () => {
     currentUid = null;
-    ReactDOM.findDOMNode(this.refs.userSignedIn).style.display = 'none';
-    ReactDOM.findDOMNode(this.refs.userSignedOut).style.display = 'block';
-    ReactDOM.findDOMNode(this.refs.profilePic).style.display = 'none';
-    this.setState({currentUserName: null, currentUserEmail: null, currentUserPhoto: null});
-    base.unauth();
+    this.setState({
+      currentUserName: null,
+      currentUserEmail: null,
+      currentUserPhoto: null,
+      userSignedIn: 'hide',
+      userSignedOut: 'show',
+      profilePic: 'hide'
+    });
+    base.auth().signOut();
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 
   initApp() {
     base.auth().onAuthStateChanged((user) => {
       if (user && user.id === currentUid) {
-        this.setState({currentUserName: user.displayName, currentUserEmail: user.email, currentUserPhoto: user.photoURL});
+        this.setState({
+          currentUserName: user.displayName,
+          currentUserEmail: user.email,
+          currentUserPhoto: user.photoURL,
+          userSignedIn: 'show',
+          userSignedOut: 'hide',
+          profilePic: 'show'
+        });
         return;
       } else {
-        this.setState({currentUserName: null, currentUserEmail: null, currentUserPhoto: null});
+        this.setState({
+          currentUserName: null,
+          currentUserEmail: null,
+          currentUserPhoto: null,
+          userSignedIn: 'hide',
+          userSignedOut: 'show',
+          profilePic: 'hide'
+        });
       }
       user
         ? this.handleSignedInUser(user)
@@ -72,7 +99,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div id="user-signed-in" ref="userSignedIn">
+        <div id="user-signed-in" ref="userSignedIn" className={`user-signed-in ${this.state.userSignedIn}`}>
           <nav className="nav has-shadow">
             <div className="container is-fluid">
               <div className="nav-left">
@@ -80,13 +107,13 @@ class App extends React.Component {
                   <span className="icon">
                     <i className="fa fa-home fa-fw"></i>
                   </span>
-                  <span>&nbsp; Home</span>
+                  <span>  Home</span>
                 </a>
                 <a className="nav-item is-tab">
                   <span className="icon">
                     <i className="fa fa-comments-o fa-fw"></i>
                   </span>
-                  <span>&nbsp; Messages</span>
+                  <span>  Messages</span>
                 </a>
               </div>
               <div className="nav-center">
@@ -97,10 +124,10 @@ class App extends React.Component {
               </div>
               <div className="nav-right">
                 <a className="nav-item is-tab">
-                  <div id="profilePic" ref="profilePic" className="">
+                  <div id="profilePic" ref="profilePic" className={this.state.profilePic}>
                     {(this.state.currentUserPhoto)
-                      ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
-                      : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
+        ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
+        : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
                   </div>
                 </a>
                 <div className="nav-item">
@@ -116,7 +143,7 @@ class App extends React.Component {
           </nav>
           <ScribeList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
         </div>
-        <div id="user-signed-out" ref="userSignedOut">
+        <div id="user-signed-out" ref="userSignedOut" className={`user-signed-out ${this.state.userSignedOut}`}>
           <nav className="nav has-shadow">
             <div className="container">
               <div className="nav-left">
@@ -135,7 +162,7 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-    );
+      );
   }
 }
 
