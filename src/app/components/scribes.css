@@ -1,133 +1,148 @@
 .fa-times {
-  color: grey;
+    color: grey;
 }
 
 .fa-times:hover {
-  color: red;
+    color: red;
 }
 
 .fa-reply {
-  color: grey;
+    color: grey;
 }
 
 .fa-reply:hover {
-  color: blue;
+    color: blue;
 }
 
 .fa-pencil {
-  color: grey;
+    color: grey;
 }
 
 .fa-pencil:hover {
-  color: limegreen;
+    color: limegreen;
 }
 
 .fa-star {
-  color: grey;
+    color: grey;
 }
 
 .fa-star:hover {
-  color: green;
+    color: green;
 }
 
 .scribe-image-rounded {
-  border-radius: 5px;
+    border-radius: 5px;
 }
 
 .centered-main {
-  display: flex;
-  padding-top: 1vh;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  width: 80vw;
+    display: flex;
+    padding-top: 1vh;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
 }
 
 .centered {
-  display: flex;
-  min-height: 100vh;
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+    display: flex;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .panel {
-  min-width: 60vw;
+    min-width: 60vw;
 }
 
 .media {
-  width: 100%;
+    width: 100%;
 }
 
 form.box {
-  background-color: #e5eaef;
+    background-color: #e5eaef;
 }
 
 .scribes-padding {
-  padding: 1vh;
+    padding: 1vh;
 }
 
 .pt {
-  padding-top: 0.5vh;
+    padding-top: 0.5vh;
 }
 
 .pr-1 {
-  padding-right: 1vw;
+    padding-right: 1vw;
 }
 
 .pr {
-  padding-right: 0.5vw;
+    padding-right: 0.5vw;
 }
 
 .px-1 {
-  padding: 1vh 0;
+    padding: 1vh 0;
 }
 
 .char-count {
-  align-self: center;
+    align-self: center;
 }
 
 .char-count-focus {
-  color: #00d1b2;
+    color: #00d1b2;
 }
 
 .imagePreview {
-  padding: 0 0.5vw;
+    padding: 0 0.5vw;
 }
 
 .upload-image-remove {
-  position: relative;
-  left: 9vw;
-  padding: 0;
-  z-index: 2;
+    position: relative;
+    left: 9vw;
+    padding: 0;
+    z-index: 2;
 }
 
 .input-file {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 .remove-image {
-  top: 5vh;
-  left: 9vw;
-  z-index: 2;
+    top: 5vh;
+    left: 9vw;
+    z-index: 2;
 }
 
 #uploadBar {
-  display: none;
+    display: none;
 }
 
 .textarea {
-  min-height: 0 !important;
+    min-height: 0 !important;
 }
 
 .selected-scribe:hover {
-  background-color: whitesmoke;
-  cursor: pointer;
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.upload-bar {
+    color: #00d1b2;
+    text-align: center;
+}
+
+.invisible {
+    visibility: hidden;
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+    display: block;
 }

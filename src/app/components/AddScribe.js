@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 import Rebase from 're-base';
 import "./scribes.css";
 
-const base = Rebase.createClass({apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY", authDomain: "react-chat-app-f64bb.firebaseapp.com", databaseURL: "https://react-chat-app-f64bb.firebaseio.com", storageBucket: "react-chat-app-f64bb.appspot.com", messagingSenderId: "962792118288"});
+const base = Rebase.createClass({
+  apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
+  authDomain: "react-chat-app-f64bb.firebaseapp.com",
+  databaseURL: "https://react-chat-app-f64bb.firebaseio.com",
+  storageBucket: "react-chat-app-f64bb.appspot.com",
+  messagingSenderId: "962792118288"
+});
 
 const max_chars = 160;
 
@@ -16,7 +22,8 @@ class AddScribe extends React.Component {
       date: new Date().toLocaleString(),
       file: '',
       imagePreviewUrl: '',
-      imageUrl: ''
+      imageUrl: '',
+      uploadBar: 'invisible'
     };
   }
 
@@ -29,7 +36,9 @@ class AddScribe extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({
+      date: new Date().toLocaleString()
+    });
   }
 
   handleSubmit(e) {
@@ -45,14 +54,21 @@ class AddScribe extends React.Component {
     if (file !== '' && this.state.chars_left >= 0) {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', function (snapshot) {
+      uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // (progress < 100)
+        //   ? document.getElementById('uploadBar').style.display = 'block'
+        //   : document.getElementById('uploadBar').style.display = 'none';
         (progress < 100)
-          ? document.getElementById('uploadBar').style.display = 'block'
-          : document.getElementById('uploadBar').style.display = 'none';
-      }, function (error) {
+          ? this.setState({
+            uploadBar: 'visible'
+          })
+          : this.setState({
+            uploadBar: 'invisible'
+          });
+      }, (error) => {
         // Handle unsuccessful uploads
-      }, function () {
+      }, () => {
         // Handle successful uploads on complete
         let scribeKey = base.database().ref('msgList/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
@@ -67,7 +83,10 @@ class AddScribe extends React.Component {
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        document.getElementById('uploadBar').style.display = 'none';
+        // document.getElementById('uploadBar').style.display = 'none';
+        this.setState({
+          uploadBar: 'invisible'
+        });
       });
     } else {
       if (this.state.chars_left >= 0) {
@@ -86,7 +105,11 @@ class AddScribe extends React.Component {
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({chars_left: max_chars, file: '', imagePreviewUrl: ''});
+    this.setState({
+      chars_left: max_chars,
+      file: '',
+      imagePreviewUrl: ''
+    });
   }
 
   handleCharacterCount() {
@@ -101,7 +124,10 @@ class AddScribe extends React.Component {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
-      this.setState({file: file, imagePreviewUrl: reader.result});
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
     }
     reader.readAsDataURL(file)
   }
@@ -109,7 +135,10 @@ class AddScribe extends React.Component {
   removeImgUpload = (e) => {
     e.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({file: '', imagePreviewUrl: ''});
+    this.setState({
+      file: '',
+      imagePreviewUrl: ''
+    });
   }
 
   render() {
@@ -131,8 +160,8 @@ class AddScribe extends React.Component {
           <article className="media">
             <div className="media-left">
               {(this.props.userPhoto === null)
-                ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                   <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
@@ -141,7 +170,7 @@ class AddScribe extends React.Component {
                 <p className="control">
                   {$imagePreview}
                   <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar">Sending scribe now...</span>
+                  <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
                 </p>
               </div>
               <div className="pt">
@@ -171,7 +200,7 @@ class AddScribe extends React.Component {
           </article>
         </form>
       </div>
-    );
+      );
   }
 
 }
