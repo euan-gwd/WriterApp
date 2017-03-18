@@ -3,7 +3,7 @@
 }
 
 .fa-times:hover {
-    color: black;
+    color: red;
 }
 
 .fa-reply {
@@ -14,20 +14,24 @@
     color: blue;
 }
 
-.fa-retweet {
+.fa-pencil {
     color: grey;
 }
 
-.fa-retweet:hover {
+.fa-pencil:hover {
     color: limegreen;
 }
 
-.fa-heart {
+.fa-star {
     color: grey;
 }
 
-.fa-heart:hover {
-    color: darkred;
+.fa-star:hover {
+    color: green;
+}
+
+.scribe-image-rounded {
+    border-radius: 5px;
 }
 
 .centered-main {
@@ -58,19 +62,35 @@
 }
 
 form.box {
-    background-color: #E5EAEF;
+    background-color: #e5eaef;
 }
 
-.messages-padding {
+.scribes-padding {
     padding: 1vh;
 }
 
-nav.level {
-    padding-top: 2vh;
+.pt {
+    padding-top: 0.5vh;
 }
 
-.px-2 {
-    padding: 0 2vw;
+.pr-1 {
+    padding-right: 1vw;
+}
+
+.pr {
+    padding-right: 0.5vw;
+}
+
+.px-1 {
+    padding: 1vh 0;
+}
+
+.char-count {
+    align-self: center;
+}
+
+.char-count-focus {
+    color: #00d1b2;
 }
 
 .imagePreview {
@@ -82,10 +102,6 @@ nav.level {
     left: 9vw;
     padding: 0;
     z-index: 2;
-}
-
-.new-message-box {
-    margin: 1vh;
 }
 
 .input-file {
@@ -105,4 +121,28 @@ nav.level {
 
 #uploadBar {
     display: none;
+}
+
+.textarea {
+    min-height: 0 !important;
+}
+
+.selected-scribe:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.upload-bar {
+    color: #00d1b2;
+    text-align: center;
+}
+
+.invisible {
+    visibility: hidden;
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+    display: block;
 }
