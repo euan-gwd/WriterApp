@@ -107,13 +107,13 @@ class App extends React.Component {
                   <span className="icon">
                     <i className="fa fa-home fa-fw"></i>
                   </span>
-                  <span>  Home</span>
+                  <span>&nbsp;&nbsp;Home</span>
                 </a>
                 <a className="nav-item is-tab">
                   <span className="icon">
                     <i className="fa fa-comments-o fa-fw"></i>
                   </span>
-                  <span>  Messages</span>
+                  <span>&nbsp;&nbsp;Messages</span>
                 </a>
               </div>
               <div className="nav-center">
