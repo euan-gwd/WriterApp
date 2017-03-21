@@ -36,7 +36,7 @@ class Scribe extends React.Component {
                 <a className="pr-1">
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
-                <a className="pr-1" onClick={this.props.modifyScribe.bind(null)}>
+                <a className="pr-1">
                   <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                 </a>
                 <small className="has-text-right">{this.props.thread.datetime}</small>

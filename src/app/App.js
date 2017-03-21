@@ -1,17 +1,9 @@
 import React from 'react';
 import firebaseui from 'firebaseui';
-import Rebase from 're-base';
+import base from './rebase.config';
 import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
-
-const base = Rebase.createClass({
-  apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
-  authDomain: "react-chat-app-f64bb.firebaseapp.com",
-  databaseURL: "https://react-chat-app-f64bb.firebaseio.com",
-  storageBucket: "react-chat-app-f64bb.appspot.com",
-  messagingSenderId: "962792118288"
-});
 
 const uiConfig = {
   callbacks: {
