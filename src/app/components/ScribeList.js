@@ -1,9 +1,7 @@
 import React from 'react';
-import Rebase from 're-base';
+import base from '../rebase.config';
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
-
-const base = Rebase.createClass({apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY", authDomain: "react-chat-app-f64bb.firebaseapp.com", databaseURL: "https://react-chat-app-f64bb.firebaseio.com", storageBucket: "react-chat-app-f64bb.appspot.com", messagingSenderId: "962792118288"});
 
 class ScribeList extends React.Component {
   constructor(props) {
@@ -15,7 +13,7 @@ class ScribeList extends React.Component {
   };
 
   componentDidMount() {
-    this.ref = base.syncState('msgList', {
+    this.ref = base.bindToState('msgList', {
       context: this,
       state: 'scribes',
       asArray: true,
