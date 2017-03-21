@@ -52,22 +52,13 @@ class ScribeList extends React.Component {
   editScribe(item, e) {
     e.stopPropagation();
     console.log(item);
-    // let msgListRef = base.database().ref('msgList/');
-    // let itemId = item.key;
-    // let imgRef = item.scribeImage;
-    // let scribeUID = item.userName;
-    // let currentUID = this.props.userName;
-    // // if (item.hasOwnProperty("scribeImage")) {
-    //   let deleteImgRef = base.storage().refFromURL(imgRef);
-    //   if (scribeUID === currentUID) {
-    //     // msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
-    //     // deleteImgRef.delete(); //removes item from storageBucket
-    //   }
-    // } else {
-    //   if (scribeUID === currentUID) {
-    //     // msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
-    //   }
-    // }
+    //todo... edit selected scribe
+  }
+
+  replyToScribe(item, e) {
+    e.stopPropagation();
+    console.log(item);
+    //todo...reply to selected scribe
   }
 
   render() {
