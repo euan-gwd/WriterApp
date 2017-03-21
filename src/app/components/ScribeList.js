@@ -47,21 +47,9 @@ class ScribeList extends React.Component {
     }
   }
 
-  editScribe(item, e) {
-    e.stopPropagation();
-    console.log(item);
-    //todo... edit selected scribe
-  }
-
-  replyToScribe(item, e) {
-    e.stopPropagation();
-    console.log(item);
-    //todo...reply to selected scribe
-  }
-
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} modifyScribe={this.editScribe.bind(this, item)} key={item.key}/>);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
     })
 
     return (
