@@ -26,7 +26,9 @@ class EditScribe extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({
+      date: new Date().toLocaleString()
+    });
   }
 
   handleSubmit(e) {
@@ -36,24 +38,42 @@ class EditScribe extends React.Component {
     let userName = this.props.currentScribe.userName;
     let userEmail = this.props.currentScribe.userEmail;
     let userPhoto = this.props.currentScribe.userPhoto;
-				let charCount = this.state.charsUsed;
-				let scribeKeyRef = this.props.currentScribe.key;
+    let imageRef = this.props.currentScribe.scribeImage;
+    let charCount = this.state.charsUsed;
+    let scribeKeyRef = this.props.currentScribe.key;
     if (this.state.charsLeft >= 0) {
-      let updates = {};
-      let scribeData = {
-        scribe: scribeText,
-        datetime: datetime,
-        userName: userName,
-        userEmail: userEmail,
-        userPhoto: userPhoto,
-								scribeCharCount: charCount
+      if (imageRef === undefined) {
+        let updates = {};
+        let scribeData = {
+          scribe: scribeText,
+          datetime: datetime,
+          userName: userName,
+          userEmail: userEmail,
+          userPhoto: userPhoto,
+          scribeCharCount: charCount
+        }
+        updates['/msgList/' + scribeKeyRef] = scribeData;
+        base.database().ref().update(updates);
+      } else {
+        let updates = {};
+        let scribeData = {
+          scribe: scribeText,
+          datetime: datetime,
+          userName: userName,
+          userEmail: userEmail,
+          userPhoto: userPhoto,
+          scribeImage: imageRef,
+          scribeCharCount: charCount
+        }
+        updates['/msgList/' + scribeKeyRef] = scribeData;
+        base.database().ref().update(updates);
       }
-      updates['/msgList/' + scribeKeyRef] = scribeData;
-      base.database().ref().update(updates);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({charsLeft: max_chars});
+    this.setState({
+      charsLeft: max_chars
+    });
   }
 
   handleCharacterCount() {
@@ -62,22 +82,24 @@ class EditScribe extends React.Component {
     let chars_used = currentChars + input_chars;
     this.setState({
       charsLeft: max_chars - chars_used,
-						charsUsed: chars_used
+      charsUsed: chars_used
     });
   }
 
   handleInput(evt) {
-    this.setState({scribeText: evt.target.value})
+    this.setState({
+      scribeText: evt.target.value
+    })
   }
 
   render() {
     return (
-        <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit.bind(this)}>
           <article className="media flat-box">
             <div className="media-left">
               {(this.props.currentScribe.userPhoto === null)
-                ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                   <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
@@ -106,9 +128,8 @@ class EditScribe extends React.Component {
             </div>
           </article>
         </form>
-    );
+      );
   }
-
 }
 
 export default EditScribe;
