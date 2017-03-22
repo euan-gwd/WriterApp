@@ -36,20 +36,20 @@ class EditScribe extends React.Component {
     let userName = this.props.currentScribe.userName;
     let userEmail = this.props.currentScribe.userEmail;
     let userPhoto = this.props.currentScribe.userPhoto;
-
+				let charCount = this.state.charsUsed;
+				let scribeKeyRef = this.props.currentScribe.key;
     if (this.state.charsLeft >= 0) {
-      // let scribeReplyKey = base.database().ref('msgList/').push().key;
-      // let updates = {};
+      let updates = {};
       let scribeData = {
         scribe: scribeText,
         datetime: datetime,
         userName: userName,
         userEmail: userEmail,
-        userPhoto: userPhoto
+        userPhoto: userPhoto,
+								scribeCharCount: charCount
       }
-						console.log(scribeData);
-      // updates['/msgList/' + scribeReplyKey] = scribeData;
-      // base.database().ref().update(updates);
+      updates['/msgList/' + scribeKeyRef] = scribeData;
+      base.database().ref().update(updates);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
@@ -61,7 +61,8 @@ class EditScribe extends React.Component {
     let currentChars = this.state.currentChars;
     let chars_used = currentChars + input_chars;
     this.setState({
-      charsLeft: max_chars - chars_used
+      charsLeft: max_chars - chars_used,
+						charsUsed: chars_used
     });
   }
 
