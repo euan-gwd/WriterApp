@@ -28,9 +28,7 @@ class AddScribe extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toLocaleString()
-    });
+    this.setState({date: new Date().toLocaleString()});
   }
 
   handleSubmit(e) {
@@ -42,6 +40,7 @@ class AddScribe extends React.Component {
     let userName = this.props.userName;
     let userEmail = this.props.userEmail;
     let userPhoto = this.props.userPhoto;
+    let charCount = this.state.chars_used;
 
     if (file !== '' && this.state.chars_left >= 0) {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
@@ -49,12 +48,8 @@ class AddScribe extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({
-            uploadBar: 'visible'
-          })
-          : this.setState({
-            uploadBar: 'invisible'
-          });
+          ? this.setState({uploadBar: 'visible'})
+          : this.setState({uploadBar: 'invisible'});
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -68,13 +63,12 @@ class AddScribe extends React.Component {
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          scribeCharCount: charCount
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({
-          uploadBar: 'invisible'
-        });
+        this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (this.state.chars_left >= 0) {
@@ -85,7 +79,8 @@ class AddScribe extends React.Component {
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          scribeCharCount: charCount
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
@@ -93,17 +88,14 @@ class AddScribe extends React.Component {
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({
-      chars_left: max_chars,
-      file: '',
-      imagePreviewUrl: ''
-    });
+    this.setState({chars_left: max_chars, file: '', imagePreviewUrl: ''});
   }
 
   handleCharacterCount() {
     let input_chars = this.refs.scribe.value.length;
     this.setState({
-      chars_left: max_chars - input_chars
+      chars_left: max_chars - input_chars,
+						chars_used: input_chars
     });
   }
 
@@ -112,10 +104,7 @@ class AddScribe extends React.Component {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
+      this.setState({file: file, imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(file)
   }
@@ -123,10 +112,7 @@ class AddScribe extends React.Component {
   removeImgUpload = (e) => {
     e.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({
-      file: '',
-      imagePreviewUrl: ''
-    });
+    this.setState({file: '', imagePreviewUrl: ''});
   }
 
   render() {
@@ -148,8 +134,8 @@ class AddScribe extends React.Component {
           <article className="media">
             <div className="media-left">
               {(this.props.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
+                ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                : <figure className="image is-48x48">
                   <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
@@ -188,7 +174,7 @@ class AddScribe extends React.Component {
           </article>
         </form>
       </div>
-      );
+    );
   }
 
 }

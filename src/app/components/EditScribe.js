@@ -10,11 +10,10 @@ class EditScribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chars_left: max_chars,
-      date: new Date().toLocaleString(),
-      file: '',
-      imagePreviewUrl: '',
-      imageUrl: ''
+      charsLeft: max_chars - this.props.charCount,
+      currentChars: this.props.charCount,
+      scribeText: this.props.currentScribe.scribe,
+      date: new Date().toLocaleString()
     };
   }
 
@@ -32,137 +31,73 @@ class EditScribe extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let file = this.state.file;
-    let userId = this.props.userEmail;
-    let scribeText = ReactDOM.findDOMNode(this.refs.scribe).value;
+    let scribeText = this.state.scribeText;
     let datetime = this.state.date;
-    let userName = this.props.userName;
-    let userEmail = this.props.userEmail;
-    let userPhoto = this.props.userPhoto;
+    let userName = this.props.currentScribe.userName;
+    let userEmail = this.props.currentScribe.userEmail;
+    let userPhoto = this.props.currentScribe.userPhoto;
 
-    if (file !== '' && this.state.chars_left >= 0) {
-      let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
-      let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', function (snapshot) {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        if (progress < 100) {
-          document.getElementById('uploadBar').style.display = 'block';
-        } else {
-          document.getElementById('uploadBar').style.display = 'none';
-        }
-      }, function (error) {
-        // Handle unsuccessful uploads
-      }, function () {
-        // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/').push().key;
-        let downloadURL = uploadTask.snapshot.downloadURL;
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          scribeImage: downloadURL,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['/msgList/' + scribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
-        document.getElementById('uploadBar').style.display = 'none';
-      });
-    } else {
-      if (this.state.chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/').push().key;
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['/msgList/' + scribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+    if (this.state.charsLeft >= 0) {
+      // let scribeReplyKey = base.database().ref('msgList/').push().key;
+      // let updates = {};
+      let scribeData = {
+        scribe: scribeText,
+        datetime: datetime,
+        userName: userName,
+        userEmail: userEmail,
+        userPhoto: userPhoto
       }
+						console.log(scribeData);
+      // updates['/msgList/' + scribeReplyKey] = scribeData;
+      // base.database().ref().update(updates);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({chars_left: max_chars, file: '', imagePreviewUrl: ''});
+    this.setState({charsLeft: max_chars});
   }
 
   handleCharacterCount() {
     let input_chars = this.refs.scribe.value.length;
+    let currentChars = this.state.currentChars;
+    let chars_used = currentChars + input_chars;
     this.setState({
-      chars_left: max_chars - input_chars
+      charsLeft: max_chars - chars_used
     });
   }
 
-  handleImgUpload = (e) => {
-    e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      this.setState({file: file, imagePreviewUrl: reader.result});
-    }
-    reader.readAsDataURL(file)
-  }
-
-  removeImgUpload = (e) => {
-    e.preventDefault();
-    ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({file: '', imagePreviewUrl: ''});
+  handleInput(evt) {
+    this.setState({scribeText: evt.target.value})
   }
 
   render() {
-    let $imagePreview = null;
-    let {imagePreviewUrl} = this.state;
-    if (imagePreviewUrl) {
-      $imagePreview = (
-        <span>
-          <a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
-          <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
-        </span>
-      );
-    } else {
-      $imagePreview = null;
-    }
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className='box'>
-          <article className="media">
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <article className="media flat-box">
             <div className="media-left">
-              {(this.props.userPhoto === null)
+              {(this.props.currentScribe.userPhoto === null)
                 ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                 : <figure className="image is-48x48">
-                  <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                  <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
             <div className="media-content">
               <div className="field">
                 <p className="control">
-                  {$imagePreview}
-                  <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Sending scribe now...</span>
+                  <textarea ref='scribe' defaultValue={this.state.scribeText} className='textarea' onBlur={this.handleInput.bind(this)} onChange={this.handleCharacterCount.bind(this)} required/>
+                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>
                 </p>
               </div>
               <div className="pt">
                 <div className="columns is-mobile is-gapless">
-                  <div className="column is-narrow">
-                    <div className="control">
-                      <input type="file" accept="image/*" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload}/>
-                      <label htmlFor="fileUpload" className="button is-light" type="button">
-                        <i className="fa fa-camera" aria-hidden="true"/>
-                      </label>
-                    </div>
-                  </div>
                   <div className="column has-text-right char-count">
-                    <div className="pr">{this.state.chars_left}</div>
+                    <div className="pr">{this.state.charsLeft}</div>
                   </div>
                   <div className="column is-narrow">
                     <button className="button is-info" type="submit">
                       <span className="icon">
                         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                       </span>
-                      <span>Scribe</span>
+                      <span>Update</span>
                     </button>
                   </div>
                 </div>
@@ -170,7 +105,6 @@ class EditScribe extends React.Component {
             </div>
           </article>
         </form>
-      </div>
     );
   }
 

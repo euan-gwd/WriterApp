@@ -1,4 +1,5 @@
 import React from 'react';
+import EditScribe from './EditScribe';
 import './scribes.css';
 
 class Scribe extends React.Component {
@@ -42,6 +43,7 @@ class Scribe extends React.Component {
                 <small className="has-text-right">{this.props.thread.datetime}</small>
               </div>
             </div>
+												<EditScribe currentScribe={this.props.thread} charCount={this.props.thread.scribeCharCount} />
           </div>
         </article>
       </div>
