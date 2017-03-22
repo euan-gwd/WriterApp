@@ -12,6 +12,7 @@ class EditScribe extends React.Component {
     this.state = {
       charsLeft: max_chars - this.props.charCount,
       currentChars: this.props.charCount,
+      checked: this.props.initialChecked,
       scribeText: this.props.currentScribe.scribe,
       date: new Date().toLocaleString()
     };
@@ -71,9 +72,12 @@ class EditScribe extends React.Component {
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
+    const newState = !this.state.checked;
     this.setState({
-      charsLeft: max_chars
+      charsLeft: max_chars,
+      checked: newState
     });
+    this.props.callbackParent(newState);
   }
 
   handleCharacterCount() {
