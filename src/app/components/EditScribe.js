@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import base from '../rebase.config';
 import "./scribes.css";
 
-const max_chars = 160;
-
 class EditScribe extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      charsLeft: max_chars - this.props.charCount,
+					 charsLeft: 160,
       currentChars: this.props.charCount,
       checked: this.props.initialChecked,
       scribeText: this.props.currentScribe.scribe,
@@ -27,9 +25,7 @@ class EditScribe extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toLocaleString()
-    });
+    this.setState({date: new Date().toLocaleString()});
   }
 
   handleSubmit(e) {
@@ -73,66 +69,62 @@ class EditScribe extends React.Component {
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.checked;
-    this.setState({
-      charsLeft: max_chars,
-      checked: newState
-    });
+    this.setState({charsLeft: 160, checked: newState});
     this.props.callbackParent(newState);
   }
 
   handleCharacterCount() {
-    let input_chars = this.refs.scribe.value.length;
+    let inputChars = this.refs.scribe.value.length;
+				console.log(inputChars);
     let currentChars = this.state.currentChars;
-    let chars_used = currentChars + input_chars;
-    this.setState({
-      charsLeft: max_chars - chars_used,
-      charsUsed: chars_used
-    });
+				console.log(currentChars);
+    let chars_used = currentChars + inputChars;
+				console.log(chars_used);
+    let chars_left = 160 - chars_used;
+    this.setState({charsLeft: chars_left, charsUsed: chars_used});
   }
 
   handleInput(evt) {
-    this.setState({
-      scribeText: evt.target.value
-    })
+    this.setState({scribeText: evt.target.value})
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-          <article className="media flat-box">
-            <div className="media-left">
-              {(this.props.currentScribe.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
-                  <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
-                </figure>}
+        <article className="media flat-box">
+          <div className="media-left">
+            {(this.props.currentScribe.userPhoto === null)
+              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+              : <figure className="image is-48x48">
+                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+              </figure>}
+          </div>
+          <div className="media-content">
+            <div className="field">
+              <p className="control">
+                <textarea ref='scribe' defaultValue={this.state.scribeText} className='textarea' onBlur={this.handleInput.bind(this)} onChange={this.handleCharacterCount.bind(this)} required/>
+                <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>
+              </p>
             </div>
-            <div className="media-content">
-              <div className="field">
-                <p className="control">
-                  <textarea ref='scribe' defaultValue={this.state.scribeText} className='textarea' onBlur={this.handleInput.bind(this)} onChange={this.handleCharacterCount.bind(this)} required/>
-                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>
-                </p>
-              </div>
-              <div className="pt">
-                <div className="columns is-mobile is-gapless">
-                  <div className="column has-text-right char-count">
-                    <div className="pr">{this.state.charsLeft}</div>
-                  </div>
-                  <div className="column is-narrow">
-                    <button className="button is-info" type="submit">
-                      <span className="icon">
-                        <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
-                      </span>
-                      <span>Update</span>
-                    </button>
-                  </div>
+            <div className="pt">
+              <div className="columns is-mobile is-gapless">
+                <div className="column has-text-right char-count">
+                  <div className="pr">{this.state.charsLeft}</div>
+                </div>
+                <div className="column is-narrow">
+                  <button className="button is-info" type="submit">
+                    <span className="icon">
+                      <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
+                    </span>
+                    <span>Update</span>
+                  </button>
                 </div>
               </div>
             </div>
-          </article>
-        </form>
-      );
+          </div>
+        </article>
+      </form>
+    );
   }
 }
 

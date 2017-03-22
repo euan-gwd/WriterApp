@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import base from '../rebase.config';
 import "./scribes.css";
 
-const max_chars = 160;
-
 class AddScribe extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      chars_left: max_chars,
+      chars_left: 160,
+						chars_used: 0,
       date: new Date().toLocaleString(),
       file: '',
       imagePreviewUrl: '',
@@ -88,14 +87,15 @@ class AddScribe extends React.Component {
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({chars_left: max_chars, file: '', imagePreviewUrl: ''});
+    this.setState({chars_left: 160, file: '', imagePreviewUrl: ''});
   }
 
   handleCharacterCount() {
     let input_chars = this.refs.scribe.value.length;
+				console.log(input_chars);
     this.setState({
-      chars_left: max_chars - input_chars,
-						chars_used: input_chars
+      chars_left: 160 - input_chars,
+      chars_used: input_chars
     });
   }
 
