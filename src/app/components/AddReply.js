@@ -8,6 +8,7 @@ class AddReply extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      replied: this.props.initialState,
       bodyText: '',
       date: new Date().toLocaleString(),
       file: '',
@@ -26,7 +27,9 @@ class AddReply extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({
+      date: new Date().toLocaleString()
+    });
   }
 
   handleSubmit(evt) {
@@ -46,8 +49,12 @@ class AddReply extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({uploadBar: 'visible'})
-          : this.setState({uploadBar: 'invisible'});
+          ? this.setState({
+            uploadBar: 'visible'
+          })
+          : this.setState({
+            uploadBar: 'invisible'
+          });
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -65,7 +72,9 @@ class AddReply extends React.Component {
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({uploadBar: 'invisible'});
+        this.setState({
+          uploadBar: 'invisible'
+        });
       });
     } else {
       if (chars_left >= 0) {
@@ -83,11 +92,20 @@ class AddReply extends React.Component {
       }
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({file: '', imagePreviewUrl: '', bodyText: ''});
+    const newState = !this.state.replied;
+    this.setState({
+      replied: newState,
+      file: '',
+      imagePreviewUrl: '',
+      bodyText: ''
+    });
+    this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({bodyText: evt.target.value});
+    this.setState({
+      bodyText: evt.target.value
+    });
   }
 
   handleImgUpload = (evt) => {
@@ -95,7 +113,10 @@ class AddReply extends React.Component {
     let reader = new FileReader();
     let file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({file: file, imagePreviewUrl: reader.result});
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
     }
     reader.readAsDataURL(file)
   }
@@ -103,12 +124,17 @@ class AddReply extends React.Component {
   removeImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({file: '', imagePreviewUrl: ''});
+    this.setState({
+      file: '',
+      imagePreviewUrl: ''
+    });
   }
 
   handleCancel = (evt) => {
-    const newState = !this.state.edited;
-    this.setState({edited: newState});
+    const newState = !this.state.replied;
+    this.setState({
+      replied: newState
+    });
     this.props.callbackParent(newState);
   }
 
@@ -130,8 +156,8 @@ class AddReply extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(this.props.userPhoto === null)
-              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-              : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                 <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
               </figure>}
           </div>
@@ -176,7 +202,7 @@ class AddReply extends React.Component {
           </div>
         </article>
       </form>
-    );
+      );
   }
 }
 

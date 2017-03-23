@@ -69,7 +69,6 @@ class EditScribe extends React.Component {
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
     this.setState({
-      charsLeft: 160,
       edited: newState
     });
     this.props.callbackParent(newState);

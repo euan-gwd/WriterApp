@@ -1,5 +1,6 @@
 import React from 'react';
 import EditScribe from './EditScribe';
+import AddReply from './AddReply.js';
 import './scribes.css';
 
 class Scribe extends React.Component {
@@ -58,7 +59,7 @@ class Scribe extends React.Component {
                   : <div className="px-1"></div>}
               </div>
               <div className="">
-                <a className="pr-1">
+                <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
                 <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
@@ -70,7 +71,9 @@ class Scribe extends React.Component {
             {this.state.edited
               ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
               : null}
-
+            {this.state.replied
+              ? <AddReply initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
+              : null}
           </div>
         </article>
       </div>
