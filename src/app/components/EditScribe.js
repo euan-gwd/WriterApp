@@ -8,7 +8,7 @@ class EditScribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: this.props.initialChecked,
+      edited: this.props.initialChecked,
       scribeText: this.props.currentScribe.scribe,
       date: new Date().toLocaleString()
     };
@@ -67,10 +67,10 @@ class EditScribe extends React.Component {
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    const newState = !this.state.checked;
+    const newState = !this.state.edited;
     this.setState({
       charsLeft: 160,
-      checked: newState
+      edited: newState
     });
     this.props.callbackParent(newState);
   }
@@ -82,9 +82,9 @@ class EditScribe extends React.Component {
   }
 
   handleCancel = (evt) => {
-    const newState = !this.state.checked;
+    const newState = !this.state.edited;
     this.setState({
-      checked: newState
+      edited: newState
     });
     this.props.callbackParent(newState);
   }
@@ -124,10 +124,10 @@ class EditScribe extends React.Component {
             </div>
           </div>
           <div className="media-right">
-          <a onClick={this.handleCancel.bind(this)}>  
+          <a onClick={this.handleCancel.bind(this)}>
             <span className="icon is-small">
               <i className="fa fa-times" aria-hidden="true"></i>
-            </span> 
+            </span>
           </a>
           </div>
         </article>

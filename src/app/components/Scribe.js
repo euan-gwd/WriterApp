@@ -6,16 +6,16 @@ class Scribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false
+      edited: false
     }
   }
 
   handleEditBtnClick() {
-    this.setState({checked: true})
+    this.setState({edited: true})
   }
 
   onScribeEdited(newState) {
-    this.setState({checked: newState})
+    this.setState({edited: newState})
   }
 
   render() {
@@ -58,8 +58,8 @@ class Scribe extends React.Component {
                 <small className="has-text-right">{this.props.thread.datetime}</small>
               </div>
             </div>
-            {this.state.checked
-              ? <EditScribe currentScribe={this.props.thread} charCount={this.props.thread.scribeCharCount} initialChecked={this.state.checked} callbackParent={(newState) => this.onScribeEdited(newState)}/>
+            {this.state.edited
+              ? <EditScribe currentScribe={this.props.thread} charCount={this.props.thread.scribeCharCount} initialChecked={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
               : null}
           </div>
         </article>
