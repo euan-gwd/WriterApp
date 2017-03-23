@@ -6,7 +6,8 @@ class Scribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      edited: false
+      edited: false,
+      replied: false
     }
   }
 
@@ -16,6 +17,14 @@ class Scribe extends React.Component {
 
   onScribeEdited(newState) {
     this.setState({edited: newState})
+  }
+
+  handleReplyBtnClick() {
+    this.setState({replied: true})
+  }
+
+  onScribeReply(newState) {
+    this.setState({replied: newState})
   }
 
   render() {
@@ -59,8 +68,9 @@ class Scribe extends React.Component {
               </div>
             </div>
             {this.state.edited
-              ? <EditScribe currentScribe={this.props.thread} charCount={this.props.thread.scribeCharCount} initialChecked={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
+              ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
               : null}
+
           </div>
         </article>
       </div>

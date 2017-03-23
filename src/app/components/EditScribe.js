@@ -8,7 +8,7 @@ class EditScribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      edited: this.props.initialChecked,
+      edited: this.props.initialState,
       scribeText: this.props.currentScribe.scribe,
       date: new Date().toLocaleString()
     };

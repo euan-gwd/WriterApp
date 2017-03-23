@@ -106,6 +106,12 @@ class AddReply extends React.Component {
     this.setState({file: '', imagePreviewUrl: ''});
   }
 
+  handleCancel = (evt) => {
+    const newState = !this.state.edited;
+    this.setState({edited: newState});
+    this.props.callbackParent(newState);
+  }
+
   render() {
     let $imagePreview = null;
     let {imagePreviewUrl} = this.state;
@@ -120,8 +126,8 @@ class AddReply extends React.Component {
       $imagePreview = null;
     }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className='box'>
-        <article className="media">
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <article className="media flat-box">
           <div className="media-left">
             {(this.props.userPhoto === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
@@ -160,6 +166,13 @@ class AddReply extends React.Component {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="media-right">
+            <a onClick={this.handleCancel.bind(this)}>
+              <span className="icon is-small">
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </span>
+            </a>
           </div>
         </article>
       </form>
