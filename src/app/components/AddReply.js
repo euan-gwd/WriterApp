@@ -54,7 +54,7 @@ class AddReply extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + scribeKey).push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -71,7 +71,7 @@ class AddReply extends React.Component {
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey).push().key;
+        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey + '/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
