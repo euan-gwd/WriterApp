@@ -1,6 +1,7 @@
 import React from 'react';
 import EditScribe from './EditScribe';
-import AddReply from './AddReply.js';
+import AddReply from './AddReply';
+import ReplyList from './ReplyList';
 import './scribes.css';
 
 class Scribe extends React.Component {
@@ -73,7 +74,8 @@ class Scribe extends React.Component {
               : null}
             {this.state.replied
               ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-              : null}
+              : <ReplyList currentScribe={this.props.thread} />}
+														
           </div>
         </article>
       </div>

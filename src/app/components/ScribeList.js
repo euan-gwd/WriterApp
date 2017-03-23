@@ -27,8 +27,8 @@ class ScribeList extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  deleteScribe(item, e) {
-    e.stopPropagation();
+  deleteScribe(item, evt) {
+    evt.stopPropagation();
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
     let imgRef = item.scribeImage;
