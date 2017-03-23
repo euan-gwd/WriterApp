@@ -65,13 +65,13 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeReplyKey] = scribeData;
+        updates['/msgList/'+ scribeKey +'/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey).push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -80,7 +80,7 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/msgList/'+ scribeKey +'/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
