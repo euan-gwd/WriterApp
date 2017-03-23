@@ -8,8 +8,7 @@ class AddScribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chars_left: 160,
-						chars_used: 0,
+      bodyText: '',
       date: new Date().toLocaleString(),
       file: '',
       imagePreviewUrl: '',
@@ -27,28 +26,34 @@ class AddScribe extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({
+      date: new Date().toLocaleString()
+    });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(evt) {
+    evt.preventDefault();
     let file = this.state.file;
     let userId = this.props.userEmail;
-    let scribeText = ReactDOM.findDOMNode(this.refs.scribe).value;
+    let scribeText = this.state.bodyText;
     let datetime = this.state.date;
     let userName = this.props.userName;
     let userEmail = this.props.userEmail;
     let userPhoto = this.props.userPhoto;
-    let charCount = this.state.chars_used;
+    let chars_left = 160 - this.state.bodyText.length;
 
-    if (file !== '' && this.state.chars_left >= 0) {
+    if (file !== '' && chars_left >= 0) {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({uploadBar: 'visible'})
-          : this.setState({uploadBar: 'invisible'});
+          ? this.setState({
+            uploadBar: 'visible'
+          })
+          : this.setState({
+            uploadBar: 'invisible'
+          });
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -62,15 +67,16 @@ class AddScribe extends React.Component {
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeCharCount: charCount
+          userPhoto: userPhoto
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({uploadBar: 'invisible'});
+        this.setState({
+          uploadBar: 'invisible'
+        });
       });
     } else {
-      if (this.state.chars_left >= 0) {
+      if (chars_left >= 0) {
         let scribeKey = base.database().ref('msgList/').push().key;
         let updates = {};
         let scribeData = {
@@ -78,41 +84,46 @@ class AddScribe extends React.Component {
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeCharCount: charCount
+          userPhoto: userPhoto
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
-
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({chars_left: 160, file: '', imagePreviewUrl: ''});
-  }
-
-  handleCharacterCount() {
-    let input_chars = this.refs.scribe.value.length;
-				console.log(input_chars);
     this.setState({
-      chars_left: 160 - input_chars,
-      chars_used: input_chars
+      file: '',
+      imagePreviewUrl: '',
+      bodyText: ''
+    });
+  }
+  
+  handleInput = (evt) => {
+    this.setState({
+      bodyText: evt.target.value
     });
   }
 
-  handleImgUpload = (e) => {
-    e.preventDefault();
+  handleImgUpload = (evt) => {
+    evt.preventDefault();
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({file: file, imagePreviewUrl: reader.result});
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
     }
     reader.readAsDataURL(file)
   }
 
-  removeImgUpload = (e) => {
-    e.preventDefault();
+  removeImgUpload = (evt) => {
+    evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({file: '', imagePreviewUrl: ''});
+    this.setState({
+      file: '',
+      imagePreviewUrl: ''
+    });
   }
 
   render() {
@@ -134,8 +145,8 @@ class AddScribe extends React.Component {
           <article className="media">
             <div className="media-left">
               {(this.props.userPhoto === null)
-                ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                   <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
@@ -143,7 +154,7 @@ class AddScribe extends React.Component {
               <div className="field">
                 <p className="control">
                   {$imagePreview}
-                  <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
+                  <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                   <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
                 </p>
               </div>
@@ -158,10 +169,10 @@ class AddScribe extends React.Component {
                     </div>
                   </div>
                   <div className="column has-text-right char-count">
-                    <div className="pr">{this.state.chars_left}</div>
+                    <div className="pr">{160 - this.state.bodyText.length}</div>
                   </div>
                   <div className="column is-narrow">
-                    <button className="button is-info" type="submit">
+                    <button className="button is-info" type="submit" disabled={this.state.bodyText.length === 0}>
                       <span className="icon">
                         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                       </span>
@@ -174,7 +185,7 @@ class AddScribe extends React.Component {
           </article>
         </form>
       </div>
-    );
+      );
   }
 
 }
