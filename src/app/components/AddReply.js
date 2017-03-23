@@ -155,10 +155,10 @@ class AddReply extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media flat-box">
           <div className="media-left">
-            {(this.props.userPhoto === null)
+            {(this.props.currentScribe.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">

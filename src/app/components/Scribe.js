@@ -72,7 +72,7 @@ class Scribe extends React.Component {
               ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
               : null}
             {this.state.replied
-              ? <AddReply initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
+              ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
               : null}
           </div>
         </article>
