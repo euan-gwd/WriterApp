@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import base from '../rebase.config';
 import "./scribes.css";
 
-const max_chars = 160;
-
 class AddScribe extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      chars_left: max_chars,
+      bodyText: '',
       date: new Date().toLocaleString(),
       file: '',
       imagePreviewUrl: '',
@@ -33,17 +31,18 @@ class AddScribe extends React.Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(evt) {
+    evt.preventDefault();
     let file = this.state.file;
     let userId = this.props.userEmail;
-    let scribeText = ReactDOM.findDOMNode(this.refs.scribe).value;
+    let scribeText = this.state.bodyText;
     let datetime = this.state.date;
     let userName = this.props.userName;
     let userEmail = this.props.userEmail;
     let userPhoto = this.props.userPhoto;
+    let chars_left = 160 - this.state.bodyText.length;
 
-    if (file !== '' && this.state.chars_left >= 0) {
+    if (file !== '' && chars_left >= 0) {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {
@@ -77,7 +76,7 @@ class AddScribe extends React.Component {
         });
       });
     } else {
-      if (this.state.chars_left >= 0) {
+      if (chars_left >= 0) {
         let scribeKey = base.database().ref('msgList/').push().key;
         let updates = {};
         let scribeData = {
@@ -91,26 +90,24 @@ class AddScribe extends React.Component {
         base.database().ref().update(updates);
       }
     }
-
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     this.setState({
-      chars_left: max_chars,
       file: '',
-      imagePreviewUrl: ''
+      imagePreviewUrl: '',
+      bodyText: ''
     });
   }
-
-  handleCharacterCount() {
-    let input_chars = this.refs.scribe.value.length;
+  
+  handleInput = (evt) => {
     this.setState({
-      chars_left: max_chars - input_chars
+      bodyText: evt.target.value
     });
   }
 
-  handleImgUpload = (e) => {
-    e.preventDefault();
+  handleImgUpload = (evt) => {
+    evt.preventDefault();
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let file = evt.target.files[0];
     reader.onloadend = () => {
       this.setState({
         file: file,
@@ -120,8 +117,8 @@ class AddScribe extends React.Component {
     reader.readAsDataURL(file)
   }
 
-  removeImgUpload = (e) => {
-    e.preventDefault();
+  removeImgUpload = (evt) => {
+    evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
     this.setState({
       file: '',
@@ -157,7 +154,7 @@ class AddScribe extends React.Component {
               <div className="field">
                 <p className="control">
                   {$imagePreview}
-                  <textarea ref='scribe' placeholder="What's happening?" className='textarea' onChange={this.handleCharacterCount.bind(this)} required/>
+                  <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                   <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
                 </p>
               </div>
@@ -172,10 +169,10 @@ class AddScribe extends React.Component {
                     </div>
                   </div>
                   <div className="column has-text-right char-count">
-                    <div className="pr">{this.state.chars_left}</div>
+                    <div className="pr">{160 - this.state.bodyText.length}</div>
                   </div>
                   <div className="column is-narrow">
-                    <button className="button is-info" type="submit">
+                    <button className="button is-info" type="submit" disabled={this.state.bodyText.length === 0}>
                       <span className="icon">
                         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                       </span>
