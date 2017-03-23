@@ -23,7 +23,9 @@ class EditScribe extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({
+      date: new Date().toLocaleString()
+    });
   }
 
   handleSubmit(evt) {
@@ -36,7 +38,7 @@ class EditScribe extends React.Component {
     let imageRef = this.props.currentScribe.scribeImage;
     let scribeKeyRef = this.props.currentScribe.key;
     let chars_left = 160 - this.state.scribeText.length;
-    
+
     if (chars_left >= 0) {
       if (imageRef === undefined) {
         let updates = {};
@@ -66,12 +68,25 @@ class EditScribe extends React.Component {
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.checked;
-    this.setState({charsLeft: 160, checked: newState});
+    this.setState({
+      charsLeft: 160,
+      checked: newState
+    });
     this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({scribeText: evt.target.value})
+    this.setState({
+      scribeText: evt.target.value
+    })
+  }
+
+  handleCancel = (evt) => {
+    const newState = !this.state.checked;
+    this.setState({
+      checked: newState
+    });
+    this.props.callbackParent(newState);
   }
 
   render() {
@@ -80,8 +95,8 @@ class EditScribe extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(this.props.currentScribe.userPhoto === null)
-              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-              : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                 <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
               </figure>}
           </div>
@@ -98,7 +113,7 @@ class EditScribe extends React.Component {
                   <div className="pr">{160 - this.state.scribeText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-info" type="submit" disabled={this.state.scribeText.length === 0} >
+                  <button className="button is-info" type="submit" disabled={this.state.scribeText.length === 0}>
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
@@ -108,9 +123,16 @@ class EditScribe extends React.Component {
               </div>
             </div>
           </div>
+          <div className="media-right">
+          <a onClick={this.handleCancel.bind(this)}>  
+            <span className="icon is-small">
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </span> 
+          </a>
+          </div>
         </article>
       </form>
-    );
+      );
   }
 }
 
