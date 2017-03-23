@@ -97,7 +97,7 @@ class AddScribe extends React.Component {
       bodyText: ''
     });
   }
-  
+
   handleInput = (evt) => {
     this.setState({
       bodyText: evt.target.value
@@ -128,7 +128,7 @@ class AddScribe extends React.Component {
 
   render() {
     let $imagePreview = null;
-    let {imagePreviewUrl} = this.state;
+    let {imagePreviewUrl} = this.state.imagePreviewUrl;
     if (imagePreviewUrl) {
       $imagePreview = (
         <span>

@@ -9,38 +9,38 @@ class AddReply extends React.Component {
     super(props);
     this.state = {
       replied: this.props.initialState,
-      bodyText: '',
-      date: new Date().toLocaleString(),
-      file: '',
-      imagePreviewUrl: '',
-      imageUrl: '',
-      uploadBar: 'invisible'
+      reply_bodyText: '',
+      reply_date: new Date().toLocaleString(),
+      reply_file: '',
+      reply_imagePreviewUrl: '',
+      reply_imageUrl: '',
+      reply_uploadBar: 'invisible'
     };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.replyTimerID = setInterval(() => this.tick(), 1000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    clearInterval(this.replyTimerID);
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({reply_date: new Date().toLocaleString()});
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     let scribeKey = this.props.currentScribe.key;
-    let file = this.state.file;
+    let file = this.state.reply_file;
     let userId = this.props.currentScribe.userEmail;
-    let scribeText = this.state.bodyText;
-    let datetime = this.state.date;
+    let scribeText = this.state.reply_bodyText;
+    let datetime = this.state.reply_date;
     let userName = this.props.currentScribe.userName;
     let userEmail = this.props.currentScribe.userEmail;
     let userPhoto = this.props.currentScribe.userPhoto;
-    let chars_left = 160 - this.state.bodyText.length;
+    let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
@@ -65,13 +65,13 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/'+ scribeKey +'/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/msgList/' + scribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -80,54 +80,54 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/'+ scribeKey +'/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/msgList/' + scribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.replied;
-    this.setState({replied: newState, file: '', imagePreviewUrl: '', bodyText: ''});
+    this.setState({replied: newState, reply_file: '', reply_imagePreviewUrl: '', reply_bodyText: ''});
     this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({bodyText: evt.target.value});
+    this.setState({reply_bodyText: evt.target.value});
   }
 
-  handleImgUpload = (evt) => {
+  handleReplyImgUpload = (evt) => {
     evt.preventDefault();
     let reader = new FileReader();
-    let file = evt.target.files[0];
+    let reply_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({file: file, imagePreviewUrl: reader.result});
+      this.setState({reply_file: reply_file, reply_imagePreviewUrl: reader.result});
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(reply_file)
   }
 
-  removeImgUpload = (evt) => {
+  removeReplyImgUpload = (evt) => {
     evt.preventDefault();
-    ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({file: '', imagePreviewUrl: ''});
+    ReactDOM.findDOMNode(this.refs.reply_fileUpload).value = '';
+    this.setState({reply_file: '', reply_imagePreviewUrl: ''});
   }
 
-  handleCancel = (evt) => {
+  handleReplyCancel = (evt) => {
     const newState = !this.state.replied;
     this.setState({replied: newState});
     this.props.callbackParent(newState);
   }
 
   render() {
-    let $imagePreview = null;
-    let {imagePreviewUrl} = this.state;
-    if (imagePreviewUrl) {
-      $imagePreview = (
+    let $replyImagePreview = null;
+    let {reply_imagePreviewUrl} = this.state.reply_imagePreviewUrl;
+    if (reply_imagePreviewUrl) {
+      $replyImagePreview = (
         <span>
-          <a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
-          <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
+          <a className="upload-image-remove delete" onClick={this.removeReplyImgUpload}></a>
+          <img src={reply_imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.reply_file.name}/>
         </span>
       );
     } else {
-      $imagePreview = null;
+      $replyImagePreview = null;
     }
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -142,23 +142,23 @@ class AddReply extends React.Component {
           <div className="media-content">
             <div className="field">
               <p className="control">
-                {$imagePreview}
+                {$replyImagePreview}
                 <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
-                <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
+                <span className={`upload-bar ${this.state.reply_uploadBar}`}>Sending Scribe now...</span>
               </p>
             </div>
             <div className="pt">
               <div className="columns is-mobile is-gapless">
                 <div className="column is-narrow">
                   <div className="control">
-                    <input type="file" accept="image/*" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload}/>
-                    <label htmlFor="fileUpload" className="button is-light" type="button">
+                    <input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload}/>
+                    <label htmlFor="reply_fileUpload" className="button is-light" type="button">
                       <i className="fa fa-camera" aria-hidden="true"/>
                     </label>
                   </div>
                 </div>
                 <div className="column has-text-right char-count">
-                  <div className="pr">{160 - this.state.bodyText.length}</div>
+                  <div className="pr">{160 - this.state.reply_bodyText.length}</div>
                 </div>
                 <div className="column is-narrow">
                   <button className="button is-info" type="submit" disabled={this.state.bodyText.length === 0}>
@@ -172,7 +172,7 @@ class AddReply extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleCancel.bind(this)}>
+            <a onClick={this.handleReplyCancel.bind(this)}>
               <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
