@@ -27,20 +27,19 @@ class AddReply extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toLocaleString()
-    });
+    this.setState({date: new Date().toLocaleString()});
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
+    let scribeKey = this.props.currentScribe.key;
     let file = this.state.file;
-    let userId = this.props.userEmail;
+    let userId = this.props.currentScribe.userEmail;
     let scribeText = this.state.bodyText;
     let datetime = this.state.date;
-    let userName = this.props.userName;
-    let userEmail = this.props.userEmail;
-    let userPhoto = this.props.userPhoto;
+    let userName = this.props.currentScribe.userName;
+    let userEmail = this.props.currentScribe.userEmail;
+    let userPhoto = this.props.currentScribe.userPhoto;
     let chars_left = 160 - this.state.bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
@@ -49,17 +48,13 @@ class AddReply extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({
-            uploadBar: 'visible'
-          })
-          : this.setState({
-            uploadBar: 'invisible'
-          });
+          ? this.setState({uploadBar: 'visible'})
+          : this.setState({uploadBar: 'invisible'});
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + scribeKey).push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -70,11 +65,9 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/msgList/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({
-          uploadBar: 'invisible'
-        });
+        this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
@@ -93,19 +86,12 @@ class AddReply extends React.Component {
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.replied;
-    this.setState({
-      replied: newState,
-      file: '',
-      imagePreviewUrl: '',
-      bodyText: ''
-    });
+    this.setState({replied: newState, file: '', imagePreviewUrl: '', bodyText: ''});
     this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({
-      bodyText: evt.target.value
-    });
+    this.setState({bodyText: evt.target.value});
   }
 
   handleImgUpload = (evt) => {
@@ -113,10 +99,7 @@ class AddReply extends React.Component {
     let reader = new FileReader();
     let file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
+      this.setState({file: file, imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(file)
   }
@@ -124,17 +107,12 @@ class AddReply extends React.Component {
   removeImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({
-      file: '',
-      imagePreviewUrl: ''
-    });
+    this.setState({file: '', imagePreviewUrl: ''});
   }
 
   handleCancel = (evt) => {
     const newState = !this.state.replied;
-    this.setState({
-      replied: newState
-    });
+    this.setState({replied: newState});
     this.props.callbackParent(newState);
   }
 
@@ -156,8 +134,8 @@ class AddReply extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(this.props.currentScribe.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
+              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+              : <figure className="image is-48x48">
                 <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
               </figure>}
           </div>
@@ -202,7 +180,7 @@ class AddReply extends React.Component {
           </div>
         </article>
       </form>
-      );
+    );
   }
 }
 
