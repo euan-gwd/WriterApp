@@ -54,7 +54,7 @@ class AddReply extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -65,13 +65,13 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/'+ scribeKey +'/' + scribeReplyKey] = scribeData;
+        updates['/msgList/'+ scribeKey +'/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey + '/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/'+ scribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -80,7 +80,7 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/'+ scribeKey +'/' + scribeReplyKey] = scribeData;
+        updates['/msgList/'+ scribeKey +'/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }

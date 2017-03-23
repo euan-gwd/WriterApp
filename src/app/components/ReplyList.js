@@ -7,33 +7,32 @@ class ReplyList extends React.Component {
     super(props);
     this.state = {
       replies: [],
-						scribeKey: this.props.currentScribe.key
+      scribeKey: this.props.currentScribe.key
     };
-  }
-  ;
+  };
 
   componentDidMount() {
-    let keyRef = this.state.scribeKey;
-    this.ref = base.bindToState('msgList/' + keyRef + '/', {
+    const keyRef = this.state.scribeKey;
+    this.ref = base.bindToState('msgList/' + keyRef + '/scribeReplies/', {
       context: this,
       state: 'replies',
       asArray: true
     })
-  }
-  ;
+  };
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
 
-  deleteReply(replyItem, evt) {
+  deleteReply(itm, evt) {
     evt.stopPropagation();
-    let msgListRef = base.database().ref('msgList/');
-    let itemId = replyItem.key;
-    let imgRef = replyItem.replyImage;
-    let replyUID = replyItem.userName;
-    let currentUID = this.props.userName;
-    if (replyItem.hasOwnProperty("replyImage")) {
+    const keyRef = this.state.scribeKey;
+    let msgListRef = base.database().ref('msgList/' + keyRef + '/scribeReplies/');
+    let itemId = itm.key;
+    let imgRef = itm.replyImage;
+    let replyUID = itm.userName;
+    let currentUID = this.props.currentScribe.userName;
+    if (itm.hasOwnProperty("replyImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
       if (replyUID === currentUID) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
@@ -47,14 +46,14 @@ class ReplyList extends React.Component {
   }
 
   render() {
-    let replies = this.state.replies.map((replyItem) => {
-      return (<Reply thread={replyItem} removeReply={this.deleteReply.bind(this, replyItem)} key={replyItem.key}/>);
+    let replies = this.state.replies.map((itm, index) => {
+        return (<Reply thread={itm} removeReply={this.deleteReply.bind(this, itm)} key={itm.key}/>);
     })
     return (
       <article className="Media">
-            <ul className="">{replies}</ul>
+        <ul className="">{replies}</ul>
       </article>
-      );
+    );
   }
 }
 
