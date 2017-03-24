@@ -4,7 +4,7 @@ import './scribes.css';
 class Reply extends React.Component {
   render() {
     return (
-      <div className="selected-scribe">
+      <div className="">
         <article className="media">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")

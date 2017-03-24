@@ -53,9 +53,11 @@
   align-content: center;
 }
 
-.panel {
+
+/*.panel {
   min-width: 60vw;
-}
+}*/
+
 
 .media {
   width: 100%;
@@ -67,8 +69,14 @@ form.box {
 
 article.media.flat-box {
   padding: 10px;
-	border-radius: 5px;
+  border-radius: 5px;
   background-color: #e5eaef;
+}
+
+.scribe-border {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 3px;
 }
 
 .scribes-padding {
@@ -85,6 +93,10 @@ article.media.flat-box {
 
 .pr {
   padding-right: 0.5vw;
+}
+
+.px {
+  padding: 0.5vh 0;
 }
 
 .px-1 {

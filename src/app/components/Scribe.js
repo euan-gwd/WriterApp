@@ -31,8 +31,8 @@ class Scribe extends React.Component {
 
   render() {
     return (
-      <div className="panel-block selected-scribe">
-        <article className="media">
+      <li className="selected-scribe">
+        <article className="media box">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
@@ -74,10 +74,10 @@ class Scribe extends React.Component {
               : null}
             {this.state.replied
               ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-              : <ReplyList currentScribe={this.props.thread} />}														
+              : <ReplyList currentScribe={this.props.thread} />}
           </div>
         </article>
-      </div>
+      </li>
     );
   }
 }

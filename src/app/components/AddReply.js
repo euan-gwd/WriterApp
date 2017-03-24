@@ -48,8 +48,8 @@ class AddReply extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({uploadBar: 'visible'})
-          : this.setState({uploadBar: 'invisible'});
+          ? this.setState({reply_uploadBar: 'visible'})
+          : this.setState({reply_uploadBar: 'invisible'});
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -67,7 +67,6 @@ class AddReply extends React.Component {
         }
         updates['/msgList/' + scribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
@@ -84,7 +83,7 @@ class AddReply extends React.Component {
         base.database().ref().update(updates);
       }
     }
-    ReactDOM.findDOMNode(this.refs.scribe).value = '';
+    ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
     const newState = !this.state.replied;
     this.setState({replied: newState, reply_file: '', reply_imagePreviewUrl: '', reply_bodyText: ''});
     this.props.callbackParent(newState);
@@ -118,7 +117,7 @@ class AddReply extends React.Component {
 
   render() {
     let $replyImagePreview = null;
-    let {reply_imagePreviewUrl} = this.state.reply_imagePreviewUrl;
+    let reply_imagePreviewUrl = this.state.reply_imagePreviewUrl;
     if (reply_imagePreviewUrl) {
       $replyImagePreview = (
         <span>
@@ -141,9 +140,9 @@ class AddReply extends React.Component {
           </div>
           <div className="media-content">
             <div className="field">
+              {$replyImagePreview}
               <p className="control">
-                {$replyImagePreview}
-                <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
+                <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className={`upload-bar ${this.state.reply_uploadBar}`}>Sending Scribe now...</span>
               </p>
             </div>
@@ -161,7 +160,7 @@ class AddReply extends React.Component {
                   <div className="pr">{160 - this.state.reply_bodyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-info" type="submit" disabled={this.state.bodyText.length === 0}>
+                  <button className="button is-info" type="submit" disabled={this.state.reply_bodyText.length === 0}>
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
