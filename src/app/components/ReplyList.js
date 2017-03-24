@@ -46,8 +46,9 @@ class ReplyList extends React.Component {
   }
 
   render() {
+    const keyRef = this.state.scribeKey;
     let replies = this.state.replies.map((itm, index) => {
-        return (<Reply thread={itm} removeReply={this.deleteReply.bind(this, itm)} key={itm.key}/>);
+      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} key={itm.key}/>);
     })
     return (
       <article className="Media">
