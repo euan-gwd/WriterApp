@@ -164,7 +164,7 @@ class AddReply extends React.Component {
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
-                    <span>Scribe</span>
+                    <span>Reply</span>
                   </button>
                 </div>
               </div>
