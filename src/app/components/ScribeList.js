@@ -27,8 +27,8 @@ class ScribeList extends React.Component {
     base.removeBinding(this.ref);
   }
 
-  deleteScribe(item, e) {
-    e.stopPropagation();
+  deleteScribe(item, evt) {
+    evt.stopPropagation();
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
     let imgRef = item.scribeImage;
@@ -49,7 +49,7 @@ class ScribeList extends React.Component {
 
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key} />);
     })
 
     return (
@@ -61,8 +61,8 @@ class ScribeList extends React.Component {
                 <span className="sr-only">Loading...</span>
               </span>
             </div>
-          : <div className="panel">
-            <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="panel-block"/>
+          : <div className="">
+            <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
             <ul className="">{scribes}</ul>
           </div>}
       </div>

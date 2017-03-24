@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import base from '../rebase.config';
 import "./scribes.css";
 
-class EditScribe extends React.Component {
+class EditReply extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       edited: this.props.initialState,
-      scribeText: this.props.currentScribe.scribe,
+      replyText: this.props.currentReply.scribe,
       date: new Date().toLocaleString()
     };
   }
@@ -30,38 +30,39 @@ class EditScribe extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let scribeText = this.state.scribeText;
+    let replyText = this.state.replyText;
     let datetime = this.state.date;
-    let userName = this.props.currentScribe.userName;
-    let userEmail = this.props.currentScribe.userEmail;
-    let userPhoto = this.props.currentScribe.userPhoto;
-    let imageRef = this.props.currentScribe.scribeImage;
-    let scribeKeyRef = this.props.currentScribe.key;
-    let chars_left = 160 - this.state.scribeText.length;
+    let userName = this.props.currentReply.userName;
+    let userEmail = this.props.currentReply.userEmail;
+    let userPhoto = this.props.currentReply.userPhoto;
+    let imageRef = this.props.currentReply.scribeImage;
+    let replyKeyRef = this.props.currentReply.key;
+    let scribeParentKey = this.props.parentId;
+    let chars_left = 160 - this.state.replyText.length;
 
     if (chars_left >= 0) {
       if (imageRef === undefined) {
         let updates = {};
         let scribeData = {
-          scribe: scribeText,
+          scribe: replyText,
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
+        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
         base.database().ref().update(updates);
       } else {
         let updates = {};
         let scribeData = {
-          scribe: scribeText,
+          scribe: replyText,
           datetime: datetime,
           userName: userName,
           userEmail: userEmail,
           userPhoto: userPhoto,
           scribeImage: imageRef
         }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
+        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
         base.database().ref().update(updates);
       }
     }
@@ -76,7 +77,7 @@ class EditScribe extends React.Component {
 
   handleInput = (evt) => {
     this.setState({
-      scribeText: evt.target.value
+      replyText: evt.target.value
     })
   }
 
@@ -93,26 +94,26 @@ class EditScribe extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media flat-box">
           <div className="media-left">
-            {(this.props.currentScribe.userPhoto === null)
+            {(this.props.currentReply.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">
             <div className="field">
               <p className="control">
-                <textarea ref='scribe' defaultValue={this.state.scribeText} className='textarea' onChange={this.handleInput.bind(this)} required/>
+                <textarea ref='scribe' defaultValue={this.state.replyText} className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>
               </p>
             </div>
             <div className="pt">
               <div className="columns is-mobile is-gapless">
                 <div className="column has-text-right char-count">
-                  <div className="pr">{160 - this.state.scribeText.length}</div>
+                  <div className="pr">{160 - this.state.replyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-info" type="submit" disabled={this.state.scribeText.length === 0}>
+                  <button className="button is-info" type="submit" disabled={this.state.replyText.length === 0}>
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
@@ -123,11 +124,11 @@ class EditScribe extends React.Component {
             </div>
           </div>
           <div className="media-right">
-          <a onClick={this.handleCancel.bind(this)}>
-            <span className="icon is-small">
-              <i className="fa fa-times" aria-hidden="true"></i>
-            </span>
-          </a>
+            <a onClick={this.handleCancel.bind(this)}>
+              <span className="icon is-small">
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </span>
+            </a>
           </div>
         </article>
       </form>
@@ -135,4 +136,4 @@ class EditScribe extends React.Component {
   }
 }
 
-export default EditScribe;
+export default EditReply;

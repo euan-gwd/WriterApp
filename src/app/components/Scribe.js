@@ -1,27 +1,38 @@
 import React from 'react';
 import EditScribe from './EditScribe';
+import AddReply from './AddReply';
+import ReplyList from './ReplyList';
 import './scribes.css';
 
 class Scribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false
+      edited: false,
+      replied: false
     }
   }
 
   handleEditBtnClick() {
-    this.setState({checked: true})
+    this.setState({edited: true})
   }
 
   onScribeEdited(newState) {
-    this.setState({checked: newState})
+    this.setState({edited: newState})
+  }
+
+  handleReplyBtnClick() {
+    this.setState({replied: true})
+  }
+
+  onScribeReply(newState) {
+    this.setState({replied: newState})
   }
 
   render() {
     return (
-      <div className="panel-block selected-scribe">
-        <article className="media">
+      <li className="selected-scribe">
+        <article className="media box">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
@@ -49,7 +60,7 @@ class Scribe extends React.Component {
                   : <div className="px-1"></div>}
               </div>
               <div className="">
-                <a className="pr-1">
+                <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
                 <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
@@ -58,12 +69,15 @@ class Scribe extends React.Component {
                 <small className="has-text-right">{this.props.thread.datetime}</small>
               </div>
             </div>
-            {this.state.checked
-              ? <EditScribe currentScribe={this.props.thread} charCount={this.props.thread.scribeCharCount} initialChecked={this.state.checked} callbackParent={(newState) => this.onScribeEdited(newState)}/>
+            {this.state.edited
+              ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
               : null}
+            {this.state.replied
+              ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
+              : <ReplyList currentScribe={this.props.thread} />}
           </div>
         </article>
-      </div>
+      </li>
     );
   }
 }
