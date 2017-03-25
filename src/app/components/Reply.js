@@ -1,5 +1,6 @@
 import React from 'react';
 import EditReply from './EditReply';
+import AddNestedReply from './AddNestedReply';
 import './scribes.css';
 
 class Reply extends React.Component {
@@ -7,6 +8,7 @@ class Reply extends React.Component {
     super(props);
     this.state = {
       edited: false,
+      replied: false
     }
   }
 
@@ -17,6 +19,15 @@ class Reply extends React.Component {
   onReplyEdited(newState) {
     this.setState({edited: newState})
   }
+
+  handleReplyBtnClick() {
+    this.setState({replied: true})
+  }
+
+  onScribeReply(newState) {
+    this.setState({replied: newState})
+  }
+
   render() {
     return (
       <div className="">
@@ -48,6 +59,9 @@ class Reply extends React.Component {
                   : <div className="px-1"></div>}
               </div>
               <div className="">
+                <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
+                  <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
+                </a>
                 <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
                   <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                 </a>
@@ -56,6 +70,9 @@ class Reply extends React.Component {
             </div>
             {this.state.edited
               ? <EditReply currentReply={this.props.stream} parentId={this.props.parentId} initialState={this.state.edited} callbackParent={(newState) => this.onReplyEdited(newState)}/>
+              : null}
+            {this.state.replied
+              ? <AddNestedReply currentScribe={this.props.stream} parentId={this.props.parentId} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
               : null}
           </div>
         </article>

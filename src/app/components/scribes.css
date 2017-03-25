@@ -133,6 +133,10 @@ li.card:last-of-type {
   z-index: -1;
 }
 
+.media .media{
+	padding-bottom: 0.75rem; 
+}
+
 #uploadBar {
   display: none;
 }
