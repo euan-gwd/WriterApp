@@ -120,8 +120,12 @@ class AddNestedReply extends React.Component {
     if (reply_imagePreviewUrl) {
       $replyImagePreview = (
         <div className="imagePreview-Wrapper">
-          <a className="delete is-pulled-right" onClick={this.removeReplyImgUpload}></a>
           <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name}/>
+          <a className="topright" onClick={this.removeReplyImgUpload}>
+            <span className="icon">
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </span>
+          </a>
         </div>
       );
     } else {
@@ -139,11 +143,11 @@ class AddNestedReply extends React.Component {
           </div>
           <div className="media-content">
             <div className="field">
-              <p className="control">
+              <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className={`upload-bar ${this.state.reply_uploadBar}`}>Sending Scribe now...</span>
-              </p>
+              </div>
             </div>
             <div className="pt">
               <div className="columns is-mobile is-gapless">

@@ -112,8 +112,12 @@ class AddScribe extends React.Component {
     if (imagePreviewUrl) {
       $imagePreview = (
         <div className="imagePreview-Wrapper">
-          <a className="delete is-pulled-right" onClick={this.removeImgUpload}></a>
           <img src={imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.file.name}/>
+          <a className="topright" onClick={this.removeImgUpload}>
+            <span className="icon">
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </span>
+          </a>
         </div>
       );
     } else {
@@ -132,12 +136,11 @@ class AddScribe extends React.Component {
             </div>
             <div className="media-content">
               <div className="field">
-
-                <p className="control">
+                <div className="control">
                   {$imagePreview}
                   <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                   <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
-                </p>
+                </div>
               </div>
               <div className="pt">
                 <div className="columns is-mobile is-gapless">
