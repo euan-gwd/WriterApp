@@ -4,7 +4,6 @@ import base from '../rebase.config';
 import "./scribes.css";
 
 class AddReply extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -122,7 +121,7 @@ class AddReply extends React.Component {
       $replyImagePreview = (
         <div className="imagePreview-Wrapper">
           <a className="delete is-pulled-right" onClick={this.removeReplyImgUpload}></a>
-          <img src={reply_imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.reply_file.name}/>
+          <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name}/>
         </div>
       );
     } else {
@@ -135,7 +134,7 @@ class AddReply extends React.Component {
             {(this.props.currentScribe.userPhoto === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
               : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">

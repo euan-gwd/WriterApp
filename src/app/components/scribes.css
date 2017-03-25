@@ -30,8 +30,13 @@
   color: green;
 }
 
-.scribe-image-rounded {
+.image-rounded {
   border-radius: 5px;
+}
+
+.image-top-borders-rounded {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .centered {
@@ -45,7 +50,7 @@
 }
 
 form.card {
-  padding: 0.625rem;
+  /*padding: 0.625rem;*/
   background-color: #e5eaef;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -61,10 +66,6 @@ article.media.nested-flat-box {
   padding: 0.625rem;
   border-radius: 5px;
   background-color: #e5eaef;
-}
-
-li.card {
-  padding: 0.625rem;
 }
 
 li.card:last-of-type {
@@ -102,7 +103,7 @@ li.card:last-of-type {
 
 .imageBorder {
   border: 0.25rem solid black;
-  border-radius: 2.5px;
+  border-radius: 5px;
 }
 
 .char-count {
@@ -120,8 +121,8 @@ li.card:last-of-type {
 .imagePreview-Wrapper {
   background-color: whitesmoke;
   border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	padding: 0.5vh;
+  border-top-right-radius: 5px;
+  padding: 0.5vh;
   position: relative;
 }
 
@@ -160,4 +161,33 @@ li.card:last-of-type {
 .visible {
   visibility: visible;
   display: block;
+}
+
+.card {
+  padding: 0.625rem !important;
+}
+
+.level{
+	  border-top: 0.25rem solid rgba(10, 10, 10, 0.1);
+}
+
+.profile-card {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  color: #4a4a4a;
+  max-width: 100%;
+  position: relative;
+}
+
+.profile-card .card-content {
+  padding: 0.3125rem 0 0 0;
+}
+
+.profile-card .media {
+	padding: 0 0.3125rem 0.3125rem;
+}
+
+.card-footer-item {
+	padding: 0 !important;
 }

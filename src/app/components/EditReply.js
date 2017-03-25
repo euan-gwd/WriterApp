@@ -97,7 +97,7 @@ class EditReply extends React.Component {
             {(this.props.currentReply.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">

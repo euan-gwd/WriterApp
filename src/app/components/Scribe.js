@@ -36,7 +36,7 @@ class Scribe extends React.Component {
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
-                  <img src={this.props.thread.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                  <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded"/>
                 </figure>
               : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
           </div>
@@ -55,7 +55,7 @@ class Scribe extends React.Component {
                 {this.props.thread.scribe}
                 {this.props.thread.hasOwnProperty("scribeImage")
                   ? <div className="media-content px-1">
-                      <img src={this.props.thread.scribeImage} alt="scribeImage" className="image scribe-image-rounded"/>
+                      <img src={this.props.thread.scribeImage} alt="scribeImage" className="image image-rounded"/>
                     </div>
                   : <div className="px-1"></div>}
               </div>

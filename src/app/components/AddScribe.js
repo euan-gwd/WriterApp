@@ -113,7 +113,7 @@ class AddScribe extends React.Component {
       $imagePreview = (
         <div className="imagePreview-Wrapper">
           <a className="delete is-pulled-right" onClick={this.removeImgUpload}></a>
-          <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
+          <img src={imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.file.name}/>
         </div>
       );
     } else {
@@ -127,7 +127,7 @@ class AddScribe extends React.Component {
               {(this.props.userPhoto === null)
                 ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                 : <figure className="image is-48x48">
-                  <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                  <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                 </figure>}
             </div>
             <div className="media-content">

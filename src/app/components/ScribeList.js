@@ -62,45 +62,39 @@ class ScribeList extends React.Component {
               </span>
             </div>
           : <div className="columns pt-1">
-            <div className="column is-2">
-              <div className="card">
-                <div className="card-image">
-                  <figure className="image is-4by3">
-                    <img src="http://placehold.it/1280x960" alt=""/></figure>
-                </div>
+            <div className="column is-3">
+              <div className="profile-card">
                 <div className="card-content">
                   <div className="media">
-                    <div className="media-left imageBorder">
+                    <div className="media-left">
                       <figure className="image is-48x48">
-                        <img src="http://placehold.it/96x96" alt="ProfileImg"/></figure>
+                        <img src={this.props.userPhoto} alt="ProfileImg" className="image-rounded"/></figure>
                     </div>
                     <div className="media-content">
-                      <p className="title is-4">John Smith</p>
-                      <p className="subtitle is-6">@johnsmith</p>
+                      <p className="">{this.props.userName}</p>
+                      <p className="">{this.props.userEmail}</p>
                     </div>
                   </div>
-                  <div className="content">
-                    <nav className="level">
-                      <div className="level-item has-text-centered">
+                  <footer className="card-footer">
+                      <div className="card-footer-item has-text-centered">
                         <div>
-                          <p className="heading">Tweets</p>
-                          <p className="title">3,456</p>
+                          <p className="">Scribes</p>
+                          <p className="">3,456</p>
                         </div>
                       </div>
-                      <div className="level-item has-text-centered">
+                      <div className="card-footer-item has-text-centered">
                         <div>
-                          <p className="heading">Following</p>
-                          <p className="title">123</p>
+                          <p className="">Following</p>
+                          <p className="">123</p>
                         </div>
                       </div>
-                      <div className="level-item has-text-centered">
+                      <div className="card-footer-item has-text-centered">
                         <div>
-                          <p className="heading">Followers</p>
-                          <p className="title">456K</p>
+                          <p className="">Followers</p>
+                          <p className="">456K</p>
                         </div>
                       </div>
-                    </nav>
-                  </div>
+                  </footer>
                 </div>
               </div>
             </div>
