@@ -70,8 +70,8 @@ class ScribeList extends React.Component {
                         <img src={this.props.userPhoto} alt="ProfileImg" className="image-rounded"/></figure>
                     </div>
                     <div className="media-content">
-                      <p className="">{this.props.userName}</p>
-                      <p className="">{this.props.userEmail}</p>
+                      <p className="title is-5">{this.props.userName}</p>
+                      <p className="subtitle is-6">{this.props.userEmail}</p>
                     </div>
                   </div>
                   <footer className="card-footer">
@@ -104,30 +104,34 @@ class ScribeList extends React.Component {
             <div className="column is-2">
               <div className="card">
                 <h3 className="title is-5">Who to Follow:</h3>
-                <article className="media">
+                <article className="media followList">
                   <div className="media-left">
                     <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                   </div>
                   <div className="media-content">
-                    <div className="content">Placeholder User</div>
+                    <div className="content">
+                      <span className="subtitle is-6">Placeholder</span>
+                    </div>
                   </div>
                   <div className="media-right">
-                    <a className="button is-primary is-outlined is-small">
+                    <a className="button is-info is-outlined is-small">
                       <span className="icon">
                         <i className="fa fa-user-plus"></i>
                       </span>
                     </a>
                   </div>
                 </article>
-                <article className="media">
+                <article className="media followList">
                   <div className="media-left">
                     <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                   </div>
                   <div className="media-content">
-                    <div className="content">Placeholder User</div>
+                    <div className="content">
+                      <span className="subtitle is-6">Placeholder</span>
+                    </div>
                   </div>
                   <div className="media-right">
-                    <a className="button is-primary is-outlined is-small">
+                    <a className="button is-info is-outlined is-small">
                       <span className="icon">
                         <i className="fa fa-user-plus"></i>
                       </span>

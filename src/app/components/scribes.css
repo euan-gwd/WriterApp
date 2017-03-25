@@ -134,7 +134,7 @@ li.card:last-of-type {
 }
 
 .media .media{
-	padding-bottom: 0.75rem; 
+	padding-bottom: 0.75rem;
 }
 
 #uploadBar {
@@ -193,4 +193,8 @@ li.card:last-of-type {
 .text-is-primary {
   color: #00d1b2;
 	font-size: 1.5rem;
+}
+
+.followList {
+	align-items: baseline;
 }
