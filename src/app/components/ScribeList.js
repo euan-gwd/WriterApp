@@ -103,14 +103,22 @@ class ScribeList extends React.Component {
             </div>
             <div className="column is-2">
               <div className="card">
-                <header className="card-header">
-                  <p className="card-header-title">
-                    Who to Follow:
-                  </p>
-                </header>
-																<div className="card-content">
-																	Lorem ipsum dolor sit amet.
-																</div>
+                <h3 className="title is-5">Who to Follow:</h3>
+                <article className="media">
+                  <div className="media-left">
+                    <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div className="media-content">
+                    <div className="content">Placeholder User</div>
+                  </div>
+                  <div className="media-right">
+                    <a className="button is-primary is-outlined">
+                      <span className="icon">
+                        <i className="fa fa-user-plus"></i>
+                      </span>
+                    </a>
+                  </div>
+                </article>
               </div>
             </div>
           </div>}
