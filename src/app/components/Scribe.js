@@ -31,8 +31,8 @@ class Scribe extends React.Component {
 
   render() {
     return (
-      <li className="selected-scribe">
-        <article className="media box">
+      <li className="selected-scribe card">
+        <article className="media">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">

@@ -120,17 +120,17 @@ class AddReply extends React.Component {
     let reply_imagePreviewUrl = this.state.reply_imagePreviewUrl;
     if (reply_imagePreviewUrl) {
       $replyImagePreview = (
-        <span>
-          <a className="upload-image-remove delete" onClick={this.removeReplyImgUpload}></a>
+        <div className="imagePreview-Wrapper">
+          <a className="delete is-pulled-right" onClick={this.removeReplyImgUpload}></a>
           <img src={reply_imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.reply_file.name}/>
-        </span>
+        </div>
       );
     } else {
       $replyImagePreview = null;
     }
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <article className="media flat-box">
+        <article className="media nested-flat-box">
           <div className="media-left">
             {(this.props.currentScribe.userPhoto === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
@@ -140,8 +140,8 @@ class AddReply extends React.Component {
           </div>
           <div className="media-content">
             <div className="field">
-              {$replyImagePreview}
               <p className="control">
+                {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className={`upload-bar ${this.state.reply_uploadBar}`}>Sending Scribe now...</span>
               </p>

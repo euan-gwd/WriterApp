@@ -26,9 +26,7 @@ class AddScribe extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toLocaleString()
-    });
+    this.setState({date: new Date().toLocaleString()});
   }
 
   handleSubmit(evt) {
@@ -48,12 +46,8 @@ class AddScribe extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({
-            uploadBar: 'visible'
-          })
-          : this.setState({
-            uploadBar: 'invisible'
-          });
+          ? this.setState({uploadBar: 'visible'})
+          : this.setState({uploadBar: 'invisible'});
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -71,9 +65,7 @@ class AddScribe extends React.Component {
         }
         updates['/msgList/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
-        this.setState({
-          uploadBar: 'invisible'
-        });
+        this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
@@ -91,17 +83,11 @@ class AddScribe extends React.Component {
       }
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
-    this.setState({
-      file: '',
-      imagePreviewUrl: '',
-      bodyText: ''
-    });
+    this.setState({file: '', imagePreviewUrl: '', bodyText: ''});
   }
 
   handleInput = (evt) => {
-    this.setState({
-      bodyText: evt.target.value
-    });
+    this.setState({bodyText: evt.target.value});
   }
 
   handleImgUpload = (evt) => {
@@ -109,10 +95,7 @@ class AddScribe extends React.Component {
     let reader = new FileReader();
     let file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
+      this.setState({file: file, imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(file)
   }
@@ -120,38 +103,36 @@ class AddScribe extends React.Component {
   removeImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
-    this.setState({
-      file: '',
-      imagePreviewUrl: ''
-    });
+    this.setState({file: '', imagePreviewUrl: ''});
   }
 
   render() {
     let $imagePreview = null;
-    let {imagePreviewUrl} = this.state.imagePreviewUrl;
+    let imagePreviewUrl = this.state.imagePreviewUrl;
     if (imagePreviewUrl) {
       $imagePreview = (
-        <span>
-          <a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
+        <div className="imagePreview-Wrapper">
+          <a className="delete is-pulled-right" onClick={this.removeImgUpload}></a>
           <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
-        </span>
+        </div>
       );
     } else {
       $imagePreview = null;
     }
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className='box'>
+        <form onSubmit={this.handleSubmit.bind(this)} className='card'>
           <article className="media">
             <div className="media-left">
               {(this.props.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
+                ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                : <figure className="image is-48x48">
                   <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
                 </figure>}
             </div>
             <div className="media-content">
               <div className="field">
+
                 <p className="control">
                   {$imagePreview}
                   <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
@@ -185,7 +166,7 @@ class AddScribe extends React.Component {
           </article>
         </form>
       </div>
-      );
+    );
   }
 
 }

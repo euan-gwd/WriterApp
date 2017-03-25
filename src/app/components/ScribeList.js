@@ -49,21 +49,65 @@ class ScribeList extends React.Component {
 
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key} />);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
     })
 
     return (
-      <div className="centered-main">
+      <div className="container is-fluid">
         {this.state.loading === true
           ? <div className="centered">
+              <span>Fetching Scribes...</span>
               <span className="icon">
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-                <span className="sr-only">Loading...</span>
               </span>
             </div>
-          : <div className="">
-            <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
-            <ul className="">{scribes}</ul>
+          : <div className="columns pt-1">
+            <div className="column is-2">
+              <div className="card">
+                <div className="card-image">
+                  <figure className="image is-4by3">
+                    <img src="http://placehold.it/1280x960" alt=""/></figure>
+                </div>
+                <div className="card-content">
+                  <div className="media">
+                    <div className="media-left imageBorder">
+                      <figure className="image is-48x48">
+                        <img src="http://placehold.it/96x96" alt="ProfileImg"/></figure>
+                    </div>
+                    <div className="media-content">
+                      <p className="title is-4">John Smith</p>
+                      <p className="subtitle is-6">@johnsmith</p>
+                    </div>
+                  </div>
+                  <div className="content">
+                    <nav className="level">
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <p className="heading">Tweets</p>
+                          <p className="title">3,456</p>
+                        </div>
+                      </div>
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <p className="heading">Following</p>
+                          <p className="title">123</p>
+                        </div>
+                      </div>
+                      <div className="level-item has-text-centered">
+                        <div>
+                          <p className="heading">Followers</p>
+                          <p className="title">456K</p>
+                        </div>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="column">
+              <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
+              <ul className="">{scribes}</ul>
+            </div>
           </div>}
       </div>
     );
