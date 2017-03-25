@@ -51,7 +51,6 @@ class ScribeList extends React.Component {
     let scribes = this.state.scribes.map((item) => {
       return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
     })
-
     return (
       <div className="container is-fluid">
         {this.state.loading === true
@@ -78,8 +77,8 @@ class ScribeList extends React.Component {
                   <footer className="card-footer">
                     <div className="card-footer-item has-text-centered">
                       <div>
-                        <p className="">Scribes</p>
-                        <p className="text-is-primary">3,456</p>
+                        <p className="">Manuscripts</p>
+                        <p className="text-is-primary">{this.state.scribes.length}</p>
                       </div>
                     </div>
                     <div className="card-footer-item has-text-centered">
