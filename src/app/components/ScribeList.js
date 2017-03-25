@@ -112,7 +112,22 @@ class ScribeList extends React.Component {
                     <div className="content">Placeholder User</div>
                   </div>
                   <div className="media-right">
-                    <a className="button is-primary is-outlined">
+                    <a className="button is-primary is-outlined is-small">
+                      <span className="icon">
+                        <i className="fa fa-user-plus"></i>
+                      </span>
+                    </a>
+                  </div>
+                </article>
+                <article className="media">
+                  <div className="media-left">
+                    <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div className="media-content">
+                    <div className="content">Placeholder User</div>
+                  </div>
+                  <div className="media-right">
+                    <a className="button is-primary is-outlined is-small">
                       <span className="icon">
                         <i className="fa fa-user-plus"></i>
                       </span>
