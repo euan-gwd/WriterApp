@@ -76,24 +76,24 @@ class ScribeList extends React.Component {
                     </div>
                   </div>
                   <footer className="card-footer">
-                      <div className="card-footer-item has-text-centered">
-                        <div>
-                          <p className="">Scribes</p>
-                          <p className="">3,456</p>
-                        </div>
+                    <div className="card-footer-item has-text-centered">
+                      <div>
+                        <p className="">Scribes</p>
+                        <p className="text-is-primary">3,456</p>
                       </div>
-                      <div className="card-footer-item has-text-centered">
-                        <div>
-                          <p className="">Following</p>
-                          <p className="">123</p>
-                        </div>
+                    </div>
+                    <div className="card-footer-item has-text-centered">
+                      <div>
+                        <p className="">Following</p>
+                        <p className="text-is-primary">123</p>
                       </div>
-                      <div className="card-footer-item has-text-centered">
-                        <div>
-                          <p className="">Followers</p>
-                          <p className="">456K</p>
-                        </div>
+                    </div>
+                    <div className="card-footer-item has-text-centered">
+                      <div>
+                        <p className="">Followers</p>
+                        <p className="text-is-primary">456K</p>
                       </div>
+                    </div>
                   </footer>
                 </div>
               </div>
@@ -101,6 +101,18 @@ class ScribeList extends React.Component {
             <div className="column">
               <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
               <ul className="">{scribes}</ul>
+            </div>
+            <div className="column is-2">
+              <div className="card">
+                <header className="card-header">
+                  <p className="card-header-title">
+                    Who to Follow:
+                  </p>
+                </header>
+																<div className="card-content">
+																	Lorem ipsum dolor sit amet.
+																</div>
+              </div>
             </div>
           </div>}
       </div>
