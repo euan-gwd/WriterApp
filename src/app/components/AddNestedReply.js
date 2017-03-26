@@ -33,7 +33,7 @@ class AddNestedReply extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let scribeKey = this.props.parentId;
+    let parentScribeKey = this.props.parentId;
     let file = this.state.reply_file;
     let userId = this.props.currentScribe.userEmail;
     let scribeText = this.state.reply_bodyText;
@@ -59,7 +59,7 @@ class AddNestedReply extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -70,12 +70,12 @@ class AddNestedReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + scribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -84,17 +84,17 @@ class AddNestedReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
-    const newState = !this.state.replied;
     this.setState({
       reply_file: '',
       reply_imagePreviewUrl: '',
       reply_bodyText: ''
     });
+    const newState = !this.state.replied;
     this.props.callbackParent(newState);
   }
 
