@@ -12,8 +12,7 @@ class AddReply extends React.Component {
       reply_date: new Date().toISOString(),
       reply_file: '',
       reply_imagePreviewUrl: '',
-      reply_imageUrl: '',
-      reply_uploadBar: 'invisible'
+      reply_imageUrl: ''
     };
   }
 
@@ -48,14 +47,6 @@ class AddReply extends React.Component {
       let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        (progress < 100)
-          ? this.setState({
-            reply_uploadBar: 'visible'
-          })
-          : this.setState({
-            reply_uploadBar: 'invisible'
-          });
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -90,11 +81,6 @@ class AddReply extends React.Component {
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
-    this.setState({
-      reply_file: '',
-      reply_imagePreviewUrl: '',
-      reply_bodyText: ''
-    });
     const newState = !this.state.replied;
     this.props.callbackParent(newState);
   }
@@ -167,7 +153,6 @@ class AddReply extends React.Component {
               <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
-                <span className={`upload-bar ${this.state.reply_uploadBar}`}>Sending Scribe now...</span>
               </div>
             </div>
             <div className="pt">
