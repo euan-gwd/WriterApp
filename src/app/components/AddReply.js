@@ -9,7 +9,7 @@ class AddReply extends React.Component {
     this.state = {
       replied: this.props.initialState,
       reply_bodyText: '',
-      reply_date: new Date().toLocaleString(),
+      reply_date: new Date().totoISOString(),
       reply_file: '',
       reply_imagePreviewUrl: '',
       reply_imageUrl: '',
@@ -26,7 +26,7 @@ class AddReply extends React.Component {
   }
 
   tick() {
-    this.setState({reply_date: new Date().toLocaleString()});
+    this.setState({reply_date: new Date().totoISOString()});
   }
 
   handleSubmit(evt) {

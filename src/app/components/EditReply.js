@@ -10,7 +10,7 @@ class EditReply extends React.Component {
     this.state = {
       edited: this.props.initialState,
       replyText: this.props.currentReply.scribe,
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     };
   }
 
@@ -24,7 +24,7 @@ class EditReply extends React.Component {
 
   tick() {
     this.setState({
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     });
   }
 

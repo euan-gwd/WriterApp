@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
@@ -66,7 +67,7 @@ class Scribe extends React.Component {
                 <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
                   <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                 </a>
-                <small className="has-text-right">{this.props.thread.datetime}</small>
+                <small className="has-text-right">{moment(this.props.thread.datetime).fromNow()}</small>
               </div>
             </div>
             {this.state.edited

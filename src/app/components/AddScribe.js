@@ -9,7 +9,7 @@ class AddScribe extends React.Component {
     super(props);
     this.state = {
       bodyText: '',
-      date: new Date().toLocaleString(),
+      date: new Date().toISOString(),
       file: '',
       imagePreviewUrl: '',
       imageUrl: '',
@@ -26,7 +26,7 @@ class AddScribe extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date().toLocaleString()});
+    this.setState({date: new Date().toISOString()});
   }
 
   handleSubmit(evt) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
 import './scribes.css';
@@ -65,7 +66,7 @@ class Reply extends React.Component {
                 <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
                   <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                 </a>
-                <small className="has-text-right">{this.props.stream.datetime}</small>
+                <small className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</small>
               </div>
             </div>
             {this.state.edited
