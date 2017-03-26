@@ -31,40 +31,14 @@ class EditReply extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let replyText = this.state.replyText;
-    let datetime = this.state.date;
-    let userName = this.props.currentReply.userName;
-    let userEmail = this.props.currentReply.userEmail;
-    let userPhoto = this.props.currentReply.userPhoto;
-    let imageRef = this.props.currentReply.scribeImage;
     let replyKeyRef = this.props.currentReply.key;
     let scribeParentKey = this.props.parentId;
     let chars_left = 160 - this.state.replyText.length;
-
     if (chars_left >= 0) {
-      if (imageRef === undefined) {
-        let updates = {};
-        let scribeData = {
-          scribe: replyText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      } else {
-        let updates = {};
-        let scribeData = {
-          scribe: replyText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeImage: imageRef
-        }
-        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
-        base.database().ref().update(updates);
+      let scribeData = {
+        scribe: replyText
       }
+      base.database().ref('msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
