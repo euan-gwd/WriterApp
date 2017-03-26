@@ -23,6 +23,7 @@ class AddReply extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.replyTimerID);
+
   }
 
   tick() {
@@ -93,8 +94,7 @@ class AddReply extends React.Component {
     this.setState({
       reply_file: '',
       reply_imagePreviewUrl: '',
-      reply_bodyText: '',
-      replied: newState
+      reply_bodyText: ''
     });
     this.props.callbackParent(newState);
   }
