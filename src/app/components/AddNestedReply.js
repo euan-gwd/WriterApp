@@ -9,7 +9,7 @@ class AddNestedReply extends React.Component {
     this.state = {
       replied: this.props.initialState,
       reply_bodyText: '',
-      reply_date: new Date().totoISOString(),
+      reply_date: new Date().toISOString(),
       reply_file: '',
       reply_imagePreviewUrl: '',
       reply_imageUrl: '',
@@ -26,7 +26,9 @@ class AddNestedReply extends React.Component {
   }
 
   tick() {
-    this.setState({reply_date: new Date().totoISOString()});
+    this.setState({
+      reply_date: new Date().toISOString()
+    });
   }
 
   handleSubmit(evt) {
@@ -47,8 +49,12 @@ class AddNestedReply extends React.Component {
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         (progress < 100)
-          ? this.setState({reply_uploadBar: 'visible'})
-          : this.setState({reply_uploadBar: 'invisible'});
+          ? this.setState({
+            reply_uploadBar: 'visible'
+          })
+          : this.setState({
+            reply_uploadBar: 'invisible'
+          });
       }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
@@ -84,12 +90,19 @@ class AddNestedReply extends React.Component {
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
     const newState = !this.state.replied;
-    this.setState({replied: newState, reply_file: '', reply_imagePreviewUrl: '', reply_bodyText: ''});
+    this.setState({
+      reply_file: '',
+      reply_imagePreviewUrl: '',
+      reply_bodyText: '',
+      replied: newState
+    });
     this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({reply_bodyText: evt.target.value});
+    this.setState({
+      reply_bodyText: evt.target.value
+    });
   }
 
   handleReplyImgUpload = (evt) => {
@@ -97,7 +110,10 @@ class AddNestedReply extends React.Component {
     let reader = new FileReader();
     let reply_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({reply_file: reply_file, reply_imagePreviewUrl: reader.result});
+      this.setState({
+        reply_file: reply_file,
+        reply_imagePreviewUrl: reader.result
+      });
     }
     reader.readAsDataURL(reply_file)
   }
@@ -105,12 +121,17 @@ class AddNestedReply extends React.Component {
   removeReplyImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.reply_fileUpload).value = '';
-    this.setState({reply_file: '', reply_imagePreviewUrl: ''});
+    this.setState({
+      reply_file: '',
+      reply_imagePreviewUrl: ''
+    });
   }
 
   handleReplyCancel = (evt) => {
     const newState = !this.state.replied;
-    this.setState({replied: newState});
+    this.setState({
+      replied: newState
+    });
     this.props.callbackParent(newState);
   }
 
@@ -136,8 +157,8 @@ class AddNestedReply extends React.Component {
         <article className="media nested-flat-box">
           <div className="media-left">
             {(this.props.currentScribe.userPhoto === null)
-              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-              : <figure className="image is-48x48">
+        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+        : <figure className="image is-48x48">
                 <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
@@ -182,7 +203,7 @@ class AddNestedReply extends React.Component {
           </div>
         </article>
       </form>
-    );
+      );
   }
 }
 
