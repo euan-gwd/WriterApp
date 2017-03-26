@@ -31,39 +31,13 @@ class EditScribe extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
-    let datetime = this.state.date;
-    let userName = this.props.currentScribe.userName;
-    let userEmail = this.props.currentScribe.userEmail;
-    let userPhoto = this.props.currentScribe.userPhoto;
-    let imageRef = this.props.currentScribe.scribeImage;
     let scribeKeyRef = this.props.currentScribe.key;
     let chars_left = 160 - this.state.scribeText.length;
-
+    let scribeData = {
+      scribe: scribeText
+    }
     if (chars_left >= 0) {
-      if (imageRef === undefined) {
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      } else {
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeImage: imageRef
-        }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      }
+      base.database().ref('/msgList/' + scribeKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
