@@ -93,8 +93,7 @@ class AddNestedReply extends React.Component {
     this.setState({
       reply_file: '',
       reply_imagePreviewUrl: '',
-      reply_bodyText: '',
-      replied: newState
+      reply_bodyText: ''
     });
     this.props.callbackParent(newState);
   }
