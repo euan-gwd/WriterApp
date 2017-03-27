@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import base from '../rebase.config';
 import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
@@ -31,6 +32,7 @@ class Scribe extends React.Component {
   }
 
   render() {
+    let currentUser = base.auth().currentUser.displayName;
     return (
       <li className="selected-scribe card">
         <article className="media">
@@ -43,11 +45,13 @@ class Scribe extends React.Component {
           </div>
           <div className="media-content">
             <div className="content">
-              <a onClick={this.props.removeScribe.bind(null)} className="is-pulled-right">
-                <span className="icon is-small">
-                  <i className="fa fa-times" aria-hidden="true"></i>
-                </span>
-              </a>
+              {(currentUser === this.props.thread.userName)
+                ? <a onClick={this.props.removeScribe.bind(null)} className="is-pulled-right">
+                    <span className="icon is-small">
+                      <i className="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                : null}
               <div>
                 <span className="title is-5 pr">{this.props.thread.userName}</span>
                 <span className="subtitle is-6">{this.props.thread.userEmail}</span>
@@ -64,9 +68,11 @@ class Scribe extends React.Component {
                 <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
-                <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
-                  <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
-                </a>
+                {(currentUser === this.props.thread.userName)
+                  ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
+                      <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    </a>
+                  : null}
                 <small className="has-text-right">{moment(this.props.thread.datetime).fromNow()}</small>
               </div>
             </div>
@@ -75,7 +81,7 @@ class Scribe extends React.Component {
               : null}
             {this.state.replied
               ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-              : <ReplyList currentScribe={this.props.thread} />}
+              : <ReplyList currentScribe={this.props.thread}/>}
           </div>
         </article>
       </li>

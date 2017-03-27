@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import base from '../rebase.config';
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
 import './scribes.css';
@@ -30,6 +31,7 @@ class Reply extends React.Component {
   }
 
   render() {
+    let currentUser = base.auth().currentUser.displayName;
     return (
       <div className="">
         <article className="media">
@@ -42,11 +44,13 @@ class Reply extends React.Component {
           </div>
           <div className="media-content">
             <div className="content">
-              <a onClick={this.props.removeReply.bind(null)} className="is-pulled-right">
-                <span className="icon is-small">
-                  <i className="fa fa-times" aria-hidden="true"></i>
-                </span>
-              </a>
+              {(currentUser === this.props.stream.userName)
+                ? <a onClick={this.props.removeReply.bind(null)} className="is-pulled-right">
+                    <span className="icon is-small">
+                      <i className="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                : null}
               <div>
                 <span className="title is-5 pr">{this.props.stream.userName}</span>
                 <span className="subtitle is-6">{this.props.stream.userEmail}</span>
@@ -63,9 +67,11 @@ class Reply extends React.Component {
                 <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
-                <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
-                  <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
-                </a>
+                {(currentUser === this.props.stream.userName)
+                  ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
+                      <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    </a>
+                  : null}
                 <small className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</small>
               </div>
             </div>
