@@ -11,12 +11,14 @@ class ReplyList extends React.Component {
     };
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const keyRef = this.state.scribeKey;
-    this.ref = base.bindToState('msgList/' + keyRef + '/scribeReplies/', {
+    this.ref = base.listenTo('msgList/' + keyRef + '/scribeReplies/', {
       context: this,
-      state: 'replies',
-      asArray: true
+      asArray: true,
+      then(data) {
+        this.setState({replies: data})
+      }
     })
   };
 
