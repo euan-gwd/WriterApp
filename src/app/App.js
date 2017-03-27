@@ -12,7 +12,8 @@ const uiConfig = {
       return false;
     }
   },
-  signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID]
+		credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+  signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID, base.auth.GoogleAuthProvider.PROVIDER_ID]
 };
 
 const ui = new firebaseui.auth.AuthUI(base.auth());

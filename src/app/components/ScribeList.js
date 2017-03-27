@@ -13,12 +13,11 @@ class ScribeList extends React.Component {
   };
 
   componentDidMount() {
-    this.ref = base.bindToState('msgList', {
+    this.ref = base.listenTo('msgList', {
       context: this,
-      state: 'scribes',
       asArray: true,
-      then() {
-        this.setState({loading: false})
+      then(data) {
+        this.setState({loading: false, scribes: data})
       }
     })
   };

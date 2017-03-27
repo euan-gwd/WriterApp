@@ -27,7 +27,7 @@
 }
 
 .fa-star:hover {
-  color: green;
+  color: yellow;
 }
 
 .image-rounded {
@@ -198,10 +198,6 @@ li.card:last-of-type {
 
 .profile-card .media {
   padding: 0 0.3125rem 0.3125rem;
-}
-
-.card-footer-item {
-  padding: 0 !important;
 }
 
 .text-is-primary {
