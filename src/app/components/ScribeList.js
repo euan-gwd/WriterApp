@@ -62,7 +62,7 @@ class ScribeList extends React.Component {
             </div>
           : <div className="columns pt-1">
             <div className="column is-3">
-              <div className="profile-card">
+              <div className="profile-card is-hidden-mobile">
                 <div className="card-content">
                   <div className="media">
                     <div className="media-left">
@@ -107,7 +107,7 @@ class ScribeList extends React.Component {
               <ul className="">{scribes}</ul>
             </div>
             <div className="column is-2">
-              <div className="card">
+              <div className="card is-hidden-mobile">
                 <h3 className="title is-5">Who to Follow:</h3>
                 <article className="media followList">
                   <div className="media-left">
