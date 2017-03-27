@@ -12,7 +12,7 @@ class ScribeList extends React.Component {
     };
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.ref = base.listenTo('msgList', {
       context: this,
       asArray: true,
