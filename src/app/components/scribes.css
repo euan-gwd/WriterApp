@@ -99,6 +99,10 @@ li.card:last-of-type {
   padding: 1vh 0;
 }
 
+.scribe-container {
+	padding: 0 2vw;
+}
+
 .imageBorder {
   border: 0.25rem solid black;
   border-radius: 5px;

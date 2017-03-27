@@ -52,7 +52,7 @@ class ScribeList extends React.Component {
       return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
     })
     return (
-      <div className="container is-fluid">
+      <div className="scribe-container">
         {this.state.loading === true
           ? <div className="centered">
               <span>Fetching Scribes...</span>
