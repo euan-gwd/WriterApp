@@ -68,6 +68,9 @@ class Scribe extends React.Component {
                 <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
+                <a className="pr-1">
+                  <i className="fa fa-star fa-fw" aria-hidden="true"></i>
+                </a>
                 {(currentUser === this.props.thread.userName)
                   ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
                       <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
