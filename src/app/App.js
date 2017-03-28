@@ -12,7 +12,7 @@ const uiConfig = {
       return false;
     }
   },
-		credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+	credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID, base.auth.GoogleAuthProvider.PROVIDER_ID]
 };
 
@@ -84,7 +84,7 @@ class App extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.initApp();
   }
 
