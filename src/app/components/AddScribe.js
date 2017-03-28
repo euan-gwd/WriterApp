@@ -65,6 +65,7 @@ class AddScribe extends React.Component {
           scribe: scribeText,
           scribeImage: downloadURL,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
           userPhoto: userPhoto
@@ -83,6 +84,7 @@ class AddScribe extends React.Component {
         let scribeData = {
           scribe: scribeText,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
           userPhoto: userPhoto
