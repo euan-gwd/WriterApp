@@ -34,7 +34,7 @@ class AddScribe extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let file = this.state.file;
-    let userId = this.props.userEmail;
+    let userId = this.props.userId;
     let scribeText = this.state.bodyText;
     let datetime = this.state.date;
     let userName = this.props.userName;
@@ -58,7 +58,7 @@ class AddScribe extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeKey = base.database().ref('mainTL/').push().key;
+        let newScribeKey = base.database().ref('mainTL/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -69,8 +69,8 @@ class AddScribe extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/mainTL/' + scribeKey] = scribeData;
-        updates['/userTL/' + userId + '/' + scribeKey] = scribeData;
+        updates['/mainTL/' + newScribeKey] = scribeData;
+        updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({
           uploadBar: 'invisible'
@@ -78,7 +78,7 @@ class AddScribe extends React.Component {
       });
     } else {
       if (chars_left >= 0) {
-        let scribeKey = base.database().ref('mainTL/').push().key;
+        let newScribeKey = base.database().ref('mainTL/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -87,8 +87,8 @@ class AddScribe extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/mainTL/' + scribeKey] = scribeData;
-        updates['/userTL/' + userId + '/' + scribeKey] = scribeData;
+        updates['/mainTL/' + newScribeKey] = scribeData;
+        updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
