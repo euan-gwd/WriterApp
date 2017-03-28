@@ -10,7 +10,7 @@ class EditScribe extends React.Component {
     this.state = {
       edited: this.props.initialState,
       scribeText: this.props.currentScribe.scribe,
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     };
   }
 
@@ -24,53 +24,24 @@ class EditScribe extends React.Component {
 
   tick() {
     this.setState({
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
-    let datetime = this.state.date;
-    let userName = this.props.currentScribe.userName;
-    let userEmail = this.props.currentScribe.userEmail;
-    let userPhoto = this.props.currentScribe.userPhoto;
-    let imageRef = this.props.currentScribe.scribeImage;
     let scribeKeyRef = this.props.currentScribe.key;
     let chars_left = 160 - this.state.scribeText.length;
-
+    let scribeData = {
+      scribe: scribeText
+    }
     if (chars_left >= 0) {
-      if (imageRef === undefined) {
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      } else {
-        let updates = {};
-        let scribeData = {
-          scribe: scribeText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeImage: imageRef
-        }
-        updates['/msgList/' + scribeKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      }
+      base.database().ref('/msgList/' + scribeKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
-    this.setState({
-      edited: newState
-    });
     this.props.callbackParent(newState);
   }
 
@@ -96,7 +67,7 @@ class EditScribe extends React.Component {
             {(this.props.currentScribe.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">
@@ -112,7 +83,7 @@ class EditScribe extends React.Component {
                   <div className="pr">{160 - this.state.scribeText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-info" type="submit" disabled={this.state.scribeText.length === 0}>
+                  <button className="button is-primary" type="submit" disabled={this.state.scribeText.length === 0}>
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>

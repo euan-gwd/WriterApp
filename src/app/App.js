@@ -7,12 +7,12 @@ import './App.css';
 
 const uiConfig = {
   callbacks: {
-    'signInSuccess': function(user) {
+    'signInSuccess': function (user) {
       this.handleSignIn(user);
       return false;
     }
   },
-  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+	credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID, base.auth.GoogleAuthProvider.PROVIDER_ID]
 };
 
@@ -84,7 +84,7 @@ class App extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.initApp();
   }
 
@@ -93,43 +93,35 @@ class App extends React.Component {
       <div>
         <div id="user-signed-in" ref="userSignedIn" className={`user-signed-in ${this.state.userSignedIn}`}>
           <nav className="nav has-shadow">
-            <div className="container is-fluid">
-              <div className="nav-left">
-                <a className="nav-item is-tab is-active">
-                  <span className="icon">
-                    <i className="fa fa-home fa-fw"></i>
-                  </span>
-                  <span>&nbsp;&nbsp;Home</span>
-                </a>
-                <a className="nav-item is-tab">
-                  <span className="icon">
-                    <i className="fa fa-comments-o fa-fw"></i>
-                  </span>
-                  <span>&nbsp;&nbsp;Messages</span>
-                </a>
+            <div className="grid-container">
+              <a className="nav-item is-tab is-active">
+                <span className="icon">
+                  <i className="fa fa-home fa-fw"></i>
+                </span>
+                <span className="is-hidden-mobile">&nbsp;Home</span>
+              </a>
+              <a className="nav-item is-tab">
+                <span className="icon">
+                  <i className="fa fa-comments-o fa-fw"></i>
+                </span>
+                <span className="is-hidden-mobile">&nbsp;Messages</span>
+              </a>
+              <div className="nav-item">
+                <img src={logo} alt="logo" className="App-logo"/>
+                <h1 className="title is-hidden-mobile">Scriber</h1>
               </div>
-              <div className="nav-center">
-                <div className="nav-item">
-                  <img src={logo} alt="logo" className="App-logo"/>
-                  <h1 className="title is-hidden-mobile">Scriber</h1>
+              <div className="nav-item">
+                <div className={`nav-spacing this.state.profilePic`}>
+                  {(this.state.currentUserPhoto)
+                    ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
+                    : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
                 </div>
-              </div>
-              <div className="nav-right">
-                <a className="nav-item is-tab">
-                  <div id="profilePic" ref="profilePic" className={this.state.profilePic}>
-                    {(this.state.currentUserPhoto)
-        ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
-        : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
-                  </div>
+                <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
+                  <span className="icon is-small">
+                    <i className="fa fa-sign-out"></i>
+                  </span>
+                  <span className="is-hidden-mobile">Sign Out</span>
                 </a>
-                <div className="nav-item">
-                  <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
-                    <span className="icon is-small">
-                      <i className="fa fa-sign-out"></i>
-                    </span>
-                    <span>Sign Out</span>
-                  </a>
-                </div>
               </div>
             </div>
           </nav>
@@ -154,7 +146,7 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-      );
+    );
   }
 }
 

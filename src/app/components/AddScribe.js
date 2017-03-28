@@ -9,7 +9,7 @@ class AddScribe extends React.Component {
     super(props);
     this.state = {
       bodyText: '',
-      date: new Date().toLocaleString(),
+      date: new Date().toISOString(),
       file: '',
       imagePreviewUrl: '',
       imageUrl: '',
@@ -27,7 +27,7 @@ class AddScribe extends React.Component {
 
   tick() {
     this.setState({
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     });
   }
 
@@ -128,35 +128,39 @@ class AddScribe extends React.Component {
 
   render() {
     let $imagePreview = null;
-    let {imagePreviewUrl} = this.state.imagePreviewUrl;
+    let imagePreviewUrl = this.state.imagePreviewUrl;
     if (imagePreviewUrl) {
       $imagePreview = (
-        <span>
-          <a className="upload-image-remove delete" onClick={this.removeImgUpload}></a>
-          <img src={imagePreviewUrl} className="image is-128x128 scribe-image-rounded" alt={this.state.file.name}/>
-        </span>
+        <div className="imagePreview-Wrapper">
+          <img src={imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.file.name}/>
+          <a className="topright" onClick={this.removeImgUpload}>
+            <span className="icon">
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
       );
     } else {
       $imagePreview = null;
     }
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)} className='box'>
+        <form onSubmit={this.handleSubmit.bind(this)} className='card'>
           <article className="media">
             <div className="media-left">
               {(this.props.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                  <img src={this.props.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                  <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                 </figure>}
             </div>
             <div className="media-content">
-              <div className="field">
-                <p className="control">
+              <div className="">
+                <div className="control">
                   {$imagePreview}
                   <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
                   <span className={`upload-bar ${this.state.uploadBar}`}>Sending Scribe now...</span>
-                </p>
+                </div>
               </div>
               <div className="pt">
                 <div className="columns is-mobile is-gapless">
@@ -172,7 +176,7 @@ class AddScribe extends React.Component {
                     <div className="pr">{160 - this.state.bodyText.length}</div>
                   </div>
                   <div className="column is-narrow">
-                    <button className="button is-info" type="submit" disabled={this.state.bodyText.length === 0}>
+                    <button className="button is-primary" type="submit" disabled={this.state.bodyText.length === 0}>
                       <span className="icon">
                         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                       </span>

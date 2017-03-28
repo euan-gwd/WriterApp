@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import base from '../rebase.config';
 import "./scribes.css";
 
-class AddReply extends React.Component {
+class AddNestedReply extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,6 @@ class AddReply extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.replyTimerID);
-
   }
 
   tick() {
@@ -31,7 +30,7 @@ class AddReply extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let currentScribeKey = this.props.currentScribe.key;
+    let parentScribeKey = this.props.parentId;
     let file = this.state.reply_file;
     let userId = this.props.currentScribe.userEmail;
     let scribeText = this.state.reply_bodyText;
@@ -42,15 +41,15 @@ class AddReply extends React.Component {
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let storageRef = base.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
+      let scribeReplyImgKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
+      let storageRef = base.storage().ref('/images/' + userId + '/' + scribeReplyImgKey + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
+        // let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
-        let updates = {};
         let scribeData = {
           scribe: scribeText,
           scribeImage: downloadURL,
@@ -59,13 +58,11 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyImgKey).update(scribeData);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
-        let updates = {};
+        let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
         let scribeData = {
           scribe: scribeText,
           datetime: datetime,
@@ -73,8 +70,7 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey).update(scribeData);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
@@ -179,4 +175,4 @@ class AddReply extends React.Component {
   }
 }
 
-export default AddReply;
+export default AddNestedReply;

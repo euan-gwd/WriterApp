@@ -10,7 +10,7 @@ class EditReply extends React.Component {
     this.state = {
       edited: this.props.initialState,
       replyText: this.props.currentReply.scribe,
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     };
   }
 
@@ -24,54 +24,25 @@ class EditReply extends React.Component {
 
   tick() {
     this.setState({
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     let replyText = this.state.replyText;
-    let datetime = this.state.date;
-    let userName = this.props.currentReply.userName;
-    let userEmail = this.props.currentReply.userEmail;
-    let userPhoto = this.props.currentReply.userPhoto;
-    let imageRef = this.props.currentReply.scribeImage;
     let replyKeyRef = this.props.currentReply.key;
     let scribeParentKey = this.props.parentId;
     let chars_left = 160 - this.state.replyText.length;
-
     if (chars_left >= 0) {
-      if (imageRef === undefined) {
-        let updates = {};
-        let scribeData = {
-          scribe: replyText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto
-        }
-        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
-        base.database().ref().update(updates);
-      } else {
-        let updates = {};
-        let scribeData = {
-          scribe: replyText,
-          datetime: datetime,
-          userName: userName,
-          userEmail: userEmail,
-          userPhoto: userPhoto,
-          scribeImage: imageRef
-        }
-        updates['msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef] = scribeData;
-        base.database().ref().update(updates);
+      let scribeData = {
+        scribe: replyText
       }
+      base.database().ref('msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
-    this.setState({
-      edited: newState
-    });
     this.props.callbackParent(newState);
   }
 
@@ -97,7 +68,7 @@ class EditReply extends React.Component {
             {(this.props.currentReply.userPhoto === null)
         ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
         : <figure className="image is-48x48">
-                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="scribe-image-rounded"/>
+                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">
@@ -113,7 +84,7 @@ class EditReply extends React.Component {
                   <div className="pr">{160 - this.state.replyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-info" type="submit" disabled={this.state.replyText.length === 0}>
+                  <button className="button is-primary" type="submit" disabled={this.state.replyText.length === 0}>
                     <span className="icon">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
