@@ -11,7 +11,7 @@ class ReplyList extends React.Component {
     };
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const keyRef = this.state.scribeKey;
     this.ref = base.listenTo('msgList/' + keyRef + '/scribeReplies/', {
       context: this,

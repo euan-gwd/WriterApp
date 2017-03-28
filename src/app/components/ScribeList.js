@@ -13,7 +13,7 @@ class ScribeList extends React.Component {
   }
   ;
 
-  componentDidMount() {
+  componentWillMount() {
     this.ref = base.listenTo('msgList', {
       context: this,
       asArray: true,
@@ -76,8 +76,8 @@ class ScribeList extends React.Component {
                         </span>}
                     </div>
                     <div className="media-content">
-                      <p className="title is-5">{this.props.userName}</p>
-                      <p className="subtitle is-6">{this.props.userEmail}</p>
+                      <p className="title">{this.props.userName}</p>
+                      <p className="subtitle">{this.props.userEmail}</p>
                     </div>
                   </div>
                   <footer className="level">
@@ -109,7 +109,7 @@ class ScribeList extends React.Component {
             </div>
             <div className="column is-2">
               <div className="card is-hidden-mobile">
-                <h3 className="title is-5">Who to Follow:</h3>
+                <h3 className="title">Who to Follow:</h3>
                 <article className="media followList">
                   <div className="media-left">
                     <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
@@ -133,7 +133,7 @@ class ScribeList extends React.Component {
                   </div>
                   <div className="media-content">
                     <div className="content">
-                      <span className="subtitle is-6">Placeholder</span>
+                      <span className="subtitle">Placeholder</span>
                     </div>
                   </div>
                   <div className="media-right">
