@@ -80,20 +80,20 @@ class ScribeList extends React.Component {
                       <p className="subtitle is-6">{this.props.userEmail}</p>
                     </div>
                   </div>
-                  <footer className="card-footer">
-                    <div className="card-footer-item has-text-centered">
+                  <footer className="level">
+                    <div className="level-item has-text-centered">
                       <div>
                         <p className="">Manuscripts</p>
                         <p className="text-is-primary">{this.state.scribes.length}</p>
                       </div>
                     </div>
-                    <div className="card-footer-item has-text-centered">
+                    <div className="level-item has-text-centered">
                       <div>
                         <p className="">Following</p>
                         <p className="text-is-primary">123</p>
                       </div>
                     </div>
-                    <div className="card-footer-item has-text-centered">
+                    <div className="level-item has-text-centered">
                       <div>
                         <p className="">Followers</p>
                         <p className="text-is-primary">456K</p>
