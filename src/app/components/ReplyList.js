@@ -32,16 +32,14 @@ class ReplyList extends React.Component {
     let msgListRef = base.database().ref('msgList/' + keyRef + '/scribeReplies/');
     let itemId = itm.key;
     let imgRef = itm.replyImage;
-    let replyUID = itm.userName;
-    let currentUID = this.props.currentScribe.userName;
     if (itm.hasOwnProperty("replyImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
-      if (replyUID === currentUID) {
+      if (window.confirm("Do you really want to delete this?")) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
-      if (replyUID === currentUID) {
+      if (window.confirm("Do you really want to delete this?")) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }

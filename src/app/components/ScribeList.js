@@ -10,14 +10,18 @@ class ScribeList extends React.Component {
       scribes: [],
       loading: true
     };
-  };
+  }
+  ;
 
   componentDidMount() {
     this.ref = base.listenTo('msgList', {
       context: this,
       asArray: true,
       then(data) {
-        this.setState({loading: false, scribes: data})
+        this.setState({
+          loading: false,
+          scribes: data
+        })
       }
     })
   };
@@ -31,16 +35,14 @@ class ScribeList extends React.Component {
     let msgListRef = base.database().ref('msgList/');
     let itemId = item.key;
     let imgRef = item.scribeImage;
-    let scribeUID = item.userName;
-    let currentUID = this.props.userName;
     if (item.hasOwnProperty("scribeImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
-      if (scribeUID === currentUID) {
+      if (window.confirm("Do you really want to delete this?")) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
-      if (scribeUID === currentUID) {
+      if (window.confirm("Do you really want to delete this?")) {
         msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
@@ -53,23 +55,23 @@ class ScribeList extends React.Component {
     return (
       <div className="scribe-container">
         {this.state.loading === true
-          ? <div className="centered">
+        ? <div className="centered">
               <span>Fetching Scribes...</span>
               <span className="icon">
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
               </span>
             </div>
-          : <div className="columns pt-1">
+        : <div className="columns pt-1">
             <div className="column is-3">
               <div className="profile-card is-hidden-mobile">
                 <div className="card-content">
                   <div className="media">
                     <div className="media-left">
                       {this.props.hasOwnProperty("userPhoto")
-                        ? <figure className="image is-48x48">
+          ? <figure className="image is-48x48">
                             <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                           </figure>
-                        : <span className="icon">
+          : <span className="icon">
                           <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                         </span>}
                     </div>
@@ -146,7 +148,7 @@ class ScribeList extends React.Component {
             </div>
           </div>}
       </div>
-    );
+      );
   }
 }
 
