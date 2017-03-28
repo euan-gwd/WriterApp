@@ -70,6 +70,7 @@ class AddScribe extends React.Component {
           userPhoto: userPhoto
         }
         updates['/mainTL/' + scribeKey] = scribeData;
+        updates['/userTL/' + userId + '/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({
           uploadBar: 'invisible'
@@ -87,6 +88,7 @@ class AddScribe extends React.Component {
           userPhoto: userPhoto
         }
         updates['/mainTL/' + scribeKey] = scribeData;
+        updates['/userTL/' + userId + '/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
