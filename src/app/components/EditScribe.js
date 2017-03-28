@@ -32,14 +32,15 @@ class EditScribe extends React.Component {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
     let scribeKeyRef = this.props.currentScribe.key;
+    let userId = this.props.currentScribe.userId;
     let chars_left = 160 - this.state.scribeText.length;
     let scribeData = {
       scribe: scribeText
     }
     if (chars_left >= 0) {
       base.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
+      base.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
     }
-
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
     this.props.callbackParent(newState);
