@@ -10,18 +10,14 @@ class ScribeList extends React.Component {
       scribes: [],
       loading: true
     };
-  }
-  ;
+  };
 
   componentWillMount() {
     this.ref = base.listenTo('msgList', {
       context: this,
       asArray: true,
       then(data) {
-        this.setState({
-          loading: false,
-          scribes: data
-        })
+        this.setState({loading: false, scribes: data})
       }
     })
   };
@@ -55,47 +51,47 @@ class ScribeList extends React.Component {
     return (
       <div className="scribe-container">
         {this.state.loading === true
-        ? <div className="centered">
+          ? <div className="centered">
               <span>Fetching Scribes...</span>
               <span className="icon">
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
               </span>
             </div>
-        : <div className="columns pt-1">
+          : <div className="columns pt-1">
             <div className="column is-3">
               <div className="profile-card is-hidden-mobile">
                 <div className="card-content">
                   <div className="media">
                     <div className="media-left">
                       {this.props.hasOwnProperty("userPhoto")
-          ? <figure className="image is-48x48">
+                        ? <figure className="image is-48x48">
                             <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                           </figure>
-          : <span className="icon">
+                        : <span className="icon">
                           <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                         </span>}
                     </div>
                     <div className="media-content">
-                      <p className="title">{this.props.userName}</p>
-                      <p className="subtitle">{this.props.userEmail}</p>
+                      <p className="title-text-is-3">{this.props.userName}</p>
+                      <p className="subtitle-text-is-2 lh-1">{this.props.userEmail}</p>
                     </div>
                   </div>
-                  <footer className="level">
-                    <div className="level-item has-text-centered">
-                      <div>
-                        <p className="">Manuscripts</p>
+                  <footer className="leveled">
+                    <div className="has-text-centered">
+                      <div className="pt">
+                        <p className="subtitle-text lh-1">Manuscripts</p>
                         <p className="text-is-primary">{this.state.scribes.length}</p>
                       </div>
                     </div>
-                    <div className="level-item has-text-centered">
-                      <div>
-                        <p className="">Following</p>
+                    <div className="has-text-centered">
+                      <div className="pt">
+                        <p className="subtitle-text lh-1">Following</p>
                         <p className="text-is-primary">123</p>
                       </div>
                     </div>
-                    <div className="level-item has-text-centered">
-                      <div>
-                        <p className="">Followers</p>
+                    <div className="has-text-centered">
+                      <div className="pt">
+                        <p className="subtitle-text lh-1">Followers</p>
                         <p className="text-is-primary">456K</p>
                       </div>
                     </div>
@@ -108,47 +104,43 @@ class ScribeList extends React.Component {
               <ul className="">{scribes}</ul>
             </div>
             <div className="column is-2">
-              <div className="card is-hidden-mobile">
-                <h3 className="title">Who to Follow:</h3>
-                <article className="media followList">
-                  <div className="media-left">
-                    <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div className="media-content">
-                    <div className="content">
-                      <span className="subtitle is-6">Placeholder</span>
-                    </div>
-                  </div>
-                  <div className="media-right">
-                    <a className="button is-info is-outlined is-small">
+              <div className="follow-card is-hidden-mobile">
+                <h3 className="text-title-is-5">Who to Follow:</h3>
+                <article className="">
+                  <div className="pt-1">
+                    <div className="leveled">
                       <span className="icon">
-                        <i className="fa fa-user-plus"></i>
+                        <i className="fa fa-user-circle-o" aria-hidden="true"></i>
                       </span>
-                    </a>
+                      <span className="text-title-is-2 py">Placeholder</span>
+                      <a className="button is-info is-outlined is-small">
+                        <span className="icon">
+                          <i className="fa fa-user-plus"></i>
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </article>
-                <article className="media followList">
-                  <div className="media-left">
-                    <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div className="media-content">
-                    <div className="content">
-                      <span className="subtitle">Placeholder</span>
-                    </div>
-                  </div>
-                  <div className="media-right">
-                    <a className="button is-info is-outlined is-small">
+                <article className="">
+                  <div className="pt-1">
+                    <div className="leveled">
                       <span className="icon">
-                        <i className="fa fa-user-plus"></i>
+                        <i className="fa fa-user-circle-o" aria-hidden="true"></i>
                       </span>
-                    </a>
+                      <span className="text-title-is-2 py">Placeholder</span>
+                      <a className="button is-info is-outlined is-small">
+                        <span className="icon">
+                          <i className="fa fa-user-plus"></i>
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </article>
               </div>
             </div>
           </div>}
       </div>
-      );
+    );
   }
 }
 

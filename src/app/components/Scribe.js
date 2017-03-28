@@ -53,8 +53,8 @@ class Scribe extends React.Component {
                   </a>
                 : null}
               <div>
-                <span className="title is-5 pr">{this.props.thread.userName}</span>
-                <span className="subtitle is-6">{this.props.thread.userEmail}</span>
+                <span className="title-text-is-3 pr">{this.props.thread.userName}</span>
+                <span className="subtitle-text-is-2">{this.props.thread.userEmail}</span>
               </div>
               <div>
                 {this.props.thread.scribe}
