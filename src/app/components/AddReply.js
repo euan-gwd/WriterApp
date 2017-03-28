@@ -48,7 +48,7 @@ class AddReply extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -59,12 +59,12 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -73,7 +73,7 @@ class AddReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }

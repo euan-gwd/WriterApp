@@ -13,7 +13,7 @@ class ScribeList extends React.Component {
   };
 
   componentWillMount() {
-    this.ref = base.listenTo('msgList', {
+    this.ref = base.listenTo('mainTL', {
       context: this,
       asArray: true,
       then(data) {
@@ -28,18 +28,18 @@ class ScribeList extends React.Component {
 
   deleteScribe(item, evt) {
     evt.stopPropagation();
-    let msgListRef = base.database().ref('msgList/');
+    let mainTLRef = base.database().ref('mainTL/');
     let itemId = item.key;
     let imgRef = item.scribeImage;
     if (item.hasOwnProperty("scribeImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
   }
@@ -100,7 +100,7 @@ class ScribeList extends React.Component {
               </div>
             </div>
             <div className="column">
-              <AddScribe msgList={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
+              <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
               <ul className="">{scribes}</ul>
             </div>
             <div className="column is-2">

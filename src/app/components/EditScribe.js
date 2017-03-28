@@ -37,7 +37,7 @@ class EditScribe extends React.Component {
       scribe: scribeText
     }
     if (chars_left >= 0) {
-      base.database().ref('/msgList/' + scribeKeyRef).update(scribeData);
+      base.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';

@@ -58,7 +58,7 @@ class AddScribe extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeKey = base.database().ref('mainTL/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -69,7 +69,7 @@ class AddScribe extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/mainTL/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
         this.setState({
           uploadBar: 'invisible'
@@ -77,7 +77,7 @@ class AddScribe extends React.Component {
       });
     } else {
       if (chars_left >= 0) {
-        let scribeKey = base.database().ref('msgList/').push().key;
+        let scribeKey = base.database().ref('mainTL/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -86,7 +86,7 @@ class AddScribe extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        updates['/msgList/' + scribeKey] = scribeData;
+        updates['/mainTL/' + scribeKey] = scribeData;
         base.database().ref().update(updates);
       }
     }

@@ -13,7 +13,7 @@ class ReplyList extends React.Component {
 
   componentWillMount() {
     const keyRef = this.state.scribeKey;
-    this.ref = base.listenTo('msgList/' + keyRef + '/scribeReplies/', {
+    this.ref = base.listenTo('mainTL/' + keyRef + '/scribeReplies/', {
       context: this,
       asArray: true,
       then(data) {
@@ -29,18 +29,18 @@ class ReplyList extends React.Component {
   deleteReply(itm, evt) {
     evt.stopPropagation();
     const keyRef = this.state.scribeKey;
-    let msgListRef = base.database().ref('msgList/' + keyRef + '/scribeReplies/');
+    let mainTLRef = base.database().ref('mainTL/' + keyRef + '/scribeReplies/');
     let itemId = itm.key;
     let imgRef = itm.replyImage;
     if (itm.hasOwnProperty("replyImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
   }

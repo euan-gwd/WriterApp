@@ -41,14 +41,14 @@ class AddNestedReply extends React.Component {
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let scribeReplyImgKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
+      let scribeReplyImgKey = base.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
       let storageRef = base.storage().ref('/images/' + userId + '/' + scribeReplyImgKey + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        // let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
+        // let scribeReplyKey = base.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let scribeData = {
           scribe: scribeText,
@@ -58,11 +58,11 @@ class AddNestedReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyImgKey).update(scribeData);
+        base.database().ref('/mainTL/' + parentScribeKey + '/scribeReplies/' + scribeReplyImgKey).update(scribeData);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
+        let scribeReplyKey = base.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
         let scribeData = {
           scribe: scribeText,
           datetime: datetime,
@@ -70,7 +70,7 @@ class AddNestedReply extends React.Component {
           userEmail: userEmail,
           userPhoto: userPhoto
         }
-        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey).update(scribeData);
+        base.database().ref('/mainTL/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey).update(scribeData);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';

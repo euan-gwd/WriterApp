@@ -38,7 +38,7 @@ class EditReply extends React.Component {
       let scribeData = {
         scribe: replyText
       }
-      base.database().ref('msgList/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      base.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
