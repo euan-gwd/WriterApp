@@ -28,18 +28,22 @@ class ScribeList extends React.Component {
 
   deleteScribe(item, evt) {
     evt.stopPropagation();
+    let userId = this.props.userId;
     let mainTLRef = base.database().ref('mainTL/');
+    let userTLRef = base.database().ref('userTL/' + userId + '/');
     let itemId = item.key;
     let imgRef = item.scribeImage;
     if (item.hasOwnProperty("scribeImage")) {
       let deleteImgRef = base.storage().refFromURL(imgRef);
       if (window.confirm("Do you really want to delete this?")) {
         mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
+        userTLRef.child(itemId).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
         mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
+        userTLRef.child(itemId).remove(); //removes item from firebase RTdBase
       }
     }
   }
