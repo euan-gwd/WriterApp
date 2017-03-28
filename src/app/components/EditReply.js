@@ -32,6 +32,7 @@ class EditReply extends React.Component {
     evt.preventDefault();
     let replyText = this.state.replyText;
     let replyKeyRef = this.props.currentReply.key;
+    let userId = this.props.currentReply.userId;
     let scribeParentKey = this.props.parentId;
     let chars_left = 160 - this.state.replyText.length;
     if (chars_left >= 0) {
@@ -39,6 +40,7 @@ class EditReply extends React.Component {
         scribe: replyText
       }
       base.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      base.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
