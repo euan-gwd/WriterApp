@@ -61,21 +61,21 @@ class Reply extends React.Component {
               <div>
                 {this.props.stream.scribe}
                 {this.props.stream.hasOwnProperty("scribeImage")
-                  ? <div className="media-content">
-																						<figure className="image is-16by9">
-																							<img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded"/>
+                  ? <div className="media-content px">
+																						<figure className="">
+																							<img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded image"/>
 																						</figure>
                     </div>
-                  : <div className=""></div>}
+                  : null}
               </div>
               <div className="leveled-nested">
-                <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
+                <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
                     <i className="fa fa-reply fa-fw" aria-hidden="true">
                     </i>
                   </span>
                 </a>
-                <a className="pr-1" onClick={this.props.favReply.bind(null)}>
+                <a className="" onClick={this.props.favReply.bind(null)}>
                   <span className="icon">
                     <i className="fa fa-star fa-fw" aria-hidden="true">
                       {showLikesTotal}
@@ -83,7 +83,7 @@ class Reply extends React.Component {
                   </span>
                 </a>
                 {(currentUser === this.props.stream.userName)
-                  ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
+                  ? <a className="" onClick={this.handleEditBtnClick.bind(this)}>
                       <span className="icon">
                         <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
                       </span>

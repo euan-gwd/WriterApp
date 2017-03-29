@@ -275,7 +275,3 @@ li.card:last-of-type {
     justify-content: space-between;
 		align-items: center;
 }
-
-.scribe-neg-top {
-	margin-top: -6.5vh;
-}

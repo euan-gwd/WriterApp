@@ -68,7 +68,7 @@ class Scribe extends React.Component {
               <div>
                 {this.props.thread.scribe}
                 {this.props.thread.hasOwnProperty("scribeImage")
-                  ? <div className="media-content">
+                  ? <div className="media-content px">
                       <figure className="">
                         <img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image"/>
                       </figure>
