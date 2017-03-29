@@ -27,7 +27,7 @@
 }
 
 .fa-star:hover {
-    color: yellow;
+    color: #ddda00;
 }
 
 .scribe-container {
@@ -91,6 +91,10 @@ li.card:last-of-type {
 
 .pr {
     padding-right: 0.5vw;
+}
+
+.pl {
+    padding-left: 0.25vw;
 }
 
 .pr-1 {
@@ -263,4 +267,11 @@ li.card:last-of-type {
 .leveled {
     display: flex;
     justify-content: space-around;
+}
+
+.leveled-nested {
+		width: 50%;
+    display: inline-flex;
+    justify-content: space-between;
+		align-items: center;
 }
