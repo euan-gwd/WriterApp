@@ -60,7 +60,8 @@ class AddNestedReply extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + parentScribeKey + '/scribeReplies/' + newScribeReplyImgKey] = scribeData;
         updates['/userTL/' + userId + '/' + parentScribeKey + '/scribeReplies/' + newScribeReplyImgKey] = scribeData;
@@ -76,7 +77,8 @@ class AddNestedReply extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + parentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + parentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;

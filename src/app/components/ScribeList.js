@@ -10,17 +10,22 @@ class ScribeList extends React.Component {
       scribes: [],
       loading: true
     };
-  };
+  }
+  ;
 
   componentWillMount() {
     this.ref = base.listenTo('mainTL', {
       context: this,
       asArray: true,
       then(data) {
-        this.setState({loading: false, scribes: data})
+        this.setState({
+          loading: false,
+          scribes: data
+        })
       }
     })
-  };
+  }
+  ;
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
@@ -31,47 +36,54 @@ class ScribeList extends React.Component {
     let userId = this.props.userId;
     let mainTLRef = base.database().ref('mainTL/');
     let userTLRef = base.database().ref('userTL/' + userId + '/');
-    let itemId = item.key;
-    let imgRef = item.scribeImage;
     if (item.hasOwnProperty("scribeImage")) {
-      let deleteImgRef = base.storage().refFromURL(imgRef);
+      let deleteImgRef = base.storage().refFromURL(item.scribeImage);
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
-        userTLRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(item.key).remove(); //removes item from firebase RTdBase
+        userTLRef.child(item.key).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(itemId).remove(); //removes item from firebase RTdBase
-        userTLRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(item.key).remove(); //removes item from firebase RTdBase
+        userTLRef.child(item.key).remove(); //removes item from firebase RTdBase
       }
     }
   }
 
+  toggleLikes(item, evt) {
+    evt.stopPropagation();
+    let userId = this.props.userId;
+    let mainDbRef = base.database().ref('mainTL/').child(item.key).child('likes');
+    let userDbRef = base.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
+    mainDbRef.transaction(fav => fav + 1);
+    userDbRef.transaction(fav => fav + 1);
+  }
+
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} key={item.key}/>);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
     })
     return (
       <div className="scribe-container">
         {this.state.loading === true
-          ? <div className="centered">
+        ? <div className="centered">
               <span>Fetching Scribes...</span>
               <span className="icon">
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
               </span>
             </div>
-          : <div className="columns pt-1">
+        : <div className="columns pt-1">
             <div className="column is-3">
               <div className="profile-card is-hidden-mobile">
                 <div className="card-content">
                   <div className="media">
                     <div className="media-left">
                       {this.props.hasOwnProperty("userPhoto")
-                        ? <figure className="image is-48x48">
+          ? <figure className="image is-48x48">
                             <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                           </figure>
-                        : <span className="icon">
+          : <span className="icon">
                           <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                         </span>}
                     </div>
@@ -144,7 +156,7 @@ class ScribeList extends React.Component {
             </div>
           </div>}
       </div>
-    );
+      );
   }
 }
 

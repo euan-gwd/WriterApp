@@ -68,7 +68,7 @@ class Reply extends React.Component {
                   <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                 </a>
                 <a className="pr-1">
-                  <i className="fa fa-star fa-fw" aria-hidden="true"></i>
+                  <i className="fa fa-star fa-fw" aria-hidden="true" onClick={this.props.favReply.bind(null)}></i>
                 </a>
                 {(currentUser === this.props.stream.userName)
                   ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>

@@ -61,7 +61,8 @@ class AddReply extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
@@ -77,7 +78,8 @@ class AddReply extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;

@@ -68,7 +68,8 @@ class AddScribe extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + newScribeKey] = scribeData;
         updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
@@ -87,7 +88,8 @@ class AddScribe extends React.Component {
           userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes : 0
         }
         updates['/mainTL/' + newScribeKey] = scribeData;
         updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
