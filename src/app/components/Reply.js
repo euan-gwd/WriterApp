@@ -32,6 +32,9 @@ class Reply extends React.Component {
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
+    let showLikesTotal = (this.props.stream.likes !== 0)
+      ? <span className="pl">{this.props.stream.likes}</span>
+      : null;
     return (
       <div className="">
         <article className="media">
@@ -46,7 +49,7 @@ class Reply extends React.Component {
             <div className="content">
               {(currentUser === this.props.stream.userName)
                 ? <a onClick={this.props.removeReply.bind(null)} className="is-pulled-right">
-                    <span className="icon is-small">
+                    <span className="icon">
                       <i className="fa fa-times" aria-hidden="true"></i>
                     </span>
                   </a>
@@ -58,24 +61,33 @@ class Reply extends React.Component {
               <div>
                 {this.props.stream.scribe}
                 {this.props.stream.hasOwnProperty("scribeImage")
-                  ? <div className="media-content px-1">
+                  ? <div className="media-content">
                       <img src={this.props.stream.scribeImage} alt="scribeImage" className="image image-rounded"/>
                     </div>
-                  : <div className="px-1"></div>}
+                  : <div className=""></div>}
               </div>
-              <div className="">
+              <div className="leveled-nested">
                 <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
-                  <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
+                  <span className="icon">
+                    <i className="fa fa-reply fa-fw" aria-hidden="true">
+                    </i>
+                  </span>
                 </a>
-                <a className="pr-1">
-                  <i className="fa fa-star fa-fw" aria-hidden="true" onClick={this.props.favReply.bind(null)}></i>
+                <a className="pr-1" onClick={this.props.favReply.bind(null)}>
+                  <span className="icon">
+                    <i className="fa fa-star fa-fw" aria-hidden="true">
+                      {showLikesTotal}
+                    </i>
+                  </span>
                 </a>
                 {(currentUser === this.props.stream.userName)
                   ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
-                      <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                      <span className="icon">
+                        <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                      </span>
                     </a>
                   : null}
-                <small className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</small>
+                <p className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</p>
               </div>
             </div>
             {this.state.edited

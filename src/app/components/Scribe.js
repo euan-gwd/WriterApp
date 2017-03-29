@@ -40,7 +40,6 @@ class Scribe extends React.Component {
     let showRepliesTotal = (repliesTotal !== 0)
       ? <span className="pl">{repliesTotal}</span>
       : null;
-
     return (
       <li className="selected-scribe card">
         <article className="media">
@@ -55,7 +54,7 @@ class Scribe extends React.Component {
             <div className="content">
               {(currentUser === this.props.thread.userName)
                 ? <a onClick={this.props.removeScribe.bind(null)} className="is-pulled-right">
-                    <span className="icon is-small">
+                    <span className="icon">
                       <i className="fa fa-times" aria-hidden="true"></i>
                     </span>
                   </a>
@@ -67,10 +66,10 @@ class Scribe extends React.Component {
               <div>
                 {this.props.thread.scribe}
                 {this.props.thread.hasOwnProperty("scribeImage")
-                  ? <div className="media-content px-1">
+                  ? <div className="media-content">
                       <img src={this.props.thread.scribeImage} alt="scribeImage" className="image image-rounded"/>
                     </div>
-                  : <div className="px-1"></div>}
+                  : <div className=""></div>}
               </div>
               <div className="leveled-nested">
                 <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
