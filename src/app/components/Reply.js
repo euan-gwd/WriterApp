@@ -62,17 +62,16 @@ class Reply extends React.Component {
                 {this.props.stream.scribe}
                 {this.props.stream.hasOwnProperty("scribeImage")
                   ? <div className="media-content px">
-																						<figure className="">
-																							<img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded image"/>
-																						</figure>
+                      <figure className="">
+                        <img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded image"/>
+                      </figure>
                     </div>
                   : null}
               </div>
               <div className="leveled-nested">
                 <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
-                    <i className="fa fa-reply fa-fw" aria-hidden="true">
-                    </i>
+                    <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
                   </span>
                 </a>
                 <a className="" onClick={this.props.favReply.bind(null)}>

@@ -23,9 +23,7 @@ class EditReply extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toISOString()
-    });
+    this.setState({date: new Date().toISOString()});
   }
 
   handleSubmit(evt) {
@@ -49,16 +47,12 @@ class EditReply extends React.Component {
   }
 
   handleInput = (evt) => {
-    this.setState({
-      replyText: evt.target.value
-    })
+    this.setState({replyText: evt.target.value})
   }
 
   handleCancel = (evt) => {
     const newState = !this.state.edited;
-    this.setState({
-      edited: newState
-    });
+    this.setState({edited: newState});
     this.props.callbackParent(newState);
   }
 
@@ -68,8 +62,8 @@ class EditReply extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(this.props.currentReply.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
+              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+              : <figure className="image is-48x48">
                 <img src={this.props.currentReply.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
@@ -105,7 +99,7 @@ class EditReply extends React.Component {
           </div>
         </article>
       </form>
-      );
+    );
   }
 }
 

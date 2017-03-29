@@ -9,8 +9,7 @@ class ReplyList extends React.Component {
       replies: [],
       scribeKey: this.props.currentScribe.key
     };
-  }
-  ;
+  };
 
   componentWillMount() {
     const keyRef = this.state.scribeKey;
@@ -18,13 +17,10 @@ class ReplyList extends React.Component {
       context: this,
       asArray: true,
       then(data) {
-        this.setState({
-          replies: data
-        })
+        this.setState({replies: data})
       }
     })
-  }
-  ;
+  };
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
@@ -71,7 +67,7 @@ class ReplyList extends React.Component {
       <article className="Media">
         <ul className="">{replies}</ul>
       </article>
-      );
+    );
   }
 }
 
