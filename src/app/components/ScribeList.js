@@ -88,21 +88,21 @@ class ScribeList extends React.Component {
                     </div>
                   </div>
                   <footer className="leveled">
-                    <div className="has-text-centered">
-                      <div className="pt">
-                        <p className="subtitle-text lh-1">Manuscripts</p>
-                        <p className="text-is-primary">{this.state.scribes.length}</p>
+                    <div className="has-text-left">
+                      <div className="pr-1">
+                        <p className="subtitle-text-is-2 lh-1">Manuscripts</p>
+                        <p className="title-text text-is-primary">{this.state.scribes.length}</p>
                       </div>
                     </div>
-                    <div className="has-text-centered">
-                      <div className="pt">
-                        <p className="subtitle-text lh-1">Following</p>
+                    <div className="has-text-left">
+                      <div className="">
+                        <p className="subtitle-text-is-2 lh-1">Following</p>
                         <p className="text-is-primary">123</p>
                       </div>
                     </div>
-                    <div className="has-text-centered">
-                      <div className="pt">
-                        <p className="subtitle-text lh-1">Followers</p>
+                    <div className="has-text-left">
+                      <div className="pl-1">
+                        <p className="subtitle-text-is-2 lh-1">Followers</p>
                         <p className="text-is-primary">456K</p>
                       </div>
                     </div>

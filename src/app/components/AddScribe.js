@@ -130,7 +130,6 @@ class AddScribe extends React.Component {
       $imagePreview = null;
     }
     return (
-      <div>
         <form onSubmit={this.handleSubmit.bind(this)} className='card'>
           <article className="media">
             <div className="media-left">
@@ -163,7 +162,7 @@ class AddScribe extends React.Component {
                   </div>
                   <div className="column is-narrow">
                     <button className="button is-primary" type="submit" disabled={this.state.bodyText.length === 0}>
-                      <span className="icon">
+                      <span className="icon is-hidden-mobile">
                         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                       </span>
                       <span>Scribe</span>
@@ -174,7 +173,6 @@ class AddScribe extends React.Component {
             </div>
           </article>
         </form>
-      </div>
     );
   }
 

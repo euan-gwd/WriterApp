@@ -142,7 +142,7 @@ class AddReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="field">
+            <div className="">
               <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
@@ -163,7 +163,7 @@ class AddReply extends React.Component {
                 </div>
                 <div className="column is-narrow">
                   <button className="button is-primary" type="submit" disabled={this.state.reply_bodyText.length === 0}>
-                    <span className="icon">
+                    <span className="icon is-hidden-mobile">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
                     <span>Reply</span>
