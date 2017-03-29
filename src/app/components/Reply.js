@@ -68,7 +68,7 @@ class Reply extends React.Component {
                     </div>
                   : null}
               </div>
-              <div className="leveled-nested">
+              <div className="scribe-actions-leveled-nested">
                 <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
                     <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
