@@ -78,14 +78,14 @@ class Scribe extends React.Component {
               <div className="scribe-actions-leveled">
                 <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
-                    <i className="fa fa-reply fa-fw" aria-hidden="true">
+                    <i className="fa fa-reply" aria-hidden="true">
                       {showRepliesTotal}
                     </i>
                   </span>
                 </a>
                 <a className="" onClick={this.props.favScribe.bind(null)}>
                   <span className="icon">
-                    <i className="fa fa-star fa-fw" aria-hidden="true">
+                    <i className="fa fa-star" aria-hidden="true">
                       {showLikesTotal}
                     </i>
                   </span>
@@ -93,7 +93,7 @@ class Scribe extends React.Component {
                 {(currentUser === this.props.thread.userName)
                   ? <a className="" onClick={this.handleEditBtnClick.bind(this)}>
                       <span className="icon">
-                        <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        <i className="fa fa-pencil" aria-hidden="true"></i>
                       </span>
                     </a>
                   : null}
