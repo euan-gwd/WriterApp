@@ -33,11 +33,13 @@ class Scribe extends React.Component {
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
-    let showLikesTotal = (this.props.thread.likes !== 0)
+    let showLikesTotal = (this.props.thread.likes > 0)
       ? <span className="pl">{this.props.thread.likes}</span>
       : null;
-    let repliesTotal = Object.keys(this.props.thread.scribeReplies).length;
-    let showRepliesTotal = (repliesTotal !== 0)
+    let repliesTotal = (this.props.thread.hasOwnProperty("scribeReplies"))
+      ? Object.keys(this.props.thread.scribeReplies).length
+      : 0;
+    let showRepliesTotal = (repliesTotal > 0)
       ? <span className="pl">{repliesTotal}</span>
       : null;
     return (
@@ -67,7 +69,9 @@ class Scribe extends React.Component {
                 {this.props.thread.scribe}
                 {this.props.thread.hasOwnProperty("scribeImage")
                   ? <div className="media-content">
-                      <img src={this.props.thread.scribeImage} alt="scribeImage" className="image image-rounded"/>
+                      <figure className="image is-16by9">
+                        <img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded"/>
+                      </figure>
                     </div>
                   : <div className=""></div>}
               </div>

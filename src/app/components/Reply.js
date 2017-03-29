@@ -32,7 +32,7 @@ class Reply extends React.Component {
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
-    let showLikesTotal = (this.props.stream.likes !== 0)
+    let showLikesTotal = (this.props.stream.likes > 0)
       ? <span className="pl">{this.props.stream.likes}</span>
       : null;
     return (
@@ -62,7 +62,9 @@ class Reply extends React.Component {
                 {this.props.stream.scribe}
                 {this.props.stream.hasOwnProperty("scribeImage")
                   ? <div className="media-content">
-                      <img src={this.props.stream.scribeImage} alt="scribeImage" className="image image-rounded"/>
+																						<figure className="image is-16by9">
+																							<img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded"/>
+																						</figure>
                     </div>
                   : <div className=""></div>}
               </div>
