@@ -33,9 +33,14 @@ class Scribe extends React.Component {
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
-    let showLikes = (this.props.thread.likes !== 0)
+    let showLikesTotal = (this.props.thread.likes !== 0)
       ? <span className="pl">{this.props.thread.likes}</span>
       : null;
+    let repliesTotal = Object.keys(this.props.thread.scribeReplies).length;
+    let showRepliesTotal = (repliesTotal !== 0)
+      ? <span className="pl">{repliesTotal}</span>
+      : null;
+
     return (
       <li className="selected-scribe card">
         <article className="media">
@@ -70,13 +75,15 @@ class Scribe extends React.Component {
               <div className="leveled-nested">
                 <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
-                    <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
+                    <i className="fa fa-reply fa-fw" aria-hidden="true">
+                      {showRepliesTotal}
+                    </i>
                   </span>
                 </a>
                 <a className="" onClick={this.props.favScribe.bind(null)}>
                   <span className="icon">
                     <i className="fa fa-star fa-fw" aria-hidden="true">
-                      {showLikes}
+                      {showLikesTotal}
                     </i>
                   </span>
                 </a>
