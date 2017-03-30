@@ -174,7 +174,7 @@ class AddReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="icon is-small">
+              <span className="icon">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

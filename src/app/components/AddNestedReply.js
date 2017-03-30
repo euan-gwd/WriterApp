@@ -141,7 +141,7 @@ class AddNestedReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="field">
+            <div className="">
               <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
@@ -173,7 +173,7 @@ class AddNestedReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="icon is-small">
+              <span className="icon">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>
