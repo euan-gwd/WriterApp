@@ -15,7 +15,7 @@ class ReplyList extends React.Component {
     const keyRef = this.state.scribeKey;
     this.ref = base.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
       context: this,
-						state: 'replies',
+			state: 'replies',
       asArray: true
     })
   };
