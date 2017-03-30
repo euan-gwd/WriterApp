@@ -11,7 +11,7 @@ class ScribeList extends React.Component {
     };
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.ref = base.bindToState('mainTL', {
       context: this,
       state: 'scribes',

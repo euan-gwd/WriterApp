@@ -11,15 +11,12 @@ class ReplyList extends React.Component {
     };
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const keyRef = this.state.scribeKey;
     this.ref = base.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
       context: this,
 						state: 'replies',
       asArray: true
-      // then(data) {
-      //   this.setState({replies: data})
-      // }
     })
   };
 
