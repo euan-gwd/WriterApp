@@ -76,7 +76,7 @@ class Scribe extends React.Component {
                   : null}
               </div>
               <div className="scribe-actions-leveled">
-                <a className="" onClick={this.handleReplyBtnClick.bind(this)}>
+                <a className="pl" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
                     <i className="fa fa-reply" aria-hidden="true">
                       {showRepliesTotal}

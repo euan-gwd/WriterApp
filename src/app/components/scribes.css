@@ -94,7 +94,7 @@ li.card:last-of-type {
 }
 
 .pl {
-  padding-left: 0.25vw;
+  padding-left: 0.5vw;
 }
 
 .pl-1 {
@@ -161,10 +161,6 @@ li.card:last-of-type {
   z-index: -1;
 }
 
-.media .media {
-  padding-bottom: 0.75rem;
-}
-
 #uploadBar {
   display: none;
 }
@@ -228,40 +224,20 @@ li.card:last-of-type {
   font-size: 3vh;
 }
 
-.title-text-is-1 {
-  font-size: 1vh;
-}
-
-.title-text-is-2 {
-  font-size: 2vh;
-}
-
-.title-text-is-3 {
+.title-text {
   font-size: 3vh;
 }
 
-.title-text-is-4 {
-  font-size: 4vh;
-}
-
-.subtitle-text-is-1 {
+.subtitle-text {
   font-size: 1vh;
 }
 
-.subtitle-text-is-2 {
-  font-size: 2vh;
+.normal-text {
+  font-size: 1vh;
 }
 
-.subtitle-text-is-3 {
-  font-size: 3vh;
-}
-
-.subtitle-text-is-4 {
-  font-size: 4vh;
-}
-
-.subtitle-text-is-5 {
-  font-size: 5vh;
+.small-text {
+  font-size: 0.25vh;
 }
 
 .lh-1 {
@@ -276,14 +252,14 @@ li.card:last-of-type {
 
 .scribe-actions-leveled {
   width: 50%;
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .scribe-actions-leveled-nested {
   width: 50%;
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -296,5 +272,3 @@ li.card:last-of-type {
     width: 100%;
   }
 }
-
-;

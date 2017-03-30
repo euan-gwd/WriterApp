@@ -64,9 +64,9 @@ class ReplyList extends React.Component {
       return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key}/>);
     })
     return (
-      <article className="Media">
-        <ul className="">{replies}</ul>
-      </article>
+      <div>
+        {replies}
+      </div>
     );
   }
 }

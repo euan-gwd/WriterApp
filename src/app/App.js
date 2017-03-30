@@ -139,7 +139,7 @@ class App extends React.Component {
                 </div>
               </div>
               <div className="nav-right">
-                <h4 className="nav-item">You are signed out.</h4>
+                <h4 className="nav-item">Please Sign In.</h4>
               </div>
             </div>
           </nav>
