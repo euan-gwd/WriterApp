@@ -1,6 +1,7 @@
 import React from 'react';
 import firebaseui from 'firebaseui';
-import base from './rebase.config';
+// import base from './rebase.config';
+import base from './firebase.config';
 import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
@@ -12,12 +13,11 @@ const uiConfig = {
       return false;
     }
   },
-	credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID, base.auth.GoogleAuthProvider.PROVIDER_ID]
 };
 
 const ui = new firebaseui.auth.AuthUI(base.auth());
-let currentUid = null;
 
 class App extends React.Component {
 
@@ -25,17 +25,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUserName: null,
-						currentUserId: null,
+      currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null
     }
   }
 
   handleSignedInUser = (user) => {
-    currentUid = user.uid;
     this.setState({
       currentUserName: user.displayName,
-						currentUserId: user.uid,
+      currentUserId: user.uid,
       currentUserEmail: user.email,
       currentUserPhoto: user.photoURL,
       userSignedIn: 'show',
@@ -45,10 +44,9 @@ class App extends React.Component {
   }
 
   handleSignedOutUser = () => {
-    currentUid = null;
     this.setState({
       currentUserName: null,
-						currentUserId: null,
+      currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null,
       userSignedIn: 'hide',
@@ -59,36 +57,14 @@ class App extends React.Component {
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 
-  initApp() {
+  componentDidMount() {
     base.auth().onAuthStateChanged((user) => {
-      if (user && user.id === currentUid) {
-        this.setState({
-          currentUserName: user.displayName,
-          currentUserEmail: user.email,
-          currentUserPhoto: user.photoURL,
-          userSignedIn: 'show',
-          userSignedOut: 'hide',
-          profilePic: 'show'
-        });
-        return;
+      if (user) {
+        this.handleSignedInUser(user)
       } else {
-        this.setState({
-          currentUserName: null,
-          currentUserEmail: null,
-          currentUserPhoto: null,
-          userSignedIn: 'hide',
-          userSignedOut: 'show',
-          profilePic: 'hide'
-        });
+        this.handleSignedOutUser();
       }
-      user
-        ? this.handleSignedInUser(user)
-        : this.handleSignedOutUser();
     });
-  }
-
-  componentWillMount() {
-    this.initApp();
   }
 
   render() {
@@ -110,13 +86,13 @@ class App extends React.Component {
                 <span className="is-hidden-mobile">&nbsp;Messages</span>
               </a>
               <div className="nav-item">
-                <img src={logo} alt="logo" className="App-logo"/>
+                <img src={logo} alt="logo" className="App-logo" />
                 <h1 className="title is-hidden-mobile">Scriber</h1>
               </div>
               <div className="nav-item">
                 <div className={`nav-spacing this.state.profilePic`}>
                   {(this.state.currentUserPhoto)
-                    ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded"/></figure>
+                    ? <figure className="image is-24x24"><img src={this.state.currentUserPhoto} alt="profilePic" className="nav-image-is-rounded" /></figure>
                     : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
                 </div>
                 <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
@@ -128,14 +104,14 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <ScribeList userName={this.state.currentUserName} userId={this.state.currentUserId} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
+          <ScribeList userName={this.state.currentUserName} userId={this.state.currentUserId} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto} />
         </div>
         <div id="user-signed-out" ref="userSignedOut" className={`user-signed-out ${this.state.userSignedOut}`}>
           <nav className="nav has-shadow">
             <div className="container">
               <div className="nav-left">
                 <div className="nav-item">
-                  <img src={logo} alt="logo"/>
+                  <img src={logo} alt="logo" />
                 </div>
               </div>
               <div className="nav-right">
@@ -143,7 +119,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <br/>
+          <br />
           <div id="firebaseui-spa">
             <div id="firebaseui-auth-container"></div>
           </div>

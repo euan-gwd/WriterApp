@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import base from '../rebase.config';
+// import base from '../rebase.config';
+import base from './firebase.config';
 import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
