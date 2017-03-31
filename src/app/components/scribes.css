@@ -1,32 +1,36 @@
-.fa-times {
+.remove {
   color: grey;
 }
 
-.fa-times:hover {
+.remove:hover {
   color: red;
 }
 
-.fa-reply {
+.reply {
   color: grey;
 }
 
-.fa-reply:hover {
+.reply:hover {
   color: blue;
 }
 
-.fa-pencil {
+.edit {
   color: grey;
 }
 
-.fa-pencil:hover {
+.edit:hover {
   color: #00d1b2;
 }
 
-.fa-star {
+.star {
   color: grey;
 }
 
-.fa-star:hover {
+.star:hover {
+  color: #ddda00;
+}
+
+.liked {
   color: #ddda00;
 }
 

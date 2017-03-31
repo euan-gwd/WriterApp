@@ -16,26 +16,32 @@ class Scribe extends React.Component {
   }
 
   handleEditBtnClick() {
-    this.setState({edited: true})
+    this.setState({ edited: true })
   }
 
   onScribeEdited(newState) {
-    this.setState({edited: newState})
+    this.setState({ edited: newState })
   }
 
   handleReplyBtnClick() {
-    this.setState({replied: true})
+    this.setState({ replied: true })
   }
 
   onScribeReply(newState) {
-    this.setState({replied: newState})
+    this.setState({ replied: newState })
   }
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
     let showLikesTotal = (this.props.thread.likes > 0)
-      ? <span className="pl">{this.props.thread.likes}</span>
-      : null;
+      ? <span className="icon liked">
+        <i className="fa fa-star" aria-hidden="true">
+          <span className="pl">{this.props.thread.likes}</span>
+        </i>
+      </span>
+      : <span className="icon">
+        <i className="fa fa-star" aria-hidden="true"></i>
+      </span>;
     let repliesTotal = (this.props.thread.hasOwnProperty("scribeReplies"))
       ? Object.keys(this.props.thread.scribeReplies).length
       : 0;
@@ -48,18 +54,18 @@ class Scribe extends React.Component {
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
-                  <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded"/>
+                <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded" />
                 </figure>
               : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
           </div>
           <div className="media-content">
             <div className="content">
               {(currentUser === this.props.thread.userName)
-                ? <a onClick={this.props.removeScribe.bind(null)} className="is-pulled-right">
-                    <span className="icon">
-                      <i className="fa fa-times" aria-hidden="true"></i>
-                    </span>
-                  </a>
+                ? <a onClick={this.props.removeScribe.bind(null)} className="remove is-pulled-right">
+                  <span className="icon">
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  </span>
+                </a>
                 : null}
               <div>
                 <span className="title-text-is-3 pr">{this.props.thread.userName}</span>
@@ -69,43 +75,39 @@ class Scribe extends React.Component {
                 {this.props.thread.scribe}
                 {this.props.thread.hasOwnProperty("scribeImage")
                   ? <div className="media-content px">
-                      <figure className="">
-                        <img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image"/>
-                      </figure>
-                    </div>
+                    <figure className="">
+                      <img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image" />
+                    </figure>
+                  </div>
                   : null}
               </div>
               <div className="scribe-actions-leveled">
-                <a className="pl" onClick={this.handleReplyBtnClick.bind(this)}>
+                <a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)}>
                   <span className="icon">
                     <i className="fa fa-reply" aria-hidden="true">
                       {showRepliesTotal}
                     </i>
                   </span>
                 </a>
-                <a className="" onClick={this.props.favScribe.bind(null)}>
-                  <span className="icon">
-                    <i className="fa fa-star" aria-hidden="true">
-                      {showLikesTotal}
-                    </i>
-                  </span>
+                <a className="star" onClick={this.props.favScribe.bind(null)}>
+                  {showLikesTotal}
                 </a>
                 {(currentUser === this.props.thread.userName)
-                  ? <a className="" onClick={this.handleEditBtnClick.bind(this)}>
-                      <span className="icon">
-                        <i className="fa fa-pencil" aria-hidden="true"></i>
-                      </span>
-                    </a>
+                  ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
+                    <span className="icon">
+                      <i className="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
+                  </a>
                   : null}
                 <p className="has-text-right">{moment(this.props.thread.datetime).fromNow()}</p>
               </div>
             </div>
             {this.state.edited
-              ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
+              ? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)} />
               : null}
             {this.state.replied
-              ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-              : <ReplyList currentScribe={this.props.thread}/>}
+              ? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)} />
+              : <ReplyList currentScribe={this.props.thread} />}
           </div>
         </article>
       </li>
