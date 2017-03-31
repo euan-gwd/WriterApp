@@ -19,7 +19,7 @@ class ScribeList extends React.Component {
     //   state: 'scribes',
     //   asArray: true
     // })
-    base.database().ref().on('value', (res) => {
+    base.database().ref('mainTL').on('value', (res) => {
       const userData = res.val();
       console.log(userData);
       const dataArray = [];
@@ -31,9 +31,9 @@ class ScribeList extends React.Component {
     })
   };
 
-  componentWillUnmount() {
-    // base.removeBinding(this.ref);
-  }
+  // componentWillUnmount() {
+  //   base.removeBinding(this.ref);
+  // }
 
   deleteScribe(item, evt) {
     evt.stopPropagation();

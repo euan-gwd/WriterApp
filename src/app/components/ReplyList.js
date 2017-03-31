@@ -15,16 +15,26 @@ class ReplyList extends React.Component {
 
   componentDidMount() {
     const keyRef = this.state.scribeKey;
-    this.ref = base.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
-      context: this,
-      state: 'replies',
-      asArray: true
+    // this.ref = base.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
+    //   context: this,
+    //   state: 'replies',
+    //   asArray: true
+    // })
+    base.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
+      const userData = res.val();
+      console.log(userData);
+      const dataArray = [];
+      for (let objKey in userData) {
+        userData[objKey].key = objKey;
+        dataArray.push(userData[objKey])
+      }
+      this.setState({replies: dataArray})
     })
   };
 
-  componentWillUnmount() {
-    base.removeBinding(this.ref);
-  }
+  // componentWillUnmount() {
+  //   base.removeBinding(this.ref);
+  // }
 
   deleteReply(itm, evt) {
     evt.stopPropagation();
@@ -51,13 +61,13 @@ class ReplyList extends React.Component {
   incrementAndSave(mainTLDbRef, userTLDbRef) {
     mainTLDbRef.transaction(star => star + 1);
     userTLDbRef.transaction(star => star + 1);
-    this.setState({ starred: true });
+    this.setState({starred: true});
   }
 
   decrementAndSave(mainTLDbRef, userTLDbRef) {
     mainTLDbRef.transaction(star => star - 1);
     userTLDbRef.transaction(star => star - 1);
-    this.setState({ starred: false });
+    this.setState({starred: false});
   }
 
   toggleLikes(item, evt) {
@@ -74,7 +84,7 @@ class ReplyList extends React.Component {
   render() {
     const keyRef = this.state.scribeKey;
     let replies = this.state.replies.map((itm, index) => {
-      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key} />);
+      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key}/>);
     })
     return (
       <div>
