@@ -7,7 +7,8 @@ class ScribeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scribes: []
+      scribes: [],
+      starred: false
     };
   };
 
@@ -43,18 +44,31 @@ class ScribeList extends React.Component {
     }
   }
 
+  incrementAndSave(mainDbRef, userDbRef) {
+    mainDbRef.transaction(star => star + 1);
+    userDbRef.transaction(star => star + 1);
+    this.setState({ starred: true });
+  }
+
+  decrementAndSave(mainDbRef, userDbRef) {
+    mainDbRef.transaction(star => star - 1);
+    userDbRef.transaction(star => star - 1);
+    this.setState({ starred: false });
+  }
+
   toggleLikes(item, evt) {
     evt.stopPropagation();
     let userId = this.props.userId;
     let mainDbRef = base.database().ref('mainTL/').child(item.key).child('likes');
     let userDbRef = base.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
-    mainDbRef.transaction(star => star + 1);
-    userDbRef.transaction(star => star + 1);
+    (this.state.starred === true)
+    ? this.decrementAndSave(mainDbRef, userDbRef)
+    : this.incrementAndSave(mainDbRef, userDbRef)
   }
 
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key} />);
     })
     return (
       <div className="scribe-container">
@@ -66,8 +80,8 @@ class ScribeList extends React.Component {
                   <div className="media-left">
                     {this.props.hasOwnProperty("userPhoto")
                       ? <figure className="image is-48x48">
-                          <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
-                        </figure>
+                        <img src={this.props.userPhoto} alt="profilePic" className="image-rounded" />
+                      </figure>
                       : <span className="icon">
                         <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
                       </span>}
@@ -101,7 +115,7 @@ class ScribeList extends React.Component {
             </div>
           </div>
           <div className="column">
-            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
+            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className="" />
             <ul className="">{scribes}</ul>
           </div>
           <div className="column is-2">
