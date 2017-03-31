@@ -48,8 +48,8 @@ class ScribeList extends React.Component {
     let userId = this.props.userId;
     let mainDbRef = base.database().ref('mainTL/').child(item.key).child('likes');
     let userDbRef = base.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
-    mainDbRef.transaction(fav => fav + 1);
-    userDbRef.transaction(fav => fav + 1);
+    mainDbRef.transaction(star => star + 1);
+    userDbRef.transaction(star => star + 1);
   }
 
   render() {

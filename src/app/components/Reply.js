@@ -76,7 +76,7 @@ class Reply extends React.Component {
               <a className="" onClick={this.props.favReply.bind(null)}>
                 <span className="icon">
                   <i className="fa fa-star" aria-hidden="true">
-                    {showLikesTotal}
+                  <span className="pl">{showLikesTotal}</span>
                   </i>
                 </span>
               </a>

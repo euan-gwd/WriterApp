@@ -52,8 +52,8 @@ class ReplyList extends React.Component {
     let userId = this.props.currentScribe.userId;
     let mainTLDbRef = base.database().ref('mainTL/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
     let userTLDbRef = base.database().ref('userTL/' + userId + '/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
-    mainTLDbRef.transaction(fav => fav + 1);
-    userTLDbRef.transaction(fav => fav + 1);
+    mainTLDbRef.transaction(star => star + 1);
+    userTLDbRef.transaction(star => star + 1);
   }
 
   render() {
