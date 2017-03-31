@@ -32,7 +32,7 @@ class AddNestedReply extends React.Component {
     evt.preventDefault();
     let parentScribeKey = this.props.parentId;
     let file = this.state.reply_file;
-    let userId = this.props.currentScribe.userEmail;
+    let userId = this.props.currentScribe.userId;
     let scribeText = this.state.reply_bodyText;
     let datetime = this.state.reply_date;
     let userName = this.props.currentScribe.userName;
@@ -41,36 +41,45 @@ class AddNestedReply extends React.Component {
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let scribeReplyImgKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
-      let storageRef = base.storage().ref('/images/' + userId + '/' + scribeReplyImgKey + '/' + file.name);
+      let newScribeReplyImgKey = base.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
+      let storageRef = base.storage().ref('/images/' + userId + '/' + newScribeReplyImgKey + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        // let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
+        let updates = {};
         let scribeData = {
           scribe: scribeText,
           scribeImage: downloadURL,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes: 0
         }
-        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyImgKey).update(scribeData);
+        updates['/mainTL/' + parentScribeKey + '/scribeReplies/' + newScribeReplyImgKey] = scribeData;
+        updates['/userTL/' + userId + '/' + parentScribeKey + '/scribeReplies/' + newScribeReplyImgKey] = scribeData;
+        base.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + parentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = base.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
+        let updates = {};
         let scribeData = {
           scribe: scribeText,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes: 0
         }
-        base.database().ref('/msgList/' + parentScribeKey + '/scribeReplies/' + scribeReplyKey).update(scribeData);
+        updates['/mainTL/' + parentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
+        updates['/userTL/' + userId + '/' + parentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
+        base.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
@@ -132,7 +141,7 @@ class AddNestedReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="field">
+            <div className="">
               <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
@@ -164,7 +173,7 @@ class AddNestedReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="icon is-small">
+              <span className="icon">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

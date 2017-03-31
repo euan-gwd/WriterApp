@@ -25,6 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUserName: null,
+						currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null
     }
@@ -34,6 +35,7 @@ class App extends React.Component {
     currentUid = user.uid;
     this.setState({
       currentUserName: user.displayName,
+						currentUserId: user.uid,
       currentUserEmail: user.email,
       currentUserPhoto: user.photoURL,
       userSignedIn: 'show',
@@ -46,6 +48,7 @@ class App extends React.Component {
     currentUid = null;
     this.setState({
       currentUserName: null,
+						currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null,
       userSignedIn: 'hide',
@@ -125,7 +128,7 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-          <ScribeList userName={this.state.currentUserName} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
+          <ScribeList userName={this.state.currentUserName} userId={this.state.currentUserId} userEmail={this.state.currentUserEmail} userPhoto={this.state.currentUserPhoto}/>
         </div>
         <div id="user-signed-out" ref="userSignedOut" className={`user-signed-out ${this.state.userSignedOut}`}>
           <nav className="nav has-shadow">
@@ -136,7 +139,7 @@ class App extends React.Component {
                 </div>
               </div>
               <div className="nav-right">
-                <h4 className="nav-item">You are signed out.</h4>
+                <h4 className="nav-item">Please Sign In.</h4>
               </div>
             </div>
           </nav>

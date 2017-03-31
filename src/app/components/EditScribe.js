@@ -23,39 +23,34 @@ class EditScribe extends React.Component {
   }
 
   tick() {
-    this.setState({
-      date: new Date().toISOString()
-    });
+    this.setState({date: new Date().toISOString()});
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
     let scribeKeyRef = this.props.currentScribe.key;
+    let userId = this.props.currentScribe.userId;
     let chars_left = 160 - this.state.scribeText.length;
     let scribeData = {
       scribe: scribeText
     }
     if (chars_left >= 0) {
-      base.database().ref('/msgList/' + scribeKeyRef).update(scribeData);
+      base.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
+      base.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
     }
-
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
     this.props.callbackParent(newState);
   }
 
   handleInput = (evt) => {
-    this.setState({
-      scribeText: evt.target.value
-    })
+    this.setState({scribeText: evt.target.value})
   }
 
   handleCancel = (evt) => {
     const newState = !this.state.edited;
-    this.setState({
-      edited: newState
-    });
+    this.setState({edited: newState});
     this.props.callbackParent(newState);
   }
 
@@ -65,8 +60,8 @@ class EditScribe extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(this.props.currentScribe.userPhoto === null)
-        ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-        : <figure className="image is-48x48">
+              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+              : <figure className="image is-48x48">
                 <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
@@ -94,15 +89,15 @@ class EditScribe extends React.Component {
             </div>
           </div>
           <div className="media-right">
-          <a onClick={this.handleCancel.bind(this)}>
-            <span className="icon is-small">
-              <i className="fa fa-times" aria-hidden="true"></i>
-            </span>
-          </a>
+            <a onClick={this.handleCancel.bind(this)}>
+              <span className="icon is-small">
+                <i className="fa fa-times" aria-hidden="true"></i>
+              </span>
+            </a>
           </div>
         </article>
       </form>
-      );
+    );
   }
 }
 

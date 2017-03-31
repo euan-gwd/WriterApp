@@ -33,7 +33,7 @@ class AddReply extends React.Component {
     evt.preventDefault();
     let currentScribeKey = this.props.currentScribe.key;
     let file = this.state.reply_file;
-    let userId = this.props.currentScribe.userEmail;
+    let userId = this.props.currentScribe.userId;
     let scribeText = this.state.reply_bodyText;
     let datetime = this.state.reply_date;
     let userName = this.props.currentScribe.userName;
@@ -48,32 +48,38 @@ class AddReply extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
           scribeImage: downloadURL,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes: 0
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
+        updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let scribeReplyKey = base.database().ref('msgList/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
           datetime: datetime,
+          userId: userId,
           userName: userName,
           userEmail: userEmail,
-          userPhoto: userPhoto
+          userPhoto: userPhoto,
+          likes: 0
         }
-        updates['/msgList/' + currentScribeKey + '/scribeReplies/' + scribeReplyKey] = scribeData;
+        updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
+        updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         base.database().ref().update(updates);
       }
     }
@@ -136,7 +142,7 @@ class AddReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="field">
+            <div className="">
               <div className="control">
                 {$replyImagePreview}
                 <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
@@ -157,7 +163,7 @@ class AddReply extends React.Component {
                 </div>
                 <div className="column is-narrow">
                   <button className="button is-primary" type="submit" disabled={this.state.reply_bodyText.length === 0}>
-                    <span className="icon">
+                    <span className="icon is-hidden-mobile">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
                     <span>Reply</span>
@@ -168,7 +174,7 @@ class AddReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="icon is-small">
+              <span className="icon">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

@@ -7,18 +7,17 @@ class ReplyList extends React.Component {
     super(props);
     this.state = {
       replies: [],
-      scribeKey: this.props.currentScribe.key
+      scribeKey: this.props.currentScribe.key,
+      starred: false
     };
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const keyRef = this.state.scribeKey;
-    this.ref = base.listenTo('msgList/' + keyRef + '/scribeReplies/', {
+    this.ref = base.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
       context: this,
-      asArray: true,
-      then(data) {
-        this.setState({replies: data})
-      }
+      state: 'replies',
+      asArray: true
     })
   };
 
@@ -29,31 +28,57 @@ class ReplyList extends React.Component {
   deleteReply(itm, evt) {
     evt.stopPropagation();
     const keyRef = this.state.scribeKey;
-    let msgListRef = base.database().ref('msgList/' + keyRef + '/scribeReplies/');
-    let itemId = itm.key;
-    let imgRef = itm.replyImage;
+    let userId = this.props.currentScribe.userId;
+    let mainTLRef = base.database().ref('mainTL/' + keyRef + '/scribeReplies/');
+    let userTLRef = base.database().ref('userTL/' + userId + '/' + keyRef + '/scribeReplies/');
+
     if (itm.hasOwnProperty("replyImage")) {
-      let deleteImgRef = base.storage().refFromURL(imgRef);
+      let deleteImgRef = base.storage().refFromURL(itm.replyImage);
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itm.key).remove(); //removes item from firebase RTdBase
+        userTLRef.child(itm.key).remove(); //removes item from firebase RTdBase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        msgListRef.child(itemId).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(itm.key).remove(); //removes item from firebase RTdBase
+        userTLRef.child(itm.key).remove(); //removes item from firebase RTdBase
       }
     }
+  }
+
+  incrementAndSave(mainTLDbRef, userTLDbRef) {
+    mainTLDbRef.transaction(star => star + 1);
+    userTLDbRef.transaction(star => star + 1);
+    this.setState({ starred: true });
+  }
+
+  decrementAndSave(mainTLDbRef, userTLDbRef) {
+    mainTLDbRef.transaction(star => star - 1);
+    userTLDbRef.transaction(star => star - 1);
+    this.setState({ starred: false });
+  }
+
+  toggleLikes(item, evt) {
+    evt.stopPropagation();
+    const keyRef = this.state.scribeKey;
+    let userId = this.props.currentScribe.userId;
+    let mainTLDbRef = base.database().ref('mainTL/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
+    let userTLDbRef = base.database().ref('userTL/' + userId + '/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
+    (this.state.starred === true)
+      ? this.decrementAndSave(mainTLDbRef, userTLDbRef)
+      : this.incrementAndSave(mainTLDbRef, userTLDbRef)
   }
 
   render() {
     const keyRef = this.state.scribeKey;
     let replies = this.state.replies.map((itm, index) => {
-      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} key={itm.key}/>);
+      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key} />);
     })
     return (
-      <article className="Media">
-        <ul className="">{replies}</ul>
-      </article>
+      <div>
+        {replies}
+      </div>
     );
   }
 }

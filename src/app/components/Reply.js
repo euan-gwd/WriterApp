@@ -15,75 +15,91 @@ class Reply extends React.Component {
   }
 
   handleEditBtnClick() {
-    this.setState({edited: true})
+    this.setState({ edited: true })
   }
 
   onReplyEdited(newState) {
-    this.setState({edited: newState})
+    this.setState({ edited: newState })
   }
 
   handleReplyBtnClick() {
-    this.setState({replied: true})
+    this.setState({ replied: true })
   }
 
   onScribeReply(newState) {
-    this.setState({replied: newState})
+    this.setState({ replied: newState })
   }
 
   render() {
     let currentUser = base.auth().currentUser.displayName;
+    let showLikesTotal = (this.props.stream.likes > 0)
+      ? <span className="icon liked">
+        <i className="fa fa-star" aria-hidden="true">
+          <span className="pl">{this.props.stream.likes}</span>
+        </i>
+      </span>
+      : <span className="icon">
+        <i className="fa fa-star" aria-hidden="true"></i>
+      </span>;
     return (
-      <div className="">
-        <article className="media">
-          <div className="media-left">
-            {this.props.stream.hasOwnProperty("userPhoto")
-              ? <figure className="image is-48x48">
-                  <img src={this.props.stream.userPhoto} alt="profilePic" className="image-rounded"/>
-                </figure>
-              : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
-          </div>
-          <div className="media-content">
-            <div className="content">
-              {(currentUser === this.props.stream.userName)
-                ? <a onClick={this.props.removeReply.bind(null)} className="is-pulled-right">
-                    <span className="icon is-small">
-                      <i className="fa fa-times" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                : null}
-              <div>
-                <span className="title is-5 pr">{this.props.stream.userName}</span>
-                <span className="subtitle is-6">{this.props.stream.userEmail}</span>
-              </div>
-              <div>
-                {this.props.stream.scribe}
-                {this.props.stream.hasOwnProperty("scribeImage")
-                  ? <div className="media-content px-1">
-                      <img src={this.props.stream.scribeImage} alt="scribeImage" className="image image-rounded"/>
-                    </div>
-                  : <div className="px-1"></div>}
-              </div>
-              <div className="">
-                <a className="pr-1" onClick={this.handleReplyBtnClick.bind(this)}>
-                  <i className="fa fa-reply fa-fw" aria-hidden="true"></i>
-                </a>
-                {(currentUser === this.props.stream.userName)
-                  ? <a className="pr-1" onClick={this.handleEditBtnClick.bind(this)}>
-                      <i className="fa fa-pencil fa-fw" aria-hidden="true"></i>
-                    </a>
-                  : null}
-                <small className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</small>
-              </div>
+      <article className="media">
+        <div className="media-left">
+          {this.props.stream.hasOwnProperty("userPhoto")
+            ? <figure className="image is-48x48">
+              <img src={this.props.stream.userPhoto} alt="profilePic" className="image-rounded" />
+            </figure>
+            : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
+        </div>
+        <div className="media-content">
+          <div className="content">
+            {(currentUser === this.props.stream.userName)
+              ? <a onClick={this.props.removeReply.bind(null)} className="remove is-pulled-right">
+                <span className="icon">
+                  <i className="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </a>
+              : null}
+            <div>
+              <span className="title is-5 pr">{this.props.stream.userName}</span>
+              <span className="subtitle is-6">{this.props.stream.userEmail}</span>
             </div>
-            {this.state.edited
-              ? <EditReply currentReply={this.props.stream} parentId={this.props.parentId} initialState={this.state.edited} callbackParent={(newState) => this.onReplyEdited(newState)}/>
-              : null}
-            {this.state.replied
-              ? <AddNestedReply currentScribe={this.props.stream} parentId={this.props.parentId} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-              : null}
+            <div>
+              {this.props.stream.scribe}
+              {this.props.stream.hasOwnProperty("scribeImage")
+                ? <div className="media-content px">
+                  <figure className="">
+                    <img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded image" />
+                  </figure>
+                </div>
+                : null}
+            </div>
+            <div className="scribe-actions-leveled-nested">
+              <a className="reply" onClick={this.handleReplyBtnClick.bind(this)}>
+                <span className="icon">
+                  <i className="fa fa-reply" aria-hidden="true"></i>
+                </span>
+              </a>
+              <a className="star" onClick={this.props.favReply.bind(null)}>
+                {showLikesTotal}
+              </a>
+              {(currentUser === this.props.stream.userName)
+                ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
+                  <span className="icon">
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+                </a>
+                : null}
+              <p className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</p>
+            </div>
           </div>
-        </article>
-      </div>
+          {this.state.edited
+            ? <EditReply currentReply={this.props.stream} parentId={this.props.parentId} initialState={this.state.edited} callbackParent={(newState) => this.onReplyEdited(newState)} />
+            : null}
+          {this.state.replied
+            ? <AddNestedReply currentScribe={this.props.stream} parentId={this.props.parentId} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)} />
+            : null}
+        </div>
+      </article>
     );
   }
 }
