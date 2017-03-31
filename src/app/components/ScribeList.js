@@ -1,5 +1,5 @@
 import React from 'react';
-import base from './firebase.config';
+import base from '../firebase.config';
 // import base from '../rebase.config';
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';

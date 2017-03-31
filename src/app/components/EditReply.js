@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import base from '../rebase.config';
-import base from './firebase.config';
+import base from '../firebase.config';
 import "./scribes.css";
 
 class EditReply extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 // import base from '../rebase.config';
-import base from './firebase.config';
+import base from '../firebase.config';
 import Reply from './Reply';
 
 class ReplyList extends React.Component {
