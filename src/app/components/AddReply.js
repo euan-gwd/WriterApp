@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import base from '../rebase.config';
-import base from '../firebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class AddReply extends React.Component {
@@ -43,13 +42,13 @@ class AddReply extends React.Component {
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let storageRef = base.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
+      let storageRef = firebase.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = firebase.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -64,11 +63,11 @@ class AddReply extends React.Component {
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = firebase.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -81,7 +80,7 @@ class AddReply extends React.Component {
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';

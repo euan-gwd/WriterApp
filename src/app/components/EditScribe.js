@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import base from '../rebase.config';
-import base from '../firebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class EditScribe extends React.Component {
@@ -37,8 +36,8 @@ class EditScribe extends React.Component {
       scribe: scribeText
     }
     if (chars_left >= 0) {
-      base.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
-      base.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
+      firebase.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
+      firebase.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;

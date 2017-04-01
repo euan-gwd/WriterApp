@@ -1,26 +1,27 @@
 import React from 'react';
+import * as firebase from "firebase";
 import firebaseui from 'firebaseui';
-// import base from './rebase.config';
-import base from './firebase.config';
+import config from './firebase.config';
 import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
 
 const uiConfig = {
   callbacks: {
-    'signInSuccess': (user) => {
+    signInSuccess: function (user) {
       this.handleSignIn(user);
       return false;
-    }
-  },
-  // credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-  'signInOptions': [
-			base.auth.EmailAuthProvider.PROVIDER_ID,
-			base.auth.GoogleAuthProvider.PROVIDER_ID
-		]
+    },
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ]
+  }
 };
-
-const ui = new firebaseui.auth.AuthUI(base.auth());
+firebase.initializeApp(config);
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 class App extends React.Component {
 
@@ -56,12 +57,12 @@ class App extends React.Component {
       userSignedOut: 'show',
       profilePic: 'hide'
     });
-    base.auth().signOut();
+    firebase.auth().signOut();
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 
   componentDidMount() {
-    base.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.handleSignedInUser(user)
       } else {

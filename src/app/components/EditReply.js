@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import base from '../rebase.config';
-import base from '../firebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class EditReply extends React.Component {
@@ -38,8 +37,8 @@ class EditReply extends React.Component {
       let scribeData = {
         scribe: replyText
       }
-      base.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
-      base.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      firebase.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      firebase.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';

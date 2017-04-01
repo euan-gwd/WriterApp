@@ -1,6 +1,5 @@
 import React from 'react';
-import base from '../firebase.config';
-// import base from '../rebase.config';
+import * as firebase from "firebase";
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
 
@@ -14,12 +13,12 @@ class ScribeList extends React.Component {
   };
 
   componentDidMount() {
-    // this.ref = base.bindToState('mainTL', {
+    // this.ref = firebase.bindToState('mainTL', {
     //   context: this,
     //   state: 'scribes',
     //   asArray: true
     // })
-    base.database().ref('mainTL').on('value', (res) => {
+    firebase.database().ref('mainTL').on('value', (res) => {
       const userData = res.val();
       console.log(userData);
       const dataArray = [];
@@ -32,25 +31,25 @@ class ScribeList extends React.Component {
   };
 
   // componentWillUnmount() {
-  //   base.removeBinding(this.ref);
+  //   firebase.removeBinding(this.ref);
   // }
 
   deleteScribe(item, evt) {
     evt.stopPropagation();
     let userId = this.props.userId;
-    let mainTLRef = base.database().ref('mainTL/');
-    let userTLRef = base.database().ref('userTL/' + userId + '/');
+    let mainTLRef = firebase.database().ref('mainTL/');
+    let userTLRef = firebase.database().ref('userTL/' + userId + '/');
     if (item.hasOwnProperty("scribeImage")) {
-      let deleteImgRef = base.storage().refFromURL(item.scribeImage);
+      let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(item.key).remove(); //removes item from firebase RTdBase
-        userTLRef.child(item.key).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
+        userTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(item.key).remove(); //removes item from firebase RTdBase
-        userTLRef.child(item.key).remove(); //removes item from firebase RTdBase
+        mainTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
+        userTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
       }
     }
   }
@@ -70,8 +69,8 @@ class ScribeList extends React.Component {
   toggleLikes(item, evt) {
     evt.stopPropagation();
     let userId = this.props.userId;
-    let mainDbRef = base.database().ref('mainTL/').child(item.key).child('likes');
-    let userDbRef = base.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
+    let mainDbRef = firebase.database().ref('mainTL/').child(item.key).child('likes');
+    let userDbRef = firebase.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
     (this.state.starred === true)
       ? this.decrementAndSave(mainDbRef, userDbRef)
       : this.incrementAndSave(mainDbRef, userDbRef)
