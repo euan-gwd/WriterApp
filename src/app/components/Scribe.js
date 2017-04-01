@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
@@ -32,7 +32,7 @@ class Scribe extends React.Component {
   }
 
   render() {
-    let currentUser = base.auth().currentUser.displayName;
+    let currentUser = firebase.auth().currentUser.displayName;
     let showLikesTotal = (this.props.thread.likes > 0)
       ? <span className="icon liked">
         <i className="fa fa-star" aria-hidden="true">

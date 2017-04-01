@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class AddReply extends React.Component {
@@ -22,33 +22,32 @@ class AddReply extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.replyTimerID);
-
   }
 
   tick() {
-    this.setState({reply_date: new Date().toISOString()});
+    this.setState({ reply_date: new Date().toISOString() });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     let currentScribeKey = this.props.currentScribe.key;
     let file = this.state.reply_file;
-    let userId = this.props.currentScribe.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeText = this.state.reply_bodyText;
     let datetime = this.state.reply_date;
-    let userName = this.props.currentScribe.userName;
-    let userEmail = this.props.currentScribe.userEmail;
-    let userPhoto = this.props.currentScribe.userPhoto;
+    let userName = firebase.auth().currentUser.displayName;
+    let userEmail = firebase.auth().currentUser.email;
+    let userPhoto = firebase.auth().currentUser.photoURL;
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let storageRef = base.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
+      let storageRef = firebase.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
       let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', (snapshot) => {}, (error) => {
+      uploadTask.on('state_changed', (snapshot) => { }, (error) => {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = firebase.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -63,11 +62,11 @@ class AddReply extends React.Component {
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
       });
     } else {
       if (chars_left >= 0) {
-        let newScribeReplyKey = base.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
+        let newScribeReplyKey = firebase.database().ref('mainTL/' + currentScribeKey + '/scribeReplies/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -80,7 +79,7 @@ class AddReply extends React.Component {
         }
         updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
         updates['/userTL/' + userId + '/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
@@ -89,7 +88,7 @@ class AddReply extends React.Component {
   }
 
   handleInput = (evt) => {
-    this.setState({reply_bodyText: evt.target.value});
+    this.setState({ reply_bodyText: evt.target.value });
   }
 
   handleReplyImgUpload = (evt) => {
@@ -97,7 +96,7 @@ class AddReply extends React.Component {
     let reader = new FileReader();
     let reply_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({reply_file: reply_file, reply_imagePreviewUrl: reader.result});
+      this.setState({ reply_file: reply_file, reply_imagePreviewUrl: reader.result });
     }
     reader.readAsDataURL(reply_file)
   }
@@ -105,12 +104,12 @@ class AddReply extends React.Component {
   removeReplyImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.reply_fileUpload).value = '';
-    this.setState({reply_file: '', reply_imagePreviewUrl: ''});
+    this.setState({ reply_file: '', reply_imagePreviewUrl: '' });
   }
 
   handleReplyCancel = (evt) => {
     const newState = !this.state.replied;
-    this.setState({replied: newState});
+    this.setState({ replied: newState });
     this.props.callbackParent(newState);
   }
 
@@ -120,8 +119,8 @@ class AddReply extends React.Component {
     if (reply_imagePreviewUrl) {
       $replyImagePreview = (
         <div className="imagePreview-Wrapper">
-          <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name}/>
-          <a className="topright" onClick={this.removeReplyImgUpload}>
+          <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name} />
+          <a className="remove topright" onClick={this.removeReplyImgUpload}>
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
@@ -135,26 +134,26 @@ class AddReply extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media nested-flat-box">
           <div className="media-left">
-            {(this.props.currentScribe.userPhoto === null)
+            {(firebase.auth().currentUser.photoURL === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
               : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
+                <img src={firebase.auth().currentUser.photoURL} alt="profilePic" className="image-rounded" />
               </figure>}
           </div>
           <div className="media-content">
             <div className="">
               <div className="control">
                 {$replyImagePreview}
-                <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
+                <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required />
               </div>
             </div>
             <div className="pt">
               <div className="columns is-mobile is-gapless">
                 <div className="column is-narrow">
                   <div className="control">
-                    <input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload}/>
+                    <input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload} />
                     <label htmlFor="reply_fileUpload" className="button is-light" type="button">
-                      <i className="fa fa-camera" aria-hidden="true"/>
+                      <i className="fa fa-camera" aria-hidden="true" />
                     </label>
                   </div>
                 </div>
@@ -164,7 +163,7 @@ class AddReply extends React.Component {
                 <div className="column is-narrow">
                   <button className="button is-primary" type="submit" disabled={this.state.reply_bodyText.length === 0}>
                     <span className="icon is-hidden-mobile">
-                      <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
+                      <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" />
                     </span>
                     <span>Reply</span>
                   </button>
@@ -174,7 +173,7 @@ class AddReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="icon">
+              <span className="remove icon">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

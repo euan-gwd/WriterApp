@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class EditReply extends React.Component {
@@ -30,15 +30,15 @@ class EditReply extends React.Component {
     evt.preventDefault();
     let replyText = this.state.replyText;
     let replyKeyRef = this.props.currentReply.key;
-    let userId = this.props.currentReply.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeParentKey = this.props.parentId;
     let chars_left = 160 - this.state.replyText.length;
     if (chars_left >= 0) {
       let scribeData = {
         scribe: replyText
       }
-      base.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
-      base.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      firebase.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      firebase.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
@@ -61,10 +61,10 @@ class EditReply extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media flat-box">
           <div className="media-left">
-            {(this.props.currentReply.userPhoto === null)
+            {(firebase.auth().currentUser.photoURL === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
               : <figure className="image is-48x48">
-                <img src={this.props.currentReply.userPhoto} alt="profilePic" className="image-rounded"/>
+                <img src={firebase.auth().currentUser.photoURL} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">
@@ -91,7 +91,7 @@ class EditReply extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleCancel.bind(this)}>
+            <a onClick={this.handleCancel.bind(this)} className="remove">
               <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>

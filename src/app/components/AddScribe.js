@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class AddScribe extends React.Component {
@@ -32,16 +32,16 @@ class AddScribe extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let file = this.state.file;
-    let userId = this.props.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeText = this.state.bodyText;
     let datetime = this.state.date;
-    let userName = this.props.userName;
-    let userEmail = this.props.userEmail;
-    let userPhoto = this.props.userPhoto;
+    let userName = firebase.auth().currentUser.displayName;
+    let userEmail = firebase.auth().currentUser.email;
+    let userPhoto = firebase.auth().currentUser.photoURL;
     let chars_left = 160 - this.state.bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
-      let storageRef = base.storage().ref('/images/' + userId + '/' + file.name);
+      let storageRef = firebase.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -52,7 +52,7 @@ class AddScribe extends React.Component {
         // Handle unsuccessful uploads
       }, () => {
         // Handle successful uploads on complete
-        let newScribeKey = base.database().ref('mainTL/').push().key;
+        let newScribeKey = firebase.database().ref('mainTL/').push().key;
         let downloadURL = uploadTask.snapshot.downloadURL;
         let updates = {};
         let scribeData = {
@@ -67,12 +67,12 @@ class AddScribe extends React.Component {
         }
         updates['/mainTL/' + newScribeKey] = scribeData;
         updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
         this.setState({uploadBar: 'invisible'});
       });
     } else {
       if (chars_left >= 0) {
-        let newScribeKey = base.database().ref('mainTL/').push().key;
+        let newScribeKey = firebase.database().ref('mainTL/').push().key;
         let updates = {};
         let scribeData = {
           scribe: scribeText,
@@ -85,7 +85,7 @@ class AddScribe extends React.Component {
         }
         updates['/mainTL/' + newScribeKey] = scribeData;
         updates['/userTL/' + userId + '/' + newScribeKey] = scribeData;
-        base.database().ref().update(updates);
+        firebase.database().ref().update(updates);
       }
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
@@ -119,7 +119,7 @@ class AddScribe extends React.Component {
       $imagePreview = (
         <div className="imagePreview-Wrapper">
           <img src={imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.file.name}/>
-          <a className="topright" onClick={this.removeImgUpload}>
+          <a className="remove topright" onClick={this.removeImgUpload}>
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>

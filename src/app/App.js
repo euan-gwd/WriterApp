@@ -1,23 +1,27 @@
 import React from 'react';
+import * as firebase from "firebase";
 import firebaseui from 'firebaseui';
-import base from './rebase.config';
+import config from './firebase.config';
 import ScribeList from './components/ScribeList';
 import logo from './logo.svg';
 import './App.css';
 
 const uiConfig = {
   callbacks: {
-    'signInSuccess': function (user) {
+    signInSuccess: function (user) {
       this.handleSignIn(user);
       return false;
-    }
-  },
-	credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-  signInOptions: [base.auth.EmailAuthProvider.PROVIDER_ID, base.auth.GoogleAuthProvider.PROVIDER_ID]
+    },
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ]
+  }
 };
-
-const ui = new firebaseui.auth.AuthUI(base.auth());
-let currentUid = null;
+firebase.initializeApp(config);
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 class App extends React.Component {
 
@@ -25,17 +29,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUserName: null,
-						currentUserId: null,
+      currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null
     }
   }
 
   handleSignedInUser = (user) => {
-    currentUid = user.uid;
     this.setState({
       currentUserName: user.displayName,
-						currentUserId: user.uid,
+      currentUserId: user.uid,
       currentUserEmail: user.email,
       currentUserPhoto: user.photoURL,
       userSignedIn: 'show',
@@ -45,50 +48,27 @@ class App extends React.Component {
   }
 
   handleSignedOutUser = () => {
-    currentUid = null;
     this.setState({
       currentUserName: null,
-						currentUserId: null,
+      currentUserId: null,
       currentUserEmail: null,
       currentUserPhoto: null,
       userSignedIn: 'hide',
       userSignedOut: 'show',
       profilePic: 'hide'
     });
-    base.auth().signOut();
+    firebase.auth().signOut();
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 
-  initApp() {
-    base.auth().onAuthStateChanged((user) => {
-      if (user && user.id === currentUid) {
-        this.setState({
-          currentUserName: user.displayName,
-          currentUserEmail: user.email,
-          currentUserPhoto: user.photoURL,
-          userSignedIn: 'show',
-          userSignedOut: 'hide',
-          profilePic: 'show'
-        });
-        return;
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.handleSignedInUser(user)
       } else {
-        this.setState({
-          currentUserName: null,
-          currentUserEmail: null,
-          currentUserPhoto: null,
-          userSignedIn: 'hide',
-          userSignedOut: 'show',
-          profilePic: 'hide'
-        });
+        this.handleSignedOutUser();
       }
-      user
-        ? this.handleSignedInUser(user)
-        : this.handleSignedOutUser();
     });
-  }
-
-  componentWillMount() {
-    this.initApp();
   }
 
   render() {

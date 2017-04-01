@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
 import './scribes.css';
@@ -31,7 +31,7 @@ class Reply extends React.Component {
   }
 
   render() {
-    let currentUser = base.auth().currentUser.displayName;
+    let currentUser = firebase.auth().currentUser.displayName;
     let showLikesTotal = (this.props.stream.likes > 0)
       ? <span className="icon liked">
         <i className="fa fa-star" aria-hidden="true">

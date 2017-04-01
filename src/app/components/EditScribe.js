@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import base from '../rebase.config';
+import * as firebase from "firebase";
 import "./scribes.css";
 
 class EditScribe extends React.Component {
@@ -30,14 +30,14 @@ class EditScribe extends React.Component {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
     let scribeKeyRef = this.props.currentScribe.key;
-    let userId = this.props.currentScribe.userId;
+    let userId = firebase.auth().currentUser.uid;
     let chars_left = 160 - this.state.scribeText.length;
     let scribeData = {
       scribe: scribeText
     }
     if (chars_left >= 0) {
-      base.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
-      base.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
+      firebase.database().ref('/mainTL/' + scribeKeyRef).update(scribeData);
+      firebase.database().ref('/userTL/' + userId + '/' + scribeKeyRef).update(scribeData);
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
@@ -59,10 +59,10 @@ class EditScribe extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media flat-box">
           <div className="media-left">
-            {(this.props.currentScribe.userPhoto === null)
+            {(firebase.auth().currentUser.photoURL === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
               : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded"/>
+                <img src={firebase.auth().currentUser.photoURL} alt="profilePic" className="image-rounded"/>
               </figure>}
           </div>
           <div className="media-content">
@@ -89,7 +89,7 @@ class EditScribe extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleCancel.bind(this)}>
+            <a onClick={this.handleCancel.bind(this)} className="remove">
               <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
