@@ -14,14 +14,8 @@ class ReplyList extends React.Component {
 
   componentDidMount() {
     const keyRef = this.state.scribeKey;
-    // this.ref = firebase.bindToState('mainTL/' + keyRef + '/scribeReplies/', {
-    //   context: this,
-    //   state: 'replies',
-    //   asArray: true
-    // })
     firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
       const userData = res.val();
-      console.log(userData);
       const dataArray = [];
       for (let objKey in userData) {
         userData[objKey].key = objKey;
@@ -30,10 +24,6 @@ class ReplyList extends React.Component {
       this.setState({replies: dataArray})
     })
   };
-
-  // componentWillUnmount() {
-  //   firebase.removeBinding(this.ref);
-  // }
 
   deleteReply(itm, evt) {
     evt.stopPropagation();

@@ -13,14 +13,8 @@ class ScribeList extends React.Component {
   };
 
   componentDidMount() {
-    // this.ref = firebase.bindToState('mainTL', {
-    //   context: this,
-    //   state: 'scribes',
-    //   asArray: true
-    // })
     firebase.database().ref('mainTL').on('value', (res) => {
       const userData = res.val();
-      console.log(userData);
       const dataArray = [];
       for (let objKey in userData) {
         userData[objKey].key = objKey;
@@ -29,10 +23,6 @@ class ScribeList extends React.Component {
       this.setState({scribes: dataArray})
     })
   };
-
-  // componentWillUnmount() {
-  //   firebase.removeBinding(this.ref);
-  // }
 
   deleteScribe(item, evt) {
     evt.stopPropagation();
