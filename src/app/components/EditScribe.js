@@ -89,7 +89,7 @@ class EditScribe extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleCancel.bind(this)}>
+            <a onClick={this.handleCancel.bind(this)} className="remove">
               <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>

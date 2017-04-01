@@ -119,7 +119,7 @@ class AddScribe extends React.Component {
       $imagePreview = (
         <div className="imagePreview-Wrapper">
           <img src={imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.file.name}/>
-          <a className="topright" onClick={this.removeImgUpload}>
+          <a className="remove topright" onClick={this.removeImgUpload}>
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
