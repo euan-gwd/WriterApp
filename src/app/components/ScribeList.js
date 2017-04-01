@@ -78,13 +78,9 @@ class ScribeList extends React.Component {
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
-                    {this.props.hasOwnProperty("userPhoto")
-                      ? <figure className="image is-48x48">
-                          <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
-                        </figure>
-                      : <span className="icon">
-                        <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                      </span>}
+                    <figure className="image is-48x48">
+                      <img src={this.props.userPhoto} alt="" className="image-rounded"/>
+                    </figure>
                   </div>
                   <div className="media-content">
                     <p className="title-text-is-3">{this.props.userName}</p>

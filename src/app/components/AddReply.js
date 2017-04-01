@@ -134,10 +134,10 @@ class AddReply extends React.Component {
       <form onSubmit={this.handleSubmit.bind(this)}>
         <article className="media nested-flat-box">
           <div className="media-left">
-            {(this.props.currentScribe.userPhoto === null)
+            {(firebase.auth().currentUser.photoURL === null)
               ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
               : <figure className="image is-48x48">
-                <img src={this.props.currentScribe.userPhoto} alt="profilePic" className="image-rounded" />
+                <img src={firebase.auth().currentUser.photoURL} alt="profilePic" className="image-rounded" />
               </figure>}
           </div>
           <div className="media-content">
