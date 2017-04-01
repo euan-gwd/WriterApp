@@ -32,12 +32,12 @@ class AddScribe extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let file = this.state.file;
-    let userId = this.props.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeText = this.state.bodyText;
     let datetime = this.state.date;
-    let userName = this.props.userName;
-    let userEmail = this.props.userEmail;
-    let userPhoto = this.props.userPhoto;
+    let userName = firebase.auth().currentUser.displayName;
+    let userEmail = firebase.auth().currentUser.email;
+    let userPhoto = firebase.auth().currentUser.photoURL;
     let chars_left = 160 - this.state.bodyText.length;
 
     if (file !== '' && chars_left >= 0) {

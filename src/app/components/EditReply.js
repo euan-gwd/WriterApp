@@ -30,7 +30,7 @@ class EditReply extends React.Component {
     evt.preventDefault();
     let replyText = this.state.replyText;
     let replyKeyRef = this.props.currentReply.key;
-    let userId = this.props.currentReply.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeParentKey = this.props.parentId;
     let chars_left = 160 - this.state.replyText.length;
     if (chars_left >= 0) {

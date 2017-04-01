@@ -30,7 +30,7 @@ class EditScribe extends React.Component {
     evt.preventDefault();
     let scribeText = this.state.scribeText;
     let scribeKeyRef = this.props.currentScribe.key;
-    let userId = this.props.currentScribe.userId;
+    let userId = firebase.auth().currentUser.uid;
     let chars_left = 160 - this.state.scribeText.length;
     let scribeData = {
       scribe: scribeText

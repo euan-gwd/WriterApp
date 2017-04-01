@@ -32,12 +32,12 @@ class AddReply extends React.Component {
     evt.preventDefault();
     let currentScribeKey = this.props.currentScribe.key;
     let file = this.state.reply_file;
-    let userId = this.props.currentScribe.userId;
+    let userId = firebase.auth().currentUser.uid;
     let scribeText = this.state.reply_bodyText;
     let datetime = this.state.reply_date;
-    let userName = this.props.currentScribe.userName;
-    let userEmail = this.props.currentScribe.userEmail;
-    let userPhoto = this.props.currentScribe.userPhoto;
+    let userName = firebase.auth().currentUser.displayName;
+    let userEmail = firebase.auth().currentUser.email;
+    let userPhoto = firebase.auth().currentUser.photoURL;
     let chars_left = 160 - this.state.reply_bodyText.length;
 
     if (file !== '' && chars_left >= 0) {
