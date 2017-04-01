@@ -83,8 +83,8 @@ class ScribeList extends React.Component {
                     </figure>
                   </div>
                   <div className="media-content">
-                    <p className="title-text-is-3">{this.props.userName}</p>
-                    <p className="subtitle-text-is-2 lh-1">{this.props.userEmail}</p>
+                    <p className="title is-5 pr">{this.props.userName}</p>
+                    <p className="subtitle is-6 lh-1">{this.props.userEmail}</p>
                   </div>
                 </div>
                 <footer className="leveled">
