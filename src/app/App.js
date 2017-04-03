@@ -87,7 +87,7 @@ class App extends React.Component {
               </a>
               <div className="nav-item">
                 <img src={logo} alt="logo" className="App-logo"/>
-                <h1 className="title is-hidden-mobile">Scriber</h1>
+                <h1 className="title is-hidden-mobile">Village Scriber</h1>
               </div>
               <div className="nav-item">
                 <div className={`nav-spacing this.state.profilePic`}>
