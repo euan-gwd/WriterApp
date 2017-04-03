@@ -2,7 +2,7 @@ import React from 'react';
 import ScribeList from './ScribeList';
 import GuestGreeting from './GuestGreeting';
 
-const Greeting = (props) => {
+const Main = (props) => {
   if (props.auth) {
     return (
       <div>
@@ -13,4 +13,4 @@ const Greeting = (props) => {
   return <GuestGreeting/>;
 }
 
-export default Greeting;
+export default Main;
