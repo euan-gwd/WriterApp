@@ -93,6 +93,14 @@ class App extends React.Component {
                     <span className="is-hidden-mobile">Log In</span>
                   </a>
                 </div>
+                <div className="nav-item">
+                  <a id="sign-in" className="button is-info is-outlined is-small" onClick={this.handleSignedInUser}>
+                    <span className="icon is-small">
+                      <i className="fa fa-user-plus"></i>
+                    </span>
+                    <span className="is-hidden-mobile">Sign Up</span>
+                  </a>
+                </div>
               </div>
             </nav>
             <SignedOut/>
