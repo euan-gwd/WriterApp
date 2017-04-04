@@ -9,7 +9,7 @@ class SignedOut extends React.Component {
       <div>
         <section className="hero is-light is-large is-bold">
           <div className="hero-body">
-            <div class="container">
+            <div className="container">
               <h1 className="title has-text-centered">
                 What's a happening...?
               </h1>
