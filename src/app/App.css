@@ -18,12 +18,12 @@
     width: 100vw;
 }
 
-.nav-item:nth-child(3) {
+/*.nav-item:nth-child(3) {
     flex-grow: 2;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-}
+}*/
 
 @keyframes App-logo-spin {
     from {

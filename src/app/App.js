@@ -73,14 +73,13 @@ class App extends React.Component {
                 </div>
               </div>
             </nav>
-
           : <nav className="nav has-shadow">
-            <div className="grid-container">
+            <div className="nav-center">
               <div className="nav-item">
                 <img src={logo} alt="logo" className="App-logo"/>
                 <h1 className="title is-hidden-mobile">Village Scriber</h1>
               </div>
-														<div className="nav-item"></div>
+              {/* <div className="nav-item"></div>
               <div className="nav-item">
                 <a id="sign-in" className="button is-success is-outlined is-small" onClick={this.handleSignedInUser}>
                   <span className="icon is-small">
@@ -88,7 +87,7 @@ class App extends React.Component {
                   </span>
                   <span className="is-hidden-mobile">Log In</span>
                 </a>
-              </div>
+              </div> */}
             </div>
           </nav>}
         <Main auth={this.state.auth}/>
