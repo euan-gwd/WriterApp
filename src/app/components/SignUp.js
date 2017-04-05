@@ -9,8 +9,6 @@ class SignUp extends React.Component {
       signUpUser: this.props.initialState,
       emailText: '',
       passText: '',
-      // fullNameText: '',
-      // userNameText: '',
       emailErr: 'invisible',
       passErr: 'invisible'
     };
@@ -18,8 +16,6 @@ class SignUp extends React.Component {
 
   handleUserSignUp = (evt) => {
     evt.preventDefault();
-    // let fullname = this.state.fullNameText.toString();
-    // let username = this.state.userNameText.toString();
     let email = this.state.emailText.toString();
     let pass = this.state.passText.toString();
     let emailValid = false;
@@ -57,14 +53,6 @@ class SignUp extends React.Component {
     this.props.callbackParent(newState);
   }
 
-  // handleFullNameInput = (evt) => {
-  //   this.setState({userNameText: evt.target.value});
-  // }
-  //
-  // handleUserNameInput = (evt) => {
-  //   this.setState({userNameText: evt.target.value});
-  // }
-
   handleEmailInput = (evt) => {
     this.setState({emailText: evt.target.value});
   }
@@ -86,22 +74,6 @@ class SignUp extends React.Component {
               <h3 className="modal-card-title has-text-centered">Sign Up</h3>
             </header>
             <form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
-              {/* <div className="field">
-                <p className="control has-icon">
-                  <input className="input" defaultValue={this.state.fullNameText} type="text" placeholder="Full Name" onChange={this.handleFullNameInput.bind(this)}/>
-                  <span className="icon is-small">
-                    <i className="fa fa-address-card-o"></i>
-                  </span>
-                </p>
-              </div>
-              <div className="field has-addons">
-                <p className="control has-icon">
-                  <input className="input" defaultValue={this.state.userNameText} type="text" placeholder="User Name" onChange={this.handleUserNameInput.bind(this)}/>
-                  <span className="icon is-small">
-                    <i className="fa fa-at"></i>
-                  </span>
-                </p>
-              </div> */}
               {(this.state.emailErr === 'visible')
                 ? <div className="field">
                     <p className="control has-icon has-icon-right">
