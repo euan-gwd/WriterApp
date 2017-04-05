@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
-import logo from '../logo.svg';
+import defaultUserPic from './Default_User_Pic.svg';
 
 class ScribeList extends React.Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class ScribeList extends React.Component {
                   <div className="media-left">
                     { (this.props.userPhoto === null)
                       ? <figure className="image is-48x48">
-                          <img src={logo} alt="defaultProfilePic" className="image-rounded"/>
+                          <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
                         </figure>
                       : <figure className="image is-48x48">
                         <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>

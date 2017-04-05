@@ -3,7 +3,7 @@ import moment from 'moment';
 import * as firebase from "firebase";
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
-import logo from '../logo.svg';
+import defaultUserPic from './Default_User_Pic.svg';
 import './scribes.css';
 
 class Reply extends React.Component {
@@ -50,7 +50,7 @@ class Reply extends React.Component {
                 <img src={this.props.stream.userPhoto} alt="profilePic" className="image-rounded"/>
               </figure>
             : <figure className="image is-48x48">
-              <img src={logo} alt="defaultProfilePic" className="image-rounded"/>
+              <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
             </figure>}
         </div>
         <div className="media-content">

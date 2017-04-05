@@ -4,6 +4,7 @@ import config from './firebase.config';
 import ScribeList from './components/ScribeList';
 import SignedOut from './components/SignedOut';
 import logo from './logo.svg';
+import defaultUserPic from './Default_User_Pic.svg';
 import './App.css';
 
 firebase.initializeApp(config);
@@ -61,6 +62,9 @@ class App extends React.Component {
                     <h1 className="title is-hidden-mobile">Village Scriber</h1>
                   </div>
                   <div className="nav-item">
+                    {(this.state.auth.photoURL === null)
+                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing image-rounded"/>
+                      : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing image-rounded"/>}
                     <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
                       <span className="icon is-small">
                         <i className="fa fa-sign-out"></i>
