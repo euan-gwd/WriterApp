@@ -17,15 +17,6 @@ class App extends React.Component {
     }
   }
 
-  // handleSignedInUser = () => {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   firebase.auth().signInWithPopup(provider);
-  // }
-		//
-		// handleUserSignUp = () => {
-		//
-  // }
-
   handleSignedOutUser = () => {
     firebase.auth().signOut();
   }
@@ -82,31 +73,6 @@ class App extends React.Component {
               <ScribeList userName={this.state.auth.displayName} userId={this.state.auth.uid} userEmail={this.state.auth.email} userPhoto={this.state.auth.photoURL}/>
             </div>
           : <div className="">
-            {/* <nav className="nav has-shadow">
-              <div className="nav-center">
-                <div className="nav-item">
-                  <img src={logo} alt="logo" className="App-logo"/>
-                  <h1 className="title is-hidden-mobile">Village Scriber</h1>
-                </div>
-                <div className="nav-item"></div>
-                <div className="nav-item">
-                  <a id="sign-in" className="button is-success is-outlined is-small" onClick={this.handleSignedInUser}>
-                    <span className="icon is-small">
-                      <i className="fa fa-sign-in"></i>
-                    </span>
-                    <span className="is-hidden-mobile">Log In</span>
-                  </a>
-                </div>
-                <div className="nav-item">
-                  <a id="sign-in" className="button is-info is-outlined is-small" onClick={this.handleUserSignUp}>
-                    <span className="icon is-small">
-                      <i className="fa fa-user-plus"></i>
-                    </span>
-                    <span className="is-hidden-mobile">Sign Up</span>
-                  </a>
-                </div>
-              </div>
-            </nav> */}
             <SignedOut/>
           </div>}
       </div>
