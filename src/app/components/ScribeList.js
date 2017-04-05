@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
+import logo from '../logo.svg';
 
 class ScribeList extends React.Component {
   constructor(props) {
@@ -78,9 +79,13 @@ class ScribeList extends React.Component {
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
-                    <figure className="image is-48x48">
-                      <img src={this.props.userPhoto} alt="" className="image-rounded"/>
-                    </figure>
+                    {this.props.hasOwnProperty("userPhoto")
+                      ? <figure className="image is-48x48">
+                          <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded"/>
+                        </figure>
+                      : <figure className="image is-48x48">
+                        <img src={logo} alt="defaultProfilePic" className="image-rounded"/>
+                      </figure>}
                   </div>
                   <div className="media-content">
                     <p className="title is-5 pr">{this.props.userName}</p>
@@ -111,7 +116,7 @@ class ScribeList extends React.Component {
             </div>
           </div>
           <div className="column">
-            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} />
+            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto}/>
             <ul className="">{scribes}</ul>
           </div>
           <div className="column is-2">

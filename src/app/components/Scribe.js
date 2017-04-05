@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
+import logo from '../logo.svg';
 import './scribes.css';
 
 class Scribe extends React.Component {
@@ -56,7 +57,9 @@ class Scribe extends React.Component {
               ? <figure className="image is-48x48">
                 <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded" />
                 </figure>
-              : <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>}
+              : <figure className="image is-48x48">
+                <img src={logo} alt="defaultProfilePic" className="image-rounded" />
+                </figure>}
           </div>
           <div className="media-content">
             <div className="content">
