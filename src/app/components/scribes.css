@@ -294,3 +294,9 @@ li.card:last-of-type {
     width: 100%;
   }
 }
+
+.is-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
