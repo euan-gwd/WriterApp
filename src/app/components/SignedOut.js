@@ -45,7 +45,7 @@ class SignedOut extends React.Component {
                 <span className="icon is-small">
                   <i className="fa fa-sign-in"></i>
                 </span>
-                <span className="is-hidden-mobile">Log In</span>
+                <span className="">Log In</span>
               </a>
             </div>
             <div className="nav-item">
@@ -53,13 +53,13 @@ class SignedOut extends React.Component {
                 <span className="icon is-small">
                   <i className="fa fa-user-plus"></i>
                 </span>
-                <span className="is-hidden-mobile">Sign Up</span>
+                <span className="">Sign Up</span>
               </a>
             </div>
           </div>
         </nav>
-        <section className="hero is-light is-large is-bold">
-          <div className="hero-body">
+        <section className="scribe-container">
+          <div className="centered">
             <div className="container">
               <h1 className="title has-text-centered">
                 What's a happening...?
