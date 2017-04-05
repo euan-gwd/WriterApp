@@ -79,12 +79,12 @@ class ScribeList extends React.Component {
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
-                    {this.props.hasOwnProperty("userPhoto")
+                    { (this.props.userPhoto === null)
                       ? <figure className="image is-48x48">
-                          <img src={this.props.thread.userPhoto} alt="profilePic" className="image-rounded"/>
+                          <img src={logo} alt="defaultProfilePic" className="image-rounded"/>
                         </figure>
                       : <figure className="image is-48x48">
-                        <img src={logo} alt="defaultProfilePic" className="image-rounded"/>
+                        <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
                       </figure>}
                   </div>
                   <div className="media-content">
