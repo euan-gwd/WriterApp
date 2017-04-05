@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
+import defaultUserPic from '../Default_User_Pic.svg';
 import "./scribes.css";
 
 class EditReply extends React.Component {
@@ -62,7 +63,9 @@ class EditReply extends React.Component {
         <article className="media flat-box">
           <div className="media-left">
             {(firebase.auth().currentUser.photoURL === null)
-              ? <i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+              ? <figure className="image is-48x48">
+                  <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+                </figure>
               : <figure className="image is-48x48">
                 <img src={firebase.auth().currentUser.photoURL} alt="profilePic" className="image-rounded"/>
               </figure>}

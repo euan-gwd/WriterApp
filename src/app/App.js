@@ -4,6 +4,7 @@ import config from './firebase.config';
 import ScribeList from './components/ScribeList';
 import SignedOut from './components/SignedOut';
 import logo from './logo.svg';
+import defaultUserPic from './Default_User_Pic.svg';
 import './App.css';
 
 firebase.initializeApp(config);
@@ -16,15 +17,6 @@ class App extends React.Component {
       auth: false
     }
   }
-
-  // handleSignedInUser = () => {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   firebase.auth().signInWithPopup(provider);
-  // }
-		//
-		// handleUserSignUp = () => {
-		//
-  // }
 
   handleSignedOutUser = () => {
     firebase.auth().signOut();
@@ -70,6 +62,9 @@ class App extends React.Component {
                     <h1 className="title is-hidden-mobile">Village Scriber</h1>
                   </div>
                   <div className="nav-item">
+                    {(this.state.auth.photoURL === null)
+                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing image-rounded"/>
+                      : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing image-rounded"/>}
                     <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
                       <span className="icon is-small">
                         <i className="fa fa-sign-out"></i>
@@ -82,31 +77,6 @@ class App extends React.Component {
               <ScribeList userName={this.state.auth.displayName} userId={this.state.auth.uid} userEmail={this.state.auth.email} userPhoto={this.state.auth.photoURL}/>
             </div>
           : <div className="">
-            {/* <nav className="nav has-shadow">
-              <div className="nav-center">
-                <div className="nav-item">
-                  <img src={logo} alt="logo" className="App-logo"/>
-                  <h1 className="title is-hidden-mobile">Village Scriber</h1>
-                </div>
-                <div className="nav-item"></div>
-                <div className="nav-item">
-                  <a id="sign-in" className="button is-success is-outlined is-small" onClick={this.handleSignedInUser}>
-                    <span className="icon is-small">
-                      <i className="fa fa-sign-in"></i>
-                    </span>
-                    <span className="is-hidden-mobile">Log In</span>
-                  </a>
-                </div>
-                <div className="nav-item">
-                  <a id="sign-in" className="button is-info is-outlined is-small" onClick={this.handleUserSignUp}>
-                    <span className="icon is-small">
-                      <i className="fa fa-user-plus"></i>
-                    </span>
-                    <span className="is-hidden-mobile">Sign Up</span>
-                  </a>
-                </div>
-              </div>
-            </nav> */}
             <SignedOut/>
           </div>}
       </div>
