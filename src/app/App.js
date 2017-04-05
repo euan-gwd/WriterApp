@@ -63,8 +63,8 @@ class App extends React.Component {
                   </div>
                   <div className="nav-item">
                     {(this.state.auth.photoURL === null)
-                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing image-rounded"/>
-                      : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing image-rounded"/>}
+                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing nav-image-is-rounded"/>
+                      : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing nav-image-is-rounded"/>}
                     <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
                       <span className="icon is-small">
                         <i className="fa fa-sign-out"></i>
