@@ -16,8 +16,8 @@ class SignIn extends React.Component {
 
   handleUserSignIn = (evt) => {
     evt.preventDefault();
-    let email = this.state.emailText;
-    let pass = this.state.passText;
+    let email = this.state.emailText.toString();
+    let pass = this.state.passText.toString();
     let emailValid = false;
     let passValid = false;
     if (email.length < 4) {
