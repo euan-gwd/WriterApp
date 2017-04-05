@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 import './scribes.css';
 
 class SignUp extends React.Component {
@@ -45,9 +45,9 @@ class SignUp extends React.Component {
       passValid = true;
     }
     if (emailValid && passValid) {
-      // firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
-      //   console.log(err);
-      // });
+      firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
+        console.log(err);
+      });
     }
 
   }
@@ -82,6 +82,9 @@ class SignUp extends React.Component {
       <div className="modal-background">
         <div className="login-container is-overlay">
           <div className="signIn-card">
+            <header className="modal-card-head">
+              <h3 className="modal-card-title has-text-centered">Sign Up</h3>
+            </header>
             <form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
               {/* <div className="field">
                 <p className="control has-icon">

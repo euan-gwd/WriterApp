@@ -27,7 +27,7 @@ class SignIn extends React.Component {
       this.setState({emailErr: 'invisible'});
       emailValid = false;
     } else {
-      this.setState({passErr: 'invisible'});
+      this.setState({emailErr: 'invisible'});
       emailValid = true;
     }
     if (pass.length < 4) {
@@ -52,6 +52,25 @@ class SignIn extends React.Component {
     firebase.auth().signInWithPopup(provider);
   }
 
+  handleForgottenPassword = (evt) => {
+    evt.preventDefault();
+    let email = this.state.emailText.toString();
+    let emailValid = false;
+    if (email.length < 4) {
+      this.setState({emailErr: 'visible'});
+      emailValid = false;
+    } else if (email.length === '') {
+      this.setState({emailErr: 'invisible'});
+      emailValid = false;
+    } else {
+      this.setState({emailErr: 'invisible'});
+      emailValid = true;
+    }
+    if (emailValid === true) {
+      firebase.auth().sendPasswordResetEmail(email);
+    }
+  }
+
   handleCancel = (evt) => {
     const newState = !this.state.signInUser;
     this.props.callbackParent(newState);
@@ -74,6 +93,13 @@ class SignIn extends React.Component {
       <div className="modal-background">
         <div className="login-container is-overlay">
           <div className="signIn-card">
+            <header className="modal-card-head">
+              <h3 className="modal-card-title has-text-centered">Sign In</h3>
+            </header>
+            <div className="modal-card-body">
+              <span>Enter your e-mail and password below to sign in, if you have forgotten your password<br/>
+                Only fill in your e-mail and click on forgot password to send an email to reset it.</span>
+            </div>
             <form className="modal-card-body" onSubmit={this.handleUserSignIn.bind(this)}>
               {(this.state.emailErr === 'visible')
                 ? <div className="field">
@@ -84,14 +110,16 @@ class SignIn extends React.Component {
                       </span>
                     </p>
                     <span className="help is-danger">Please enter a valid email address.</span>
+                    <a className="help" onClick={this.handleForgottenPassword.bind(this)}>Forgot Password</a>
                   </div>
                 : <div className="field">
                   <p className="control has-icon">
-                    <input className="input" defaultValue={this.state.emailText} type="email" placeholder="Email" onChange={this.handleEmailInput.bind(this)}/>
+                    <input className="input" defaultValue={this.state.emailText} type="email" placeholder="Email" onChange={this.handleEmailInput.bind(this)} required/>
                     <span className="icon is-small">
                       <i className="fa fa-envelope"></i>
                     </span>
                   </p>
+                  <a className="help" onClick={this.handleForgottenPassword.bind(this)}>Forgot Password</a>
                 </div>}
               {(this.state.passErr === 'visible')
                 ? <div className="field">
@@ -120,7 +148,6 @@ class SignIn extends React.Component {
                 </p>
               </div>
             </form>
-            {/* <hr/> */}
             <footer className="modal-card-foot">
               <a className="button is-info is-outlined" onClick={this.handleSignInWithGoogle}>
                 <span className="icon is-small">
