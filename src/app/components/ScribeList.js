@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
-import defaultUserPic from './Default_User_Pic.svg';
+import defaultUserPic from '../Default_User_Pic.svg';
 
 class ScribeList extends React.Component {
   constructor(props) {

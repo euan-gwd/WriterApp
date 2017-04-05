@@ -3,7 +3,7 @@ import moment from 'moment';
 import * as firebase from "firebase";
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
-import defaultUserPic from './Default_User_Pic.svg';
+import defaultUserPic from '../Default_User_Pic.svg';
 import './scribes.css';
 
 class Reply extends React.Component {
