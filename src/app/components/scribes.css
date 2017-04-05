@@ -241,6 +241,16 @@ li.card:last-of-type {
   padding: 0 0.3125rem 0.3125rem;
 }
 
+.signIn-card {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  color: #4a4a4a;
+  max-width: 100%;
+  position: relative;
+  padding: 0 0.3125rem 0.3125rem;
+}
+
 .text-is-primary {
   color: #00d1b2;
   font-size: 3vh;
