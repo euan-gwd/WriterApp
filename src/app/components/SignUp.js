@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 import './scribes.css';
 
 class SignUp extends React.Component {
@@ -9,6 +9,7 @@ class SignUp extends React.Component {
       signUpUser: this.props.initialState,
       emailText: '',
       passText: '',
+      fullNameText: '',
       emailErr: 'invisible',
       passErr: 'invisible'
     };
@@ -41,9 +42,9 @@ class SignUp extends React.Component {
       passValid = true;
     }
     if (emailValid && passValid) {
-      firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
-        console.log(err);
-      });
+      // firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+      //   console.log(err);
+      // });
     }
 
   }
@@ -57,7 +58,11 @@ class SignUp extends React.Component {
     this.setState({emailText: evt.target.value});
   }
 
-		handleUserNameInput = (evt) => {
+  handleFullNameInput = (evt) => {
+    this.setState({userNameText: evt.target.value});
+  }
+
+  handleUserNameInput = (evt) => {
     this.setState({userNameText: evt.target.value});
   }
 
@@ -77,13 +82,20 @@ class SignUp extends React.Component {
             <form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
               <div className="field">
                 <p className="control has-icon">
-                  <input className="input" defaultValue={this.state.userNameText} type="text" placeholder="UserName" onChange={this.handleEmailInput.bind(this)}/>
+                  <input className="input" defaultValue={this.state.fullNameText} type="text" placeholder="Full Name" onChange={this.handleFullNameInput.bind(this)}/>
                   <span className="icon is-small">
-                    <i className="fa fa-envelope"></i>
+                    <i className="fa fa-address-card-o"></i>
                   </span>
                 </p>
               </div>
-
+              <div className="field has-addons">
+                <p className="control has-icon">
+                  <input className="input" defaultValue={this.state.userNameText} type="text" placeholder="User Name" onChange={this.handleUserNameInput.bind(this)}/>
+                  <span className="icon is-small">
+                    <i className="fa fa-at"></i>
+                  </span>
+                </p>
+              </div>
               {(this.state.emailErr === 'visible')
                 ? <div className="field">
                     <p className="control has-icon has-icon-right">
