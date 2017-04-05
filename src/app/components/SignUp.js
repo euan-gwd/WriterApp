@@ -9,7 +9,8 @@ class SignUp extends React.Component {
       signUpUser: this.props.initialState,
       emailText: '',
       passText: '',
-      fullNameText: '',
+      // fullNameText: '',
+      // userNameText: '',
       emailErr: 'invisible',
       passErr: 'invisible'
     };
@@ -17,6 +18,8 @@ class SignUp extends React.Component {
 
   handleUserSignUp = (evt) => {
     evt.preventDefault();
+    // let fullname = this.state.fullNameText.toString();
+    // let username = this.state.userNameText.toString();
     let email = this.state.emailText.toString();
     let pass = this.state.passText.toString();
     let emailValid = false;
@@ -42,7 +45,7 @@ class SignUp extends React.Component {
       passValid = true;
     }
     if (emailValid && passValid) {
-      // firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+      // firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
       //   console.log(err);
       // });
     }
@@ -54,16 +57,16 @@ class SignUp extends React.Component {
     this.props.callbackParent(newState);
   }
 
+  // handleFullNameInput = (evt) => {
+  //   this.setState({userNameText: evt.target.value});
+  // }
+  //
+  // handleUserNameInput = (evt) => {
+  //   this.setState({userNameText: evt.target.value});
+  // }
+
   handleEmailInput = (evt) => {
     this.setState({emailText: evt.target.value});
-  }
-
-  handleFullNameInput = (evt) => {
-    this.setState({userNameText: evt.target.value});
-  }
-
-  handleUserNameInput = (evt) => {
-    this.setState({userNameText: evt.target.value});
   }
 
   handlePassInput = (evt) => {
@@ -80,7 +83,7 @@ class SignUp extends React.Component {
         <div className="login-container is-overlay">
           <div className="signIn-card">
             <form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
-              <div className="field">
+              {/* <div className="field">
                 <p className="control has-icon">
                   <input className="input" defaultValue={this.state.fullNameText} type="text" placeholder="Full Name" onChange={this.handleFullNameInput.bind(this)}/>
                   <span className="icon is-small">
@@ -95,7 +98,7 @@ class SignUp extends React.Component {
                     <i className="fa fa-at"></i>
                   </span>
                 </p>
-              </div>
+              </div> */}
               {(this.state.emailErr === 'visible')
                 ? <div className="field">
                     <p className="control has-icon has-icon-right">
