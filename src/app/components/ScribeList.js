@@ -111,7 +111,7 @@ class ScribeList extends React.Component {
             </div>
           </div>
           <div className="column">
-            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} className=""/>
+            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} />
             <ul className="">{scribes}</ul>
           </div>
           <div className="column is-2">
