@@ -71,7 +71,7 @@ class EditReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="field">
+            <div className="">
               <p className="control">
                 <textarea ref='scribe' defaultValue={this.state.replyText} className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>
@@ -84,7 +84,7 @@ class EditReply extends React.Component {
                 </div>
                 <div className="column is-narrow">
                   <button className="button is-primary" type="submit" disabled={this.state.replyText.length === 0}>
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
                     <span>Update</span>
@@ -95,7 +95,7 @@ class EditReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleCancel.bind(this)} className="remove">
-              <span className="icon is-small">
+              <span className="icon is-small is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

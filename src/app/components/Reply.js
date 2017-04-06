@@ -34,12 +34,12 @@ class Reply extends React.Component {
   render() {
     let currentUser = firebase.auth().currentUser.displayName;
     let showLikesTotal = (this.props.stream.likes > 0)
-      ? <span className="icon liked">
+      ? <span className="icon is-small liked">
           <i className="fa fa-star" aria-hidden="true">
             <span className="pl">{this.props.stream.likes}</span>
           </i>
         </span>
-      : <span className="icon">
+      : <span className="icon is-small">
         <i className="fa fa-star" aria-hidden="true"></i>
       </span>;
     return (
@@ -57,7 +57,7 @@ class Reply extends React.Component {
           <div className="content">
             {(currentUser === this.props.stream.userName)
               ? <a onClick={this.props.removeReply.bind(null)} className="remove is-pulled-right">
-                  <span className="icon">
+                  <span className="icon is-small">
                     <i className="fa fa-times" aria-hidden="true"></i>
                   </span>
                 </a>
@@ -78,7 +78,7 @@ class Reply extends React.Component {
             </div>
             <div className="scribe-actions-leveled-nested">
               <a className="reply" onClick={this.handleReplyBtnClick.bind(this)}>
-                <span className="icon">
+                <span className="icon is-small">
                   <i className="fa fa-reply" aria-hidden="true"></i>
                 </span>
               </a>
@@ -87,7 +87,7 @@ class Reply extends React.Component {
               </a>
               {(currentUser === this.props.stream.userName)
                 ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </span>
                   </a>

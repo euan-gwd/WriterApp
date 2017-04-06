@@ -35,12 +35,12 @@ class Scribe extends React.Component {
   render() {
     let currentUser = firebase.auth().currentUser.displayName;
     let showLikesTotal = (this.props.thread.likes > 0)
-      ? <span className="icon liked">
+      ? <span className="icon is-small liked">
         <i className="fa fa-star" aria-hidden="true">
           <span className="pl">{this.props.thread.likes}</span>
         </i>
       </span>
-      : <span className="icon">
+      : <span className="icon is-small">
         <i className="fa fa-star" aria-hidden="true"></i>
       </span>;
     let repliesTotal = (this.props.thread.hasOwnProperty("scribeReplies"))
@@ -65,7 +65,7 @@ class Scribe extends React.Component {
             <div className="content">
               {(currentUser === this.props.thread.userName)
                 ? <a onClick={this.props.removeScribe.bind(null)} className="remove is-pulled-right">
-                  <span className="icon">
+                  <span className="icon is-small">
                     <i className="fa fa-times" aria-hidden="true"></i>
                   </span>
                 </a>
@@ -86,7 +86,7 @@ class Scribe extends React.Component {
               </div>
               <div className="scribe-actions-leveled">
                 <a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)}>
-                  <span className="icon">
+                  <span className="icon is-small">
                     <i className="fa fa-reply" aria-hidden="true">
                       {showRepliesTotal}
                     </i>
@@ -97,7 +97,7 @@ class Scribe extends React.Component {
                 </a>
                 {(currentUser === this.props.thread.userName)
                   ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </span>
                   </a>
