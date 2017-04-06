@@ -79,30 +79,30 @@ class Scribe extends React.Component {
                   : null}
               </div>
               <div className="scribe-actions-leveled">
-                <a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)}>
+                <a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)} data-balloon="Reply" data-balloon-pos="up">
                   <span className="icon is-small">
                     <i className="fa fa-reply" aria-hidden="true">
                       {showRepliesTotal}
                     </i>
                   </span>
                 </a>
-                <a className="star" onClick={this.props.favScribe.bind(null)}>
+                <a className="star" onClick={this.props.favScribe.bind(null)} data-balloon="Favourite" data-balloon-pos="up">
                   {showLikesTotal}
                 </a>
                 {(currentUser === this.props.thread.userName)
-                  ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
+                  ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)} data-balloon="Edit" data-balloon-pos="up">
                       <span className="icon is-small">
                         <i className="fa fa-pencil" aria-hidden="true"></i>
                       </span>
                     </a>
                   : null}
-                <a className="flag">
+                <a className="flag" data-balloon="Report" data-balloon-pos="up">
                   <span className="icon is-small">
                     <i className="fa fa-ban" aria-hidden="true"></i>
                   </span>
                 </a>
                 {(currentUser === this.props.thread.userName)
-                  ? <a onClick={this.props.removeScribe.bind(null)} className="remove">
+                  ? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="delete" data-balloon-pos="up">
                       <span className="icon is-small">
                         <i className="fa fa-times" aria-hidden="true"></i>
                       </span>

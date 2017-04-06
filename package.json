@@ -6,6 +6,7 @@
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
+    "balloon-css": "^0.4.0",
     "bulma": "^0.4.0",
     "firebase": "^3.7.5",
     "font-awesome": "^4.7.0",
