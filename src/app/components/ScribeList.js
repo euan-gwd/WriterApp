@@ -77,8 +77,8 @@ class ScribeList extends React.Component {
           <div className="column is-3">
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
-                <figure className="image is-2by1">
-                  <img src="http://bulma.io/images/placeholders/1280x960.png" alt="CardImage" />
+                <figure className="image">
+                  <img src="http://lorempixel.com/288/100/" alt="CardImage" className="image-top-borders-rounded" />
                 </figure>
               </div>
               <div className="card-content">
