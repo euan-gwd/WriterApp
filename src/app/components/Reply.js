@@ -55,16 +55,10 @@ class Reply extends React.Component {
         </div>
         <div className="media-content">
           <div className="content">
-            {(currentUser === this.props.stream.userName)
-              ? <a onClick={this.props.removeReply.bind(null)} className="remove is-pulled-right">
-                  <span className="icon is-small">
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                  </span>
-                </a>
-              : null}
             <div>
               <span className="title is-5 pr">{this.props.stream.userName}</span>
-              <span className="subtitle is-6">{this.props.stream.userEmail}</span>
+              <span className="subtitle is-6 pr">{this.props.stream.userEmail}</span>
+              <span className="subtitle is-7 has-text-right">{moment(this.props.stream.datetime).fromNow()}</span>
             </div>
             <div>
               {this.props.stream.scribe}
@@ -92,7 +86,18 @@ class Reply extends React.Component {
                     </span>
                   </a>
                 : null}
-              <p className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</p>
+              <a className="flag">
+                <span className="icon is-small">
+                  <i className="fa fa-ban" aria-hidden="true"></i>
+                </span>
+              </a>
+              {(currentUser === this.props.stream.userName)
+                ? <a onClick={this.props.removeReply.bind(null)} className="remove">
+                    <span className="icon is-small">
+                      <i className="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                : null}
             </div>
           </div>
           {this.state.edited

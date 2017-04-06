@@ -52,7 +52,7 @@
   display: flex;
   /*margin: 0 2vw;*/
   justify-content: space-around;
-	align-items: center;
+  align-items: center;
 }
 
 .login-container {
@@ -262,6 +262,10 @@ li.card:last-of-type {
 .text-is-primary {
   color: #00d1b2;
   font-size: 1.25rem;
+}
+
+.subtitle.is-7 {
+  font-size: 0.75rem;
 }
 
 .title-text {

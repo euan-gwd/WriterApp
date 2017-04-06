@@ -63,43 +63,10 @@ class Scribe extends React.Component {
           </div>
           <div className="media-content">
             <div className="content">
-              <div className="field has-addons is-pulled-right">
-                <p className="control pr">
-                  {(currentUser === this.props.thread.userName)
-                    ? <a onClick={this.handleEditBtnClick.bind(this)} className="edit">
-                        <span className="icon is-small">
-                          <i className="fa fa-pencil" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    : null}
-                </p>
-                <p className="control pr">
-                  <a className="flag">
-                    <span className="icon is-small">
-                      <i className="fa fa-flag" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </p>
-                <p className="control">
-                  {(currentUser === this.props.thread.userName)
-                    ? <a onClick={this.props.removeScribe.bind(null)} className="remove">
-                        <span className="icon is-small">
-                          <i className="fa fa-times" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    : null}
-                </p>
-              </div>
-              {/* {(currentUser === this.props.thread.userName)
-                ? <a onClick={this.props.removeScribe.bind(null)} className="remove is-pulled-right">
-                    <span className="icon is-small">
-                      <i className="fa fa-times" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                : null} */}
               <div>
                 <span className="title is-5 pr">{this.props.thread.userName}</span>
-                <span className="subtitle is-6">{this.props.thread.userEmail}</span>
+                <span className="subtitle is-6 pr">{this.props.thread.userEmail}</span>
+                <span className="subtitle is-7 has-text-right">{moment(this.props.thread.datetime).fromNow()}</span>
               </div>
               <div>
                 {this.props.thread.scribe}
@@ -122,14 +89,25 @@ class Scribe extends React.Component {
                 <a className="star" onClick={this.props.favScribe.bind(null)}>
                   {showLikesTotal}
                 </a>
-                {/* {(currentUser === this.props.thread.userName)
+                {(currentUser === this.props.thread.userName)
                   ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
                       <span className="icon is-small">
                         <i className="fa fa-pencil" aria-hidden="true"></i>
                       </span>
                     </a>
-                  : null} */}
-                <p className="has-text-right">{moment(this.props.thread.datetime).fromNow()}</p>
+                  : null}
+                <a className="flag">
+                  <span className="icon is-small">
+                    <i className="fa fa-ban" aria-hidden="true"></i>
+                  </span>
+                </a>
+                {(currentUser === this.props.thread.userName)
+                  ? <a onClick={this.props.removeScribe.bind(null)} className="remove">
+                      <span className="icon is-small">
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                  : null}
               </div>
             </div>
             {this.state.edited
