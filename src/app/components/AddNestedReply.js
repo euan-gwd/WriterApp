@@ -155,7 +155,7 @@ class AddNestedReply extends React.Component {
                 <div className="column is-narrow">
                   <div className="control">
                     <input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload}/>
-                    <label htmlFor="reply_fileUpload" className="button is-light" type="button">
+                    <label htmlFor="reply_fileUpload" className="button is-light" type="button" data-balloon="upload photo" data-balloon-pos="up">
                       <i className="fa fa-camera" aria-hidden="true"/>
                     </label>
                   </div>
@@ -175,7 +175,7 @@ class AddNestedReply extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleReplyCancel.bind(this)} className="remove">
+            <a onClick={this.handleReplyCancel.bind(this)} className="remove" data-balloon="cancel" data-balloon-pos="up">
               <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
