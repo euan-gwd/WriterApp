@@ -115,44 +115,9 @@ class ScribeList extends React.Component {
               </div>
             </div>
           </div>
-          <div className="column">
+          <div className="column is-7">
             <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto}/>
             <ul className="">{scribes}</ul>
-          </div>
-          <div className="column is-2">
-            <div className="follow-card is-hidden-mobile">
-              <h3 className="text-title-is-5">Who to Follow:</h3>
-              <article className="">
-                <div className="pt-1">
-                  <div className="leveled">
-                    <span className="icon">
-                      <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-                    </span>
-                    <span className="text-title-is-2 py">Placeholder</span>
-                    <a className="button is-info is-outlined is-small">
-                      <span className="icon">
-                        <i className="fa fa-user-plus"></i>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </article>
-              <article className="">
-                <div className="pt-1">
-                  <div className="leveled">
-                    <span className="icon">
-                      <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-                    </span>
-                    <span className="text-title-is-2 py">Placeholder</span>
-                    <a className="button is-info is-outlined is-small">
-                      <span className="icon">
-                        <i className="fa fa-user-plus"></i>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </div>
           </div>
         </div>
       </div>
