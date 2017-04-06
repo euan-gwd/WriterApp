@@ -27,11 +27,19 @@
 }
 
 .star:hover {
+  color: green;
+}
+
+.flag {
+  color: grey;
+}
+
+.flag:hover {
   color: #ddda00;
 }
 
 .liked {
-  color: #ddda00;
+  color: green;
 }
 
 .scribe-container {
