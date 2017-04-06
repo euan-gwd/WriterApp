@@ -122,7 +122,7 @@ class AddNestedReply extends React.Component {
         <div className="imagePreview-Wrapper">
           <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name}/>
           <a className="remove topright" onClick={this.removeReplyImgUpload}>
-            <span className="icon">
+            <span className="icon is-small">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
           </a>
@@ -165,7 +165,7 @@ class AddNestedReply extends React.Component {
                 </div>
                 <div className="column is-narrow">
                   <button className="button is-primary" type="submit" disabled={this.state.reply_bodyText.length === 0}>
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
                     <span>Reply</span>
@@ -176,7 +176,7 @@ class AddNestedReply extends React.Component {
           </div>
           <div className="media-right">
             <a onClick={this.handleReplyCancel.bind(this)} className="remove">
-              <span className="icon">
+              <span className="icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>
