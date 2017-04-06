@@ -147,10 +147,10 @@ li.card:last-of-type {
   padding: 0 0.5vw;
 }
 
-.imageBorder {
+/*.imageBorder {
   border: 0.25rem solid black;
   border-radius: 5px;
-}
+}*/
 
 .char-count {
   align-self: center;
