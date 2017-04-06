@@ -96,7 +96,7 @@ class ScribeList extends React.Component {
                   <div className="has-text-left">
                     <div className="pr-1">
                       <p className="subtitle-text-is-2 lh-1">Manuscripts</p>
-                      <p className="title-text text-is-primary">{this.state.scribes.length}</p>
+                      <p className="text-is-primary">{this.state.scribes.length}</p>
                     </div>
                   </div>
                   <div className="has-text-left">
