@@ -322,3 +322,13 @@ li.card:last-of-type {
   justify-content: space-between;
   align-items: center;
 }
+
+.is-border-image {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -25px;
+    border: 2.5px solid white;
+    border-radius: 5px;
+}

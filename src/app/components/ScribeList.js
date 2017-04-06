@@ -21,7 +21,7 @@ class ScribeList extends React.Component {
         userData[objKey].key = objKey;
         dataArray.push(userData[objKey])
       }
-      this.setState({scribes: dataArray})
+      this.setState({ scribes: dataArray })
     })
   };
 
@@ -48,13 +48,13 @@ class ScribeList extends React.Component {
   incrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star + 1);
     userDbRef.transaction(star => star + 1);
-    this.setState({starred: true});
+    this.setState({ starred: true });
   }
 
   decrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star - 1);
     userDbRef.transaction(star => star - 1);
-    this.setState({starred: false});
+    this.setState({ starred: false });
   }
 
   toggleLikes(item, evt) {
@@ -69,22 +69,27 @@ class ScribeList extends React.Component {
 
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key} />);
     })
     return (
       <div className="scribe-container">
         <div className="columns pt-1">
           <div className="column is-3">
             <div className="profile-card is-hidden-mobile">
+              <div className="card-image">
+                <figure className="image is-2by1">
+                  <img src="http://bulma.io/images/placeholders/1280x960.png" alt="CardImage" />
+                </figure>
+              </div>
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
-                    { (this.props.userPhoto === null)
-                      ? <figure className="image is-48x48">
-                          <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
-                        </figure>
-                      : <figure className="image is-48x48">
-                        <img src={this.props.userPhoto} alt="profilePic" className="image-rounded"/>
+                    {(this.props.userPhoto === null)
+                      ? <figure className="image is-48x48 is-border-image">
+                        <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded" />
+                      </figure>
+                      : <figure className="image is-48x48 is-border-image">
+                        <img src={this.props.userPhoto} alt="profilePic" className="image-rounded" />
                       </figure>}
                   </div>
                   <div className="media-content">
@@ -116,7 +121,7 @@ class ScribeList extends React.Component {
             </div>
           </div>
           <div className="column is-7">
-            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto}/>
+            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} />
             <ul className="">{scribes}</ul>
           </div>
         </div>
