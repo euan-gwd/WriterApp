@@ -70,7 +70,7 @@ class App extends React.Component {
                 </div>
               </div>
             </nav>
-            <ScribeList userName={this.state.auth.displayName} userId={this.state.auth.uid} userEmail={this.state.auth.email} userPhoto={this.state.auth.photoURL} />
+            <ScribeList />
           </div>
           : <div className="">
             <SignedOut />

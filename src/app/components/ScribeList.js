@@ -41,7 +41,7 @@ class ScribeList extends React.Component {
 
   deleteScribe(item, evt) {
     evt.stopPropagation();
-    let userId = this.props.userId;
+    let userId = this.state.userId;
     let mainTLRef = firebase.database().ref('mainTL/');
     let userTLRef = firebase.database().ref('userTL/' + userId + '/');
     if (item.hasOwnProperty("scribeImage")) {
@@ -73,7 +73,7 @@ class ScribeList extends React.Component {
 
   toggleLikes(item, evt) {
     evt.stopPropagation();
-    let userId = this.props.userId;
+    let userId = this.state.userId;
     let mainDbRef = firebase.database().ref('mainTL/').child(item.key).child('likes');
     let userDbRef = firebase.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
     (this.state.starred === true)
@@ -98,17 +98,17 @@ class ScribeList extends React.Component {
               <div className="card-content">
                 <div className="media">
                   <div className="media-left">
-                    {(this.props.userPhoto === null)
+                    {(this.state.userPhoto === null)
                       ? <figure className="image is-48x48 is-border-image">
                         <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded" />
                       </figure>
                       : <figure className="image is-48x48 is-border-image">
-                        <img src={this.props.userPhoto} alt="profilePic" className="image-rounded" />
+                        <img src={this.state.userPhoto} alt="profilePic" className="image-rounded" />
                       </figure>}
                   </div>
                   <div className="media-content">
-                    <p className="title is-5 pr">{this.props.userName}</p>
-                    <p className="subtitle is-6 lh-1">{this.props.userEmail}</p>
+                    <p className="title is-5 pr">{this.state.userName}</p>
+                    <p className="subtitle is-6 lh-1">{this.state.userEmail}</p>
                   </div>
                 </div>
                 <footer className="leveled">
@@ -135,7 +135,7 @@ class ScribeList extends React.Component {
             </div>
           </div>
           <div className="column is-7">
-            <AddScribe mainTL={this.state.scribes} userName={this.props.userName} userId={this.props.userId} userEmail={this.props.userEmail} userPhoto={this.props.userPhoto} />
+            <AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto} />
             <ul className="">{scribes}</ul>
           </div>
         </div>
