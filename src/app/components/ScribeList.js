@@ -9,20 +9,34 @@ class ScribeList extends React.Component {
     super(props);
     this.state = {
       scribes: [],
-      starred: false
+      starred: false,
+      userId: null,
+      userName: null,
+      userEmail: null,
+      userPhoto: null
     };
   };
 
   componentDidMount() {
+    let user = firebase.auth().currentUser;
+    if (user != null) {
+      this.setState({
+        userId: user.uid,
+        userName: user.displayName,
+        userEmail: user.email,
+        userPhoto: user.photoURL
+      })
+    }
+    
     firebase.database().ref('mainTL').on('value', (res) => {
-      const userData = res.val();
-      const dataArray = [];
-      for (let objKey in userData) {
-        userData[objKey].key = objKey;
-        dataArray.push(userData[objKey])
+      const scribeData = res.val();
+      const scribeDataArray = [];
+      for (let objKey in scribeData) {
+        scribeData[objKey].key = objKey;
+        scribeDataArray.push(scribeData[objKey])
       }
-      this.setState({ scribes: dataArray })
-    })
+      this.setState({ scribes: scribeDataArray })
+    });
   };
 
   deleteScribe(item, evt) {

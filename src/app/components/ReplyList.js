@@ -15,13 +15,13 @@ class ReplyList extends React.Component {
   componentDidMount() {
     const keyRef = this.state.scribeKey;
     firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
-      const userData = res.val();
-      const dataArray = [];
-      for (let objKey in userData) {
-        userData[objKey].key = objKey;
-        dataArray.push(userData[objKey])
+      const replyData = res.val();
+      const replyDataArray = [];
+      for (let objKey in replyData) {
+        replyData[objKey].key = objKey;
+        replyDataArray.push(replyData[objKey])
       }
-      this.setState({replies: dataArray})
+      this.setState({replies: replyDataArray})
     })
   };
 
