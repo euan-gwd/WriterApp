@@ -131,7 +131,7 @@ class AddScribe extends React.Component {
       $imagePreview = null;
     }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className='card'>
+      <form onSubmit={this.handleSubmit.bind(this)} className='form-card'>
         <article className="media">
           <div className="media-left">
             {(this.props.userPhoto === null)

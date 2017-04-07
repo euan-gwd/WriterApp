@@ -51,7 +51,7 @@ class Scribe extends React.Component {
       : null;
     return (
       <li className="selected-scribe card">
-        <article className="media">
+        <article className="media scribe-spacing">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
               ? <figure className="image is-48x48">
