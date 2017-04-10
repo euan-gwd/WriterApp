@@ -66,14 +66,10 @@ class App extends React.Component {
               <nav className="nav has-shadow">
                 <div className="grid-container">
                   <a className="nav-item is-tab" data-balloon="Home" data-balloon-pos="down" onClick={this.handleHomeRoute}>
-                    {/* <span className="icon"> */}
                     <i className="fa fa-home fa-2x"></i>
-                    {/* </span> */}
                   </a>
                   <a className="nav-item is-tab" data-balloon="Messages" data-balloon-pos="down" onClick={this.handleMessagesRoute}>
-                    {/* <span className="icon"> */}
                     <i className="fa fa-comments-o fa-2x"></i>
-                    {/* </span> */}
                   </a>
                   <div className="nav-item">
                     <img src={logo} alt="logo" className="App-logo"/>
@@ -85,9 +81,7 @@ class App extends React.Component {
                       : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing nav-image-is-rounded"/>}
                   </a>
                   <a id="sign-out" className="nav-item is-tab" onClick={this.handleSignedOutUser} data-balloon="Sign Out" data-balloon-pos="down">
-                    {/* <span className="icon"> */}
                     <i className="fa fa-sign-out fa-2x"></i>
-                    {/* </span> */}
                   </a>
                 </div>
               </nav>
@@ -105,7 +99,6 @@ class App extends React.Component {
                   <ScribeList/>
                 </Default>
               </Switch>
-              {/* <ScribeList/> */}
             </div>
           : <div className="">
             <SignedOut/>
