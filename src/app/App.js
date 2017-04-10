@@ -18,7 +18,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       auth: false,
-      route: 'home'
+      route: 'Home'
     }
   }
 
