@@ -32,7 +32,7 @@ class App extends React.Component {
       }
     });
   }
- 
+
   registerUser(user) {
     const userRef = firebase.database().ref('users/' + user.uid);
     userRef.update({ name: user.displayName, email: user.email, photoUrl: user.photoURL });
@@ -45,17 +45,15 @@ class App extends React.Component {
           ? <div className="">
             <nav className="nav has-shadow">
               <div className="grid-container">
-                <a className="nav-item is-tab is-active">
-                  <span className="icon">
-                    <i className="fa fa-home fa-fw"></i>
-                  </span>
-                  <span className="is-hidden-mobile">&nbsp;Home</span>
+                <a className="nav-item is-tab" data-balloon="Home" data-balloon-pos="down">
+                  {/* <span className="icon"> */}
+                    <i className="fa fa-home fa-2x"></i>
+                  {/* </span> */}
                 </a>
-                <a className="nav-item is-tab">
-                  <span className="icon">
-                    <i className="fa fa-comments-o fa-fw"></i>
-                  </span>
-                  <span className="is-hidden-mobile">&nbsp;Messages</span>
+                <a className="nav-item is-tab" data-balloon="Messages" data-balloon-pos="down">
+                  {/* <span className="icon"> */}
+                    <i className="fa fa-comments-o fa-2x"></i>
+                  {/* </span> */}
                 </a>
                 <div className="nav-item">
                   <img src={logo} alt="logo" className="App-logo" />
@@ -66,14 +64,11 @@ class App extends React.Component {
                     ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing nav-image-is-rounded" />
                     : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing nav-image-is-rounded" />}
                 </a>
-                <div className="nav-item">
-                  <a id="sign-out" className="button is-danger is-outlined is-small" onClick={this.handleSignedOutUser}>
-                    <span className="icon is-small">
-                      <i className="fa fa-sign-out"></i>
-                    </span>
-                    <span className="is-hidden-mobile">Log Out</span>
-                  </a>
-                </div>
+                <a id="sign-out" className="nav-item is-tab" onClick={this.handleSignedOutUser} data-balloon="Sign Out" data-balloon-pos="down">
+                  {/* <span className="icon"> */}
+                    <i className="fa fa-sign-out fa-2x"></i>
+                  {/* </span> */}
+                </a>
               </div>
             </nav>
             <ScribeList />
