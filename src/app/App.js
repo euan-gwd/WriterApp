@@ -26,10 +26,16 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ auth: user });
+        this.registerUser(user);
       } else {
         this.setState({ auth: false });
       }
     });
+  }
+ 
+  registerUser(user) {
+    const userRef = firebase.database().ref('users/' + user.uid);
+    userRef.update({ name: user.displayName, email: user.email, photoUrl: user.photoURL });
   }
 
   render() {
