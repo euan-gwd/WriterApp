@@ -23,7 +23,7 @@ class UserProfile extends React.Component {
     let reader = new FileReader();
     let user_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({ user_file: user_file, user_imagePreviewUrl: reader.result });
+      this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(user_file)
   }
@@ -31,27 +31,27 @@ class UserProfile extends React.Component {
   removeProfileImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.user_fileUpload).value = '';
-    this.setState({ user_file: '', user_imagePreviewUrl: '' });
+    this.setState({user_file: '', user_imagePreviewUrl: ''});
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
+    let user = firebase.auth().currentUser;
     let userId = firebase.auth().currentUser.uid;
-    let Name = this.state.userName;
+    let displayName = this.state.userName;
     let file = this.state.user_file;
     let chars_left = this.state.user_name.length;
 
     if (file !== '' && chars_left >= 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/' + file.name);
       let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', (snapshot) => { }, (error) => {
+      uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
         console.log(error);
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
-        console.log(downloadURL);
-        console.log(Name);
+        user.updateProfile({displayName: displayName, photoURL: downloadURL})
       });
     }
   }
@@ -59,12 +59,12 @@ class UserProfile extends React.Component {
   componentDidMount() {
     let user = firebase.auth().currentUser;
     if (user != null) {
-      this.setState({ userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL })
+      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
   }
 
   handleNameInput = (evt) => {
-    this.setState({ userName: evt.target.value })
+    this.setState({userName: evt.target.value})
   }
 
   // handleCancel = (evt) => {
@@ -79,7 +79,7 @@ class UserProfile extends React.Component {
     if (user_imagePreviewUrl) {
       $userImagePreview = (
         <div>
-          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.user_file.name} />
+          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.user_file.name}/>
           <a className="remove icon-topright" onClick={this.removeProfileImgUpload}>
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
@@ -90,7 +90,7 @@ class UserProfile extends React.Component {
     } else {
       $userImagePreview = (
         <div>
-          <img src={this.state.userPhoto} className="image is-128x128 image-rounded" alt={this.state.user_file.name} />
+          <img src={this.state.userPhoto} className="image is-128x128 image-rounded" alt={this.state.user_file.name}/>
           <a className="icon-centered edit">
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
           </a>
@@ -107,7 +107,7 @@ class UserProfile extends React.Component {
                   <div className="field">
                     <label className="label">User Photo</label>
                     <div className="control">
-                      <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload} />
+                      <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
                       <label htmlFor="user_fileUpload" className="">
                         {$userImagePreview}
                       </label>
@@ -116,7 +116,7 @@ class UserProfile extends React.Component {
                   <div className="field">
                     <label className="label">Display Name</label>
                     <p className="control">
-                      <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)} />
+                      <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                       <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
                     </p>
                   </div>
@@ -125,7 +125,7 @@ class UserProfile extends React.Component {
                       <div className="column is-narrow">
                         <button className="button is-primary" type="submit">
                           <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-cloud fa-fw" aria-hidden="true" />
+                            <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
                           </span>
                           <span>Save</span>
                         </button>
