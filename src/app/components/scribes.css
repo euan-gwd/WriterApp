@@ -270,6 +270,7 @@ li.card:last-of-type {
 
 .profile-card-large .media {
     padding: 0 0.3125rem 0.3125rem;
+		height: 18vh;
 }
 
 .follow-card {
