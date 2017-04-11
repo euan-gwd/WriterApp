@@ -98,8 +98,8 @@ class UserProfile extends React.Component {
       );
     }
     return (
-      <div className="modal-background">
-        <div className="user-profile-container is-overlay">
+      <div>
+        <div className="user-profile-container">
           <div className="profile-card-large">
             <div className="card-content">
               <div className="media">
