@@ -79,8 +79,8 @@ class UserProfile extends React.Component {
     if (user_imagePreviewUrl) {
       $userImagePreview = (
         <div>
-          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.user_file.name}/>
-          <a className="remove icon-topright" onClick={this.removeProfileImgUpload}>
+          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
+          <a className="remove icon-topright" onClick={this.removeProfileImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
@@ -90,59 +90,61 @@ class UserProfile extends React.Component {
     } else {
       $userImagePreview = (
         <div>
-          <img src={this.state.userPhoto} className="image is-128x128 image-rounded" alt={this.state.user_file.name}/>
-          <a className="icon-centered edit">
-            <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
+          <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
+          <a className="icon-centered edit" data-balloon="upload new photo" data-balloon-pos="up">
+            <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
           </a>
         </div>
       );
     }
     return (
-      <div>
-        <div className="user-profile-container">
-          <div className="profile-card-large">
-            <div className="card-content">
-              <div className="media">
-                <form className="media-content">
-                  <div className="field">
-                    <label className="label">User Photo</label>
-                    <div className="control">
-                      <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
-                      <label htmlFor="user_fileUpload" className="">
-                        {$userImagePreview}
-                      </label>
-                    </div>
+      <div className="profile-card-large">
+        <div className="card-image">
+          <figure className="image ">
+            <img src="http://lorempixel.com/1200/320/" alt="CardImage"/>
+          </figure>
+        </div>
+        <div className="card-content">
+          <div className="media">
+            <div className="media-left">
+              <div className="field">
+                <div className="control">
+                  <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
+                  <label htmlFor="user_fileUpload">
+                    {$userImagePreview}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <form className="media-content">
+              <div className="field">
+                <label className="label">Display Name</label>
+                <p className="control">
+                  <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
+                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
+                </p>
+              </div>
+              <div className="pt">
+                <div className="columns is-mobile">
+                  <div className="column is-narrow">
+                    <button className="button is-primary" type="submit">
+                      <span className="icon is-small is-hidden-mobile">
+                        <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
+                      </span>
+                      <span>Save</span>
+                    </button>
                   </div>
-                  <div className="field">
-                    <label className="label">Display Name</label>
-                    <p className="control">
-                      <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
-                      <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
-                    </p>
-                  </div>
-                  <div className="pt">
-                    <div className="columns is-mobile">
-                      <div className="column is-narrow">
-                        <button className="button is-primary" type="submit">
-                          <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
-                          </span>
-                          <span>Save</span>
-                        </button>
-                      </div>
-                      {/* <div className="column is-narrow">
-                        <button className="button is-light" type="button" onClick={this.handleCancel.bind(this)}>
+                  <div className="column is-narrow">
+                        <button className="button is-light" type="button">
                           <span className="icon is-small is-hidden-mobile">
                             <i className="fa fa-ban fa-fw" aria-hidden="true" />
                           </span>
                           <span>Cancel</span>
                         </button>
-                      </div> */}
-                    </div>
-                  </div>
-                </form>
+                      </div>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

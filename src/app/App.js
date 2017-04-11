@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import config from './firebase.config';
 import {Switch, Case, Default} from 'jsx-switch';
-import ScribeList from './components/ScribeList';
+import ScribeList from './components/Home';
 import SignedOut from './components/SignedOut';
 import Messages from './components/Messages';
 import UserProfile from './components/UserProfile';

@@ -71,7 +71,7 @@
 }
 
 .user-profile-container {
-	padding-top: 2vh;
+	padding: 0 2vw;
 }
 
 .backing {
@@ -197,15 +197,8 @@ li.card:last-of-type {
 
 .icon-topright {
     position: absolute;
-    top: .5vh;
-    left: 8vw;
-    z-index: 2;
-}
-
-.icon-centered {
-    position: absolute;
-    left: 3.75vw;
-    bottom: 6.75vh;
+    top: -12rem;
+    left: 6.5rem;
     z-index: 2;
 }
 
@@ -269,11 +262,14 @@ li.card:last-of-type {
     color: #4a4a4a;
     max-width: 100%;
     position: relative;
-    padding-top: 2vh;
 }
 
 .profile-card-large .card-content {
     padding: 0.625rem;
+}
+
+.profile-card-large .media {
+    padding: 0 0.3125rem 0.3125rem;
 }
 
 .follow-card {
@@ -359,9 +355,16 @@ li.card:last-of-type {
     left: 0;
     position: absolute;
     right: 0;
-    top: -25px;
+    top: -67px;
     border: 2.5px solid white;
     border-radius: 5px;
+}
+
+.icon-centered {
+    position: absolute;
+    left: 3.15rem;
+    bottom: 9rem;
+    z-index: 2;
 }
 
 label.label {
