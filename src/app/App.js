@@ -93,7 +93,7 @@ class App extends React.Component {
                   <Messages/>
                 </Case>
                 <Case expr={this.state.route === 'UserProfile'}>
-                  <UserProfile/>
+                  <UserProfile />
                 </Case>
                 <Default>
                   <ScribeList/>

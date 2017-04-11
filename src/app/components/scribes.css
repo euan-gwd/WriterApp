@@ -1,7 +1,7 @@
 :root {
     --base-icon: grey;
     --primary: #00d1b2;
-    --blue-grey:#e5eaef;
+    --blue-grey: #e5eaef;
 }
 
 .remove {
@@ -65,6 +65,12 @@
 }
 
 .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-profile-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -191,6 +197,20 @@ li.card:last-of-type {
     z-index: 2;
 }
 
+.icon-topright {
+    position: absolute;
+    top: .5vh;
+    left: 8vw;
+    z-index: 2;
+}
+
+.icon-centered {
+    position: absolute;
+    left: 3.75vw;
+    bottom: 6.75vh;
+    z-index: 2;
+}
+
 .input-file {
     width: 0.1px;
     height: 0.1px;
@@ -227,15 +247,6 @@ li.card:last-of-type {
     display: block;
 }
 
-/*.card-base {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-    color: #4a4a4a;
-    max-width: 100%;
-    position: relative;
-}*/
-
 .profile-card {
     background-color: white;
     border-radius: 5px;
@@ -251,6 +262,20 @@ li.card:last-of-type {
 
 .profile-card .media {
     padding: 0 0.3125rem 0.3125rem;
+}
+
+.profile-card-large {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    color: #4a4a4a;
+    max-width: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.profile-card-large .card-content {
+    padding: 0.625rem;
 }
 
 .follow-card {
@@ -329,4 +354,18 @@ li.card:last-of-type {
     top: -25px;
     border: 2.5px solid white;
     border-radius: 5px;
+}
+
+.is-border-image-large {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -25px;
+    border: 2.5px solid white;
+    border-radius: 5px;
+}
+
+label.label {
+    margin: 0 !important;
 }
