@@ -83,7 +83,7 @@ class EditReply extends React.Component {
                   <div className="pr">{160 - this.state.replyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-primary" type="submit" disabled={this.state.replyText.length === 0}>
+                  <button className="button is-primary is-outlined" type="submit" disabled={this.state.replyText.length === 0}>
                     <span className="icon is-small">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
