@@ -5,7 +5,7 @@ import {Switch, Case, Default} from 'jsx-switch';
 import ScribeList from './components/Home';
 import SignedOut from './components/SignedOut';
 import Messages from './components/Messages';
-import UserProfile from './components/UserProfile';
+import EditUserProfile from './components/EditUserProfile';
 import logo from './logo.svg';
 import defaultUserPic from './Default_User_Pic.svg';
 import './App.css';
@@ -93,7 +93,7 @@ class App extends React.Component {
                   <Messages/>
                 </Case>
                 <Case expr={this.state.route === 'UserProfile'}>
-                  <UserProfile />
+                  <EditUserProfile />
                 </Case>
                 <Default>
                   <ScribeList/>

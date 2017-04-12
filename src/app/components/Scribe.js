@@ -98,7 +98,7 @@ class Scribe extends React.Component {
                   : null}
                 <a className="flag" data-balloon="Report" data-balloon-pos="up">
                   <span className="icon is-small">
-                    <i className="fa fa-ban" aria-hidden="true"></i>
+                    <i className="fa fa-flag" aria-hidden="true"></i>
                   </span>
                 </a>
                 {(currentUser === this.props.thread.userName)
