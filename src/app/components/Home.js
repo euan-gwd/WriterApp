@@ -4,7 +4,7 @@ import AddScribe from './AddScribe';
 import Scribe from './Scribe';
 import defaultUserPic from '../Default_User_Pic.svg';
 
-class ScribeList extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,4 +144,4 @@ class ScribeList extends React.Component {
   }
 }
 
-export default ScribeList;
+export default Home;

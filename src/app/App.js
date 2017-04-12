@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from 'firebase';
 import config from './firebase.config';
 import {Switch, Case, Default} from 'jsx-switch';
-import ScribeList from './components/Home';
+import Home from './components/Home';
 import SignedOut from './components/SignedOut';
 import Messages from './components/Messages';
 import EditUserProfile from './components/EditUserProfile';
@@ -87,7 +87,7 @@ class App extends React.Component {
               </nav>
               <Switch>
                 <Case expr={this.state.route === 'Home'}>
-                  <ScribeList/>
+                  <Home/>
                 </Case>
                 <Case expr={this.state.route === 'Messages'}>
                   <Messages/>
@@ -96,7 +96,7 @@ class App extends React.Component {
                   <EditUserProfile />
                 </Case>
                 <Default>
-                  <ScribeList/>
+                  <Home/>
                 </Default>
               </Switch>
             </div>
