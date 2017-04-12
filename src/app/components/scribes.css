@@ -319,12 +319,26 @@ label.label {
   margin: 0 !important;
 }
 
+.form-leveled {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.grow-item {
+  flex-grow: 2;
+}
+.narrow-item {
+	flex-grow: 0;
+	padding-left: 1vw;
+}
+
 .user-profile-media {
-  height: 5vh;
+  height: 4rem;
 }
 
 .user-profile-media-edit {
-  height: 17vh;
+  height: 4rem;
 }
 
 .follow-card {
@@ -363,7 +377,7 @@ label.label {
 .leveled {
   display: flex;
   justify-content: space-between;
-	align-items: baseline;
+  align-items: baseline;
   padding: 0 0.5vw;
 }
 

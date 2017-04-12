@@ -12,7 +12,7 @@ class EditUserProfile extends React.Component {
       userName: null,
       userEmail: null,
       userPhoto: null,
-						bannerPhoto: 'http://lorempixel.com/1280/256/',
+      bannerPhoto: 'http://lorempixel.com/1280/256/',
       user_file: '',
       user_imagePreviewUrl: '',
       user_imageUrl: '',
@@ -126,7 +126,7 @@ class EditUserProfile extends React.Component {
     if (banner_imagePreviewUrl) {
       return (
         <div>
-          <img src={banner_imagePreviewUrl} className="image is-fullwidth" alt={this.state.banner_file.name}/>
+          <img src={banner_imagePreviewUrl} className="image" alt={this.state.banner_file.name}/>
           <a className="remove icon-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
@@ -137,7 +137,7 @@ class EditUserProfile extends React.Component {
     } else {
       return (
         <div>
-          <img src={this.state.bannerPhoto} className="image is-fullwidth" alt={this.state.banner_file.name}/>
+          <img src={this.state.bannerPhoto} className="image" alt={this.state.banner_file.name}/>
           <a className="banner-icon-centered editImg" data-balloon="change your banner photo" data-balloon-pos="up">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
           </a>
@@ -152,9 +152,11 @@ class EditUserProfile extends React.Component {
         {(this.state.userUpdated === false)
           ? <div className="profile-card-large">
               <div className="card-image">
-                <figure className="image ">
-                  <img src="http://lorempixel.com/1200/256/" alt="CardImage"/>
-                </figure>
+                <div className="">
+                  <figure className="image">
+                    <img src="http://lorempixel.com/1200/256/" alt="CardImage"/>
+                  </figure>
+                </div>
               </div>
               <div className="card-content">
                 <div className="media user-profile-media">
@@ -179,17 +181,15 @@ class EditUserProfile extends React.Component {
             </div>
           : <form className="profile-card-large" onSubmit={this.handleSubmit.bind(this)}>
             <div className="card-image">
-              <div className="field">
-                <div className="control">
-                  <input type="file" accept="image/*" name="banner_fileUploader" ref="banner_fileUpload" id="banner_fileUpload" className="input-file" onChange={this.handleBannerImgUpload}/>
-                  <label htmlFor="banner_fileUpload">
-                    {this.bannerImg()}
-                  </label>
-                </div>
+              <div className="control">
+                <input type="file" accept="image/*" name="banner_fileUploader" ref="banner_fileUpload" id="banner_fileUpload" className="input-file" onChange={this.handleBannerImgUpload}/>
+                <label htmlFor="banner_fileUpload">
+                  {this.bannerImg()}
+                </label>
               </div>
             </div>
             <div className="card-content">
-              <div className="media user-profile-media-edit">
+              <div className="media user-profile-media">
                 <div className="media-left">
                   <div className="field">
                     <div className="control">
@@ -201,31 +201,27 @@ class EditUserProfile extends React.Component {
                   </div>
                 </div>
                 <div className="media-content">
-                  <div className="field">
-                    <label className="label">Display Name</label>
-                    <p className="control">
+                  <label className="label">Display Name</label>
+                  <div className="form-leveled">
+                    <p className="control grow-item">
                       <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                       <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
                     </p>
-                  </div>
-                  <div className="">
-                    <div className="columns is-mobile">
-                      <div className="column is-narrow">
-                        <button className="button is-primary is-outlined" type="submit">
-                          <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
-                          </span>
-                          <span>Save</span>
-                        </button>
-                      </div>
-                      <div className="column is-narrow">
-                        <button className="button is-light is-outlined" type="button" onClick={this.handleCancel.bind(this)}>
-                          <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-ban fa-fw" aria-hidden="true"/>
-                          </span>
-                          <span>Cancel</span>
-                        </button>
-                      </div>
+                    <div className="narrow-item">
+                      <button className="button is-primary is-outlined" type="submit">
+                        <span className="icon is-small is-hidden-mobile">
+                          <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
+                        </span>
+                        <span>Save</span>
+                      </button>
+                    </div>
+                    <div className="narrow-item">
+                      <button className="button is-light is-outlined" type="button" onClick={this.handleCancel.bind(this)}>
+                        <span className="icon is-small is-hidden-mobile">
+                          <i className="fa fa-ban fa-fw" aria-hidden="true"/>
+                        </span>
+                        <span>Cancel</span>
+                      </button>
                     </div>
                   </div>
                 </div>
