@@ -126,7 +126,7 @@ class EditUserProfile extends React.Component {
     if (banner_imagePreviewUrl) {
       return (
         <div>
-          <img src={banner_imagePreviewUrl} className="image" alt={this.state.banner_file.name}/>
+          <img src={banner_imagePreviewUrl} alt={this.state.banner_file.name}/>
           <a className="remove icon-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
@@ -136,10 +136,11 @@ class EditUserProfile extends React.Component {
       );
     } else {
       return (
-        <div>
-          <img src={this.state.bannerPhoto} className="image" alt={this.state.banner_file.name}/>
-          <a className="banner-icon-centered editImg" data-balloon="change your banner photo" data-balloon-pos="up">
+        <div className="card-margin-spacing">
+          <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
+          <a className="banner-icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
+												<p className="banner-text-white">Change Profile Banner Photo</p>
           </a>
         </div>
       );
@@ -152,21 +153,21 @@ class EditUserProfile extends React.Component {
         {(this.state.userUpdated === false)
           ? <div className="profile-card-large">
               <div className="card-image">
-                <div className="">
+                <div className="control">
                   <figure className="image">
-                    <img src="http://lorempixel.com/1200/256/" alt="CardImage"/>
+                    <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
                   </figure>
                 </div>
               </div>
               <div className="card-content">
                 <div className="media user-profile-media">
                   <div className="media-left">
-                    <div>
+                    <figure className="image">
                       <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
-                    </div>
+                    </figure>
                   </div>
                   <div className="media-content">
-                    <div className="leveled">
+                    <div className="banner-leveled">
                       <p className="title is-5 pr">{this.state.userName}</p>
                       <button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
                         <span className="icon is-small is-hidden-mobile">
@@ -189,7 +190,7 @@ class EditUserProfile extends React.Component {
               </div>
             </div>
             <div className="card-content">
-              <div className="media user-profile-media">
+              <div className="media user-profile-media-edit">
                 <div className="media-left">
                   <div className="field">
                     <div className="control">

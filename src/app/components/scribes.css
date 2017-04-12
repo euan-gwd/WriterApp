@@ -2,6 +2,7 @@
   --base-icon: grey;
   --primary: #00d1b2;
   --blue-grey: #e5eaef;
+	--white: white;
 }
 
 .remove {
@@ -296,23 +297,29 @@ li.card:last-of-type {
   left: 0;
   position: absolute;
   right: 0;
-  top: -67px;
+  top: -2rem;
   border: 2.5px solid white;
   border-radius: 5px;
 }
 
 .icon-centered {
   position: absolute;
-  left: 35%;
-  bottom: 9rem;
+  left: 40%;
+  bottom: 7rem;
   z-index: 2;
 }
 
 .banner-icon-centered {
   position: absolute;
-  left: 50%;
-  bottom: 20vh;
+  left: 25%;
+  bottom: 4rem;
   z-index: 2;
+	text-align: center;
+}
+
+.banner-text-white {
+	color: var(--white);
+	font-size: 3em;
 }
 
 label.label {
@@ -323,6 +330,12 @@ label.label {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.banner-leveled {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .grow-item {
@@ -339,6 +352,10 @@ label.label {
 
 .user-profile-media-edit {
   height: 4rem;
+}
+
+.card-margin-spacing {
+	margin-bottom: -0.6875rem;
 }
 
 .follow-card {
