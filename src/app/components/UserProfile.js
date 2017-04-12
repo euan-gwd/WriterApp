@@ -149,7 +149,7 @@ class UserProfile extends React.Component {
                 <div className="">
                   <div className="columns is-mobile">
                     <div className="column is-narrow">
-                      <button className="button is-primary" type="submit">
+                      <button className="button is-primary is-outlined" type="submit">
                         <span className="icon is-small is-hidden-mobile">
                           <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
                         </span>
@@ -157,7 +157,7 @@ class UserProfile extends React.Component {
                       </button>
                     </div>
                     <div className="column is-narrow">
-                      <button className="button is-light" type="button" onClick={this.handleCancel.bind(this)}>
+                      <button className="button is-light is-outlined" type="button" onClick={this.handleCancel.bind(this)}>
                         <span className="icon is-small is-hidden-mobile">
                           <i className="fa fa-ban fa-fw" aria-hidden="true"/>
                         </span>
