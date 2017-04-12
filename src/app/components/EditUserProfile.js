@@ -137,7 +137,7 @@ class EditUserProfile extends React.Component {
       );
     } else {
       return (
-        <div className="card-margin-spacing">
+        <div>
           <img src={this.state.bannerPhoto} alt={this.state.banner_file.name} />
           <a className="banner-icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
