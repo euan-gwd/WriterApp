@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import './scribes.css';
 
-class UserProfile extends React.Component {
+class EditUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // userUpdated: this.props.initialState,
+      edited: this.props.initialState,
       userId: null,
       userName: null,
       userEmail: null,
@@ -67,11 +67,11 @@ class UserProfile extends React.Component {
     this.setState({userName: evt.target.value})
   }
 
-  // handleCancel = (evt) => {
-  //   const newState = !this.state.userUpdated;
-  //   this.setState({ userUpdated: newState });
-  //   this.props.callbackParent(newState);
-  // }
+  handleCancel = (evt) => {
+    const newState = !this.state.edited;
+    this.setState({ edited: newState });
+    this.props.callbackParent(newState);
+  }
 
   render() {
     let $userImagePreview = null;
@@ -105,7 +105,7 @@ class UserProfile extends React.Component {
           </figure>
         </div>
         <div className="card-content">
-          <div className="media">
+          <form className="media user-profile-media-edit" onSubmit={this.handleSubmit.bind(this)}>
             <div className="media-left">
               <div className="field">
                 <div className="control">
@@ -116,7 +116,7 @@ class UserProfile extends React.Component {
                 </div>
               </div>
             </div>
-            <form className="media-content">
+            <div className="media-content">
               <div className="field">
                 <label className="label">Display Name</label>
                 <p className="control">
@@ -135,17 +135,17 @@ class UserProfile extends React.Component {
                     </button>
                   </div>
                   <div className="column is-narrow">
-                        <button className="button is-light" type="button">
-                          <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-ban fa-fw" aria-hidden="true" />
-                          </span>
-                          <span>Cancel</span>
-                        </button>
-                      </div>
+                    <button className="button is-light" type="button" onClick={this.handleCancel.bind(this)}>
+                      <span className="icon is-small is-hidden-mobile">
+                        <i className="fa fa-ban fa-fw" aria-hidden="true"/>
+                      </span>
+                      <span>Cancel</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     );
@@ -153,4 +153,4 @@ class UserProfile extends React.Component {
 
 }
 
-export default UserProfile;
+export default EditUserProfile;

@@ -7,7 +7,7 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // userUpdated: this.props.initialState,
+      userUpdated: false,
       userId: null,
       userName: null,
       userEmail: null,
@@ -16,6 +16,10 @@ class UserProfile extends React.Component {
       user_imagePreviewUrl: '',
       user_imageUrl: ''
     };
+  }
+
+  handleEditBtnClick() {
+    this.setState({userUpdated: true})
   }
 
   handleProfileImgUpload = (evt) => {
@@ -67,11 +71,10 @@ class UserProfile extends React.Component {
     this.setState({userName: evt.target.value})
   }
 
-  // handleCancel = (evt) => {
-  //   const newState = !this.state.userUpdated;
-  //   this.setState({ userUpdated: newState });
-  //   this.props.callbackParent(newState);
-  // }
+  handleCancel = (evt) => {
+    evt.preventDefault();
+    this.setState({userUpdated: false});
+  }
 
   render() {
     let $userImagePreview = null;
@@ -105,47 +108,66 @@ class UserProfile extends React.Component {
           </figure>
         </div>
         <div className="card-content">
-          <div className="media">
-            <div className="media-left">
-              <div className="field">
-                <div className="control">
-                  <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
-                  <label htmlFor="user_fileUpload">
-                    {$userImagePreview}
-                  </label>
+          {(this.state.userUpdated === false)
+            ? <div className="media user-profile-media">
+                <div className="media-left">
+                  <div>
+                    <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <form className="media-content">
-              <div className="field">
-                <label className="label">Display Name</label>
-                <p className="control">
-                  <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
-                  <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
-                </p>
-              </div>
-              <div className="">
-                <div className="columns is-mobile">
-                  <div className="column is-narrow">
-                    <button className="button is-primary" type="submit">
+                <div className="media-content">
+                  <div className="leveled">
+                    <p className="title is-5 pr">{this.state.userName}</p>
+                    <button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
                       <span className="icon is-small is-hidden-mobile">
-                        <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
+                        <i className="fa fa-cloud-upload fa-fw" aria-hidden="true"/>
                       </span>
-                      <span>Save</span>
+                      <span>Edit Profile</span>
                     </button>
                   </div>
-                  <div className="column is-narrow">
-                        <button className="button is-light" type="button">
-                          <span className="icon is-small is-hidden-mobile">
-                            <i className="fa fa-ban fa-fw" aria-hidden="true" />
-                          </span>
-                          <span>Cancel</span>
-                        </button>
-                      </div>
                 </div>
               </div>
-            </form>
-          </div>
+            : <form className="media user-profile-media-edit" onSubmit={this.handleSubmit.bind(this)}>
+              <div className="media-left">
+                <div className="field">
+                  <div className="control">
+                    <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
+                    <label htmlFor="user_fileUpload">
+                      {$userImagePreview}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="media-content">
+                <div className="field">
+                  <label className="label">Display Name</label>
+                  <p className="control">
+                    <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
+                    <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
+                  </p>
+                </div>
+                <div className="">
+                  <div className="columns is-mobile">
+                    <div className="column is-narrow">
+                      <button className="button is-primary" type="submit">
+                        <span className="icon is-small is-hidden-mobile">
+                          <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
+                        </span>
+                        <span>Save</span>
+                      </button>
+                    </div>
+                    <div className="column is-narrow">
+                      <button className="button is-light" type="button" onClick={this.handleCancel.bind(this)}>
+                        <span className="icon is-small is-hidden-mobile">
+                          <i className="fa fa-ban fa-fw" aria-hidden="true"/>
+                        </span>
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>}
         </div>
       </div>
     );
