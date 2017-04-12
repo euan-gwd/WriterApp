@@ -230,8 +230,12 @@ class EditUserProfile extends React.Component {
               </div>
             </div>
           </form>}
-        <main>
-          <div class="pt">UserTL list</div>
+        <main className="user-scribe-container">
+          <div className="columns pt-1">
+            <div className="column is-half is-offset-one-quarter">
+              UserScribeList Component Placeholder
+            </div>
+          </div>
         </main>
       </div>
     );
