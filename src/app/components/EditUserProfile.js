@@ -113,8 +113,9 @@ class EditUserProfile extends React.Component {
       return (
         <div>
           <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
-          <a className="icon-centered editImg" data-balloon="change your profile photo" data-balloon-pos="up">
+          <a className="icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
+												<p className="profileImg-text-white">Change Profile Photo</p>
           </a>
         </div>
       );
@@ -162,8 +163,8 @@ class EditUserProfile extends React.Component {
               <div className="card-content">
                 <div className="media user-profile-media">
                   <div className="media-left">
-                    <figure className="image">
-                      <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
+                    <figure className="image is-128x128">
+                      <img src={this.state.userPhoto} className="is-border-image-large" alt={this.state.user_file.name}/>
                     </figure>
                   </div>
                   <div className="media-content">
@@ -202,7 +203,7 @@ class EditUserProfile extends React.Component {
                   </div>
                 </div>
                 <div className="media-content">
-                  <label className="label">Display Name</label>
+                  <label className="label">Change Display Name</label>
                   <div className="form-leveled">
                     <p className="control grow-item">
                       <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>

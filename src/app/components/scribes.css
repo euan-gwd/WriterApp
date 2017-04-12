@@ -2,7 +2,7 @@
   --base-icon: grey;
   --primary: #00d1b2;
   --blue-grey: #e5eaef;
-	--white: white;
+  --white: white;
 }
 
 .remove {
@@ -277,7 +277,6 @@ li.card:last-of-type {
 
 .profile-card-large {
   background-color: white;
-  border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   color: #4a4a4a;
   max-width: 100%;
@@ -297,16 +296,22 @@ li.card:last-of-type {
   left: 0;
   position: absolute;
   right: 0;
-  top: -2rem;
-  border: 2.5px solid white;
+  top: -6rem;
+  border: 5px solid white;
   border-radius: 5px;
+}
+
+.is-188x188 {
+  width: 188px;
+  height: 188px;
 }
 
 .icon-centered {
   position: absolute;
-  left: 40%;
-  bottom: 7rem;
+  left: 8.5%;
+  bottom: 80%;
   z-index: 2;
+  text-align: center;
 }
 
 .banner-icon-centered {
@@ -314,12 +319,17 @@ li.card:last-of-type {
   left: 25%;
   bottom: 4rem;
   z-index: 2;
-	text-align: center;
+  text-align: center;
 }
 
 .banner-text-white {
-	color: var(--white);
-	font-size: 3em;
+  color: var(--white);
+  font-size: 3em;
+}
+
+.profileImg-text-white {
+  color: var(--white);
+  font-size: 1rem;
 }
 
 label.label {
@@ -336,14 +346,16 @@ label.label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  margin-top: 1.25rem;
 }
 
 .grow-item {
   flex-grow: 2;
 }
+
 .narrow-item {
-	flex-grow: 0;
-	padding-left: 1vw;
+  flex-grow: 0;
+  padding-left: 1vw;
 }
 
 .user-profile-media {
@@ -351,11 +363,11 @@ label.label {
 }
 
 .user-profile-media-edit {
-  height: 4rem;
+  height: 4.125rem;
 }
 
 .card-margin-spacing {
-	margin-bottom: -0.6875rem;
+  margin-bottom: -0.6875rem;
 }
 
 .follow-card {
