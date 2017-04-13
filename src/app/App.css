@@ -82,6 +82,7 @@ a.nav-item.is-tab:last-child:hover {
 
 .nav-spacing {
   margin-right: 10px;
+	margin-bottom: 3px;
 }
 
 .default-icon{
