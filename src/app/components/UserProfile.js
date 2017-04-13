@@ -4,7 +4,7 @@ import * as firebase from "firebase";
 import "./layout.css";
 import './colors.css';
 
-class EditUserProfile extends React.Component {
+class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +21,13 @@ class EditUserProfile extends React.Component {
       banner_imagePreviewUrl: '',
       banner_imageUrl: ''
     };
+  }
+
+  componentDidMount() {
+    let user = firebase.auth().currentUser;
+    if (user != null) {
+      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+    }
   }
 
   handleEditBtnClick() {
@@ -78,13 +85,6 @@ class EditUserProfile extends React.Component {
         let downloadURL = uploadTask.snapshot.downloadURL;
         user.updateProfile({displayName: displayName, photoURL: downloadURL})
       });
-    }
-  }
-
-  componentDidMount() {
-    let user = firebase.auth().currentUser;
-    if (user != null) {
-      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
   }
 
@@ -244,4 +244,4 @@ class EditUserProfile extends React.Component {
 
 }
 
-export default EditUserProfile;
+export default UserProfile;
