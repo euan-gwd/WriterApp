@@ -151,7 +151,7 @@ class EditUserProfile extends React.Component {
       return (
         <div>
           <img src={banner_imagePreviewUrl} alt={this.state.banner_file.name}/>
-          <a className="remove icon-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
+          <a className="remove banner-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
