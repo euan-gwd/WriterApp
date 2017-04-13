@@ -5,7 +5,8 @@ import EditScribe from './EditScribe';
 import AddReply from './AddReply';
 import ReplyList from './ReplyList';
 import defaultUserPic from '../Default_User_Pic.svg';
-import './scribes.css';
+import "./layout.css";
+import './colors.css';
 
 class Scribe extends React.Component {
   constructor(props) {

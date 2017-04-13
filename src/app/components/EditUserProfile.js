@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
-import './scribes.css';
+import "./layout.css";
+import './colors.css';
 
 class EditUserProfile extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class EditUserProfile extends React.Component {
   }
 
   handleEditBtnClick() {
-    this.setState({ userUpdated: true })
+    this.setState({userUpdated: true})
   }
 
   handleProfileImgUpload = (evt) => {
@@ -31,7 +32,7 @@ class EditUserProfile extends React.Component {
     let reader = new FileReader();
     let user_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({ user_file: user_file, user_imagePreviewUrl: reader.result });
+      this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(user_file)
   }
@@ -39,7 +40,7 @@ class EditUserProfile extends React.Component {
   removeProfileImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.user_fileUpload).value = '';
-    this.setState({ user_file: '', user_imagePreviewUrl: '' });
+    this.setState({user_file: '', user_imagePreviewUrl: ''});
   }
 
   handleBannerImgUpload = (evt) => {
@@ -47,7 +48,7 @@ class EditUserProfile extends React.Component {
     let reader = new FileReader();
     let banner_file = evt.target.files[0];
     reader.onloadend = () => {
-      this.setState({ banner_file: banner_file, banner_imagePreviewUrl: reader.result });
+      this.setState({banner_file: banner_file, banner_imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(banner_file)
   }
@@ -55,7 +56,7 @@ class EditUserProfile extends React.Component {
   removeBannerImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.banner_fileUpload).value = '';
-    this.setState({ banner_file: '', banner_imagePreviewUrl: '' });
+    this.setState({banner_file: '', banner_imagePreviewUrl: ''});
   }
 
   handleSubmit(evt) {
@@ -69,13 +70,13 @@ class EditUserProfile extends React.Component {
     if (file !== '' && chars_left >= 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
       let uploadTask = storageRef.put(file);
-      uploadTask.on('state_changed', (snapshot) => { }, (error) => {
+      uploadTask.on('state_changed', (snapshot) => {}, (error) => {
         // Handle unsuccessful uploads
         console.log(error);
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
-        user.updateProfile({ displayName: displayName, photoURL: downloadURL })
+        user.updateProfile({displayName: displayName, photoURL: downloadURL})
       });
     }
   }
@@ -83,17 +84,17 @@ class EditUserProfile extends React.Component {
   componentDidMount() {
     let user = firebase.auth().currentUser;
     if (user != null) {
-      this.setState({ userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL })
+      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
   }
 
   handleNameInput = (evt) => {
-    this.setState({ userName: evt.target.value })
+    this.setState({userName: evt.target.value})
   }
 
   handleCancel = (evt) => {
     evt.preventDefault();
-    this.setState({ userUpdated: false });
+    this.setState({userUpdated: false});
   }
 
   profileImg = () => {
@@ -101,7 +102,7 @@ class EditUserProfile extends React.Component {
     if (user_imagePreviewUrl) {
       return (
         <div>
-          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name} />
+          <img src={user_imagePreviewUrl} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
           <a className="remove icon-topright" onClick={this.removeProfileImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
@@ -112,7 +113,7 @@ class EditUserProfile extends React.Component {
     } else {
       return (
         <div>
-          <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name} />
+          <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
           <a className="icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
             <p className="profileImg-text-white">Change Profile Photo</p>
@@ -127,7 +128,7 @@ class EditUserProfile extends React.Component {
     if (banner_imagePreviewUrl) {
       return (
         <div>
-          <img src={banner_imagePreviewUrl} alt={this.state.banner_file.name} />
+          <img src={banner_imagePreviewUrl} alt={this.state.banner_file.name}/>
           <a className="remove icon-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
             <span className="icon">
               <i className="fa fa-times" aria-hidden="true"></i>
@@ -138,7 +139,7 @@ class EditUserProfile extends React.Component {
     } else {
       return (
         <div>
-          <img src={this.state.bannerPhoto} alt={this.state.banner_file.name} />
+          <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
           <a className="banner-icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
             <p className="banner-text-white">Change Profile Banner Photo</p>
@@ -153,38 +154,38 @@ class EditUserProfile extends React.Component {
       <div>
         {(this.state.userUpdated === false)
           ? <div className="profile-card-large">
-            <div className="card-image">
-              <div className="control">
-                <figure className="image">
-                  <img src={this.state.bannerPhoto} alt={this.state.banner_file.name} />
-                </figure>
-              </div>
-            </div>
-            <div className="card-content">
-              <div className="media user-profile-media">
-                <div className="media-left">
-                  <figure className="image is-128x128">
-                    <img src={this.state.userPhoto} className="is-border-image-large" alt={this.state.user_file.name} />
+              <div className="card-image">
+                <div className="control">
+                  <figure className="image">
+                    <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
                   </figure>
                 </div>
-                <div className="media-content">
-                  <div className="banner-leveled">
-                    <p className="title is-5 pr">{this.state.userName}</p>
-                    <button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
-                      <span className="icon is-small is-hidden-mobile">
-                        <i className="fa fa-cloud-upload fa-fw" aria-hidden="true" />
-                      </span>
-                      <span>Edit Profile</span>
-                    </button>
+              </div>
+              <div className="card-content">
+                <div className="media user-profile-media">
+                  <div className="media-left">
+                    <figure className="image is-128x128">
+                      <img src={this.state.userPhoto} className="is-border-image-large" alt={this.state.user_file.name}/>
+                    </figure>
+                  </div>
+                  <div className="media-content">
+                    <div className="banner-leveled">
+                      <p className="title is-5 pr">{this.state.userName}</p>
+                      <button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
+                        <span className="icon is-small is-hidden-mobile">
+                          <i className="fa fa-cloud-upload fa-fw" aria-hidden="true"/>
+                        </span>
+                        <span>Edit Profile</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           : <form className="profile-card-large" onSubmit={this.handleSubmit.bind(this)}>
             <div className="card-image">
               <div className="control">
-                <input type="file" accept="image/*" name="banner_fileUploader" ref="banner_fileUpload" id="banner_fileUpload" className="input-file" onChange={this.handleBannerImgUpload} />
+                <input type="file" accept="image/*" name="banner_fileUploader" ref="banner_fileUpload" id="banner_fileUpload" className="input-file" onChange={this.handleBannerImgUpload}/>
                 <label htmlFor="banner_fileUpload">
                   {this.bannerImg()}
                 </label>
@@ -195,7 +196,7 @@ class EditUserProfile extends React.Component {
                 <div className="media-left">
                   <div className="field">
                     <div className="control">
-                      <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload} />
+                      <input type="file" accept="image/*" name="user_fileUploader" ref="user_fileUpload" id="user_fileUpload" className="input-file" onChange={this.handleProfileImgUpload}/>
                       <label htmlFor="user_fileUpload">
                         {this.profileImg()}
                       </label>
@@ -206,13 +207,13 @@ class EditUserProfile extends React.Component {
                   <label className="label">Change Display Name</label>
                   <div className="form-leveled">
                     <p className="control grow-item">
-                      <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)} />
+                      <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                       <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
                     </p>
                     <div className="narrow-item">
                       <button className="button is-primary is-outlined" type="submit">
                         <span className="icon is-small is-hidden-mobile">
-                          <i className="fa fa-cloud fa-fw" aria-hidden="true" />
+                          <i className="fa fa-cloud fa-fw" aria-hidden="true"/>
                         </span>
                         <span>Save</span>
                       </button>
@@ -220,7 +221,7 @@ class EditUserProfile extends React.Component {
                     <div className="narrow-item">
                       <button className="button is-light is-outlined" type="button" onClick={this.handleCancel.bind(this)}>
                         <span className="icon is-small is-hidden-mobile">
-                          <i className="fa fa-ban fa-fw" aria-hidden="true" />
+                          <i className="fa fa-ban fa-fw" aria-hidden="true"/>
                         </span>
                         <span>Cancel</span>
                       </button>

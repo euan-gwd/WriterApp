@@ -5,6 +5,7 @@ import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
 import defaultUserPic from '../Default_User_Pic.svg';
 import './scribes.css';
+import './colors.css';
 
 class Reply extends React.Component {
   constructor(props) {

@@ -1,0 +1,58 @@
+:root {
+  --base-icon: grey;
+  --primary: #00d1b2;
+  --blue-grey: #e5eaef;
+  --white: white;
+}
+
+.remove {
+  color: var(--base-icon);
+}
+
+.remove:hover {
+  color: red;
+}
+
+.reply {
+  color: var(--base-icon);
+}
+
+.reply:hover {
+  color: blue;
+}
+
+.edit {
+  color: var(--base-icon);
+}
+
+.edit:hover {
+  color: var(--primary);
+}
+
+.star {
+  color: var(--base-icon);
+}
+
+.star:hover {
+  color: green;
+}
+
+.flag {
+  color: var(--base-icon);
+}
+
+.flag:hover {
+  color: #ddda00;
+}
+
+.liked {
+  color: green;
+}
+
+.editImg {
+  color: white;
+}
+
+.editImg:hover {
+  color: var(--primary);
+}
