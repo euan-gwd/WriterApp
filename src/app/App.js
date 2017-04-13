@@ -51,7 +51,7 @@ class App extends React.Component {
 
   registerUser(user) {
     const userRef = firebase.database().ref('users/' + user.uid);
-    userRef.update({name: user.displayName, email: user.email, photoUrl: user.photoURL});
+    userRef.update({name: user.displayName, email: user.email, photoUrl: user.photoURL, banner_imageUrl: null});
   }
 
   componentWillUnmount() {

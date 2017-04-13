@@ -69,9 +69,10 @@ class EditUserProfile extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     let user = firebase.auth().currentUser;
-    let userId = firebase.auth().currentUser.uid;
+    let userId = user.uid;
     let displayName = this.state.userName;
     let file = this.state.user_file;
+    let bannerFile = this.state.banner_file;
     let chars_left = this.state.user_name.length;
 
     if (file !== '' && chars_left >= 0) {
@@ -86,6 +87,23 @@ class EditUserProfile extends React.Component {
         user.updateProfile({displayName: displayName, photoURL: downloadURL})
       });
     }
+
+    if (bannerFile !== '' && chars_left >= 0) {
+      let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
+      let uploadTask = storageRef.put(bannerFile);
+      uploadTask.on('state_changed', (snapshot) => {}, (error) => {
+        // Handle unsuccessful uploads
+        console.log(error);
+      }, () => {
+        // Handle successful uploads on complete
+        let downloadURL = uploadTask.snapshot.downloadURL;
+        let bannerData = {
+          bannerPhotoUrl: downloadURL
+        }
+								firebase.database().ref('/user/' + userId + '/').update(bannerData);
+      });
+    }
+
     const newState = !this.state.userUpdated;
     this.props.callbackParent(newState);
   }
