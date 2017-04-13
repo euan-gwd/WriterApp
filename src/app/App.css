@@ -53,6 +53,7 @@ a.nav-item.is-tab:last-child:hover {
   margin: 0 2vw;
   justify-content: space-between;
   width: 100vw;
+	align-items: center;
 }
 
 .nav-item:nth-child(3) {
@@ -81,4 +82,9 @@ a.nav-item.is-tab:last-child:hover {
 
 .nav-spacing {
   margin-right: 10px;
+}
+
+.default-icon{
+	height: 56px;
+	font-size: 2em;
 }

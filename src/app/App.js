@@ -77,7 +77,7 @@ class App extends React.Component {
                   </div>
                   <a className="nav-item is-tab" data-balloon="View Profile" data-balloon-pos="down" onClick={this.handleUserProfileRoute}>
                     {(this.state.auth.photoURL === null)
-                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="image nav-spacing nav-image-is-rounded"/>
+                      ? <img src={defaultUserPic} alt="defaultProfilePic" className="default-icon nav-spacing nav-image-is-rounded"/>
                       : <img src={this.state.auth.photoURL} alt="profilePic" className="image nav-spacing nav-image-is-rounded"/>}
                   </a>
                   <a id="sign-out" className="nav-item is-tab" onClick={this.handleSignedOutUser} data-balloon="Sign Out" data-balloon-pos="down">

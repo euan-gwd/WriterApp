@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import EditUserProfile from './EditUserProfile';
 import UserScribeList from './UserScribeList';
+import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
 import './colors.css';
@@ -54,19 +55,23 @@ class UserProfile extends React.Component {
                 <div className="control">
                   {(this.state.bannerPhoto === null)
                     ? <figure className="image">
-                        <img src={defaultBannerPic} alt="defaultBannerPic" />
+                        <img src={defaultBannerPic} alt="defaultBannerPic"/>
                       </figure>
                     : <figure className="image">
-                      <img src={this.state.bannerPhoto} alt="bannerPic" />
+                      <img src={this.state.bannerPhoto} alt="bannerPic"/>
                     </figure>}
                 </div>
               </div>
               <div className="card-content">
                 <div className="media user-profile-media">
                   <div className="media-left">
-                    <figure className="image is-128x128">
-                      <img src={this.state.userPhoto} className="is-border-image-large" alt={this.state.user_file.name}/>
-                    </figure>
+                    {(this.state.userPhoto === null)
+                      ? <figure className="image is-128x128">
+                          <img src={defaultUserPic} alt="defaultProfilePic" className="is-border-image-large"/>
+                        </figure>
+                      : <figure className="image is-128x128">
+                        <img src={this.state.userPhoto} alt="profilePic" className="is-border-image-large"/>
+                      </figure>}
                   </div>
                   <div className="media-content">
                     <div className="banner-leveled">

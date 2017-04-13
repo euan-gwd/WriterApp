@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
+import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
 import './colors.css';
@@ -136,7 +137,13 @@ class EditUserProfile extends React.Component {
     } else {
       return (
         <div>
-          <img src={this.state.userPhoto} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
+          {(this.state.userPhoto === null)
+            ? <figure className="image is-128x128">
+                <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded is-border-image-large"/>
+              </figure>
+            : <figure className="image is-128x128">
+              <img src={this.state.userPhoto} alt="profilePic" className="image-rounded is-border-image-large"/>
+            </figure>}
           <a className="icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
             <p className="profileImg-text-white">Change Profile Photo</p>
