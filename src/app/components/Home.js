@@ -3,6 +3,7 @@ import * as firebase from "firebase";
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
 import defaultUserPic from '../Default_User_Pic.svg';
+import defaultBannerPic from '../Default_Banner_Pic.svg';
 
 class Home extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Home extends React.Component {
       userName: null,
       userEmail: null,
       userPhoto: null,
-						bannerPhoto: null
+      bannerPhoto: null
     };
   };
 
@@ -93,9 +94,13 @@ class Home extends React.Component {
           <div className="column is-3">
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
-                <figure className="image">
-                  <img src={this.state.bannerPhoto} alt="CardImage" className="image-top-borders-rounded"/>
-                </figure>
+                {(this.state.bannerPhoto === null)
+                  ? <figure className="image">
+                      <img src={defaultBannerPic} alt="defaultBannerPic" className="image-top-borders-rounded"/>
+                    </figure>
+                  : <figure className="image">
+                    <img src={this.state.bannerPhoto} alt="bannerPic" className="image-top-borders-rounded"/>
+                  </figure>}
               </div>
               <div className="card-content">
                 <div className="media">

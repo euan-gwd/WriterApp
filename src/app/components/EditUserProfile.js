@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
+import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
 import './colors.css';
 
@@ -100,7 +101,7 @@ class EditUserProfile extends React.Component {
         let bannerData = {
           bannerPhotoUrl: downloadURL
         }
-								firebase.database().ref('/users/' + userId + '/').update(bannerData);
+        firebase.database().ref('/users/' + userId + '/').update(bannerData);
       });
     }
 
@@ -161,7 +162,13 @@ class EditUserProfile extends React.Component {
     } else {
       return (
         <div>
-          <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
+          {(this.state.bannerPhoto === null)
+            ? <figure className="image">
+                <img src={defaultBannerPic} alt="defaultBannerPic"/>
+              </figure>
+            : <figure className="image">
+              <img src={this.state.bannerPhoto} alt="bannerPic"/>
+            </figure>}
           <a className="banner-icon-centered editImg">
             <i className="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
             <p className="banner-text-white">Change Profile Banner Photo</p>

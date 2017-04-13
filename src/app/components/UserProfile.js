@@ -2,6 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import EditUserProfile from './EditUserProfile';
 import UserScribeList from './UserScribeList';
+import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
 import './colors.css';
 
@@ -29,7 +30,7 @@ class UserProfile extends React.Component {
     if (user != null) {
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
-				const userId = user.uid;
+    const userId = user.uid;
     firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
       const bannerPhoto = res.val();
       this.setState({bannerPhoto: bannerPhoto})
@@ -51,9 +52,13 @@ class UserProfile extends React.Component {
           ? <header className="profile-card-large">
               <div className="card-image">
                 <div className="control">
-                  <figure className="image">
-                    <img src={this.state.bannerPhoto} alt={this.state.banner_file.name}/>
-                  </figure>
+                  {(this.state.bannerPhoto === null)
+                    ? <figure className="image">
+                        <img src={defaultBannerPic} alt="defaultBannerPic" />
+                      </figure>
+                    : <figure className="image">
+                      <img src={this.state.bannerPhoto} alt="bannerPic" />
+                    </figure>}
                 </div>
               </div>
               <div className="card-content">
