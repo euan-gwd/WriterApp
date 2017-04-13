@@ -13,7 +13,7 @@ class EditUserProfile extends React.Component {
       userName: null,
       userEmail: null,
       userPhoto: null,
-      bannerPhoto: 'http://lorempixel.com/1280/256/',
+      bannerPhoto: this.props.bannerPhoto,
       user_file: '',
       user_imagePreviewUrl: '',
       user_imageUrl: '',
@@ -73,9 +73,9 @@ class EditUserProfile extends React.Component {
     let displayName = this.state.userName;
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
-    let chars_left = this.state.user_name.length;
+    let chars_left = this.state.userName.length;
 
-    if (file !== '' && chars_left >= 0) {
+    if (file !== '' && chars_left > 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -88,7 +88,7 @@ class EditUserProfile extends React.Component {
       });
     }
 
-    if (bannerFile !== '' && chars_left >= 0) {
+    if (bannerFile !== '' && chars_left > 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
       let uploadTask = storageRef.put(bannerFile);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -100,7 +100,7 @@ class EditUserProfile extends React.Component {
         let bannerData = {
           bannerPhotoUrl: downloadURL
         }
-								firebase.database().ref('/user/' + userId + '/').update(bannerData);
+								firebase.database().ref('/users/' + userId + '/').update(bannerData);
       });
     }
 

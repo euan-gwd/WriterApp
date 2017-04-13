@@ -161,8 +161,8 @@ li.card:last-of-type {
 
 .banner-topright {
   position: absolute;
-  top: 0rem;
-  right: 1.5rem;
+  top: -16.5rem;
+  left: 98%;
   z-index: 2;
 }
 

@@ -14,7 +14,7 @@ class UserProfile extends React.Component {
       userName: null,
       userEmail: null,
       userPhoto: null,
-      bannerPhoto: 'http://lorempixel.com/1280/256/',
+      bannerPhoto: null,
       user_file: '',
       user_imagePreviewUrl: '',
       user_imageUrl: '',
@@ -29,6 +29,11 @@ class UserProfile extends React.Component {
     if (user != null) {
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
+				const userId = user.uid;
+    firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+      const bannerPhoto = res.val();
+      this.setState({bannerPhoto: bannerPhoto})
+    });
   }
 
   handleEditBtnClick() {
@@ -72,7 +77,7 @@ class UserProfile extends React.Component {
                 </div>
               </div>
             </header>
-          : <EditUserProfile initialState={this.state.userUpdated} callbackParent={(newState) => this.onEdited(newState)}/>}
+          : <EditUserProfile bannerPhoto={this.state.bannerPhoto} initialState={this.state.userUpdated} callbackParent={(newState) => this.onEdited(newState)}/>}
         <main>
           <UserScribeList/>
         </main>

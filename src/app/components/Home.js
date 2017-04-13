@@ -13,21 +13,23 @@ class Home extends React.Component {
       userId: null,
       userName: null,
       userEmail: null,
-      userPhoto: null
+      userPhoto: null,
+						bannerPhoto: null
     };
   };
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
     if (user != null) {
-      this.setState({
-        userId: user.uid,
-        userName: user.displayName,
-        userEmail: user.email,
-        userPhoto: user.photoURL
-      })
+      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+
+      const userId = user.uid;
+      firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+        const bannerPhoto = res.val();
+        this.setState({bannerPhoto: bannerPhoto})
+      });
     }
-    
+
     firebase.database().ref('mainTL').on('value', (res) => {
       const scribeData = res.val();
       const scribeDataArray = [];
@@ -35,7 +37,7 @@ class Home extends React.Component {
         scribeData[objKey].key = objKey;
         scribeDataArray.push(scribeData[objKey])
       }
-      this.setState({ scribes: scribeDataArray })
+      this.setState({scribes: scribeDataArray})
     });
   };
 
@@ -62,13 +64,13 @@ class Home extends React.Component {
   incrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star + 1);
     userDbRef.transaction(star => star + 1);
-    this.setState({ starred: true });
+    this.setState({starred: true});
   }
 
   decrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star - 1);
     userDbRef.transaction(star => star - 1);
-    this.setState({ starred: false });
+    this.setState({starred: false});
   }
 
   toggleLikes(item, evt) {
@@ -83,7 +85,7 @@ class Home extends React.Component {
 
   render() {
     let scribes = this.state.scribes.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key} />);
+      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
     })
     return (
       <div className="scribe-container">
@@ -92,7 +94,7 @@ class Home extends React.Component {
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
                 <figure className="image">
-                  <img src="http://lorempixel.com/288/100/" alt="CardImage" className="image-top-borders-rounded" />
+                  <img src={this.state.bannerPhoto} alt="CardImage" className="image-top-borders-rounded"/>
                 </figure>
               </div>
               <div className="card-content">
@@ -100,10 +102,10 @@ class Home extends React.Component {
                   <div className="media-left">
                     {(this.state.userPhoto === null)
                       ? <figure className="image is-48x48 is-border-image">
-                        <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded" />
-                      </figure>
+                          <img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+                        </figure>
                       : <figure className="image is-48x48 is-border-image">
-                        <img src={this.state.userPhoto} alt="profilePic" className="image-rounded" />
+                        <img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
                       </figure>}
                   </div>
                   <div className="media-content">
@@ -135,7 +137,7 @@ class Home extends React.Component {
             </div>
           </div>
           <div className="column is-7">
-            <AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto} />
+            <AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
             <ul className="">{scribes}</ul>
           </div>
         </div>
