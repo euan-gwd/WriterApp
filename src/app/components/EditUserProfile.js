@@ -27,7 +27,7 @@ class EditUserProfile extends React.Component {
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
-    if (user != null) {
+    if (user !== null) {
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
   }
@@ -72,7 +72,8 @@ class EditUserProfile extends React.Component {
     evt.preventDefault();
     let user = firebase.auth().currentUser;
     let userId = user.uid;
-    let displayName = this.state.userName;
+    let userName = this.state.userName;
+    console.log(userName);
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
     let chars_left = this.state.userName.length;
@@ -86,7 +87,16 @@ class EditUserProfile extends React.Component {
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
-        user.updateProfile({displayName: displayName, photoURL: downloadURL})
+        let profilePicData = {
+          photoUrl: downloadURL
+        }
+        // firebase.database().ref('/users/' + userId + '/').update(profilePicData);
+        console.log(profilePicData);
+        user.updateProfile({displayName: userName, photoURL: downloadURL}).then(value => {
+          console.log('successful')
+        }).catch(err => {
+          console.log(err)
+        })
       });
     }
 
@@ -111,6 +121,7 @@ class EditUserProfile extends React.Component {
   }
 
   handleNameInput = (evt) => {
+    evt.preventDefault();
     this.setState({userName: evt.target.value})
   }
 
@@ -213,7 +224,7 @@ class EditUserProfile extends React.Component {
                 <label className="label">Change Display Name</label>
                 <div className="form-leveled">
                   <p className="control grow-item">
-                    <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
+                    <input placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                     <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
                   </p>
                   <div className="narrow-item">

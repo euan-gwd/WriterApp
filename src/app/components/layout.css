@@ -80,8 +80,6 @@ li.card:last-of-type {
   border-bottom-right-radius: 5px;
 }
 
-
-
 .pt {
   padding-top: 0.5vh;
 }
@@ -154,7 +152,7 @@ li.card:last-of-type {
 
 .icon-topright {
   position: absolute;
-  top: -12rem;
+  top: -10rem;
   left: 6.5rem;
   z-index: 2;
 }
