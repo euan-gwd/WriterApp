@@ -1,6 +1,6 @@
 import React from 'react';
 import * as firebase from "firebase";
-import Scribe from './Scribe';
+import UserScribe from './UserScribe';
 import "./layout.css";
 import './colors.css';
 
@@ -79,11 +79,11 @@ class UserScribeList extends React.Component {
 
   render() {
     let userScribe = this.state.userScribe.map((item) => {
-      return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+      return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
     })
     return (
       <div className="scribe-container">
-        <div className="columns pt">
+        <div className="columns pt-1">
           <div className="column is-half is-offset-one-quarter">
             <ul>{userScribe}</ul>
           </div>
