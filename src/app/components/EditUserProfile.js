@@ -155,7 +155,7 @@ class EditUserProfile extends React.Component {
 
   render() {
     return (
-      <div>
+      <header>
         <form className="profile-card-large" onSubmit={this.handleSubmit.bind(this)}>
           <div className="card-image">
             <div className="control">
@@ -205,7 +205,7 @@ class EditUserProfile extends React.Component {
             </div>
           </div>
         </form>
-      </div>
+      </header>
     );
   }
 

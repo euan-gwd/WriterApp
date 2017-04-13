@@ -1,6 +1,7 @@
 import React from 'react';
 import * as firebase from "firebase";
-import EditUserProfile from './EditUserProfile.js';
+import EditUserProfile from './EditUserProfile';
+import UserScribeList from './UserScribeList';
 import "./layout.css";
 import './colors.css';
 
@@ -42,7 +43,7 @@ class UserProfile extends React.Component {
     return (
       <div>
         {(this.state.userUpdated === false)
-          ? <div className="profile-card-large">
+          ? <header className="profile-card-large">
               <div className="card-image">
                 <div className="control">
                   <figure className="image">
@@ -70,14 +71,10 @@ class UserProfile extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </header>
           : <EditUserProfile initialState={this.state.userUpdated} callbackParent={(newState) => this.onEdited(newState)}/>}
-        <main className="user-scribe-container">
-          <div className="columns pt-1">
-            <div className="column is-half is-offset-one-quarter">
-              UserScribeList Component Placeholder
-            </div>
-          </div>
+        <main>
+          <UserScribeList/>
         </main>
       </div>
     );
