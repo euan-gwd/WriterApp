@@ -107,16 +107,17 @@ class EditUserProfile extends React.Component {
         let bannerData = {
           bannerPhotoUrl: downloadURL
         }
-        currentPhoto = this.state.bannerPhoto;
-        let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
+        let currentBannerPhoto = this.state.bannerPhoto;
+        let deleteImgRef = firebase.storage().refFromURL(currentBannerPhoto);
         deleteImgRef.delete();
         firebase.database().ref('/users/' + userId + '/').update(bannerData);
-        firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
+        // firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
     } else if (input_chars > 0) {
       let displayNameData = {
         displayName: newDisplayName
       }
+						currentPhoto = this.state.userPhoto;
       firebase.database().ref('/users/' + userId + '/').update(displayNameData);
       firebase.auth().currentUser.updateProfile({displayName: newDisplayName, photoURL: currentPhoto});
     }
