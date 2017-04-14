@@ -85,7 +85,7 @@ class UserScribeList extends React.Component {
       <div className="scribe-container">
         <div className="columns pt-1">
           <div className="column is-half is-offset-one-quarter">
-            <ul>{userScribe}</ul>
+            <ul id="userScribeList">{userScribe}</ul>
           </div>
         </div>
       </div>

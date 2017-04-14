@@ -51,7 +51,7 @@ class UserScribe extends React.Component {
       ? <span className="pl">{repliesTotal}</span>
       : null;
     return (
-      <li className="selected-scribe card top-borders-card">
+      <li className="selected-scribe card">
         <article className="media scribe-spacing">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")

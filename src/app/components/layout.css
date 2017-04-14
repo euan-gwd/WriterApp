@@ -59,7 +59,7 @@
   padding: 0.625rem !important;
 }
 
-.top-borders-card {
+#userScribeList li.card:first-of-type {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
