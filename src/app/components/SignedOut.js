@@ -2,7 +2,8 @@ import React from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import logo from '../logo.svg';
-import './scribes.css';
+import "./layout.css";
+import './colors.css';
 
 class SignedOut extends React.Component {
   constructor(props) {

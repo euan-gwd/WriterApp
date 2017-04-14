@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
-import "./scribes.css";
+import "./layout.css";
+import './colors.css';
 
 class AddScribe extends React.Component {
 
@@ -131,7 +132,7 @@ class AddScribe extends React.Component {
       $imagePreview = null;
     }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className='card'>
+      <form onSubmit={this.handleSubmit.bind(this)} className='form-card'>
         <article className="media">
           <div className="media-left">
             {(this.props.userPhoto === null)
@@ -155,7 +156,7 @@ class AddScribe extends React.Component {
                 <div className="column is-narrow">
                   <div className="control">
                     <input type="file" accept="image/*" name="fileUploader" ref="fileUpload" id="fileUpload" className="input-file" onChange={this.handleImgUpload}/>
-                    <label htmlFor="fileUpload" className="button is-light" type="button">
+                    <label htmlFor="fileUpload" className="button is-primary is-inverted is-outlined" type="button" data-balloon="upload photo" data-balloon-pos="up">
                       <i className="fa fa-camera" aria-hidden="true"/>
                     </label>
                   </div>
@@ -164,7 +165,7 @@ class AddScribe extends React.Component {
                   <div className="pr">{160 - this.state.bodyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-primary" type="submit" disabled={this.state.bodyText.length === 0}>
+                  <button className="button is-primary is-outlined" type="submit" disabled={this.state.bodyText.length === 0}>
                     <span className="icon is-hidden-mobile">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>

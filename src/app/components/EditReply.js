@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
-import "./scribes.css";
+import "./layout.css";
+import './colors.css';
 
 class EditReply extends React.Component {
 
@@ -83,7 +84,7 @@ class EditReply extends React.Component {
                   <div className="pr">{160 - this.state.replyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-primary" type="submit" disabled={this.state.replyText.length === 0}>
+                  <button className="button is-primary is-outlined" type="submit" disabled={this.state.replyText.length === 0}>
                     <span className="icon is-small">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
@@ -94,7 +95,7 @@ class EditReply extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleCancel.bind(this)} className="remove">
+            <a onClick={this.handleCancel.bind(this)} className="remove" data-balloon="cancel" data-balloon-pos="up">
               <span className="icon is-small is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>

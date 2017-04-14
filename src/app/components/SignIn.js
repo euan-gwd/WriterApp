@@ -1,6 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import './scribes.css';
+import "./layout.css";
+import './colors.css';
 
 class SignIn extends React.Component {
   constructor(props) {

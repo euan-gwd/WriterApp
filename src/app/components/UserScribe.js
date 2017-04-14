@@ -8,7 +8,7 @@ import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
 import './colors.css';
 
-class Scribe extends React.Component {
+class UserScribe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +51,7 @@ class Scribe extends React.Component {
       ? <span className="pl">{repliesTotal}</span>
       : null;
     return (
-      <li className="selected-scribe card">
+      <li className="selected-scribe card top-borders-card">
         <article className="media scribe-spacing">
           <div className="media-left">
             {this.props.thread.hasOwnProperty("userPhoto")
@@ -124,4 +124,4 @@ class Scribe extends React.Component {
   }
 }
 
-export default Scribe;
+export default UserScribe;

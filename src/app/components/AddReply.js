@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
-import "./scribes.css";
+import "./layout.css";
+import './colors.css';
 
 class AddReply extends React.Component {
   constructor(props) {
@@ -122,7 +123,7 @@ class AddReply extends React.Component {
         <div className="imagePreview-Wrapper">
           <img src={reply_imagePreviewUrl} className="image is-128x128 image-rounded" alt={this.state.reply_file.name}/>
           <a className="remove topright" onClick={this.removeReplyImgUpload}>
-            <span className="icon">
+            <span className="icon is-small">
               <i className="fa fa-times" aria-hidden="true"></i>
             </span>
           </a>
@@ -147,7 +148,7 @@ class AddReply extends React.Component {
             <div className="">
               <div className="control">
                 {$replyImagePreview}
-                <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>
+                <textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's your reply?" className='textarea' onChange={this.handleInput.bind(this)} required/>
               </div>
             </div>
             <div className="pt">
@@ -155,7 +156,7 @@ class AddReply extends React.Component {
                 <div className="column is-narrow">
                   <div className="control">
                     <input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload}/>
-                    <label htmlFor="reply_fileUpload" className="button is-light" type="button">
+                    <label htmlFor="reply_fileUpload" className="button is-primary is-inverted is-outlined" type="button" data-balloon="upload photo" data-balloon-pos="up">
                       <i className="fa fa-camera" aria-hidden="true"/>
                     </label>
                   </div>
@@ -164,8 +165,8 @@ class AddReply extends React.Component {
                   <div className="pr">{160 - this.state.reply_bodyText.length}</div>
                 </div>
                 <div className="column is-narrow">
-                  <button className="button is-primary" type="submit" disabled={this.state.reply_bodyText.length === 0}>
-                    <span className="icon is-hidden-mobile">
+                  <button className="button is-primary is-outlined" type="submit" disabled={this.state.reply_bodyText.length === 0}>
+                    <span className="icon is-small is-hidden-mobile">
                       <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true"/>
                     </span>
                     <span>Reply</span>
@@ -175,8 +176,8 @@ class AddReply extends React.Component {
             </div>
           </div>
           <div className="media-right">
-            <a onClick={this.handleReplyCancel.bind(this)}>
-              <span className="remove icon">
+            <a onClick={this.handleReplyCancel.bind(this)} data-balloon="cancel" data-balloon-pos="up">
+              <span className="remove icon is-small">
                 <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </a>

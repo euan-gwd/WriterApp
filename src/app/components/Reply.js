@@ -4,7 +4,8 @@ import * as firebase from "firebase";
 import EditReply from './EditReply';
 import AddNestedReply from './AddNestedReply';
 import defaultUserPic from '../Default_User_Pic.svg';
-import './scribes.css';
+import "./layout.css";
+import './colors.css';
 
 class Reply extends React.Component {
   constructor(props) {
@@ -55,16 +56,10 @@ class Reply extends React.Component {
         </div>
         <div className="media-content">
           <div className="content">
-            {(currentUser === this.props.stream.userName)
-              ? <a onClick={this.props.removeReply.bind(null)} className="remove is-pulled-right">
-                  <span className="icon is-small">
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                  </span>
-                </a>
-              : null}
             <div>
               <span className="title is-5 pr">{this.props.stream.userName}</span>
-              <span className="subtitle is-6">{this.props.stream.userEmail}</span>
+              <span className="subtitle is-6 pr">{this.props.stream.userEmail}</span>
+              <span className="subtitle is-7 has-text-right">{moment(this.props.stream.datetime).fromNow()}</span>
             </div>
             <div>
               {this.props.stream.scribe}
@@ -77,22 +72,33 @@ class Reply extends React.Component {
                 : null}
             </div>
             <div className="scribe-actions-leveled-nested">
-              <a className="reply" onClick={this.handleReplyBtnClick.bind(this)}>
+              <a className="reply" onClick={this.handleReplyBtnClick.bind(this)} data-balloon="Reply" data-balloon-pos="up">
                 <span className="icon is-small">
                   <i className="fa fa-reply" aria-hidden="true"></i>
                 </span>
               </a>
-              <a className="star" onClick={this.props.favReply.bind(null)}>
+              <a className="star" onClick={this.props.favReply.bind(null)} data-balloon="Favourite" data-balloon-pos="up">
                 {showLikesTotal}
               </a>
               {(currentUser === this.props.stream.userName)
-                ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)}>
+                ? <a className="edit" onClick={this.handleEditBtnClick.bind(this)} data-balloon="Edit" data-balloon-pos="up">
                     <span className="icon is-small">
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </span>
                   </a>
                 : null}
-              <p className="has-text-right">{moment(this.props.stream.datetime).fromNow()}</p>
+              <a className="flag" data-balloon="Report" data-balloon-pos="up">
+                <span className="icon is-small">
+                  <i className="fa fa-flag" aria-hidden="true"></i>
+                </span>
+              </a>
+              {(currentUser === this.props.stream.userName)
+                ? <a onClick={this.props.removeReply.bind(null)} className="remove" data-balloon="delete" data-balloon-pos="up">
+                    <span className="icon is-small">
+                      <i className="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                : null}
             </div>
           </div>
           {this.state.edited
