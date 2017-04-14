@@ -15,7 +15,8 @@ class Home extends React.Component {
       userName: null,
       userEmail: null,
       userPhoto: null,
-      bannerPhoto: null
+      bannerPhoto: null,
+						totalUserScribes: 0
     };
   };
 
@@ -40,6 +41,14 @@ class Home extends React.Component {
       }
       this.setState({scribes: scribeDataArray})
     });
+
+    const keyRef = user.uid;
+    firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
+      const userScribeData = res.val();
+						let totalScribes = Object.keys(userScribeData);
+						this.setState({totalUserScribes: totalScribes.length});
+    });
+
   };
 
   deleteScribe(item, evt) {
@@ -122,7 +131,7 @@ class Home extends React.Component {
                   <div className="has-text-left">
                     <div className="pr-1">
                       <p className="subtitle-text-is-2 lh-1">Manuscripts</p>
-                      <p className="text-is-primary">{this.state.scribes.length}</p>
+                      <p className="text-is-primary">{this.state.totalUserScribes}</p>
                     </div>
                   </div>
                   <div className="has-text-left">
