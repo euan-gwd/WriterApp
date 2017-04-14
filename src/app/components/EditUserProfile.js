@@ -28,9 +28,7 @@ class EditUserProfile extends React.Component {
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
-    if (user !== null) {
-      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-    }
+    this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
   }
 
   handleEditBtnClick() {
@@ -71,12 +69,12 @@ class EditUserProfile extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    let user = firebase.auth().currentUser;
-    let userId = user.uid;
+    let userId = this.state.userId;
+    let currentUserName = firebase.auth().currentUser.displayName;
     let newDisplayName = this.state.displayNameText;
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
-    let chars_left = this.state.userName.length;
+    let input_chars = newDisplayName.length;
 
     if (file !== '') {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
@@ -87,7 +85,7 @@ class EditUserProfile extends React.Component {
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
-        user.updateProfile({photoURL: downloadURL});
+        firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
     }
 
@@ -104,11 +102,12 @@ class EditUserProfile extends React.Component {
           bannerPhotoUrl: downloadURL
         }
         firebase.database().ref('/users/' + userId + '/').update(bannerData);
+        firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
     }
 
-    if (chars_left > 0) {
-      user.updateProfile({displayName: newDisplayName});
+    if (input_chars > 0) {
+      firebase.auth().currentUser.updateProfile({displayName: newDisplayName});
     }
 
     const newState = !this.state.userUpdated;
@@ -217,7 +216,7 @@ class EditUserProfile extends React.Component {
                 <label className="label">Change Display Name</label>
                 <div className="form-leveled">
                   <p className="control grow-item">
-                    <input ref='update_DN' placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
+                    <input defaultValue={this.state.userName} placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                   </p>
                   <div className="narrow-item">
                     <button className="button is-primary is-outlined" type="submit">
