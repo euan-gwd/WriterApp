@@ -11,11 +11,11 @@ class Home extends React.Component {
     this.state = {
       scribes: [],
       starred: false,
-      userId: null,
-      userName: null,
-      userEmail: null,
-      userPhoto: null,
-      bannerPhoto: null,
+      // userId: null,
+      // userName: null,
+      // userEmail: null,
+      // userPhoto: null,
+      // bannerPhoto: null,
 						totalUserScribes: 0
     };
   };

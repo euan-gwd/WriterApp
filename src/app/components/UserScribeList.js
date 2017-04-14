@@ -10,10 +10,10 @@ class UserScribeList extends React.Component {
     this.state = {
       userScribe: [],
       starred: false,
-      userId: null,
-      userName: null,
-      userEmail: null,
-      userPhoto: null
+      // userId: null,
+      // userName: null,
+      // userEmail: null,
+      // userPhoto: null
     };
   };
 

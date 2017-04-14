@@ -12,11 +12,11 @@ class UserProfile extends React.Component {
     super(props);
     this.state = {
       userUpdated: false,
-      userId: null,
-      userName: null,
-      userEmail: null,
-      userPhoto: null,
-      bannerPhoto: null,
+      // userId: null,
+      // userName: null,
+      // userEmail: null,
+      // userPhoto: null,
+      // bannerPhoto: null,
       user_file: '',
       user_imagePreviewUrl: '',
       user_imageUrl: '',
