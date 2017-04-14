@@ -71,7 +71,7 @@ class EditUserProfile extends React.Component {
     evt.preventDefault();
     let userId = this.state.userId;
     let currentUserName = firebase.auth().currentUser.displayName;
-				let currentPhoto = firebase.auth().currentUser.photoUrl;
+    let currentPhoto = firebase.auth().currentUser.photoUrl;
     let newDisplayName = this.state.displayNameText;
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
@@ -89,6 +89,9 @@ class EditUserProfile extends React.Component {
         let photoData = {
           photoUrl: downloadURL
         }
+        currentPhoto = this.state.userPhoto;
+        let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
+        deleteImgRef.delete();
         firebase.database().ref('/users/' + userId + '/').update(photoData);
         firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
@@ -104,10 +107,17 @@ class EditUserProfile extends React.Component {
         let bannerData = {
           bannerPhotoUrl: downloadURL
         }
+        currentPhoto = this.state.bannerPhoto;
+        let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
+        deleteImgRef.delete();
         firebase.database().ref('/users/' + userId + '/').update(bannerData);
         firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
     } else if (input_chars > 0) {
+      let displayNameData = {
+        displayName: newDisplayName
+      }
+      firebase.database().ref('/users/' + userId + '/').update(displayNameData);
       firebase.auth().currentUser.updateProfile({displayName: newDisplayName, photoURL: currentPhoto});
     }
 
