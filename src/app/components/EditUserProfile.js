@@ -71,12 +71,13 @@ class EditUserProfile extends React.Component {
     evt.preventDefault();
     let userId = this.state.userId;
     let currentUserName = firebase.auth().currentUser.displayName;
+				let currentPhoto = firebase.auth().currentUser.photoUrl;
     let newDisplayName = this.state.displayNameText;
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
     let input_chars = newDisplayName.length;
 
-    if (file !== '') {
+    if (file !== '' && input_chars === 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -85,11 +86,13 @@ class EditUserProfile extends React.Component {
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
+        let photoData = {
+          photoUrl: downloadURL
+        }
+        firebase.database().ref('/users/' + userId + '/').update(photoData);
         firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
-    }
-
-    if (bannerFile !== '') {
+    } else if (bannerFile !== '' && input_chars === 0) {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
       let uploadTask = storageRef.put(bannerFile);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -104,13 +107,11 @@ class EditUserProfile extends React.Component {
         firebase.database().ref('/users/' + userId + '/').update(bannerData);
         firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
       });
+    } else if (input_chars > 0) {
+      firebase.auth().currentUser.updateProfile({displayName: newDisplayName, photoURL: currentPhoto});
     }
 
-    if (input_chars > 0) {
-      firebase.auth().currentUser.updateProfile({displayName: newDisplayName});
-    }
-
-    const newState = !this.state.userUpdated;
+    let newState = !this.state.userUpdated;
     this.props.callbackParent(newState);
   }
 
@@ -119,7 +120,7 @@ class EditUserProfile extends React.Component {
   }
 
   handleCancel = (evt) => {
-    const newState = !this.state.userUpdated;
+    let newState = !this.state.userUpdated;
     this.setState({userUpdated: newState});
     this.props.callbackParent(newState);
   }
