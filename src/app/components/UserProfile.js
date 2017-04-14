@@ -28,7 +28,7 @@ class UserProfile extends React.Component {
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
-    if (user != null) {
+    if (user !== null) {
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
     const userId = user.uid;

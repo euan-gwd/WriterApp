@@ -16,6 +16,7 @@ class EditUserProfile extends React.Component {
       userEmail: null,
       userPhoto: null,
       bannerPhoto: this.props.bannerPhoto,
+      displayNameText: '',
       user_file: '',
       user_imagePreviewUrl: '',
       user_imageUrl: '',
@@ -72,13 +73,12 @@ class EditUserProfile extends React.Component {
     evt.preventDefault();
     let user = firebase.auth().currentUser;
     let userId = user.uid;
-    let userName = this.state.userName;
-    console.log(userName);
+    let newDisplayName = this.state.displayNameText;
     let file = this.state.user_file;
     let bannerFile = this.state.banner_file;
     let chars_left = this.state.userName.length;
 
-    if (file !== '' && chars_left > 0) {
+    if (file !== '') {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
       let uploadTask = storageRef.put(file);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -87,20 +87,11 @@ class EditUserProfile extends React.Component {
       }, () => {
         // Handle successful uploads on complete
         let downloadURL = uploadTask.snapshot.downloadURL;
-        let profilePicData = {
-          photoUrl: downloadURL
-        }
-        // firebase.database().ref('/users/' + userId + '/').update(profilePicData);
-        console.log(profilePicData);
-        user.updateProfile({displayName: userName, photoURL: downloadURL}).then(value => {
-          console.log('successful')
-        }).catch(err => {
-          console.log(err)
-        })
+        user.updateProfile({photoURL: downloadURL});
       });
     }
 
-    if (bannerFile !== '' && chars_left > 0) {
+    if (bannerFile !== '') {
       let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
       let uploadTask = storageRef.put(bannerFile);
       uploadTask.on('state_changed', (snapshot) => {}, (error) => {
@@ -116,17 +107,19 @@ class EditUserProfile extends React.Component {
       });
     }
 
+    if (chars_left > 0) {
+      user.updateProfile({displayName: newDisplayName});
+    }
+
     const newState = !this.state.userUpdated;
     this.props.callbackParent(newState);
   }
 
   handleNameInput = (evt) => {
-    evt.preventDefault();
-    this.setState({userName: evt.target.value})
+    this.setState({displayNameText: evt.target.value})
   }
 
   handleCancel = (evt) => {
-    evt.preventDefault();
     const newState = !this.state.userUpdated;
     this.setState({userUpdated: newState});
     this.props.callbackParent(newState);
@@ -224,8 +217,7 @@ class EditUserProfile extends React.Component {
                 <label className="label">Change Display Name</label>
                 <div className="form-leveled">
                   <p className="control grow-item">
-                    <input placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
-                    <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating user now...</span>
+                    <input ref='update_DN' placeholder={this.state.userName} className='input' onChange={this.handleNameInput.bind(this)}/>
                   </p>
                   <div className="narrow-item">
                     <button className="button is-primary is-outlined" type="submit">
