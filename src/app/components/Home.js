@@ -21,7 +21,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
-    // check if user is logged in
+    // load current user and retrieve user profile data from firebase for currentUser
     if (user !== null) {
       //retrieve user profile data from firebase for currentUser
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
@@ -55,7 +55,7 @@ class Home extends React.Component {
     }
   };
 
-		// deletes scribe
+  // deletes scribe
   deleteScribe(item, evt) {
     evt.stopPropagation();
     let userId = this.state.userId;
@@ -76,7 +76,7 @@ class Home extends React.Component {
     }
   }
 
-		// add likes
+  // add likes
   incrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star + 1);
     userDbRef.transaction(star => star + 1);
@@ -90,7 +90,7 @@ class Home extends React.Component {
     this.setState({starred: false});
   }
 
-		// likes click handler
+  // likes click handler
   toggleLikes(item, evt) {
     evt.stopPropagation();
     let userId = this.state.userId;

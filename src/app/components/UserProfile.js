@@ -22,9 +22,9 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
+			// load current user and retrieve user profile data from firebase for currentUser
     let user = firebase.auth().currentUser;
     this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-
     const userId = user.uid;
     firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
       const bannerPhoto = res.val();

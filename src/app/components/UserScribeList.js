@@ -9,20 +9,18 @@ class UserScribeList extends React.Component {
     super(props);
     this.state = {
       userScribe: [],
-      starred: false,
-      // userId: null,
-      // userName: null,
-      // userEmail: null,
-      // userPhoto: null
+      starred: false
     };
   };
 
   componentDidMount() {
+    // load current user and retrieve user profile data from firebase for currentUser
     let user = firebase.auth().currentUser;
+    //retrieve user profile data from firebase for currentUser
     if (user !== null) {
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     }
-
+    //retrieve all scribes from firebase for the currentUser
     const keyRef = user.uid;
     firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
       const userScribeData = res.val();
@@ -84,7 +82,7 @@ class UserScribeList extends React.Component {
     return (
       <div className="scribe-container">
         <div className="columns pt-1">
-          <div className="column is-half is-offset-one-quarter">
+          <div className="column is-6 is-offset-3">
             <ul id="userScribeList">{userScribe}</ul>
           </div>
         </div>
