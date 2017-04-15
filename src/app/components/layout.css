@@ -120,6 +120,10 @@ li.card:last-of-type {
   padding: 0 0.5vw;
 }
 
+.mb {
+  margin-bottom: 0.5vw;
+}
+
 .char-count {
   align-self: center;
 }
@@ -325,7 +329,7 @@ label.label {
   color: #4a4a4a;
   max-width: 100%;
   position: relative;
-  padding: 0 0.3125rem 0.3125rem;
+  padding: 0.3125rem;
 }
 
 .signIn-card {

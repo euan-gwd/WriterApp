@@ -100,7 +100,7 @@ class App extends React.Component {
                 </Default>
               </Switch>
             </div>
-          : <div className="">
+          : <div>
             <SignedOut/>
           </div>}
       </div>

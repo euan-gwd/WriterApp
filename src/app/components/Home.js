@@ -1,9 +1,12 @@
 import React from 'react';
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 import AddScribe from './AddScribe';
 import Scribe from './Scribe';
+import Follow from './Follow';
 import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
+import "./layout.css";
+import './colors.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,12 +14,13 @@ class Home extends React.Component {
     this.state = {
       scribes: [],
       starred: false,
+      usersList: [],
       // userId: null,
       // userName: null,
       // userEmail: null,
       // userPhoto: null,
       // bannerPhoto: null,
-						totalUserScribes: 0
+      totalUserScribes: 0
     };
   };
 
@@ -30,25 +34,29 @@ class Home extends React.Component {
         const bannerPhoto = res.val();
         this.setState({bannerPhoto: bannerPhoto})
       });
+
+      firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
+        const userScribeData = res.val();
+        let totalScribes = Object.keys(userScribeData).length;
+        this.setState({totalUserScribes: totalScribes});
+      });
+
+      firebase.database().ref('mainTL').on('value', (res) => {
+        const scribeData = res.val();
+        const scribeDataArray = [];
+        for (let objKey in scribeData) {
+          scribeData[objKey].key = objKey;
+          scribeDataArray.push(scribeData[objKey])
+        }
+        this.setState({scribes: scribeDataArray})
+      });
+
+      firebase.database().ref('users/').on('value', (res) => {
+        const usersData = res.val();
+        let userList = Object.keys(usersData);
+        this.setState({usersList: userList});
+      });
     }
-
-    firebase.database().ref('mainTL').on('value', (res) => {
-      const scribeData = res.val();
-      const scribeDataArray = [];
-      for (let objKey in scribeData) {
-        scribeData[objKey].key = objKey;
-        scribeDataArray.push(scribeData[objKey])
-      }
-      this.setState({scribes: scribeDataArray})
-    });
-
-    const keyRef = user.uid;
-    firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
-      const userScribeData = res.val();
-						let totalScribes = Object.keys(userScribeData);
-						this.setState({totalUserScribes: totalScribes.length});
-    });
-
   };
 
   deleteScribe(item, evt) {
@@ -97,9 +105,12 @@ class Home extends React.Component {
     let scribes = this.state.scribes.map((item) => {
       return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
     })
+    let usr = this.state.usersList.map((item, index) => {
+      return (<Follow UserID={item} key={index}/>);
+    })
     return (
       <div className="scribe-container">
-        <div className="columns pt-1">
+        <div className="columns is-multiline pt-1">
           <div className="column is-3">
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
@@ -130,7 +141,7 @@ class Home extends React.Component {
                 <footer className="leveled">
                   <div className="has-text-left">
                     <div className="pr-1">
-                      <p className="subtitle-text-is-2 lh-1">Manuscripts</p>
+                      <p className="subtitle-text-is-2 lh-1">Scribes</p>
                       <p className="text-is-primary">{this.state.totalUserScribes}</p>
                     </div>
                   </div>
@@ -150,9 +161,15 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-          <div className="column is-7">
+          <div className="column">
             <AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
             <ul className="">{scribes}</ul>
+          </div>
+          <div className="column is-2">
+            <div className="follow-card">
+              <h6 className="title is-5">Writers:</h6>
+              <div>{usr}</div>
+            </div>
           </div>
         </div>
       </div>

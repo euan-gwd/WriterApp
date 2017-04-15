@@ -29,6 +29,14 @@
   color: var(--primary);
 }
 
+.follow {
+  color: var(--base-icon);
+}
+
+.follow:hover {
+  color: var(--primary);
+}
+
 .star {
   color: var(--base-icon);
 }
