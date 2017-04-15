@@ -30,6 +30,13 @@ class UserProfile extends React.Component {
       const bannerPhoto = res.val();
       this.setState({bannerPhoto: bannerPhoto})
     });
+
+    // retrieve total number of scribes for currentUser
+    firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
+      const userScribeData = res.val();
+      let totalScribes = Object.keys(userScribeData).length;
+      this.setState({totalUserScribes: totalScribes});
+    });
   }
 
   handleEditBtnClick() {
@@ -70,6 +77,26 @@ class UserProfile extends React.Component {
                   <div className="media-content">
                     <div className="banner-leveled">
                       <p className="title is-5 pr">{this.state.userName}</p>
+                      <div className="followers-leveled">
+                        <div className="has-text-centered">
+                          <div className="pr-1">
+                            <p className="subtitle-text-is-2 lh-1">Scribes</p>
+                            <p className="text-is-primary">{this.state.totalUserScribes}</p>
+                          </div>
+                        </div>
+                        <div className="has-text-centered">
+                          <div className="">
+                            <p className="subtitle-text-is-2 lh-1">Following</p>
+                            <p className="text-is-primary">123</p>
+                          </div>
+                        </div>
+                        <div className="has-text-centered">
+                          <div className="pl-1">
+                            <p className="subtitle-text-is-2 lh-1">Followers</p>
+                            <p className="text-is-primary">456K</p>
+                          </div>
+                        </div>
+                      </div>
                       <button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
                         <span className="icon is-small is-hidden-mobile">
                           <i className="fa fa-cloud-upload fa-fw" aria-hidden="true"/>

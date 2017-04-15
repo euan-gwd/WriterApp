@@ -297,7 +297,7 @@ label.label {
 .banner-leveled {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-top: 1.25rem;
 }
 
@@ -368,6 +368,13 @@ label.label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  padding: 0 0.5vw;
+}
+
+.followers-leveled {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 0.5vw;
 }
 
