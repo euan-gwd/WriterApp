@@ -332,6 +332,10 @@ label.label {
   padding: 0.3125rem;
 }
 
+.borderline{
+	border-bottom: 1px solid var(--blue-grey);
+}
+
 .signIn-card {
   background-color: white;
   border-radius: 5px;
@@ -345,6 +349,11 @@ label.label {
 .text-is-primary {
   color: var(--primary);
   font-size: 1.25rem;
+}
+
+.subtitle.is-6 {
+  font-size: 0.95rem !important;
+	margin-top: -0.25rem;
 }
 
 .subtitle.is-7 {

@@ -89,7 +89,7 @@ class Home extends React.Component {
     userDbRef.transaction(star => star - 1);
     this.setState({starred: false});
   }
-		
+
 		// likes click handler
   toggleLikes(item, evt) {
     evt.stopPropagation();
@@ -112,7 +112,7 @@ class Home extends React.Component {
     })
     return (
       <div className="scribe-container">
-        <div className="columns is-multiline pt-1">
+        <div className="columns pt-1">
           <div className="column is-3">
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
@@ -169,7 +169,7 @@ class Home extends React.Component {
           </div>
           <div className="column is-2">
             <div className="follow-card">
-              <h6 className="title is-5">Writers:</h6>
+              <h6 className="title is-5 borderline">Writers:</h6>
               <div>{usr}</div>
             </div>
           </div>
