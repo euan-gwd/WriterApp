@@ -21,22 +21,22 @@ class Home extends React.Component {
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
-				// check if user is logged in
-				if (user !== null) {
-						//retrieve user profile data from firebase for currentUser
+    // check if user is logged in
+    if (user !== null) {
+      //retrieve user profile data from firebase for currentUser
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
       const userId = user.uid;
       firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
         const bannerPhoto = res.val();
         this.setState({bannerPhoto: bannerPhoto})
       });
-						// retrieve total number of scribes for currentUser
+      // retrieve total number of scribes for currentUser
       firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
         const userScribeData = res.val();
         let totalScribes = Object.keys(userScribeData).length;
         this.setState({totalUserScribes: totalScribes});
       });
-						//retrieve all scribes from firebase
+      //retrieve all scribes from firebase
       firebase.database().ref('mainTL').on('value', (res) => {
         const scribeData = res.val();
         const scribeDataArray = [];
@@ -46,7 +46,7 @@ class Home extends React.Component {
         }
         this.setState({scribes: scribeDataArray})
       });
-						// retrieve list of users from firebase
+      // retrieve list of users from firebase
       firebase.database().ref('users/').on('value', (res) => {
         const usersData = res.val();
         let userList = Object.keys(usersData);
@@ -98,9 +98,11 @@ class Home extends React.Component {
   }
 
   render() {
+    //Display all scribes to screen
     let scribes = this.state.scribes.map((item) => {
       return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
     })
+    //Display all users to screen
     let usr = this.state.usersList.map((item, index) => {
       return (<Follow UserID={item} key={index}/>);
     })
