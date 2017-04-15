@@ -112,8 +112,8 @@ class Home extends React.Component {
     })
     return (
       <div className="scribe-container">
-        <div className="columns pt-1">
-          <div className="column is-3">
+        <div className="scribe-layout pt-1">
+          <div className="">
             <div className="profile-card is-hidden-mobile">
               <div className="card-image">
                 {(this.state.bannerPhoto === null)
@@ -163,11 +163,11 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-          <div className="column">
+          <div className="">
             <AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
             <ul className="">{scribes}</ul>
           </div>
-          <div className="column is-2">
+          <div className="">
             <div className="follow-card">
               <h6 className="title is-5 borderline">Writers:</h6>
               <div>{usr}</div>

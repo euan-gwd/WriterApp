@@ -27,7 +27,7 @@ class Follow extends React.Component {
       <div className="selected-scribe mb">
         <div className="media">
           <div className="media-left">
-            <figure className="image is-24x24">
+            <figure className="image is-32x32">
               <img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
             </figure>
           </div>
@@ -36,8 +36,8 @@ class Follow extends React.Component {
           </div>
           <div className="media-right">
             <a className="follow" data-balloon="Follow Writer" data-balloon-pos="left">
-              <span className="icon">
-                <i className="fa fa-plus-square-o" aria-hidden="true"></i>
+              <span className="icon is-medium">
+                <i className="fa fa-user-plus" aria-hidden="true"></i>
               </span>
             </a>
           </div>
