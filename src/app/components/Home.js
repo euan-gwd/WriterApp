@@ -74,19 +74,19 @@ class Home extends React.Component {
       }
     }
   }
-
+		// add likes
   incrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star + 1);
     userDbRef.transaction(star => star + 1);
     this.setState({starred: true});
   }
-
+  // remove likes
   decrementAndSave(mainDbRef, userDbRef) {
     mainDbRef.transaction(star => star - 1);
     userDbRef.transaction(star => star - 1);
     this.setState({starred: false});
   }
-
+		// likes click handler
   toggleLikes(item, evt) {
     evt.stopPropagation();
     let userId = this.state.userId;
