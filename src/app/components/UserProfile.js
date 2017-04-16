@@ -26,13 +26,13 @@ class UserProfile extends React.Component {
     let user = firebase.auth().currentUser;
     this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
     const userId = user.uid;
-    firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+    firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
       const bannerPhoto = res.val();
       this.setState({bannerPhoto: bannerPhoto})
     });
 
     // retrieve total number of scribes for currentUser
-    firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
+    firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
       const userScribeData = res.val();
       let totalScribes = Object.keys(userScribeData).length;
       this.setState({totalUserScribes: totalScribes});

@@ -3,84 +3,89 @@ import * as firebase from "firebase";
 import Reply from './Reply';
 
 class ReplyList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      replies: [],
-      scribeKey: this.props.currentScribe.key,
-      starred: false
-    };
-  };
+	constructor(props) {
+		super(props);
+		this.state = {
+			replies: [],
+			scribeKey: this.props.currentScribe.key,
+			starred: false
+		};
+	};
 
-  componentDidMount() {
-    const keyRef = this.state.scribeKey;
-    firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
-      const replyData = res.val();
-      const replyDataArray = [];
-      for (let objKey in replyData) {
-        replyData[objKey].key = objKey;
-        replyDataArray.push(replyData[objKey])
-      }
-      this.setState({replies: replyDataArray})
-    })
-  };
+	componentDidMount() {
+		const keyRef = this.state.scribeKey;
+		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
+			const replyData = res.val();
+			const replyDataArray = [];
+			for (let objKey in replyData) {
+				replyData[objKey].key = objKey;
+				replyDataArray.push(replyData[objKey])
+			}
+			this.setState({replies: replyDataArray})
+		})
+	};
 
-  deleteReply(itm, evt) {
-    evt.stopPropagation();
-    const keyRef = this.state.scribeKey;
-    let userId = this.props.currentScribe.userId;
-    let mainTLRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/');
-    let userTLRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/scribeReplies/');
+	componentWillUnmount() {
+		const keyRef = this.state.scribeKey;
+		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').off();
+	}
 
-    if (itm.hasOwnProperty("replyImage")) {
-      let deleteImgRef = firebase.storage().refFromURL(itm.replyImage);
-      if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-        userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-        deleteImgRef.delete(); //removes item from storageBucket
-      }
-    } else {
-      if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-        userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-      }
-    }
-  }
+	deleteReply(itm, evt) {
+		evt.stopPropagation();
+		const keyRef = this.state.scribeKey;
+		let userId = this.props.currentScribe.userId;
+		let mainTLRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/');
+		let userTLRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/');
 
-  incrementAndSave(mainTLDbRef, userTLDbRef) {
-    mainTLDbRef.transaction(star => star + 1);
-    userTLDbRef.transaction(star => star + 1);
-    this.setState({starred: true});
-  }
+		if (itm.hasOwnProperty("replyImage")) {
+			let deleteImgRef = firebase.storage().refFromURL(itm.replyImage);
+			if (window.confirm("Do you really want to delete this?")) {
+				mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+				userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+				deleteImgRef.delete(); //removes item from storageBucket
+			}
+		} else {
+			if (window.confirm("Do you really want to delete this?")) {
+				mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+				userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+			}
+		}
+	}
 
-  decrementAndSave(mainTLDbRef, userTLDbRef) {
-    mainTLDbRef.transaction(star => star - 1);
-    userTLDbRef.transaction(star => star - 1);
-    this.setState({starred: false});
-  }
+	incrementAndSave(mainTLDbRef, userTLDbRef) {
+		mainTLDbRef.transaction(star => star + 1);
+		userTLDbRef.transaction(star => star + 1);
+		this.setState({starred: true});
+	}
 
-  toggleLikes(item, evt) {
-    evt.stopPropagation();
-    const keyRef = this.state.scribeKey;
-    let userId = this.props.currentScribe.userId;
-    let mainTLDbRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
-    let userTLDbRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
-    (this.state.starred === true)
-      ? this.decrementAndSave(mainTLDbRef, userTLDbRef)
-      : this.incrementAndSave(mainTLDbRef, userTLDbRef)
-  }
+	decrementAndSave(mainTLDbRef, userTLDbRef) {
+		mainTLDbRef.transaction(star => star - 1);
+		userTLDbRef.transaction(star => star - 1);
+		this.setState({starred: false});
+	}
 
-  render() {
-    const keyRef = this.state.scribeKey;
-    let replies = this.state.replies.map((itm, index) => {
-      return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key}/>);
-    })
-    return (
-      <div>
-        {replies}
-      </div>
-    );
-  }
+	toggleLikes(item, evt) {
+		evt.stopPropagation();
+		const keyRef = this.state.scribeKey;
+		let userId = this.props.currentScribe.userId;
+		let mainTLDbRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
+		let userTLDbRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/').child(item.key).child('likes');
+		(this.state.starred === true)
+			? this.decrementAndSave(mainTLDbRef, userTLDbRef)
+			: this.incrementAndSave(mainTLDbRef, userTLDbRef)
+	}
+
+	render() {
+		const keyRef = this.state.scribeKey;
+		let replies = this.state.replies.map((itm, index) => {
+			return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key}/>);
+		})
+		return (
+			<div>
+				{replies}
+			</div>
+		);
+	}
 }
 
 export default ReplyList;
