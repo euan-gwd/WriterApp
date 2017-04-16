@@ -33,6 +33,7 @@ class AddNestedReply extends React.Component {
 	handleSubmit(evt) {
 		evt.preventDefault();
 		let parentScribeKey = this.props.parentId;
+		let currentScribeUserName = this.props.currentScribe.userName;
 		let file = this.state.reply_file;
 		let userId = firebase.auth().currentUser.uid;
 		let scribeText = this.state.reply_bodyText;
@@ -65,7 +66,7 @@ class AddNestedReply extends React.Component {
 				let userTLData = {
 					scribe: scribeText,
 					scribeImage: downloadURL,
-					replyTo: parentScribeKey,
+					replyTo: currentScribeUserName,
 					datetime: datetime,
 					userId: userId,
 					userName: userName,
@@ -92,7 +93,7 @@ class AddNestedReply extends React.Component {
 				}
 				let userTLData = {
 					scribe: scribeText,
-					replyTo: parentScribeKey,
+					replyTo: currentScribeUserName,
 					datetime: datetime,
 					userId: userId,
 					userName: userName,

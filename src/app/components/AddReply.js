@@ -33,6 +33,7 @@ class AddReply extends React.Component {
 	handleSubmit(evt) {
 		evt.preventDefault();
 		let currentScribeKey = this.props.currentScribe.key;
+		let currentScribeUserName = this.props.currentScribe.userName;
 		let file = this.state.reply_file;
 		let userId = firebase.auth().currentUser.uid;
 		let scribeText = this.state.reply_bodyText;
@@ -66,7 +67,7 @@ class AddReply extends React.Component {
 					scribe: scribeText,
 					scribeImage: downloadURL,
 					datetime: datetime,
-					replyTo: currentScribeKey,
+					replyTo: currentScribeUserName,
 					userId: userId,
 					userName: userName,
 					userEmail: userEmail,
@@ -93,7 +94,7 @@ class AddReply extends React.Component {
 				let userTLData = {
 					scribe: scribeText,
 					datetime: datetime,
-					replyTo: currentScribeKey,
+					replyTo: currentScribeUserName,
 					userId: userId,
 					userName: userName,
 					userEmail: userEmail,
