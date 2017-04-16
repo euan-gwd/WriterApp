@@ -40,7 +40,7 @@ class EditReply extends React.Component {
         scribe: replyText
       }
       firebase.database().ref('mainTL/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
-      firebase.database().ref('/userTL/' + userId + '/' + scribeParentKey + '/scribeReplies/' + replyKeyRef).update(scribeData);
+      firebase.database().ref('/userTL/' + userId + '/' + replyKeyRef).update(scribeData);
     }
 
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
