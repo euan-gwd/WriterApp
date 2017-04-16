@@ -55,6 +55,7 @@ class Home extends React.Component {
 		}
 	};
 
+	//remove listener
 	componentWillUnmount() {
 		firebase.database().ref('mainTL').off();
 	}
