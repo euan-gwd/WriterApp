@@ -26,18 +26,18 @@ class Home extends React.Component {
       //retrieve user profile data from firebase for currentUser
       this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
       const userId = user.uid;
-      firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+      firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
         const bannerPhoto = res.val();
         this.setState({bannerPhoto: bannerPhoto})
       });
       // retrieve total number of scribes for currentUser
-      firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
+      firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
         const userScribeData = res.val();
         let totalScribes = Object.keys(userScribeData).length;
         this.setState({totalUserScribes: totalScribes});
       });
       //retrieve all scribes from firebase
-      firebase.database().ref('mainTL').on('value', (res) => {
+      firebase.database().ref('mainTL').once('value', (res) => {
         const scribeData = res.val();
         const scribeDataArray = [];
         for (let objKey in scribeData) {
@@ -47,7 +47,7 @@ class Home extends React.Component {
         this.setState({scribes: scribeDataArray})
       });
       // retrieve list of users from firebase
-      firebase.database().ref('users/').on('value', (res) => {
+      firebase.database().ref('users/').once('value', (res) => {
         const usersData = res.val();
         let userList = Object.keys(usersData);
         this.setState({usersList: userList});

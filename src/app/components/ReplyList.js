@@ -14,7 +14,7 @@ class ReplyList extends React.Component {
 
   componentDidMount() {
     const keyRef = this.state.scribeKey;
-    firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').on('value', (res) => {
+    firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').once('value', (res) => {
       const replyData = res.val();
       const replyDataArray = [];
       for (let objKey in replyData) {

@@ -22,7 +22,7 @@ class UserScribeList extends React.Component {
     }
     //retrieve all scribes from firebase for the currentUser
     const keyRef = user.uid;
-    firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
+    firebase.database().ref('userTL/' + keyRef + '/').once('value', (res) => {
       const userScribeData = res.val();
       const userScribeDataArray = [];
       for (let objKey in userScribeData) {

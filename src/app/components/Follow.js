@@ -15,7 +15,7 @@ class Follow extends React.Component {
 
   componentDidMount() {
     let userId = this.props.UserID;
-    firebase.database().ref('users/' + userId + '/').on('value', (res) => {
+    firebase.database().ref('users/' + userId + '/').once('value', (res) => {
       const followerData = res.val();
       const {name, photoUrl} = followerData;
       this.setState({userName: name, userPhoto: photoUrl});
