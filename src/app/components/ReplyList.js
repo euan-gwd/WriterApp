@@ -33,21 +33,21 @@ class ReplyList extends React.Component {
 	deleteReply(itm, evt) {
 		evt.stopPropagation();
 		const keyRef = this.state.scribeKey;
-		let userId = this.props.currentScribe.userId;
+		let userId = itm.userId;
 		let mainTLRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/');
-		let userTLRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/');
+		let userTLRef = firebase.database().ref('userTL/' + userId + '/');
 
 		if (itm.hasOwnProperty("replyImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(itm.replyImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-				userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+				mainTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
-				userTLRef.child(itm.key).remove(); //removes item from firefirebase RTdfirebase
+				mainTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
 			}
 		}
 	}
