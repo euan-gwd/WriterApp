@@ -58,13 +58,6 @@ class Home extends React.Component {
 		}
 	};
 
-	//remove listener
-	componentWillUnmount() {
-		firebase.database().ref('mainTL').off();
-		let userId = firebase.auth().currentUser.uid;
-		firebase.database().ref('userTL/' + userId + '/').off();
-	}
-
 	// deletes scribe
 	deleteScribe(item, evt) {
 		evt.stopPropagation();
