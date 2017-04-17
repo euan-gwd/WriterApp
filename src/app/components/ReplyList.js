@@ -7,8 +7,7 @@ class ReplyList extends React.Component {
 		super(props);
 		this.state = {
 			replies: [],
-			scribeKey: this.props.currentScribe.key,
-			starred: false
+			scribeKey: this.props.currentScribe.key
 		};
 	};
 
@@ -56,8 +55,10 @@ class ReplyList extends React.Component {
 		evt.preventDefault();
 		const keyRef = this.state.scribeKey;
 		// let userId = this.props.currentScribe.userId;
+		// console.log(userId + 'is this.props.currentScribe.userId' );
+		// console.log(item.userId + 'is item.userId');
 		let mainTLReplyRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + item.key + '/');
-		// let userTLReplyRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/').child(item.key).child('likes');
+		let userTLReplyRef = firebase.database().ref('userTL/' + item.userId + '/' + item.key + '/');
 		let uid = firebase.auth().currentUser.uid;
 
 		// handles implementation of starCount for mainTL replies
@@ -77,22 +78,22 @@ class ReplyList extends React.Component {
 			return post;
 		});
 
-  // // handles implementation of starCount for userTL replies
-		// userTLReplyRef.transaction(function (post) {
-		// 	if (post) {
-		// 		if (post.stars && post.stars[uid]) {
-		// 			post.starCount--;
-		// 			post.stars[uid] = null;
-		// 		} else {
-		// 			post.starCount++;
-		// 			if (!post.stars) {
-		// 				post.stars = {};
-		// 			}
-		// 			post.stars[uid] = true;
-		// 		}
-		// 	}
-		// 	return post;
-		// });
+		// handles implementation of starCount for userTL replies
+		userTLReplyRef.transaction(function (post) {
+			if (post) {
+				if (post.stars && post.stars[uid]) {
+					post.starCount--;
+					post.stars[uid] = null;
+				} else {
+					post.starCount++;
+					if (!post.stars) {
+						post.stars = {};
+					}
+					post.stars[uid] = true;
+				}
+			}
+			return post;
+		});
 
 	}
 

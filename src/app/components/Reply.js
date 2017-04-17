@@ -34,10 +34,10 @@ class Reply extends React.Component {
 
   render() {
     let currentUser = firebase.auth().currentUser.displayName;
-    let showLikesTotal = (this.props.stream.likes > 0)
+    let showLikesTotal = (this.props.stream.starCount > 0)
       ? <span className="icon is-small liked">
           <i className="fa fa-star" aria-hidden="true">
-            <span className="pl">{this.props.stream.likes}</span>
+            <span className="pl">{this.props.stream.starCount}</span>
           </i>
         </span>
       : <span className="icon is-small">
