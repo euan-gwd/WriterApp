@@ -79,27 +79,13 @@ class Home extends React.Component {
 		}
 	}
 
-	// add likes
-	incrementAndSave(mainDbRef) {
-		mainDbRef.transaction(star => star + 1);
-		// userDbRef.transaction(star => star + 1);
-		this.setState({starred: true});
-	}
-
-	// remove likes
-	decrementAndSave(mainDbRef) {
-		mainDbRef.transaction(star => star - 1);
-		// userDbRef.transaction(star => star - 1);
-		this.setState({starred: false});
-	}
-
 	// likes click handler
 	toggleLikes(item, evt) {
 		evt.preventDefault();
-		console.log(item.userId);
 		let mainTLRef = firebase.database().ref('mainTL/' + item.key + '/');
 		let userTLRef = firebase.database().ref('userTL/' + item.userId + '/' + item.key);
 		let uid = firebase.auth().currentUser.uid;
+
 		// handles implementation of starCount for mainTL
 		mainTLRef.transaction(function (post) {
 			if (post) {
@@ -116,7 +102,8 @@ class Home extends React.Component {
 			}
 			return post;
 		});
-  // handles implementation of starCount for mainTL
+
+  // handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
 			if (post) {
 				if (post.stars && post.stars[uid]) {
