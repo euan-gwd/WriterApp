@@ -42,20 +42,17 @@ class UserScribeList extends React.Component {
   deleteScribe(item, evt) {
     evt.stopPropagation();
     let userId = this.state.userId;
-    let mainTLRef = firebase.database().ref('mainTL/');
     let userTLRef = firebase.database().ref('userTL/' + userId + '/');
     if (item.hasOwnProperty("scribeImage")) {
       let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
-        userTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
+        userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
         deleteImgRef.delete(); //removes item from storageBucket
       }
     } else {
       if (window.confirm("Do you really want to delete this?")) {
-        mainTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
-        userTLRef.child(item.key).remove(); //removes item from firefirebase RTdfirebase
-      }
+        userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+						}
     }
   }
 
