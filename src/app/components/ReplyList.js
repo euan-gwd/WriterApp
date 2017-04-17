@@ -54,9 +54,6 @@ class ReplyList extends React.Component {
 	toggleLikes(item, evt) {
 		evt.preventDefault();
 		const keyRef = this.state.scribeKey;
-		// let userId = this.props.currentScribe.userId;
-		// console.log(userId + 'is this.props.currentScribe.userId' );
-		// console.log(item.userId + 'is item.userId');
 		let mainTLReplyRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + item.key + '/');
 		let userTLReplyRef = firebase.database().ref('userTL/' + item.userId + '/' + item.key + '/');
 		let uid = firebase.auth().currentUser.uid;
