@@ -31,9 +31,12 @@ class Home extends React.Component {
 				this.setState({bannerPhoto: bannerPhoto})
 			});
 			// retrieve total number of scribes for currentUser
-			firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
+			firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
 				const userScribeData = res.val();
-				let totalScribes = Object.keys(userScribeData).length;
+				let totalScribes;
+				(userScribeData !== null)
+				? totalScribes = Object.keys(userScribeData).length
+				: totalScribes = 0;
 				this.setState({totalUserScribes: totalScribes});
 			});
 			//retrieve all scribes from firebase
@@ -58,6 +61,8 @@ class Home extends React.Component {
 	//remove listener
 	componentWillUnmount() {
 		firebase.database().ref('mainTL').off();
+		let userId = firebase.auth().currentUser.uid;
+		firebase.database().ref('userTL/' + userId + '/').off();
 	}
 
 	// deletes scribe
