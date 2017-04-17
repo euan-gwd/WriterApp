@@ -89,7 +89,7 @@ class AddNestedReply extends React.Component {
 					userName: userName,
 					userEmail: userEmail,
 					userPhoto: userPhoto,
-					likes: 0
+					starCount: 0
 				}
 				let userTLData = {
 					scribe: scribeText,
@@ -99,7 +99,7 @@ class AddNestedReply extends React.Component {
 					userName: userName,
 					userEmail: userEmail,
 					userPhoto: userPhoto,
-					likes: 0
+					starCount: 0
 				}
 				updates['/mainTL/' + parentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
 				updates['/userTL/' + userId + '/' + newScribeReplyKey] = userTLData;
