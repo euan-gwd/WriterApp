@@ -161,7 +161,7 @@ li.card:last-of-type {
 .topright {
   position: absolute;
   top: .5vh;
-  left: 8.5vw;
+  left: 9vw;
   z-index: 2;
 }
 

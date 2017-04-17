@@ -66,7 +66,7 @@ class UserScribe extends React.Component {
 							<div className="">
 								{this.props.thread.hasOwnProperty("replyTo")
 									? <small>in Reply to:
-											<span className="replytext">{this.props.thread.replyTo}</span>
+											<span className="replytext py">{this.props.thread.replyTo}</span>
 										</small>
 									: null}
 							</div>
