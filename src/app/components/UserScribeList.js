@@ -5,93 +5,93 @@ import "./layout.css";
 import './colors.css';
 
 class UserScribeList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userScribe: [],
-      starred: false
-    };
-  };
+	constructor(props) {
+		super(props);
+		this.state = {
+			userScribe: [],
+			starred: false
+		};
+	};
 
-  componentDidMount() {
-    // load current user and retrieve user profile data from firebase for currentUser
-    let user = firebase.auth().currentUser;
-    //retrieve user profile data from firebase for currentUser
-    if (user !== null) {
-      this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-    }
-    //retrieve all scribes from firebase for the currentUser
-    const keyRef = user.uid;
-    firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
-      const userScribeData = res.val();
-      const userScribeDataArray = [];
-      for (let objKey in userScribeData) {
-        userScribeData[objKey].key = objKey;
-        userScribeDataArray.push(userScribeData[objKey])
-      }
-      this.setState({userScribe: userScribeDataArray})
-    });
-  };
-
-		//remove listener
-		componentWillUnmount() {
-			 const keyRef = firebase.auth().currentUser.uid;
-    firebase.database().ref('userTL/' + keyRef + '/').off();
+	componentDidMount() {
+		// load current user and retrieve user profile data from firebase for currentUser
+		let user = firebase.auth().currentUser;
+		//retrieve user profile data from firebase for currentUser
+		if (user !== null) {
+			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 		}
+		//retrieve all scribes from firebase for the currentUser
+		const keyRef = user.uid;
+		firebase.database().ref('userTL/' + keyRef + '/').on('value', (res) => {
+			const userScribeData = res.val();
+			const userScribeDataArray = [];
+			for (let objKey in userScribeData) {
+				userScribeData[objKey].key = objKey;
+				userScribeDataArray.push(userScribeData[objKey])
+			}
+			this.setState({userScribe: userScribeDataArray})
+		});
+	};
 
-  deleteScribe(item, evt) {
-    evt.stopPropagation();
-    let userId = this.state.userId;
-    let userTLRef = firebase.database().ref('userTL/' + userId + '/');
-    if (item.hasOwnProperty("scribeImage")) {
-      let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
-      if (window.confirm("Do you really want to delete this?")) {
-        userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-        deleteImgRef.delete(); //removes item from storageBucket
-      }
-    } else {
-      if (window.confirm("Do you really want to delete this?")) {
-        userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-						}
-    }
-  }
+	//remove listener
+	componentWillUnmount() {
+		const keyRef = firebase.auth().currentUser.uid;
+		firebase.database().ref('userTL/' + keyRef + '/').off();
+	}
 
-  incrementAndSave(mainDbRef, userDbRef) {
-    mainDbRef.transaction(star => star + 1);
-    userDbRef.transaction(star => star + 1);
-    this.setState({starred: true});
-  }
+	deleteScribe(item, evt) {
+		evt.stopPropagation();
+		let userId = this.state.userId;
+		let userTLRef = firebase.database().ref('userTL/' + userId + '/');
+		if (item.hasOwnProperty("scribeImage")) {
+			let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
+			if (window.confirm("Do you really want to delete this?")) {
+				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				deleteImgRef.delete(); //removes item from storageBucket
+			}
+		} else {
+			if (window.confirm("Do you really want to delete this?")) {
+				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+			}
+		}
+	}
 
-  decrementAndSave(mainDbRef, userDbRef) {
-    mainDbRef.transaction(star => star - 1);
-    userDbRef.transaction(star => star - 1);
-    this.setState({starred: false});
-  }
+	incrementAndSave(mainDbRef, userDbRef) {
+		mainDbRef.transaction(star => star + 1);
+		userDbRef.transaction(star => star + 1);
+		this.setState({starred: true});
+	}
 
-  toggleLikes(item, evt) {
-    evt.stopPropagation();
-    let userId = this.state.userId;
-    let mainDbRef = firebase.database().ref('mainTL/').child(item.key).child('likes');
-    let userDbRef = firebase.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
-    (this.state.starred === true)
-      ? this.decrementAndSave(mainDbRef, userDbRef)
-      : this.incrementAndSave(mainDbRef, userDbRef)
-  }
+	decrementAndSave(mainDbRef, userDbRef) {
+		mainDbRef.transaction(star => star - 1);
+		userDbRef.transaction(star => star - 1);
+		this.setState({starred: false});
+	}
 
-  render() {
-    let userScribe = this.state.userScribe.map((item) => {
-      return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
-    })
-    return (
-      <div className="scribe-container">
-        <div className="columns pt-1">
-          <div className="column is-6 is-offset-3">
-            <ul id="userScribeList">{userScribe}</ul>
-          </div>
-        </div>
-      </div>
-    );
-  }
+	toggleLikes(item, evt) {
+		evt.stopPropagation();
+		let userId = this.state.userId;
+		let mainDbRef = firebase.database().ref('mainTL/').child(item.key).child('likes');
+		let userDbRef = firebase.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
+		(this.state.starred === true)
+			? this.decrementAndSave(mainDbRef, userDbRef)
+			: this.incrementAndSave(mainDbRef, userDbRef)
+	}
+
+	render() {
+		let userScribe = this.state.userScribe.map((item) => {
+			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+		})
+		return (
+			<div className="scribe-container">
+				<div className="columns pt-1">
+					<div className="column is-6 is-offset-3">
+						<ul id="userScribeList">{userScribe}</ul>
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default UserScribeList;

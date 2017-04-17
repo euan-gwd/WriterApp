@@ -61,7 +61,7 @@ class AddReply extends React.Component {
 					userName: userName,
 					userEmail: userEmail,
 					userPhoto: userPhoto,
-					likes: 0
+					starCount: 0
 				}
 				let userTLData = {
 					scribe: scribeText,
@@ -72,7 +72,7 @@ class AddReply extends React.Component {
 					userName: userName,
 					userEmail: userEmail,
 					userPhoto: userPhoto,
-					likes: 0
+					starCount: 0
 				}
 				updates['/mainTL/' + currentScribeKey + '/scribeReplies/' + newScribeReplyKey] = scribeData;
 				updates['/userTL/' + userId + '/' + newScribeReplyKey] = userTLData;

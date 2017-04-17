@@ -26,7 +26,7 @@ class Home extends React.Component {
 			//retrieve user profile data from firebase for currentUser
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
 				const bannerPhoto = res.val();
 				this.setState({bannerPhoto: bannerPhoto})
 			});
@@ -35,8 +35,8 @@ class Home extends React.Component {
 				const userScribeData = res.val();
 				let totalScribes;
 				(userScribeData !== null)
-				? totalScribes = Object.keys(userScribeData).length
-				: totalScribes = 0;
+					? totalScribes = Object.keys(userScribeData).length
+					: totalScribes = 0;
 				this.setState({totalUserScribes: totalScribes});
 			});
 			//retrieve all scribes from firebase
@@ -50,7 +50,7 @@ class Home extends React.Component {
 				this.setState({scribes: scribeDataArray})
 			});
 			// retrieve list of users from firebase
-			firebase.database().ref('users/').once('value', (res) => {
+			firebase.database().ref('users/').on('value', (res) => {
 				const usersData = res.val();
 				let userList = Object.keys(usersData);
 				this.setState({usersList: userList});
@@ -80,28 +80,39 @@ class Home extends React.Component {
 	}
 
 	// add likes
-	incrementAndSave(mainDbRef, userDbRef) {
+	incrementAndSave(mainDbRef) {
 		mainDbRef.transaction(star => star + 1);
-		userDbRef.transaction(star => star + 1);
+		// userDbRef.transaction(star => star + 1);
 		this.setState({starred: true});
 	}
 
 	// remove likes
-	decrementAndSave(mainDbRef, userDbRef) {
+	decrementAndSave(mainDbRef) {
 		mainDbRef.transaction(star => star - 1);
-		userDbRef.transaction(star => star - 1);
+		// userDbRef.transaction(star => star - 1);
 		this.setState({starred: false});
 	}
 
 	// likes click handler
 	toggleLikes(item, evt) {
-		evt.stopPropagation();
-		let userId = this.state.userId;
-		let mainDbRef = firebase.database().ref('mainTL/').child(item.key).child('likes');
-		let userDbRef = firebase.database().ref('userTL/' + userId + '/').child(item.key).child('likes');
-		(this.state.starred === true)
-			? this.decrementAndSave(mainDbRef, userDbRef)
-			: this.incrementAndSave(mainDbRef, userDbRef)
+		evt.preventDefault();
+		let postRef = firebase.database().ref('mainTL/' + item.key + '/');
+		let uid = firebase.auth().currentUser.uid;
+		postRef.transaction(function (post) {
+			if (post) {
+				if (post.stars && post.stars[uid]) {
+					post.starCount--;
+					post.stars[uid] = null;
+				} else {
+					post.starCount++;
+					if (!post.stars) {
+						post.stars = {};
+					}
+					post.stars[uid] = true;
+				}
+			}
+			return post;
+		});
 	}
 
 	render() {
