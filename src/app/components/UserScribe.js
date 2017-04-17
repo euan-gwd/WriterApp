@@ -44,12 +44,6 @@ class UserScribe extends React.Component {
 			: <span className="icon is-small">
 				<i className="fa fa-star" aria-hidden="true"></i>
 			</span>;
-		let repliesTotal = (this.props.thread.hasOwnProperty("scribeReplies"))
-			? Object.keys(this.props.thread.scribeReplies).length
-			: 0;
-		let showRepliesTotal = (repliesTotal > 0)
-			? <span className="pl">{repliesTotal}</span>
-			: null;
 		return (
 			<li className="selected-scribe card">
 				<article className="media scribe-spacing">
@@ -71,7 +65,9 @@ class UserScribe extends React.Component {
 							</div>
 							<div className="">
 								{this.props.thread.hasOwnProperty("replyTo")
-									? <small>in Reply to: {this.props.thread.replyTo}</small>
+									? <small>in Reply to:
+											<span className="replytext">{this.props.thread.replyTo}</span>
+										</small>
 									: null}
 							</div>
 							<div>
@@ -87,9 +83,7 @@ class UserScribe extends React.Component {
 							<div className="scribe-actions-leveled">
 								<a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)} data-balloon="Reply" data-balloon-pos="up">
 									<span className="icon is-small">
-										<i className="fa fa-reply" aria-hidden="true">
-											{showRepliesTotal}
-										</i>
+										<i className="fa fa-reply" aria-hidden="true"></i>
 									</span>
 								</a>
 								<a className="star" onClick={this.props.favScribe.bind(null)} data-balloon="Favourite" data-balloon-pos="up">
@@ -121,7 +115,7 @@ class UserScribe extends React.Component {
 							: null}
 						{this.state.replied
 							? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-							: <ReplyList currentScribe={this.props.thread}/>}  
+							: <ReplyList currentScribe={this.props.thread}/>}
 					</div>
 				</article>
 			</li>

@@ -57,6 +57,10 @@
   color: green;
 }
 
+.replytext {
+	color: var(--primary);
+}
+
 .editImg {
   color: white;
 }
