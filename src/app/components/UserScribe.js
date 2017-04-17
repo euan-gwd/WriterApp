@@ -35,10 +35,10 @@ class UserScribe extends React.Component {
 
 	render() {
 		let currentUser = firebase.auth().currentUser.displayName;
-		let showLikesTotal = (this.props.thread.likes > 0)
+		let showLikesTotal = (this.props.thread.starCount > 0)
 			? <span className="icon is-small liked">
 					<i className="fa fa-star" aria-hidden="true">
-						<span className="pl">{this.props.thread.likes}</span>
+						<span className="pl">{this.props.thread.starCount}</span>
 					</i>
 				</span>
 			: <span className="icon is-small">
@@ -121,7 +121,7 @@ class UserScribe extends React.Component {
 							: null}
 						{this.state.replied
 							? <AddReply currentScribe={this.props.thread} initialState={this.state.replied} callbackParent={(newState) => this.onScribeReply(newState)}/>
-							: <ReplyList currentScribe={this.props.thread}/>}
+							: <ReplyList currentScribe={this.props.thread}/>}  
 					</div>
 				</article>
 			</li>
