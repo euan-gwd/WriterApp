@@ -96,9 +96,9 @@ class Home extends React.Component {
 	// likes click handler
 	toggleLikes(item, evt) {
 		evt.preventDefault();
-		let postRef = firebase.database().ref('mainTL/' + item.key + '/');
+		let mainTLRef = firebase.database().ref('mainTL/' + item.key + '/');
 		let uid = firebase.auth().currentUser.uid;
-		postRef.transaction(function (post) {
+		mainTLRef.transaction(function (post) {
 			if (post) {
 				if (post.stars && post.stars[uid]) {
 					post.starCount--;
