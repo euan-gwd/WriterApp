@@ -52,27 +52,48 @@ class ReplyList extends React.Component {
 		}
 	}
 
-	incrementAndSave(mainTLDbRef, userTLDbRef) {
-		mainTLDbRef.transaction(star => star + 1);
-		userTLDbRef.transaction(star => star + 1);
-		this.setState({starred: true});
-	}
-
-	decrementAndSave(mainTLDbRef, userTLDbRef) {
-		mainTLDbRef.transaction(star => star - 1);
-		userTLDbRef.transaction(star => star - 1);
-		this.setState({starred: false});
-	}
-
 	toggleLikes(item, evt) {
-		evt.stopPropagation();
+		evt.preventDefault();
 		const keyRef = this.state.scribeKey;
-		let userId = this.props.currentScribe.userId;
-		let mainTLDbRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').child(item.key).child('likes');
-		let userTLDbRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/').child(item.key).child('likes');
-		(this.state.starred === true)
-			? this.decrementAndSave(mainTLDbRef, userTLDbRef)
-			: this.incrementAndSave(mainTLDbRef, userTLDbRef)
+		// let userId = this.props.currentScribe.userId;
+		let mainTLReplyRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + item.key + '/');
+		// let userTLReplyRef = firebase.database().ref('userTL/' + userId + '/' + keyRef + '/').child(item.key).child('likes');
+		let uid = firebase.auth().currentUser.uid;
+
+		// handles implementation of starCount for mainTL replies
+		mainTLReplyRef.transaction(function (post) {
+			if (post) {
+				if (post.stars && post.stars[uid]) {
+					post.starCount--;
+					post.stars[uid] = null;
+				} else {
+					post.starCount++;
+					if (!post.stars) {
+						post.stars = {};
+					}
+					post.stars[uid] = true;
+				}
+			}
+			return post;
+		});
+
+  // // handles implementation of starCount for userTL replies
+		// userTLReplyRef.transaction(function (post) {
+		// 	if (post) {
+		// 		if (post.stars && post.stars[uid]) {
+		// 			post.starCount--;
+		// 			post.stars[uid] = null;
+		// 		} else {
+		// 			post.starCount++;
+		// 			if (!post.stars) {
+		// 				post.stars = {};
+		// 			}
+		// 			post.stars[uid] = true;
+		// 		}
+		// 	}
+		// 	return post;
+		// });
+
 	}
 
 	render() {
