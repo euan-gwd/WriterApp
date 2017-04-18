@@ -35,7 +35,7 @@ class Follow extends React.Component {
             <p className="subtitle is-6">{this.state.userName}</p>
           </div>
           <div className="media-right">
-            <a className="follow" data-balloon="Follow Writer" data-balloon-pos="left">
+            <a className="follow" data-balloon="Follow Writer" data-balloon-pos="left" onClick={this.props.followUser.bind(null)}>
               <span className="icon is-medium">
                 <i className="fa fa-user-plus" aria-hidden="true"></i>
               </span>

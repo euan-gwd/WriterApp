@@ -102,7 +102,7 @@ class Home extends React.Component {
 			return post;
 		});
 
-  // handles implementation of starCount for userTL
+		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
 			if (post) {
 				if (post.stars && post.stars[uid]) {
@@ -120,6 +120,12 @@ class Home extends React.Component {
 		});
 	}
 
+	//handle implementation of follow writers
+	toggleFollow(item, evt) {
+		evt.preventDefault();
+
+	}
+
 	render() {
 		//Display all scribes to screen
 		let scribes = this.state.scribes.map((item) => {
@@ -127,7 +133,7 @@ class Home extends React.Component {
 		})
 		//Display all users to screen
 		let usr = this.state.usersList.map((item, index) => {
-			return (<Follow UserID={item} key={index}/>);
+			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
 		})
 		return (
 			<div className="scribe-container">
