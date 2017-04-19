@@ -20,6 +20,7 @@ class Follow extends React.Component {
 			const {name, photoUrl} = followerData;
 			this.setState({userName: name, userPhoto: photoUrl});
 		})
+
 	}
 
 	componentWillUnmount() {
