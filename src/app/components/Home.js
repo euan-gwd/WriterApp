@@ -43,6 +43,11 @@ class Home extends React.Component {
 				const totalFollowing = res.val();
 				this.setState({followingTotal: totalFollowing})
 			});
+			// retrieve total follower count
+			firebase.database().ref('users/' + userId + '/').child('followerCount').on('value', (res) => {
+				const totalFollowers = res.val();
+				this.setState({followersTotal: totalFollowers})
+			});
 			//retrieve all scribes from firebase
 			firebase.database().ref('mainTL').on('value', (res) => {
 				const scribeData = res.val();
@@ -128,6 +133,7 @@ class Home extends React.Component {
 		let uid = item;
 		let userId = firebase.auth().currentUser.uid;
 		let usersRef = firebase.database().ref('users/' + userId + '/');
+		let itemRef = firebase.database().ref('users/' + item + '/');
 		usersRef.transaction(function (user) {
 			if (user) {
 				if (user.following && user.following[uid]) {
@@ -143,6 +149,22 @@ class Home extends React.Component {
 			}
 			return user;
 		})
+		itemRef.transaction(function (user) {
+			if (user) {
+				if (user.follower && user.follower[userId]) {
+					user.followerCount--;
+					user.follower[userId] = null;
+				} else {
+					user.followerCount++;
+					if (!user.follower) {
+						user.follower = {};
+					}
+					user.follower[userId] = true;
+				}
+			}
+			return user;
+		})
+
 	}; // end toggleFollow
 
 	render() {
@@ -200,7 +222,7 @@ class Home extends React.Component {
 									<div className="has-text-left">
 										<div className="pl-1">
 											<p className="subtitle-text-is-2 lh-1">Followers</p>
-											<p className="text-is-primary">456K</p>
+											<p className="text-is-primary">{this.state.followersTotal}</p>
 										</div>
 									</div>
 								</footer>

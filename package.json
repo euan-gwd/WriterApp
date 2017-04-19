@@ -8,12 +8,12 @@
   "dependencies": {
     "balloon-css": "^0.4.0",
     "bulma": "^0.4.0",
-    "firebase": "^3.7.5",
+    "firebase": "^3.8.0",
     "font-awesome": "^4.7.0",
     "jsx-switch": "0.0.3",
     "moment": "^2.18.1",
-    "react": "^15.5.3",
-    "react-dom": "^15.5.3"
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
