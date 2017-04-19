@@ -59,6 +59,10 @@ class App extends React.Component {
 			if (userData.hasOwnProperty('followingCount') === false) {
 				firebase.database().ref('users/' + user.uid + '/').update({followingCount: 0});
 			}
+			//check if followerCount exists if not set value to 0
+			if (userData.hasOwnProperty('followerCount') === false) {
+				firebase.database().ref('users/' + user.uid + '/').update({followerCount: 0});
+			}
 			//check if banner_imageUrl exists if not set value to null
 			if (userData.hasOwnProperty('bannerPhotoUrl') === false) {
 				firebase.database().ref('users/' + user.uid + '/').update({bannerPhotoUrl: null});
