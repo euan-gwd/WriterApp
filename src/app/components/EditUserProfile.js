@@ -11,10 +11,6 @@ class EditUserProfile extends React.Component {
     super(props);
     this.state = {
       userUpdated: this.props.initialState,
-      userId: null,
-      userName: null,
-      userEmail: null,
-      userPhoto: null,
       bannerPhoto: this.props.bannerPhoto,
       displayNameText: '',
       user_file: '',
