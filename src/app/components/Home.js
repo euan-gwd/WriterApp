@@ -60,9 +60,8 @@ class Home extends React.Component {
 				this.setState({usersList: userList});
 			});
 		}
-	};
+	}; // end componentDidMount
 
-	// deletes scribe
 	deleteScribe(item, evt) {
 		evt.stopPropagation();
 		let userId = this.state.userId;
@@ -81,9 +80,8 @@ class Home extends React.Component {
 				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
 			}
 		}
-	}
+	}; // end deletes scribe
 
-	// likes click handler
 	toggleLikes(item, evt) {
 		evt.preventDefault();
 		let mainTLRef = firebase.database().ref('mainTL/' + item.key + '/');
@@ -105,7 +103,7 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		});
+		})
 
 		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
@@ -122,10 +120,9 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		});
-	}
+		})
+	} // end toggleLikes
 
-	//handle implementation of follow user
 	toggleFollow(item, evt) {
 		evt.preventDefault();
 		let uid = item;
@@ -145,18 +142,18 @@ class Home extends React.Component {
 				}
 			}
 			return user;
-		});
-	}
+		})
+	}; // end toggleFollow
 
 	render() {
 		//Display all scribes to screen
 		let scribes = this.state.scribes.map((item) => {
 			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
-		})
+		});
 		//Display all users to screen
 		let usr = this.state.usersList.map((item, index) => {
 			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
-		})
+		});
 		return (
 			<div className="scribe-container">
 				<div className="scribe-layout pt-1">
