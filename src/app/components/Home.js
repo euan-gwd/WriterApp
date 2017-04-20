@@ -128,8 +128,7 @@ class Home extends React.Component {
 		})
 	} // end toggleLikes
 
-	toggleFollow(item, evt) {
-		evt.preventDefault();
+	toggleFollow(item) {
 		let uid = item;
 		let userId = firebase.auth().currentUser.uid;
 		let usersRef = firebase.database().ref('users/' + userId + '/');
@@ -138,7 +137,7 @@ class Home extends React.Component {
 			if (user) {
 				if (user.following && user.following[uid]) {
 					user.followingCount--;
-					user.following[uid] = null;
+					user.following[uid] = false;
 				} else {
 					user.followingCount++;
 					if (!user.following) {
@@ -153,7 +152,7 @@ class Home extends React.Component {
 			if (user) {
 				if (user.follower && user.follower[userId]) {
 					user.followerCount--;
-					user.follower[userId] = null;
+					user.follower[userId] = false;
 				} else {
 					user.followerCount++;
 					if (!user.follower) {

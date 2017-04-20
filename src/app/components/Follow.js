@@ -15,17 +15,39 @@ class Follow extends React.Component {
 
 	componentDidMount() {
 		let userId = this.props.UserID;
-		firebase.database().ref('users/' + userId).on('value', (res) => {
-			const followerData = res.val();
+		firebase.database().ref('users/' + userId).on('value', (snap) => {
+			const followerData = snap.val();
 			const {name, photoUrl} = followerData;
 			this.setState({userName: name, userPhoto: photoUrl});
 		})
+		const dbRefList = firebase.database().ref('users/' + userId + '/').child('following');
+		dbRefList.on('child_added', (snap) => {
+			if (snap.val() === true) {
+				this.setState({following: "unfollow"})
+			} else if (snap.val() === false) {
+				this.setState({following: "follow"})
+			}
+		})
+	}
 
+	updateState() {
+		// const newState = !this.state.following;
+		// this.setState({following: newState});
+		if (this.state.following === "follow") {
+			this.setState({following: "unfollow"})
+		} else if (this.state.following === "unfollow") {
+			this.setState({following: "follow"})
+		}
+	}
+
+	onClick = (evt) => {
+		this.props.followUser();
+		this.updateState();
 	}
 
 	componentWillUnmount() {
 		let userId = this.props.UserID;
-		firebase.database().ref('users/' + userId + '/').off();
+		firebase.database().ref('users/' + userId).off();
 	}
 
 	render() {
@@ -44,7 +66,7 @@ class Follow extends React.Component {
 									<p className="subtitle is-6">{this.state.userName}</p>
 								</div>
 								<div className="media-right">
-									<a className="follow" data-balloon="Follow" data-balloon-pos="left" onClick={this.props.followUser.bind(null)}>
+									<a className="follow" data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onClick.bind(null)}>
 										<span className="icon is-medium">
 											<i className="fa fa-user-plus" aria-hidden="true"></i>
 										</span>
