@@ -28,27 +28,25 @@ class Follow extends React.Component {
 				this.setState({following: "follow"})
 			}
 		})
-	}
+	} //end componentDidMount
 
 	updateState() {
-		// const newState = !this.state.following;
-		// this.setState({following: newState});
 		if (this.state.following === "follow") {
 			this.setState({following: "unfollow"})
 		} else if (this.state.following === "unfollow") {
 			this.setState({following: "follow"})
 		}
-	}
+	} // end updateState
 
 	onClick = (evt) => {
 		this.props.followUser();
 		this.updateState();
-	}
+	} //end onClick
 
 	componentWillUnmount() {
 		let userId = this.props.UserID;
 		firebase.database().ref('users/' + userId).off();
-	}
+	} //end componentWillUnmount
 
 	render() {
 		let currentUser = firebase.auth().currentUser.uid;
