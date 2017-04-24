@@ -31,6 +31,17 @@ class UserProfile extends React.Component {
 			this.setState({bannerPhoto: bannerPhoto})
 		});
 
+		// retrieve total following count
+		firebase.database().ref('users/' + userId + '/').child('followingCount').on('value', (res) => {
+			const totalFollowing = res.val();
+			this.setState({followingTotal: totalFollowing})
+		});
+		// retrieve total follower count
+		firebase.database().ref('users/' + userId + '/').child('followerCount').on('value', (res) => {
+			const totalFollowers = res.val();
+			this.setState({followersTotal: totalFollowers})
+		});
+
 		// retrieve total number of scribes for currentUser
 		firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
 			const userScribeData = res.val();
@@ -90,13 +101,13 @@ class UserProfile extends React.Component {
 												<div className="has-text-centered">
 													<div className="">
 														<p className="subtitle-text-is-2 lh-1">Following</p>
-														<p className="text-is-primary">123</p>
+														<p className="text-is-primary">{this.state.followingTotal}</p>
 													</div>
 												</div>
 												<div className="has-text-centered">
 													<div className="pl-1">
 														<p className="subtitle-text-is-2 lh-1">Followers</p>
-														<p className="text-is-primary">456K</p>
+														<p className="text-is-primary">{this.state.followersTotal}</p>
 													</div>
 												</div>
 											</div>
