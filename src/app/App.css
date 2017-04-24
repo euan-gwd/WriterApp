@@ -1,6 +1,7 @@
 :root {
 		--base-icon:  grey;
-		--primary:    #00d1b2;
+		/*--primary:    #00d1b2;*/
+		--primary: #a7cfdf;
 }
 
 a.nav-item.is-tab {

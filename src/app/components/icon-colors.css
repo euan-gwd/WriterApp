@@ -1,8 +1,9 @@
 :root {
   --base-icon: grey;
-  --primary: #00d1b2;
+  /*--primary: #00d1b2;*/
   --blue-grey: #e5eaef;
   --white: white;
+	--primary: #a7cfdf;
 }
 
 .remove {
