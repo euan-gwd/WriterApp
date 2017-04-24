@@ -37,6 +37,14 @@
   color: var(--primary);
 }
 
+.unfollow {
+  color: var(--primary);
+}
+
+.unfollow:hover {
+  color: var(--primary);
+}
+
 .star {
   color: var(--base-icon);
 }

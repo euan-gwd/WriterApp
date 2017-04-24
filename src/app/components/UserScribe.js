@@ -6,7 +6,7 @@ import AddReply from './AddReply';
 import ReplyList from './ReplyList';
 import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class UserScribe extends React.Component {
 	constructor(props) {

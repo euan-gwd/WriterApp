@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class AddNestedReply extends React.Component {
 	constructor(props) {

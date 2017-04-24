@@ -3,7 +3,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import logo from '../logo.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class SignedOut extends React.Component {
   constructor(props) {

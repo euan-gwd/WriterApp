@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import UserScribe from './UserScribe';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class UserScribeList extends React.Component {
 	constructor(props) {

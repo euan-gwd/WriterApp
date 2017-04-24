@@ -4,7 +4,7 @@ import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class EditUserProfile extends React.Component {
   constructor(props) {
