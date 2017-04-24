@@ -18,7 +18,8 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			auth: false,
-			route: 'Home'
+			route: 'Home',
+			isActive: null
 		}
 	}
 
@@ -81,17 +82,23 @@ class App extends React.Component {
 					? <div className="">
 							<nav className="nav has-shadow">
 								<div className="grid-container">
-									<a className="nav-item is-tab" data-balloon="Home" data-balloon-pos="down" onClick={this.handleHomeRoute}>
+									<a className={(this.state.route === 'Home')
+										? "nav-item is-tab is-active"
+										: "nav-item is-tab"} data-balloon="Home" data-balloon-pos="down" onClick={this.handleHomeRoute}>
 										<i className="fa fa-home fa-2x"></i>
 									</a>
-									<a className="nav-item is-tab" data-balloon="Messages" data-balloon-pos="down" onClick={this.handleMessagesRoute}>
+									<a className={(this.state.route === 'Messages')
+										? "nav-item is-tab is-active"
+										: "nav-item is-tab"} data-balloon="Messages" data-balloon-pos="down" onClick={this.handleMessagesRoute}>
 										<i className="fa fa-comments-o fa-2x"></i>
 									</a>
 									<div className="nav-item">
 										<img src={logo} alt="logo" className="App-logo"/>
 										<h1 className="title is-hidden-mobile">Village Scriber</h1>
 									</div>
-									<a className="nav-item" data-balloon="View Profile" data-balloon-pos="down" onClick={this.handleUserProfileRoute}>
+									<a className={(this.state.route === 'UserProfile')
+										? "nav-item is-tab is-active"
+										: "nav-item is-tab"} data-balloon="View Profile" data-balloon-pos="down" onClick={this.handleUserProfileRoute}>
 										{(this.state.auth.photoURL === null)
 											? <img src={defaultUserPic} alt="defaultProfilePic" className="default-icon nav-spacing nav-image-is-rounded"/>
 											: <img src={this.state.auth.photoURL} alt="profilePic" className="nav-spacing nav-image-is-rounded"/>}
