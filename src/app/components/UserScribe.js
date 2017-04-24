@@ -63,7 +63,7 @@ class UserScribe extends React.Component {
 								<span className="subtitle is-6 pr">{this.props.thread.userEmail}</span>
 								<span className="subtitle is-7 has-text-right">{moment(this.props.thread.datetime).fromNow()}</span>
 							</div>
-							<div className="">
+							<div>
 								{this.props.thread.hasOwnProperty("replyTo")
 									? <small>in Reply to:
 											<span className="replytext py">{this.props.thread.replyTo}</span>
@@ -74,7 +74,7 @@ class UserScribe extends React.Component {
 								{this.props.thread.scribe}
 								{this.props.thread.hasOwnProperty("scribeImage")
 									? <div className="media-content px">
-											<figure className="">
+											<figure>
 												<img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image"/>
 											</figure>
 										</div>

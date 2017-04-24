@@ -144,7 +144,7 @@ class AddScribe extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="">
+            <div>
               <div className="control">
                 {$imagePreview}
                 <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>

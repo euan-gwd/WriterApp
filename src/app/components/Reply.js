@@ -65,7 +65,7 @@ class Reply extends React.Component {
               {this.props.stream.scribe}
               {this.props.stream.hasOwnProperty("scribeImage")
                 ? <div className="media-content px">
-                    <figure className="">
+                    <figure>
                       <img src={this.props.stream.scribeImage} alt="scribeImage" className="image-rounded image"/>
                     </figure>
                   </div>

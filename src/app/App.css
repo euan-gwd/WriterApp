@@ -5,7 +5,8 @@
 
 a.nav-item.is-tab {
   color: var(--base-icon);
-	padding-top: 0.5rem;
+	border-bottom: 2px solid transparent;
+	padding-top: -0.5rem;
 }
 
 a.nav-item.is-tab:hover {

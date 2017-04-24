@@ -154,7 +154,7 @@ class SignIn extends React.Component {
                 <span className="icon is-small">
                   <i className="fa fa-google-plus"></i>
                 </span>
-                <span className="">Sign In with Google</span>
+                <span>Sign In with Google</span>
               </a>
             </footer>
           </div>

@@ -167,7 +167,7 @@ class AddReply extends React.Component {
 							</figure>}
 					</div>
 					<div className="media-content">
-						<div className="">
+						<div>
 							<div className="control">
 								{$replyImagePreview}
 								<textarea ref='replyScribe' defaultValue={this.state.reply_bodyText} placeholder="What's your reply?" className='textarea' onChange={this.handleInput.bind(this)} required/>

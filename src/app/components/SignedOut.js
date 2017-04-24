@@ -45,7 +45,7 @@ class SignedOut extends React.Component {
                 <span className="icon is-small">
                   <i className="fa fa-sign-in"></i>
                 </span>
-                <span className="">Log In</span>
+                <span>Log In</span>
               </a>
             </div>
             <div className="nav-item">
@@ -53,7 +53,7 @@ class SignedOut extends React.Component {
                 <span className="icon is-small">
                   <i className="fa fa-user-plus"></i>
                 </span>
-                <span className="">Sign Up</span>
+                <span>Sign Up</span>
               </a>
             </div>
           </div>

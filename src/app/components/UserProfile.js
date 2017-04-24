@@ -99,7 +99,7 @@ class UserProfile extends React.Component {
 													</div>
 												</div>
 												<div className="has-text-centered">
-													<div className="">
+													<div>
 														<p className="subtitle-text-is-2 lh-1">Following</p>
 														<p className="text-is-primary">{this.state.followingTotal}</p>
 													</div>

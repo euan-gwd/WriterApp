@@ -91,7 +91,7 @@ class App extends React.Component {
 										<img src={logo} alt="logo" className="App-logo"/>
 										<h1 className="title is-hidden-mobile">Village Scriber</h1>
 									</div>
-									<a className="nav-item is-tab" data-balloon="View Profile" data-balloon-pos="down" onClick={this.handleUserProfileRoute}>
+									<a className="nav-item" data-balloon="View Profile" data-balloon-pos="down" onClick={this.handleUserProfileRoute}>
 										{(this.state.auth.photoURL === null)
 											? <img src={defaultUserPic} alt="defaultProfilePic" className="default-icon nav-spacing nav-image-is-rounded"/>
 											: <img src={this.state.auth.photoURL} alt="profilePic" className="nav-spacing nav-image-is-rounded"/>}
