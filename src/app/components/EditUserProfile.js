@@ -37,6 +37,7 @@ class EditUserProfile extends React.Component {
     let user_file = evt.target.files[0];
     reader.onloadend = () => {
       this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
+						console.log(user_file.type);
     }
     reader.readAsDataURL(user_file)
   }
