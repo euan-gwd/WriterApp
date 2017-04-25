@@ -25,15 +25,14 @@ class EditUserProfile extends React.Component {
 	componentDidMount() {
 		let user = firebase.auth().currentUser;
 		this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-	}
+	} //end componentDidMount
 
 	handleEditBtnClick() {
 		this.setState({userUpdated: true})
-	}
+	} //end handleEditBtnClick
 
 	handleProfileImgUpload = (evt) => {
 		evt.preventDefault();
-		// let reader = new FileReader();
 		let user_file = evt.target.files[0];
 		let imageType = /image.*/;
 		if (user_file.type.match(imageType)) {
@@ -44,7 +43,7 @@ class EditUserProfile extends React.Component {
 					if (image.width === 512 && image.height === 512) {
 						this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
 					} else {
-						alert("image incorrect size, image must be 512px x 512px");
+						alert("image must be 512px x 512px");
 					}
 				};
 				image.src = reader.result;
@@ -53,34 +52,42 @@ class EditUserProfile extends React.Component {
 		} else {
 			alert("File type not supported!")
 		}
-
-		// reader.onloadend = () => {
-		//   this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
-		// }
-		// reader.readAsDataURL(user_file)
-	}
+	} //end handleProfileImgUpload
 
 	removeProfileImgUpload = (evt) => {
 		evt.preventDefault();
 		ReactDOM.findDOMNode(this.refs.user_fileUpload).value = '';
 		this.setState({user_file: '', user_imagePreviewUrl: ''});
-	}
+	} //end removeProfileImgUpload
 
 	handleBannerImgUpload = (evt) => {
 		evt.preventDefault();
-		let reader = new FileReader();
 		let banner_file = evt.target.files[0];
-		reader.onloadend = () => {
-			this.setState({banner_file: banner_file, banner_imagePreviewUrl: reader.result});
+		let imageType = /image.*/;
+		if (banner_file.type.match(imageType)) {
+			let reader = new FileReader();
+			reader.onload = () => {
+				let image = new Image();
+				image.onload = () => {
+					if (image.width === 1280 && image.height === 256) {
+						this.setState({banner_file: banner_file, banner_imagePreviewUrl: reader.result});
+					} else {
+						alert("image must be 1280px x 256px");
+					}
+				};
+				image.src = reader.result;
+			};
+			reader.readAsDataURL(banner_file);
+		} else {
+			alert("File type not supported!")
 		}
-		reader.readAsDataURL(banner_file)
-	}
+	} //end handleBannerImgUpload
 
 	removeBannerImgUpload = (evt) => {
 		evt.preventDefault();
 		ReactDOM.findDOMNode(this.refs.banner_fileUpload).value = '';
 		this.setState({banner_file: '', banner_imagePreviewUrl: ''});
-	}
+	} //end removeBannerImgUpload
 
 	handleSubmit(evt) {
 		evt.preventDefault();
@@ -138,17 +145,17 @@ class EditUserProfile extends React.Component {
 
 		let newState = !this.state.userUpdated;
 		this.props.callbackParent(newState);
-	}
+	} //end handleSubmit
 
 	handleNameInput = (evt) => {
 		this.setState({displayNameText: evt.target.value})
-	}
+	} //end handleNameInput
 
 	handleCancel = (evt) => {
 		let newState = !this.state.userUpdated;
 		this.setState({userUpdated: newState});
 		this.props.callbackParent(newState);
-	}
+	} //end handleCancel
 
 	profileImg = () => {
 		let user_imagePreviewUrl = this.state.user_imagePreviewUrl;
@@ -180,7 +187,7 @@ class EditUserProfile extends React.Component {
 				</div>
 			);
 		}
-	}
+	} //end profileImg
 
 	bannerImg = () => {
 		let banner_imagePreviewUrl = this.state.banner_imagePreviewUrl;
@@ -212,7 +219,7 @@ class EditUserProfile extends React.Component {
 				</div>
 			);
 		}
-	}
+	} //end bannerImg
 
 	render() {
 		return (
@@ -267,7 +274,7 @@ class EditUserProfile extends React.Component {
 				</form>
 			</header>
 		);
-	}
+	} //end Render
 
 }
 
