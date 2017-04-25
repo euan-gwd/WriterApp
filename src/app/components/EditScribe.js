@@ -6,7 +6,6 @@ import "./layout.css";
 import './icon-colors.css';
 
 class EditScribe extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,19 +13,19 @@ class EditScribe extends React.Component {
       scribeText: this.props.currentScribe.scribe,
       date: new Date().toISOString()
     };
-  }
+  } //end constructor
 
   componentDidMount() {
     this.timerID = setInterval(() => this.tick(), 1000);
-  }
+  } //end componentDidMount
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-  }
+  } //end componentWillUnmount
 
   tick() {
     this.setState({date: new Date().toISOString()});
-  }
+  } //end tick
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -44,17 +43,17 @@ class EditScribe extends React.Component {
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     const newState = !this.state.edited;
     this.props.callbackParent(newState);
-  }
+  } //end handleSubmit
 
   handleInput = (evt) => {
     this.setState({scribeText: evt.target.value})
-  }
+  } //end handleInput
 
   handleCancel = (evt) => {
     const newState = !this.state.edited;
     this.setState({edited: newState});
     this.props.callbackParent(newState);
-  }
+  } //end handleCancel
 
   render() {
     return (
@@ -102,7 +101,7 @@ class EditScribe extends React.Component {
         </article>
       </form>
     );
-  }
+  } //end render
 }
 
 export default EditScribe;
