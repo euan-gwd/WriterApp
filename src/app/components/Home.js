@@ -75,14 +75,14 @@ class Home extends React.Component {
 		if (item.hasOwnProperty("scribeImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(item.key).remove(); //removes item from mainTL
+				userTLRef.child(item.key).remove(); //removes item from userTL
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(item.key).remove(); //removes item from mainTL
+				userTLRef.child(item.key).remove(); //removes item from userTL
 			}
 		}
 	}; // end deletes scribe
@@ -168,8 +168,8 @@ class Home extends React.Component {
 
 	reportScribe(item, evt) {
 		evt.preventDefault();
-		console.log(item);
-	} // end report Scribe
+		firebase.database().ref('mainTL/' + item.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+	} // end reportScribe
 
 	render() {
 		//Display all scribes to screen

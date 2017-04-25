@@ -45,12 +45,12 @@ class UserScribeList extends React.Component {
 		if (item.hasOwnProperty("scribeImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(item.key).remove(); //removes item from userTL
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(item.key).remove(); //removes item from userTL
 			}
 		}
 	} // end deleteScribe
@@ -97,14 +97,9 @@ class UserScribeList extends React.Component {
 		}); // end end userTL transaction
 	} // end toggleFollow
 
-		reportScribe(item, evt) {
-			evt.preventDefault();
-			console.log(item);
-		} // end report Scribe
-
 	render() {
 		let userScribe = this.state.userScribe.map((item) => {
-			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
+			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
 		});
 		return (
 			<div className="scribe-container">

@@ -39,14 +39,14 @@ class ReplyList extends React.Component {
 		if (itm.hasOwnProperty("replyImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(itm.replyImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(itm.key).remove(); //removes item from mainTL
+				userTLRef.child(itm.key).remove(); //removes item from userTL
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(itm.key).remove(); //removes item from mainTL
+				userTLRef.child(itm.key).remove(); //removes item from userTL
 			}
 		}
 	} // end deleteScribe
@@ -93,10 +93,11 @@ class ReplyList extends React.Component {
 		}); // end end userTL transaction
 	} // end toggleLikes
 
-		reportReply(itm, evt) {
-			evt.preventDefault();
-			console.log(itm);
-		} // end report Scribe
+	reportReply(itm, evt) {
+		evt.preventDefault();
+		const keyRef = this.state.scribeKey;
+		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + itm.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+	} // end reportScribe
 
 	render() {
 		const keyRef = this.state.scribeKey;
