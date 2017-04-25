@@ -18,8 +18,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			auth: false,
-			route: 'Home',
-			isActive: null
+			route: 'Home'
 		}
 	}
 
@@ -40,7 +39,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				this.setState({auth: user});
 				this.registerUser(user);
@@ -69,10 +68,6 @@ class App extends React.Component {
 				firebase.database().ref('users/' + user.uid + '/').update({bannerPhotoUrl: null});
 			}
 		});
-	}
-
-	componentWillUnmount() {
-		this.removeListener()
 	}
 
 	render() {

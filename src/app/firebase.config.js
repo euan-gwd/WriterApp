@@ -1,10 +1,10 @@
 const config = {
-  apiKey: "AIzaSyA7rSLgtDXwdc_nj4fmwYuTilQN19a4ytY",
-  authDomain: "react-chat-app-f64bb.firebaseapp.com",
-  databaseURL: "https://react-chat-app-f64bb.firebaseio.com",
-  projectId: "react-chat-app-f64bb",
-  storageBucket: "react-chat-app-f64bb.appspot.com",
-  messagingSenderId: "962792118288"
+    apiKey: "AIzaSyBOWyETJmnGI9uQ9vhSkNjgg8L12fB1acY",
+    authDomain: "writersapp-b1a2d.firebaseapp.com",
+    databaseURL: "https://writersapp-b1a2d.firebaseio.com",
+    projectId: "writersapp-b1a2d",
+    storageBucket: "writersapp-b1a2d.appspot.com",
+    messagingSenderId: "34066426413"
 };
 
 export default config;

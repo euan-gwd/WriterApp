@@ -24,7 +24,9 @@ class EditUserProfile extends React.Component {
 
 	componentDidMount() {
 		let user = firebase.auth().currentUser;
-		this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+		if (user !== null) {
+			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+		}
 	} //end componentDidMount
 
 	handleEditBtnClick() {
@@ -40,7 +42,7 @@ class EditUserProfile extends React.Component {
 			profileImageReader.onload = () => {
 				let profileImage = new Image();
 				profileImage.onload = () => {
-					if (profileImage.width === 512 && profileImage.height === 512) {
+					if (profileImage.width <= 512 && profileImage.height <= 512) {
 						this.setState({user_file: user_file, user_imagePreviewUrl: profileImageReader.result});
 					} else {
 						alert("image must be 512px x 512px");
