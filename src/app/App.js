@@ -42,33 +42,33 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				this.setState({auth: user});
-				this.registerUser(user);
+				// this.registerUser(user);
 			} else {
 				this.setState({auth: false});
 			}
 		});
 	}
 
-	registerUser(user) {
-		const userRef = firebase.database().ref('users/' + user.uid);
-		userRef.update({name: user.displayName, email: user.email, photoUrl: user.photoURL});
-
-		firebase.database().ref('users/' + user.uid + '/').on('value', (res) => {
-			let userData = res.val();
-			//check if followingCount exists if not set value to 0
-			if (userData.hasOwnProperty('followingCount') === false) {
-				firebase.database().ref('users/' + user.uid + '/').update({followingCount: 0});
-			}
-			//check if followerCount exists if not set value to 0
-			if (userData.hasOwnProperty('followerCount') === false) {
-				firebase.database().ref('users/' + user.uid + '/').update({followerCount: 0});
-			}
-			//check if banner_imageUrl exists if not set value to null
-			if (userData.hasOwnProperty('bannerPhotoUrl') === false) {
-				firebase.database().ref('users/' + user.uid + '/').update({bannerPhotoUrl: null});
-			}
-		});
-	}
+	// registerUser(user) {
+	// 	const userRef = firebase.database().ref('users/' + user.uid);
+	// 	userRef.update({name: user.displayName, email: user.email, photoUrl: user.photoURL});
+	//
+	// 	firebase.database().ref('users/' + user.uid + '/').on('value', (res) => {
+	// 		let userData = res.val();
+	// 		//check if followingCount exists if not set value to 0
+	// 		if (userData.hasOwnProperty('followingCount') === false) {
+	// 			firebase.database().ref('users/' + user.uid + '/').update({followingCount: 0});
+	// 		}
+	// 		//check if followerCount exists if not set value to 0
+	// 		if (userData.hasOwnProperty('followerCount') === false) {
+	// 			firebase.database().ref('users/' + user.uid + '/').update({followerCount: 0});
+	// 		}
+	// 		//check if banner_imageUrl exists if not set value to null
+	// 		if (userData.hasOwnProperty('bannerPhotoUrl') === false) {
+	// 			firebase.database().ref('users/' + user.uid + '/').update({bannerPhotoUrl: null});
+	// 		}
+	// 	});
+	// }
 
 	render() {
 		return (

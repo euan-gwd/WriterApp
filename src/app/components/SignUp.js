@@ -8,8 +8,10 @@ class SignUp extends React.Component {
     super(props);
     this.state = {
       signUpUser: this.props.initialState,
-      emailText: '',
+						displayNameText: '',
+						emailText: '',
       passText: '',
+						userPhoto: null,
       emailErr: 'invisible',
       passErr: 'invisible'
     };
@@ -42,9 +44,21 @@ class SignUp extends React.Component {
       passValid = true;
     }
     if (emailValid && passValid) {
-      firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
-        console.log(err);
-      });
+								// let newUserKey = firebase.database().ref('users/').push().key;
+								// let updates = {};
+								// let userData = {
+								//   displayName: userName,
+								// 		email: email,
+								//   photoUrl: userPhoto,
+								// 		followingCount: 0,
+								// 		followerCount: 0,
+								// 		bannerPhotoUrl: null
+								// }
+								// updates['/users/' + newUserKey] = userData;
+								// firebase.database().ref().update(updates);
+      // firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
+      //   console.log(err);
+      // });
     }
 
   }

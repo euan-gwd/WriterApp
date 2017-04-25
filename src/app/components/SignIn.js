@@ -42,18 +42,9 @@ class SignIn extends React.Component {
 			passValid = true;
 		}
 		if (emailValid && passValid) {
-			console.log(email,pass);
-			// let newScribeKey = firebase.database().ref('users/').push().key;
-			// let updates = {};
-			// let userData = {
-			//   displayName: userName,
-			//   photoUrl: userPhoto,
-			// }
-			// updates['/mainTL/' + newScribeKey] = userData;
-			// firebase.database().ref().update(updates);
-			// firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
-			//   console.log(err);
-			// });
+			firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+			  console.log(err);
+			});
 		}
 	}
 
