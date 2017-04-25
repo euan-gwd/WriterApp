@@ -11,7 +11,7 @@ class UserScribeList extends React.Component {
 			userScribe: [],
 			starred: false
 		};
-	};
+	}; //end constructor
 
 	componentDidMount() {
 		// load current user and retrieve user profile data from firebase for currentUser
@@ -100,7 +100,7 @@ class UserScribeList extends React.Component {
 	render() {
 		let userScribe = this.state.userScribe.map((item) => {
 			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
-		});
+		}); 
 		return (
 			<div className="scribe-container">
 				<div className="columns pt-1">

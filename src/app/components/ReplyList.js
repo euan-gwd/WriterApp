@@ -9,7 +9,7 @@ class ReplyList extends React.Component {
 			replies: [],
 			scribeKey: this.props.currentScribe.key
 		};
-	};
+	}; //end constructor
 
 	componentDidMount() {
 		const keyRef = this.state.scribeKey;
@@ -110,7 +110,7 @@ class ReplyList extends React.Component {
 				{replies}
 			</div>
 		);
-	}
+	} //end render
 }
 
 export default ReplyList;

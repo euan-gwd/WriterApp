@@ -19,7 +19,7 @@ class UserProfile extends React.Component {
 			banner_imagePreviewUrl: '',
 			banner_imageUrl: ''
 		};
-	}
+	} //end constructor
 
 	componentDidMount() {
 		// load current user and retrieve user profile data from firebase for currentUser
@@ -51,15 +51,15 @@ class UserProfile extends React.Component {
 				: totalScribes = 0;
 			this.setState({totalUserScribes: totalScribes});
 		});
-	}
+	} //end componentDidMount
 
 	handleEditBtnClick() {
 		this.setState({userUpdated: true})
-	}
+	} //end handleEditBtnClick
 
 	onEdited(newState) {
 		this.setState({userUpdated: newState})
-	}
+	} // end onEdited
 
 	render() {
 		return (
@@ -128,7 +128,7 @@ class UserProfile extends React.Component {
 				</main>
 			</div>
 		);
-	}
+	} //end render
 
 }
 

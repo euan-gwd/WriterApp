@@ -13,7 +13,7 @@ class SignIn extends React.Component {
       emailErr: 'invisible',
       passErr: 'invisible'
     };
-  }
+  } //end constructor
 
   handleUserSignIn = (evt) => {
     evt.preventDefault();
@@ -46,12 +46,12 @@ class SignIn extends React.Component {
         console.log(err);
       });
     }
-  }
+  } //end handleUserSignIn
 
   handleSignInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
-  }
+  } //end handleSignInWithGoogle
 
   handleForgottenPassword = (evt) => {
     evt.preventDefault();
@@ -70,24 +70,24 @@ class SignIn extends React.Component {
     if (emailValid === true) {
       firebase.auth().sendPasswordResetEmail(email);
     }
-  }
+  } //end handleForgottenPassword
 
   handleCancel = (evt) => {
     const newState = !this.state.signInUser;
     this.props.callbackParent(newState);
-  }
+  } //end handleCancel
 
   handleEmailInput = (evt) => {
     this.setState({emailText: evt.target.value});
-  }
+  } //end handleEmailInput
 
   handlePassInput = (evt) => {
     this.setState({passText: evt.target.value});
-  }
+  } //end handlePassInput
 
   componentWillUnmount() {
     this.setState({emailText: '', passText: ''});
-  }
+  } //end componentWillUnmount
 
   render() {
     return (
@@ -161,7 +161,7 @@ class SignIn extends React.Component {
         </div>
       </div>
     );
-  }
+  } //end render
 
 }
 

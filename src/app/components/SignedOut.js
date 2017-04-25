@@ -12,23 +12,23 @@ class SignedOut extends React.Component {
       signInUser: false,
       signUpUser: false
     }
-  }
+  } //end constructor
 
   handleSignInBtnClick() {
     this.setState({signInUser: true})
-  }
+  } //end handleSignInBtnClick
 
   onUserSignIn(newState) {
     this.setState({signInUser: newState})
-  }
+  } //end onUserSignIn
 
   handleSignUpBtnClick() {
     this.setState({signUpUser: true})
-  }
+  } //end handleSignUpBtnClick
 
   onUserSignUp(newState) {
     this.setState({signUpUser: newState})
-  }
+  } //end onUserSignUp
 
   render() {
     return (
@@ -78,7 +78,7 @@ class SignedOut extends React.Component {
           : null}
       </div>
     );
-  }
+  } //end Render
 
 }
 

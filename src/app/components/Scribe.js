@@ -15,23 +15,23 @@ class Scribe extends React.Component {
 			edited: false,
 			replied: false
 		}
-	}
+	} //end constructor
 
 	handleEditBtnClick() {
 		this.setState({edited: true})
-	}
+	} //end handleEditBtnClick
 
 	onScribeEdited(newState) {
 		this.setState({edited: newState})
-	}
+	} //end onScribeEdited
 
 	handleReplyBtnClick() {
 		this.setState({replied: true})
-	}
+	} //end handleReplyBtnClick
 
 	onScribeReply(newState) {
 		this.setState({replied: newState})
-	}
+	} //end onScribeReply
 
 	render() {
 		let currentUser = firebase.auth().currentUser.displayName;
@@ -128,7 +128,7 @@ class Scribe extends React.Component {
 					</li>}
 			</div>
 		);
-	}
+	} //end render
 }
 
 export default Scribe;

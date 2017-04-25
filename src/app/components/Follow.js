@@ -11,7 +11,7 @@ class Follow extends React.Component {
 			userName: null,
 			userPhoto: null
 		};
-	};
+	}; //end constructor
 
 	componentDidMount() {
 		let userId = this.props.UserID;
@@ -82,7 +82,7 @@ class Follow extends React.Component {
 					: null}
 			</div>
 		);
-	}
+	} //end render
 
 }
 

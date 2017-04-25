@@ -16,7 +16,7 @@ class Home extends React.Component {
 			usersList: [],
 			totalUserScribes: 0
 		};
-	};
+	}; //end constructor
 
 	componentDidMount() {
 		let user = firebase.auth().currentUser;
@@ -173,14 +173,14 @@ class Home extends React.Component {
 	} // end reportScribe
 
 	render() {
-		//Display all scribes to screen
 		let scribes = this.state.scribes.map((item) => {
 			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
 		});
-		//Display all users to screen
+		//end Display all scribes to screen
 		let usr = this.state.usersList.map((item, index) => {
 			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
 		});
+		//end Display all users to screen
 		return (
 			<div className="scribe-container">
 				<div className="scribe-layout pt-1">
@@ -247,7 +247,7 @@ class Home extends React.Component {
 				</div>
 			</div>
 		);
-	}
+	} //end render
 }
 
 export default Home;

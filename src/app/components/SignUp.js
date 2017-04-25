@@ -13,7 +13,7 @@ class SignUp extends React.Component {
       emailErr: 'invisible',
       passErr: 'invisible'
     };
-  }
+  } //end constructor
 
   handleUserSignUp = (evt) => {
     evt.preventDefault();
@@ -47,24 +47,24 @@ class SignUp extends React.Component {
       });
     }
 
-  }
+  } //end handleUserSignUp
 
   handleCancel = (evt) => {
     const newState = !this.state.signUpUser;
     this.props.callbackParent(newState);
-  }
+  } //end handleCancel
 
   handleEmailInput = (evt) => {
     this.setState({emailText: evt.target.value});
-  }
+  } //end handleEmailInput
 
   handlePassInput = (evt) => {
     this.setState({passText: evt.target.value});
-  }
+  } //end handlePassInput
 
   componentWillUnmount() {
     this.setState({emailText: '', passText: ''});
-  }
+  } //end componentWillUnmount
 
   render() {
     return (
@@ -124,7 +124,7 @@ class SignUp extends React.Component {
         </div>
       </div>
     );
-  }
+  } //end render
 
 }
 
