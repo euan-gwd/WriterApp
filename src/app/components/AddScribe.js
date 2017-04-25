@@ -6,7 +6,6 @@ import "./layout.css";
 import './icon-colors.css';
 
 class AddScribe extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,19 +16,19 @@ class AddScribe extends React.Component {
       imageUrl: '',
       uploadBar: 'invisible'
     };
-  }
+  } //end constructor
 
   componentDidMount() {
     this.timerID = setInterval(() => this.tick(), 1000);
-  }
+  } //end componentDidMount
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-  }
+  } //end componentWillUnmount
 
   tick() {
     this.setState({date: new Date().toISOString()});
-  }
+  } //end tick
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -92,11 +91,11 @@ class AddScribe extends React.Component {
     }
     ReactDOM.findDOMNode(this.refs.scribe).value = '';
     this.setState({file: '', imagePreviewUrl: '', bodyText: ''});
-  }
+  } //end handleSubmit
 
   handleInput = (evt) => {
     this.setState({bodyText: evt.target.value});
-  }
+  } //end handleInput
 
   handleImgUpload = (evt) => {
     evt.preventDefault();
@@ -106,13 +105,13 @@ class AddScribe extends React.Component {
       this.setState({file: file, imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(file)
-  }
+  } //end handleImgUpload
 
   removeImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.fileUpload).value = '';
     this.setState({file: '', imagePreviewUrl: ''});
-  }
+  } //end removeImgUpload
 
   render() {
     let $imagePreview = null;
@@ -131,6 +130,8 @@ class AddScribe extends React.Component {
     } else {
       $imagePreview = null;
     }
+				// end imagePreview
+
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className='form-card'>
         <article className="media">
@@ -178,7 +179,7 @@ class AddScribe extends React.Component {
         </article>
       </form>
     );
-  }
+  } //end render
 
 }
 
