@@ -20,16 +20,16 @@ class EditUserProfile extends React.Component {
       banner_imagePreviewUrl: '',
       banner_imageUrl: ''
     };
-  }
+  } //end constructor
 
   componentDidMount() {
     let user = firebase.auth().currentUser;
     this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-  }
+  } //end componentDidMount
 
   handleEditBtnClick() {
     this.setState({userUpdated: true})
-  }
+  } //end handleEditBtnClick
 
   handleProfileImgUpload = (evt) => {
     evt.preventDefault();
@@ -39,13 +39,13 @@ class EditUserProfile extends React.Component {
       this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(user_file)
-  }
+  } //end handleProfileImgUpload
 
   removeProfileImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.user_fileUpload).value = '';
     this.setState({user_file: '', user_imagePreviewUrl: ''});
-  }
+  } //end removeProfileImgUpload
 
   handleBannerImgUpload = (evt) => {
     evt.preventDefault();
@@ -55,13 +55,13 @@ class EditUserProfile extends React.Component {
       this.setState({banner_file: banner_file, banner_imagePreviewUrl: reader.result});
     }
     reader.readAsDataURL(banner_file)
-  }
+  } //end handleBannerImgUpload
 
   removeBannerImgUpload = (evt) => {
     evt.preventDefault();
     ReactDOM.findDOMNode(this.refs.banner_fileUpload).value = '';
     this.setState({banner_file: '', banner_imagePreviewUrl: ''});
-  }
+  } //end removeBannerImgUpload
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -119,17 +119,17 @@ class EditUserProfile extends React.Component {
 
     let newState = !this.state.userUpdated;
     this.props.callbackParent(newState);
-  }
+  } //end handleSubmit
 
   handleNameInput = (evt) => {
     this.setState({displayNameText: evt.target.value})
-  }
+  } //end handleNameInput
 
   handleCancel = (evt) => {
     let newState = !this.state.userUpdated;
     this.setState({userUpdated: newState});
     this.props.callbackParent(newState);
-  }
+  } //end handleCancel
 
   profileImg = () => {
     let user_imagePreviewUrl = this.state.user_imagePreviewUrl;
@@ -161,7 +161,7 @@ class EditUserProfile extends React.Component {
         </div>
       );
     }
-  }
+  } //end profileImg
 
   bannerImg = () => {
     let banner_imagePreviewUrl = this.state.banner_imagePreviewUrl;
@@ -193,7 +193,7 @@ class EditUserProfile extends React.Component {
         </div>
       );
     }
-  }
+  } //end bannerImg
 
   render() {
     return (
@@ -248,7 +248,7 @@ class EditUserProfile extends React.Component {
         </form>
       </header>
     );
-  }
+  } //end render
 
 }
 
