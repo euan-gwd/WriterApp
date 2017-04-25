@@ -1,13 +1,12 @@
 {
   "name": "vilage_scriber",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
     "balloon-css": "^0.4.0",
-    "bulma": "^0.4.0",
     "firebase": "^3.8.0",
     "font-awesome": "^4.7.0",
     "jsx-switch": "0.0.3",
