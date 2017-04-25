@@ -170,7 +170,7 @@ class SignUp extends React.Component {
 								? <div className="field">
 										<label className="label is-small">Email Address</label>
 										<p className="control has-icons-left has-icons-right">
-											<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="user@email.tld" onChange={this.handleEmailInput.bind(this)} required/>
+											<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 											<span className="icon is-small">
 												<i className="fa fa-envelope"></i>
 											</span>
@@ -183,7 +183,7 @@ class SignUp extends React.Component {
 								: <div className="field">
 									  <label className="label is-small">Email Address</label>
 												<p className="control has-icons-left">
-													<input className="input" defaultValue={this.state.emailText} type="email" placeholder="user@email.tld" onChange={this.handleEmailInput.bind(this)} required/>
+													<input className="input" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 													<span className="icon is-small is-left">
 														<i className="fa fa-envelope"></i>
 													</span>
