@@ -87,7 +87,7 @@ class Reply extends React.Component {
                     </span>
                   </a>
                 : null}
-              <a className="flag" data-balloon="Report" data-balloon-pos="up">
+              <a className="flag" data-balloon="Report" data-balloon-pos="up" onClick={this.props.reportReply.bind(null)}>
                 <span className="icon is-small">
                   <i className="fa fa-flag" aria-hidden="true"></i>
                 </span>

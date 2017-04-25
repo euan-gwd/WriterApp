@@ -21,13 +21,13 @@ class ReplyList extends React.Component {
 				replyDataArray.push(replyData[objKey])
 			}
 			this.setState({replies: replyDataArray})
-		})
-	};
+		});
+	} // end componentDidMount
 
 	componentWillUnmount() {
 		const keyRef = this.state.scribeKey;
 		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').off();
-	}
+	} // end componentWillUnmount
 
 	deleteReply(itm, evt) {
 		evt.stopPropagation();
@@ -49,13 +49,13 @@ class ReplyList extends React.Component {
 				userTLRef.child(itm.key).remove(); //removes item from firebase RTdatabase
 			}
 		}
-	}
+	} // end deleteScribe
 
-	toggleLikes(item, evt) {
+	toggleLikes(itm, evt) {
 		evt.preventDefault();
 		const keyRef = this.state.scribeKey;
-		let mainTLReplyRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + item.key + '/');
-		let userTLReplyRef = firebase.database().ref('userTL/' + item.userId + '/' + item.key + '/');
+		let mainTLReplyRef = firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + itm.key + '/');
+		let userTLReplyRef = firebase.database().ref('userTL/' + itm.userId + '/' + itm.key + '/');
 		let uid = firebase.auth().currentUser.uid;
 
 		// handles implementation of starCount for mainTL replies
@@ -73,7 +73,7 @@ class ReplyList extends React.Component {
 				}
 			}
 			return post;
-		});
+		}); // end mainTL transaction
 
 		// handles implementation of starCount for userTL replies
 		userTLReplyRef.transaction(function (post) {
@@ -90,14 +90,18 @@ class ReplyList extends React.Component {
 				}
 			}
 			return post;
-		});
+		}); // end end userTL transaction
+	} // end toggleLikes
 
-	}
+		reportReply(itm, evt) {
+			evt.preventDefault();
+			console.log(itm);
+		} // end report Scribe
 
 	render() {
 		const keyRef = this.state.scribeKey;
 		let replies = this.state.replies.map((itm, index) => {
-			return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} key={itm.key}/>);
+			return (<Reply stream={itm} parentId={keyRef} removeReply={this.deleteReply.bind(this, itm)} favReply={this.toggleLikes.bind(this, itm)} reportReply={this.reportReply.bind(this, itm)} key={itm.key}/>);
 		})
 		return (
 			<div>

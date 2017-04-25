@@ -31,13 +31,12 @@ class UserScribeList extends React.Component {
 			}
 			this.setState({userScribe: userScribeDataArray})
 		});
-	};
+	} // end componentDidMount
 
-	//remove listener
 	componentWillUnmount() {
 		const keyRef = firebase.auth().currentUser.uid;
 		firebase.database().ref('userTL/' + keyRef + '/').off();
-	}
+	} // end componentWillUnmount
 
 	deleteScribe(item, evt) {
 		evt.stopPropagation();
@@ -54,7 +53,7 @@ class UserScribeList extends React.Component {
 				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
 			}
 		}
-	}
+	} // end deleteScribe
 
 	// likes click handler
 	toggleLikes(item, evt) {
@@ -78,7 +77,7 @@ class UserScribeList extends React.Component {
 				}
 			}
 			return post;
-		});
+		}); // end mainTL transaction
 
 		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
@@ -95,13 +94,18 @@ class UserScribeList extends React.Component {
 				}
 			}
 			return post;
-		});
-	}
+		}); // end end userTL transaction
+	} // end toggleFollow
+
+		reportScribe(item, evt) {
+			evt.preventDefault();
+			console.log(item);
+		} // end report Scribe
 
 	render() {
 		let userScribe = this.state.userScribe.map((item) => {
-			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
-		})
+			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
+		});
 		return (
 			<div className="scribe-container">
 				<div className="columns pt-1">

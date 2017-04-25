@@ -108,7 +108,7 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		})
+		}); // end mainTL transaction
 
 		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
@@ -125,7 +125,7 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		})
+		}); // end end userTL transaction
 	} // end toggleLikes
 
 	toggleFollow(item) {
@@ -147,7 +147,8 @@ class Home extends React.Component {
 				}
 			}
 			return user;
-		})
+		}) // end mainTL transaction
+
 		itemRef.transaction(function (user) {
 			if (user) {
 				if (user.follower && user.follower[userId]) {
@@ -162,14 +163,18 @@ class Home extends React.Component {
 				}
 			}
 			return user;
-		})
-
+		}) // end end userTL transaction
 	}; // end toggleFollow
+
+	reportScribe(item, evt) {
+		evt.preventDefault();
+		console.log(item);
+	} // end report Scribe
 
 	render() {
 		//Display all scribes to screen
 		let scribes = this.state.scribes.map((item) => {
-			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
 		});
 		//Display all users to screen
 		let usr = this.state.usersList.map((item, index) => {
