@@ -144,8 +144,9 @@ class SignUp extends React.Component {
 
 							{(this.state.nameErr === 'visible')
 								? <div className="field">
+										<label className="label is-small">UserName</label>
 										<p className="control has-icons-left has-icons-right">
-											<input className="input is-danger" defaultValue={this.state.nameText} type="text" placeholder="DisplayName" onChange={this.handleNameInput.bind(this)}/>
+											<input className="input is-danger" defaultValue={this.state.nameText} type="text" placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
 											<span className="icon is-small is-left">
 												<i className="fa fa-user"></i>
 											</span>
@@ -156,9 +157,10 @@ class SignUp extends React.Component {
 										<span className="help is-danger">Please enter a valid name longer than 4 chars.</span>
 									</div>
 								: <div className="field">
+									<label className="label is-small">UserName</label>
 									<p className="control has-icons-left">
-										<input className="input" defaultValue={this.state.nameText} type="text" placeholder="DisplayName" onChange={this.handleNameInput.bind(this)}/>
-										<span className="icon is-small">
+										<input className="input" defaultValue={this.state.nameText} type="text" placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
+										<span className="icon is-small is-left">
 											<i className="fa fa-user"></i>
 										</span>
 									</p>
@@ -166,8 +168,9 @@ class SignUp extends React.Component {
 
 							{(this.state.emailErr === 'visible')
 								? <div className="field">
+										<label className="label is-small">Email Address</label>
 										<p className="control has-icons-left has-icons-right">
-											<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="Email" onChange={this.handleEmailInput.bind(this)}/>
+											<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="user@email.tld" onChange={this.handleEmailInput.bind(this)} required/>
 											<span className="icon is-small">
 												<i className="fa fa-envelope"></i>
 											</span>
@@ -178,18 +181,20 @@ class SignUp extends React.Component {
 										<span className="help is-danger">Please enter a valid email address.</span>
 									</div>
 								: <div className="field">
-									<p className="control has-icons-left">
-										<input className="input" defaultValue={this.state.emailText} type="email" placeholder="Email" onChange={this.handleEmailInput.bind(this)}/>
-										<span className="icon is-small">
-											<i className="fa fa-envelope"></i>
-										</span>
-									</p>
-								</div>}
+									  <label className="label is-small">Email Address</label>
+												<p className="control has-icons-left">
+													<input className="input" defaultValue={this.state.emailText} type="email" placeholder="user@email.tld" onChange={this.handleEmailInput.bind(this)} required/>
+													<span className="icon is-small is-left">
+														<i className="fa fa-envelope"></i>
+													</span>
+												</p>
+								  </div>}
 
 							{(this.state.passErr === 'visible')
 								? <div className="field">
+									<label className="label is-small">Password</label>
 										<p className="control has-icons-left has-icons-right">
-											<input className="input is-danger" defaultValue={this.state.passText} type="password" placeholder="Password" onChange={this.handlePassInput.bind(this)}/>
+											<input className="input is-danger" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
 											<span className="icon is-small">
 												<i className="fa fa-lock"></i>
 											</span>
@@ -200,13 +205,14 @@ class SignUp extends React.Component {
 										<span className="help is-danger">Please enter a valid password.</span>
 									</div>
 								: <div className="field">
-									<p className="control has-icons-left">
-										<input className="input" defaultValue={this.state.passText} type="password" placeholder="Password" onChange={this.handlePassInput.bind(this)}/>
-										<span className="icon is-small">
-											<i className="fa fa-lock"></i>
-										</span>
-									</p>
-								</div>}
+												<label className="label is-small">Password</label>
+												<p className="control has-icons-left">
+													<input className="input" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+													<span className="icon is-small is-left">
+														<i className="fa fa-lock"></i>
+													</span>
+												</p>
+								  </div>}
 							<div className="field is-group">
 								<p className="control">
 									<button type="submit" className="button is-success is-outlined">Sign Up</button>
