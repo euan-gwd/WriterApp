@@ -95,8 +95,9 @@ class ReplyList extends React.Component {
 
 	reportReply(itm, evt) {
 		evt.preventDefault();
-		const keyRef = this.state.scribeKey;
-		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/' + itm.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+		const parentKeyRef = this.state.scribeKey;
+		firebase.database().ref('mainTL/' + parentKeyRef + '/scribeReplies/' + itm.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+		firebase.database().ref('userTL/' + itm.userId + '/' + itm.key).update({reported: true}); //sets reported as true on userTL
 	} // end reportScribe
 
 	render() {

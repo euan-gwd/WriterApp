@@ -169,6 +169,7 @@ class Home extends React.Component {
 	reportScribe(item, evt) {
 		evt.preventDefault();
 		firebase.database().ref('mainTL/' + item.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+		firebase.database().ref('userTL/' + item.userId + '/' + item.key).update({reported: true}); //sets reported as true on userTL
 	} // end reportScribe
 
 	render() {
