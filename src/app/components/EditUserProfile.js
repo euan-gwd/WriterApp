@@ -36,19 +36,19 @@ class EditUserProfile extends React.Component {
 		let user_file = evt.target.files[0];
 		let imageType = /image.*/;
 		if (user_file.type.match(imageType)) {
-			let reader = new FileReader();
-			reader.onload = () => {
-				let image = new Image();
-				image.onload = () => {
-					if (image.width === 512 && image.height === 512) {
-						this.setState({user_file: user_file, user_imagePreviewUrl: reader.result});
+			let profileImageReader = new FileReader();
+			profileImageReader.onload = () => {
+				let profileImage = new Image();
+				profileImage.onload = () => {
+					if (profileImage.width === 512 && profileImage.height === 512) {
+						this.setState({user_file: user_file, user_imagePreviewUrl: profileImageReader.result});
 					} else {
 						alert("image must be 512px x 512px");
 					}
 				};
-				image.src = reader.result;
+				profileImage.src = profileImageReader.result;
 			};
-			reader.readAsDataURL(user_file)
+			profileImageReader.readAsDataURL(user_file)
 		} else {
 			alert("File type not supported!")
 		}
@@ -65,19 +65,19 @@ class EditUserProfile extends React.Component {
 		let banner_file = evt.target.files[0];
 		let imageType = /image.*/;
 		if (banner_file.type.match(imageType)) {
-			let reader = new FileReader();
-			reader.onload = () => {
-				let image = new Image();
-				image.onload = () => {
-					if (image.width === 1280 && image.height === 256) {
-						this.setState({banner_file: banner_file, banner_imagePreviewUrl: reader.result});
+			let bannerReader = new FileReader();
+			bannerReader.onload = () => {
+				let bannerImage = new Image();
+				bannerImage.onload = () => {
+					if (bannerImage.width === 1280 && bannerImage.height === 256) {
+						this.setState({banner_file: banner_file, banner_imagePreviewUrl: bannerReader.result});
 					} else {
 						alert("image must be 1280px x 256px");
 					}
 				};
-				image.src = reader.result;
+				bannerImage.src = bannerReader.result;
 			};
-			reader.readAsDataURL(banner_file);
+			bannerReader.readAsDataURL(banner_file);
 		} else {
 			alert("File type not supported!")
 		}
