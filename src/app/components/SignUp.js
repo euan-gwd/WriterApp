@@ -14,53 +14,56 @@ class SignUp extends React.Component {
 			userPhoto: null,
 			nameErr: 'invisible',
 			emailErr: 'invisible',
-			passErr: 'invisible'
+			passErr: 'invisible',
+			nameValid: false,
+			emailValid: false,
+			passValid: false
 		};
 	}
 
 	handleUserSignUp = (evt) => {
 		evt.preventDefault();
-		let name = this.state.nameText.toString();
-		let email = this.state.emailText.toString();
-		let pass = this.state.passText.toString();
-		let nameValid = false;
-		let emailValid = false;
-		let passValid = false;
+		let name = this.state.nameText;
+		let email = this.state.emailText;
+		let pass = this.state.passText;
+		// let nameValid = false;
+		// let emailValid = false;
+		// let passValid = false;
 
-		if (name.length < 4) {
-			this.setState({nameErr: 'visible'});
-			nameValid = false;
-		} else if (name.length === '') {
-			this.setState({nameErr: 'invisible'});
-			nameValid = false;
-		} else {
-			this.setState({nameErr: 'invisible'});
-			nameValid = true;
-		} //end name validation
+		// if (name.length < 4) {
+		// 	this.setState({nameErr: 'visible'});
+		// 	nameValid = false;
+		// } else if (name.length === '') {
+		// 	this.setState({nameErr: 'invisible'});
+		// 	nameValid = false;
+		// } else {
+		// 	this.setState({nameErr: 'invisible'});
+		// 	nameValid = true;
+		// } //end name validation
+		//
+		// if (email.length < 4) {
+		// 	this.setState({emailErr: 'visible'});
+		// 	emailValid = false;
+		// } else if (email.length === '') {
+		// 	this.setState({emailErr: 'invisible'});
+		// 	emailValid = false;
+		// } else {
+		// 	this.setState({emailErr: 'invisible'});
+		// 	emailValid = true;
+		// } //end email validation
+		//
+		// if (pass.length < 4) {
+		// 	this.setState({passErr: 'visible'});
+		// 	passValid = false;
+		// } else if (pass.length === '') {
+		// 	this.setState({passErr: 'invisible'});
+		// 	passValid = false;
+		// } else {
+		// 	this.setState({passErr: 'invisible'});
+		// 	passValid = true;
+		// } //end password validation
 
-		if (email.length < 4) {
-			this.setState({emailErr: 'visible'});
-			emailValid = false;
-		} else if (email.length === '') {
-			this.setState({emailErr: 'invisible'});
-			emailValid = false;
-		} else {
-			this.setState({emailErr: 'invisible'});
-			emailValid = true;
-		} //end email validation
-
-		if (pass.length < 4) {
-			this.setState({passErr: 'visible'});
-			passValid = false;
-		} else if (pass.length === '') {
-			this.setState({passErr: 'invisible'});
-			passValid = false;
-		} else {
-			this.setState({passErr: 'invisible'});
-			passValid = true;
-		} //end password validation
-
-		if (nameValid && emailValid && passValid) {
+		if (this.state.nameValid && this.state.emailValid && this.state.passValid) {
 			console.log(name, email, pass);
 			// let newUserKey = firebase.database().ref('users/').push().key;
 			// let updates = {};
@@ -88,14 +91,41 @@ class SignUp extends React.Component {
 
 	handleNameInput = (evt) => {
 		this.setState({nameText: evt.target.value});
-	} //end handleEmailInput
+		let name = this.state.nameText.toString();
+		if (name.length < 4) {
+			this.setState({nameErr: 'visible', nameValid: false});
+		} else if (name.length === '') {
+			this.setState({nameErr: 'invisible', nameValid: false});
+		} else {
+			this.setState({nameErr: 'invisible', nameValid: true});
+		} //end name validation
+
+	} //end handleNameInput
 
 	handleEmailInput = (evt) => {
 		this.setState({emailText: evt.target.value});
+		let email = this.state.emailText.toString();
+		if (email.length < 4) {
+			this.setState({emailErr: 'visible', emailValid: false});
+		} else if (email.length === '') {
+			this.setState({emailErr: 'invisible', emailValid: false});
+		} else {
+			this.setState({emailErr: 'invisible', emailValid: true});
+		} //end email validation
+
 	} //end handleEmailInput
 
 	handlePassInput = (evt) => {
 		this.setState({passText: evt.target.value});
+		let pass = this.state.passText.toString();
+		if (pass.length < 4) {
+			this.setState({passErr: 'visible', passValid: false});
+		} else if (pass.length === '') {
+			this.setState({passErr: 'invisible', passValid: false});
+		} else {
+			this.setState({passErr: 'invisible', passValid: true});
+		} //end password validation
+
 	} //end handlePassInput
 
 	// componentWillUnmount() {
