@@ -109,7 +109,7 @@ class Scribe extends React.Component {
 											</span>
 										</a>
 										{(currentUser === this.props.thread.userName)
-											? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="delete" data-balloon-pos="up">
+											? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="Delete" data-balloon-pos="up">
 													<span className="icon is-small">
 														<i className="fa fa-times" aria-hidden="true"></i>
 													</span>

@@ -67,7 +67,8 @@
 }
 
 .replytext {
-	color: var(--primary);
+	color: #275c99;
+	font-size: 1rem;
 }
 
 .editImg {
