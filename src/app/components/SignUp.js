@@ -62,10 +62,10 @@ class SignUp extends React.Component {
 		evt.preventDefault();
 		this.setState({nameText: evt.target.value});
 		let name = this.state.nameText.toString();
-		if (name.length === 0 || name === '') {
-			this.setState({nameErr: 'invisible', nameValid: false});
-		} else if (name.length < 4) {
+		if (name.length < 4) {
 			this.setState({nameErr: 'visible', nameValid: false});
+		} else if (name.length === 0 || name === '') {
+			this.setState({nameErr: 'invisible', nameValid: false});
 		} else {
 			this.setState({nameErr: 'invisible', nameValid: true});
 		} //end name validation
@@ -76,10 +76,10 @@ class SignUp extends React.Component {
 		evt.preventDefault();
 		this.setState({emailText: evt.target.value});
 		let email = this.state.emailText.toString();
-		if (email === '' || email.length === 0) {
-			this.setState({emailErr: 'invisible', emailValid: false});
-		} else if (email.length < 4) {
+		if (email.length < 4) {
 			this.setState({emailErr: 'visible', emailValid: false});
+		} else if (email === '' || email.length === 0) {
+			this.setState({emailErr: 'invisible', emailValid: false});
 		} else {
 			this.setState({emailErr: 'invisible', emailValid: true});
 		} //end email validation
@@ -289,35 +289,6 @@ class SignUp extends React.Component {
 					<span className="help is-danger">Please enter a valid password longer than 4 chars.</span>
 				</div>
 			);
-		} else if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === true) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-						<span className="icon is-small is-right">
-							<i className="fa fa-check"></i>
-						</span>
-					</p>
-				</div>
-			);
-		} // end verifyPass if/else
-
-		if (this.state.passMatchErr === 'invisible' && this.state.passMatchValid === false) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left icon-default">
-						<input className="input" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-					</p>
-				</div>
-			);
 		} else if (this.state.passMatchErr === 'visible' && this.state.passMatchValid === false) {
 			return (
 				<div className="field">
@@ -334,7 +305,22 @@ class SignUp extends React.Component {
 					<span className="help is-danger">Passwords Do not Match</span>
 				</div>
 			);
-		} //end passMatch if/else
+		}	else if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === true && this.state.passMatchErr === 'invisible' && this.state.passMatchValid === true) {
+			return (
+				<div className="field">
+					<label className="label is-small">Verify Password</label>
+					<p className="control has-icons-left has-icons-right icon-success">
+						<input className="input is-success" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-key"></i>
+						</span>
+						<span className="icon is-small is-right">
+							<i className="fa fa-check"></i>
+						</span>
+					</p>
+				</div>
+			);
+		} // end verifyPass if/else
 
 	} //end renderPassVerify
 
