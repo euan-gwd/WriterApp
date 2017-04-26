@@ -12,7 +12,6 @@ class SignUp extends React.Component {
 			emailText: '',
 			passText: '',
 			passVerifyText: '',
-			userPhoto: null,
 			nameErr: 'invisible',
 			emailErr: 'invisible',
 			passErr: 'invisible',
@@ -61,10 +60,10 @@ class SignUp extends React.Component {
 	handleNameInput = (evt) => {
 		evt.preventDefault();
 		this.setState({nameText: evt.target.value});
-		let name = this.state.nameText.toString();
+		let name = this.state.nameText;
 		if (name.length < 4) {
 			this.setState({nameErr: 'visible', nameValid: false});
-		} else if (name.length === 0 || name === '') {
+		} else if (name.length === 0) {
 			this.setState({nameErr: 'invisible', nameValid: false});
 		} else {
 			this.setState({nameErr: 'invisible', nameValid: true});
@@ -75,10 +74,10 @@ class SignUp extends React.Component {
 	handleEmailInput = (evt) => {
 		evt.preventDefault();
 		this.setState({emailText: evt.target.value});
-		let email = this.state.emailText.toString();
+		let email = this.state.emailText;
 		if (email.length < 4) {
 			this.setState({emailErr: 'visible', emailValid: false});
-		} else if (email === '' || email.length === 0) {
+		} else if (email.length === 0) {
 			this.setState({emailErr: 'invisible', emailValid: false});
 		} else {
 			this.setState({emailErr: 'invisible', emailValid: true});
@@ -89,8 +88,9 @@ class SignUp extends React.Component {
 	handlePassInput = (evt) => {
 		evt.preventDefault();
 		this.setState({passText: evt.target.value});
-		let pass = this.state.passText.toString();
-		if (pass === '' || pass.length === 0) {
+		let pass = this.state.passText;
+		console.log(pass.length);
+		if (pass.length === 0) {
 			this.setState({passErr: 'invisible', passValid: false});
 		} else if (pass.length < 4) {
 			this.setState({passErr: 'visible', passValid: false});
@@ -103,16 +103,19 @@ class SignUp extends React.Component {
 	handleVerifyPassInput = (evt) => {
 		evt.preventDefault();
 		this.setState({passVerifyText: evt.target.value});
-		let pass = this.state.passText.toString();
-		let verifyPass = this.state.passVerifyText.toString();
-		if (verifyPass === '' || verifyPass.length === 0) {
+		let pass = this.state.passText;
+		let verifyPass = this.state.passVerifyText;
+		console.log(verifyPass.length);
+		if (verifyPass.length === 0) {
 			this.setState({passVerifyErr: 'invisible', passVerifyValid: false});
 		} else if (verifyPass.length < 4) {
 			this.setState({passVerifyErr: 'visible', passVerifyValid: false});
 		} else if (verifyPass !== pass) {
 			this.setState({passMatchErr: 'visible', passMatchValid: false});
+		} else if (verifyPass === pass) {
+			this.setState({passMatchErr: 'invisible', passMatchValid: true});
 		} else {
-			this.setState({passVerifyErr: 'invisible', passVerifyValid: true, passMatchErr: 'invisible', passMatchValid: true});
+			this.setState({passVerifyErr: 'invisible', passVerifyValid: true});
 		} //end verify password validation
 
 	} //end handleVerifyPassInput
@@ -305,7 +308,22 @@ class SignUp extends React.Component {
 					<span className="help is-danger">Passwords Do not Match</span>
 				</div>
 			);
-		}	else if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === true && this.state.passMatchErr === 'invisible' && this.state.passMatchValid === true) {
+		} else if (this.state.passMatchErr === 'invisible' && this.state.passMatchValid === true) {
+			return (
+				<div className="field">
+					<label className="label is-small">Verify Password</label>
+					<p className="control has-icons-left has-icons-right icon-success">
+						<input className="input is-success" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-key"></i>
+						</span>
+						<span className="icon is-small is-right">
+							<i className="fa fa-check"></i>
+						</span>
+					</p>
+				</div>
+			);
+		} else if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === true) {
 			return (
 				<div className="field">
 					<label className="label is-small">Verify Password</label>
@@ -339,7 +357,7 @@ class SignUp extends React.Component {
 							{this.renderPassVerify()}
 							<div className="field is-group">
 								<p className="control">
-									<input type="submit" className="button is-success is-outlined" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid} value="Sign Up"/>
+									<input type="submit" className="button is-success is-outlined" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid && !this.state.passVerifyValid && !this.state.passMatchValid} value="Sign Up"/>
 								</p>
 								<p className="control">
 									<button onClick={this.handleCancel} className="button is-light is-outlined">Cancel</button>
