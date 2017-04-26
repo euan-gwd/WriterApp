@@ -58,65 +58,46 @@ class SignUp extends React.Component {
 	} //end handleCancel
 
 	handleNameInput = (evt) => {
-		evt.preventDefault();
 		this.setState({nameText: evt.target.value});
 		let name = this.state.nameText;
-		if (name.length < 4) {
-			this.setState({nameErr: 'visible', nameValid: false});
-		} else if (name.length === 0) {
-			this.setState({nameErr: 'invisible', nameValid: false});
-		} else {
-			this.setState({nameErr: 'invisible', nameValid: true});
-		} //end name validation
+		(/^[A-Z][a-zA-Z-_ ]{2,30}$/gm.test(name))
+			? this.setState({nameErr: 'invisible', nameValid: true})
+			: this.setState({nameErr: 'visible', nameValid: false});
+		//end name validation
 
 	} //end handleNameInput
 
 	handleEmailInput = (evt) => {
-		evt.preventDefault();
 		this.setState({emailText: evt.target.value});
 		let email = this.state.emailText;
-		if (email.length < 4) {
-			this.setState({emailErr: 'visible', emailValid: false});
-		} else if (email.length === 0) {
-			this.setState({emailErr: 'invisible', emailValid: false});
-		} else {
-			this.setState({emailErr: 'invisible', emailValid: true});
-		} //end email validation
+		(/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(email))
+			? this.setState({emailErr: 'invisible', emailValid: true})
+			: this.setState({emailErr: 'visible', emailValid: false});
+		//end email validation
 
 	} //end handleEmailInput
 
 	handlePassInput = (evt) => {
-		evt.preventDefault();
 		this.setState({passText: evt.target.value});
 		let pass = this.state.passText;
-		console.log(pass.length);
-		if (pass.length === 0) {
-			this.setState({passErr: 'invisible', passValid: false});
-		} else if (pass.length < 4) {
-			this.setState({passErr: 'visible', passValid: false});
-		} else {
-			this.setState({passErr: 'invisible', passValid: true});
-		} //end password validation
+		(/(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/.test(pass))
+			? this.setState({passErr: 'invisible', passValid: true})
+			: this.setState({passErr: 'visible', passValid: false});
+		//end password validation
 
 	} //end handlePassInput
 
 	handleVerifyPassInput = (evt) => {
-		evt.preventDefault();
 		this.setState({passVerifyText: evt.target.value});
 		let pass = this.state.passText;
 		let verifyPass = this.state.passVerifyText;
-		console.log(verifyPass.length);
-		if (verifyPass.length === 0) {
-			this.setState({passVerifyErr: 'invisible', passVerifyValid: false});
-		} else if (verifyPass.length < 4) {
-			this.setState({passVerifyErr: 'visible', passVerifyValid: false});
-		} else if (verifyPass !== pass) {
-			this.setState({passMatchErr: 'visible', passMatchValid: false});
-		} else if (verifyPass === pass) {
-			this.setState({passMatchErr: 'invisible', passMatchValid: true});
-		} else {
-			this.setState({passVerifyErr: 'invisible', passVerifyValid: true});
-		} //end verify password validation
+		(/(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/.test(verifyPass))
+			? this.setState({passVerifyErr: 'invisible', passVerifyValid: true})
+			: this.setState({passVerifyErr: 'visible', passVerifyValid: false});
+		(verifyPass === pass)
+			? this.setState({passMatchErr: 'visible', passMatchValid: false})
+			: this.setState({passMatchErr: 'invisible', passMatchValid: true});
+		//end verify password validation
 
 	} //end handleVerifyPassInput
 
@@ -135,7 +116,7 @@ class SignUp extends React.Component {
 								<i className="fa fa-warning"></i>
 							</span>
 						</p>
-						<span className="help is-danger">Please enter a valid name longer than 4 chars.</span>
+						<span className="help is-danger">Please enter a valid name longer than 3 chars, first letter must be Uppercase.</span>
 					</div>
 				</div>
 			);
