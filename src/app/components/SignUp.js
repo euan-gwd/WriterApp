@@ -174,25 +174,25 @@ class SignUp extends React.Component {
 					</p>
 				</div>
 			)
-		} // name validation
+		} // name if/else
 	} //end renderName
 
 	renderEmail() {
 		if (this.state.emailErr === 'visible' && this.state.emailValid === false) {
 			return (
-					<div className="field">
-						<label className="label is-small">Email Address</label>
-						<p className="control has-icons-left has-icons-right icon-danger">
-							<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
-							<span className="icon is-small is-left">
-								<i className="fa fa-envelope"></i>
-							</span>
-							<span className="icon is-small is-right">
-								<i className="fa fa-warning"></i>
-							</span>
-						</p>
-						<span className="help is-danger">Please enter a valid email address</span>
-					</div>
+				<div className="field">
+					<label className="label is-small">Email Address</label>
+					<p className="control has-icons-left has-icons-right icon-danger">
+						<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-envelope"></i>
+						</span>
+						<span className="icon is-small is-right">
+							<i className="fa fa-warning"></i>
+						</span>
+					</p>
+					<span className="help is-danger">Please enter a valid email address</span>
+				</div>
 			);
 		} else if (this.state.emailErr === 'invisible' && this.state.emailValid === true) {
 			return (
@@ -221,85 +221,82 @@ class SignUp extends React.Component {
 					</p>
 				</div>
 			);
-		} // email validation
+		} // email if/else
+	} //end renderEmail
 
-} //end renderEmail
+	renderPass() {
+		if (this.state.passErr === 'visible' && this.state.passValid === false) {
+			return (
+				<div className="field">
+					<label className="label is-small">Password</label>
+					<p className="control has-icons-left has-icons-right icon-danger">
+						<input className="input is-danger" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-key"></i>
+						</span>
+						<span className="icon is-small is-right">
+							<i className="fa fa-warning"></i>
+						</span>
+					</p>
+					<span className="help is-danger">Please enter a valid password longer than 4 chars.</span>
+				</div>
+			);
+		} else if (this.state.passErr === 'invisible' && this.state.passValid === true) {
+			return (
+				<div className="field">
+					<label className="label is-small">Password</label>
+					<p className="control has-icons-left has-icons-right icon-success">
+						<input className="input is-success" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-key"></i>
+						</span>
+						<span className="icon is-small is-right">
+							<i className="fa fa-check"></i>
+						</span>
+					</p>
+				</div>
+			);
+		} else if (this.state.passErr === 'invisible' && this.state.passValid === false) {
+			return (
+				<div className="field">
+					<label className="label is-small">Password</label>
+					<p className="control has-icons-left">
+						<input className="input" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<span className="icon is-small is-left">
+							<i className="fa fa-key"></i>
+						</span>
+					</p>
+				</div>
+			);
+		} // password if/else
+	} //end renderPass
 
-renderPass(){
-			if (this.state.passErr === 'visible' && this.state.passValid === false) {
-				return (
-						<div className="field">
-							<label className="label is-small">Password</label>
-							<p className="control has-icons-left has-icons-right icon-danger">
-								<input className="input is-danger" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
-								<span className="icon is-small is-left">
-									<i className="fa fa-key"></i>
-								</span>
-								<span className="icon is-small is-right">
-									<i className="fa fa-warning"></i>
-								</span>
-							</p>
-							<span className="help is-danger">Please enter a valid password longer than 4 chars.</span>
-						</div>
-				);
-			} else if (this.state.passErr === 'invisible' && this.state.passValid === true) {
-				return (
-					<div className="field">
-						<label className="label is-small">Password</label>
-						<p className="control has-icons-left has-icons-right icon-success">
-							<input className="input is-success" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
-							<span className="icon is-small is-left">
-								<i className="fa fa-key"></i>
-							</span>
-							<span className="icon is-small is-right">
-								<i className="fa fa-check"></i>
-							</span>
-						</p>
+	render() {
+		return (
+			<div className="modal-background">
+				<div className="login-container is-overlay">
+					<div className="signIn-card">
+						<header className="modal-card-head">
+							<h3 className="modal-card-title has-text-centered">Sign Up</h3>
+						</header>
+						<form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
+							{this.renderName()}
+							{this.renderEmail()}
+							{this.renderPass()}
+							<div className="field is-group">
+								<p className="control">
+									<button type="submit" className="button is-success is-outlined">Sign Up</button>
+								</p>
+								<p className="control">
+									<button onClick={this.handleCancel} className="button is-light is-outlined">Cancel</button>
+								</p>
+							</div>
+						</form>
 					</div>
-				);
-			} else if (this.state.passErr === 'invisible' && this.state.passValid === false) {
-				return (
-					<div className="field">
-						<label className="label is-small">Password</label>
-						<p className="control has-icons-left">
-							<input className="input" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
-							<span className="icon is-small is-left">
-								<i className="fa fa-key"></i>
-							</span>
-						</p>
-					</div>
-				);
-			} // password validation
-
-} //end renderPass
-
-render() {
-	return (
-		<div className="modal-background">
-			<div className="login-container is-overlay">
-				<div className="signIn-card">
-					<header className="modal-card-head">
-						<h3 className="modal-card-title has-text-centered">Sign Up</h3>
-					</header>
-					<form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
-						{this.renderName()}
-						{this.renderEmail()}
-						{this.renderPass()}
-						<div className="field is-group">
-							<p className="control">
-								<button type="submit" className="button is-success is-outlined">Sign Up</button>
-							</p>
-							<p className="control">
-								<button onClick={this.handleCancel} className="button is-light is-outlined">Cancel</button>
-							</p>
-						</div>
-					</form>
 				</div>
 			</div>
-		</div>
-	);
-}
-
+		);
+	} // end render
 }
 
 export default SignUp;
