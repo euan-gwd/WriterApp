@@ -64,7 +64,6 @@ class SignUp extends React.Component {
 			? this.setState({nameErr: 'invisible', nameValid: true})
 			: this.setState({nameErr: 'visible', nameValid: false});
 		//end name validation
-
 	} //end handleNameInput
 
 	handleEmailInput = (evt) => {
@@ -74,31 +73,28 @@ class SignUp extends React.Component {
 			? this.setState({emailErr: 'invisible', emailValid: true})
 			: this.setState({emailErr: 'visible', emailValid: false});
 		//end email validation
-
 	} //end handleEmailInput
 
 	handlePassInput = (evt) => {
 		this.setState({passText: evt.target.value});
 		let pass = this.state.passText;
-		(/(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/.test(pass))
+		(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(pass))
 			? this.setState({passErr: 'invisible', passValid: true})
 			: this.setState({passErr: 'visible', passValid: false});
 		//end password validation
-
 	} //end handlePassInput
 
 	handleVerifyPassInput = (evt) => {
 		this.setState({passVerifyText: evt.target.value});
 		let pass = this.state.passText;
 		let verifyPass = this.state.passVerifyText;
-		(/(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/.test(verifyPass))
+		(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(verifyPass))
 			? this.setState({passVerifyErr: 'invisible', passVerifyValid: true})
 			: this.setState({passVerifyErr: 'visible', passVerifyValid: false});
 		(verifyPass === pass)
 			? this.setState({passMatchErr: 'visible', passMatchValid: false})
 			: this.setState({passMatchErr: 'invisible', passMatchValid: true});
 		//end verify password validation
-
 	} //end handleVerifyPassInput
 
 	renderName() {
@@ -223,7 +219,7 @@ class SignUp extends React.Component {
 							<i className="fa fa-warning"></i>
 						</span>
 					</p>
-					<span className="help is-danger">Please enter a valid password longer than 4 chars.</span>
+					<span className="help is-danger">Password must contain Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character.</span>
 				</div>
 			);
 		} else if (this.state.passErr === 'invisible' && this.state.passValid === true) {
@@ -270,7 +266,7 @@ class SignUp extends React.Component {
 							<i className="fa fa-warning"></i>
 						</span>
 					</p>
-					<span className="help is-danger">Please enter a valid password longer than 4 chars.</span>
+					<span className="help is-danger">Password must contain Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character.</span>
 				</div>
 			);
 		} else if (this.state.passMatchErr === 'visible' && this.state.passMatchValid === false) {
