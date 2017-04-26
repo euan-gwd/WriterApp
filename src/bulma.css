@@ -2568,10 +2568,6 @@ input[type="submit"].button {
   padding-right: 2.25em;
 }
 
-.control.has-icons-left .input:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon {
-  color: #7a7a7a;
-}
-
 .control.has-icons-left .input.is-small ~ .icon, .control.has-icons-right .input.is-small ~ .icon {
   font-size: 0.75rem;
 }
@@ -2585,7 +2581,6 @@ input[type="submit"].button {
 }
 
 .control.has-icons-left .icon, .control.has-icons-right .icon {
-  color: #dbdbdb;
   height: 2.25em;
   pointer-events: none;
   position: absolute;

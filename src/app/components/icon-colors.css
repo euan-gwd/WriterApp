@@ -1,80 +1,99 @@
 :root {
-  --base-icon: grey;
-  /*--primary: #00d1b2;*/
-  --blue-grey: #e5eaef;
-  --white: white;
-	--primary: #a7cfdf;
+		--base-icon: grey;
+		--blue-grey: #e5eaef;
+		--white: white;
+		--primary: #a7cfdf;
 }
 
 .remove {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .remove:hover {
-  color: red;
+		color: red;
 }
 
 .reply {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .reply:hover {
-  color: blue;
+		color: blue;
 }
 
 .edit {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .edit:hover {
-  color: var(--primary);
+		color: var(--primary);
 }
 
 .follow {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .follow:hover {
-  color: var(--primary);
+		color: var(--primary);
 }
 
 .unfollow {
-  color: var(--primary);
+		color: var(--primary);
 }
 
 .unfollow:hover {
-  color: var(--primary);
+		color: var(--primary);
 }
 
 .star {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .star:hover {
-  color: green;
+		color: green;
 }
 
 .flag {
-  color: var(--base-icon);
+		color: var(--base-icon);
 }
 
 .flag:hover {
-  color: #ddda00;
+		color: #ddda00;
 }
 
 .liked {
-  color: green;
+		color: green;
 }
 
 .replytext {
-	color: #275c99;
-	font-size: 1rem;
+		color: #275c99;
+		font-size: 1rem;
 }
 
 .editImg {
-  color: white;
+		color: white;
 }
 
 .editImg:hover {
-  color: var(--primary);
+		color: var(--primary);
+}
+
+.icon-primary {
+		color: var(--primary);
+}
+
+.icon-info {
+		color: #3273dc;
+}
+
+.icon-success {
+		color: #23d160;
+}
+
+.icon-warning {
+		color: #ffdd57;
+}
+
+.icon-danger {
+		color: #ff3860;
 }
