@@ -166,7 +166,7 @@ class SignUp extends React.Component {
 			return (
 				<div className="field">
 					<label className="label is-small">UserName</label>
-					<p className="control has-icons-left">
+					<p className="control has-icons-left icon-default">
 						<input className="input" defaultValue={this.state.nameText} type="text" placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-user"></i>
@@ -213,7 +213,7 @@ class SignUp extends React.Component {
 			return (
 				<div className="field">
 					<label className="label is-small">Email Address</label>
-					<p className="control has-icons-left">
+					<p className="control has-icons-left icon-default">
 						<input className="input" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-envelope"></i>
@@ -260,7 +260,7 @@ class SignUp extends React.Component {
 			return (
 				<div className="field">
 					<label className="label is-small">Password</label>
-					<p className="control has-icons-left">
+					<p className="control has-icons-left icon-default">
 						<input className="input" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-key"></i>
