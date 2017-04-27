@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 import "./layout.css";
 import './icon-colors.css';
 
@@ -20,23 +20,9 @@ class SignIn extends React.Component {
 		evt.preventDefault();
 		let email = this.state.emailText;
 		let pass = this.state.passText;
-
-		console.log(email, pass);
-		// let newUserKey = firebase.database().ref('users/').push().key;
-		// let updates = {};
-		// let userData = {
-		//   displayName: name,
-		// 		email: email,
-		//   photoUrl: null,
-		// 		followingCount: 0,
-		// 		followerCount: 0,
-		// 		bannerPhotoUrl: null
-		// }
-		// updates['/users/' + newUserKey] = userData;
-		// firebase.database().ref().update(updates);
-		// firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
-		// 		console.log(err);
-		// });
+		firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+			console.log(err);
+		});
 
 	} //end handleUserSignIn
 

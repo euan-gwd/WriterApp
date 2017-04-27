@@ -24,11 +24,6 @@ class ReplyList extends React.Component {
 		});
 	} // end componentDidMount
 
-	componentWillUnmount() {
-		const keyRef = this.state.scribeKey;
-		firebase.database().ref('mainTL/' + keyRef + '/scribeReplies/').off();
-	} // end componentWillUnmount
-
 	deleteReply(itm, evt) {
 		evt.stopPropagation();
 		const keyRef = this.state.scribeKey;

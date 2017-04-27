@@ -33,11 +33,6 @@ class UserScribeList extends React.Component {
 		});
 	} // end componentDidMount
 
-	componentWillUnmount() {
-		const keyRef = firebase.auth().currentUser.uid;
-		firebase.database().ref('userTL/' + keyRef + '/').off();
-	} // end componentWillUnmount
-
 	deleteScribe(item, evt) {
 		evt.stopPropagation();
 		let userId = this.state.userId;

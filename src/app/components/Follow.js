@@ -43,11 +43,6 @@ class Follow extends React.Component {
 		this.updateState();
 	} //end onClick
 
-	componentWillUnmount() {
-		let userId = this.props.UserID;
-		firebase.database().ref('users/' + userId).off();
-	} //end componentWillUnmount
-
 	render() {
 		let currentUser = firebase.auth().currentUser.uid;
 		return (

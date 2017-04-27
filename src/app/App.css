@@ -14,12 +14,6 @@ a.nav-item.is-tab:hover {
 		padding-bottom: calc(0.75rem - 3px);
 }
 
-a.nav-item.is-tab:last-child:hover {
-		color: red;
-		border-bottom-color: transparent;
-		border-top-color: transparent;
-}
-
 .App-logo {
 		animation: App-logo-spin infinite 20s linear;
 		height: 60px;
