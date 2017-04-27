@@ -7,7 +7,6 @@ class SignUp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			signUpUser: this.props.initialState,
 			nameText: '',
 			emailText: '',
 			passText: '',
@@ -22,56 +21,28 @@ class SignUp extends React.Component {
 
 	handleUserSignUp = (evt) => {
 		evt.preventDefault();
-
 		let name = this.state.nameText;
-		// (/^[A-Z][a-zA-Z-_ ]{2,30}$/.test(name))
-		// 	? this.setState({nameErr: 'invisible', nameValid: true})
-		// 	: this.setState({nameErr: 'visible', nameValid: false});
-		// //end name validation
-
 		let email = this.state.emailText;
-		// (/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(email))
-		// 	? this.setState({emailErr: 'invisible', emailValid: true})
-		// 	: this.setState({emailErr: 'visible', emailValid: false});
-		// //end email validation
-
 		let pass = this.state.passText;
-		// const passPattern = new RegExp(/^[a-zA-Z0-9@$#|!]{7,30}$/);
-		// switch (passPattern.test(pass)) {
-		// 	case false:
-		// 		this.setState({passErr: 'visible', passValid: false});
-		// 		break;
-		// 	case true:
-		// 		return this.setState({passErr: 'invisible', passValid: true});
-		// 	default:
-		// 		break;
-		// } //end password validation
 
-		if (this.state.nameValid && this.state.emailValid && this.state.passValid) {
-			console.log(name, email, pass);
-			// let newUserKey = firebase.database().ref('users/').push().key;
-			// let updates = {};
-			// let userData = {
-			//   displayName: name,
-			// 		email: email,
-			//   photoUrl: null,
-			// 		followingCount: 0,
-			// 		followerCount: 0,
-			// 		bannerPhotoUrl: null
-			// }
-			// updates['/users/' + newUserKey] = userData;
-			// firebase.database().ref().update(updates);
-			// firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
-			//   console.log(err);
-			// });
-		}
+		console.log(name, email, pass);
+		// let newUserKey = firebase.database().ref('users/').push().key;
+		// let updates = {};
+		// let userData = {
+		//   displayName: name,
+		// 		email: email,
+		//   photoUrl: null,
+		// 		followingCount: 0,
+		// 		followerCount: 0,
+		// 		bannerPhotoUrl: null
+		// }
+		// updates['/users/' + newUserKey] = userData;
+		// firebase.database().ref().update(updates);
+		// firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
+		//   console.log(err);
+		// });
 
 	} //end handleUserSignUp
-
-	handleCancel = (evt) => {
-		const newState = !this.state.signUpUser;
-		this.props.callbackParent(newState);
-	} //end handleCancel
 
 	handleNameInput = (evt) => {
 		this.setState({nameText: evt.target.value});
@@ -263,10 +234,7 @@ class SignUp extends React.Component {
 							{this.renderPass()}
 							<div className="field is-group">
 								<p className="control">
-									<input type="submit" className="button is-success" value="Sign Up" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid}/>
-								</p>
-								<p className="control">
-									<button onClick={this.handleCancel} className="button is-light is-outlined">Cancel</button>
+									<input type="submit" className="button is-success" value="Create Account" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid}/>
 								</p>
 							</div>
 						</form>

@@ -99,5 +99,5 @@
 }
 
 .icon-default {
-	color: #dbdbdb;
+	color: var(--base-icon);
 }
