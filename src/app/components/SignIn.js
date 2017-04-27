@@ -1,5 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
+import ForgotPassword from './ForgotPassword';
 import "./layout.css";
 import './icon-colors.css';
 
@@ -7,6 +8,7 @@ class SignIn extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			resetUser: false,
 			emailText: '',
 			passText: '',
 			emailErr: 'invisible',
@@ -50,6 +52,14 @@ class SignIn extends React.Component {
 				break;
 		} //end password validation
 	} //end handlePassInput
+
+	handleForgottenPassword = (evt) => {
+		this.setState({resetUser: true});
+	} //end handleForgottenPassword
+
+	onUserReset(newState) {
+		this.setState({resetUser: newState})
+	}
 
 	renderEmail() {
 		if (this.state.emailErr === 'visible' && this.state.emailValid === false) {
@@ -150,22 +160,27 @@ class SignIn extends React.Component {
 
 	render() {
 		return (
-			<div className="">
+			<div>
 				<div className="login-container is-overlay">
-					<div className="signIn-card">
-						<header className="">
-							<h3 className="title has-text-centered">Sign In</h3>
-						</header>
-						<form onSubmit={this.handleUserSignIn.bind(this)}>
-							{this.renderEmail()}
-							{this.renderPass()}
-							<div className="field is-group">
-								<p className="control">
-									<input type="submit" className="button is-success" value="Sign In" disabled={!this.state.emailValid && !this.state.passValid}/>
-								</p>
-							</div>
-						</form>
-					</div>
+					{this.state.resetUser
+						? <ForgotPassword initialState={this.state.resetUser} callbackParent={(newState) => this.onUserReset(newState)}/>
+						: <div className="signIn-card">
+							<header>
+								<h3 className="title has-text-centered">Sign In</h3>
+							</header>
+							<form onSubmit={this.handleUserSignIn.bind(this)}>
+								{this.renderEmail()}
+								{this.renderPass()}
+								<div className="field is-group">
+									<p className="control">
+										<input type="submit" className="button is-success" value="Sign In" disabled={!this.state.emailValid && !this.state.passValid}/>
+									</p>
+									<p className="control">
+										<button onClick={this.handleForgottenPassword.bind(this)} className="button is-link">Forgot Password</button>
+									</p>
+								</div>
+							</form>
+						</div>}
 				</div>
 			</div>
 		);
