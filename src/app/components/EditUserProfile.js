@@ -114,8 +114,10 @@ class EditUserProfile extends React.Component {
 					photoUrl: downloadURL
 				}
 				currentPhoto = this.state.userPhoto;
-				let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
-				deleteImgRef.delete();
+				if (currentPhoto !== null) {
+					let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
+					deleteImgRef.delete();
+				}
 				firebase.database().ref('/users/' + userId + '/').update(photoData);
 				firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
 			});
@@ -132,8 +134,10 @@ class EditUserProfile extends React.Component {
 					bannerPhotoUrl: downloadURL
 				}
 				let currentBannerPhoto = this.state.bannerPhoto;
-				let deleteImgRef = firebase.storage().refFromURL(currentBannerPhoto);
-				deleteImgRef.delete();
+				if (currentBannerPhoto !== null) {
+					let deleteImgRef = firebase.storage().refFromURL(currentBannerPhoto);
+					deleteImgRef.delete();
+				}
 				firebase.database().ref('/users/' + userId + '/').update(bannerData);
 			});
 		} else if (input_chars > 0) {
