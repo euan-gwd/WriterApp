@@ -11,27 +11,43 @@ class SignUp extends React.Component {
 			nameText: '',
 			emailText: '',
 			passText: '',
-			passVerifyText: '',
 			nameErr: 'invisible',
 			emailErr: 'invisible',
 			passErr: 'invisible',
-			passVerifyErr: 'invisible',
-			passMatchErr: 'invisible',
 			nameValid: false,
 			emailValid: false,
-			passValid: false,
-			passVerifyValid: false,
-			passMatchValid: false
+			passValid: false
 		};
 	}
 
 	handleUserSignUp = (evt) => {
 		evt.preventDefault();
-		let name = this.state.nameText;
-		let email = this.state.emailText;
-		let pass = this.state.passText;
 
-		if (this.state.nameValid && this.state.emailValid && this.state.passValid && this.state.passVerifyValid && this.state.passMatchValid) {
+		let name = this.state.nameText;
+		// (/^[A-Z][a-zA-Z-_ ]{2,30}$/.test(name))
+		// 	? this.setState({nameErr: 'invisible', nameValid: true})
+		// 	: this.setState({nameErr: 'visible', nameValid: false});
+		// //end name validation
+
+		let email = this.state.emailText;
+		// (/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(email))
+		// 	? this.setState({emailErr: 'invisible', emailValid: true})
+		// 	: this.setState({emailErr: 'visible', emailValid: false});
+		// //end email validation
+
+		let pass = this.state.passText;
+		// const passPattern = new RegExp(/^[a-zA-Z0-9@$#|!]{7,30}$/);
+		// switch (passPattern.test(pass)) {
+		// 	case false:
+		// 		this.setState({passErr: 'visible', passValid: false});
+		// 		break;
+		// 	case true:
+		// 		return this.setState({passErr: 'invisible', passValid: true});
+		// 	default:
+		// 		break;
+		// } //end password validation
+
+		if (this.state.nameValid && this.state.emailValid && this.state.passValid) {
 			console.log(name, email, pass);
 			// let newUserKey = firebase.database().ref('users/').push().key;
 			// let updates = {};
@@ -59,8 +75,8 @@ class SignUp extends React.Component {
 
 	handleNameInput = (evt) => {
 		this.setState({nameText: evt.target.value});
-		let name = this.state.nameText;
-		(/^[A-Z][a-zA-Z-_ ]{2,30}$/gm.test(name))
+		let nameInput = this.state.nameText;
+		(/^[A-Z][a-zA-Z-_ ]{2,30}$/.test(nameInput))
 			? this.setState({nameErr: 'invisible', nameValid: true})
 			: this.setState({nameErr: 'visible', nameValid: false});
 		//end name validation
@@ -68,8 +84,8 @@ class SignUp extends React.Component {
 
 	handleEmailInput = (evt) => {
 		this.setState({emailText: evt.target.value});
-		let email = this.state.emailText;
-		(/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(email))
+		let emailInput = this.state.emailText;
+		(/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(emailInput))
 			? this.setState({emailErr: 'invisible', emailValid: true})
 			: this.setState({emailErr: 'visible', emailValid: false});
 		//end email validation
@@ -77,25 +93,18 @@ class SignUp extends React.Component {
 
 	handlePassInput = (evt) => {
 		this.setState({passText: evt.target.value});
-		let pass = this.state.passText;
-		(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(pass))
-			? this.setState({passErr: 'invisible', passValid: true})
-			: this.setState({passErr: 'visible', passValid: false});
-		//end password validation
+		const passPattern = new RegExp(/^[a-zA-Z0-9@$#|!]{7,30}$/);
+		let password = this.state.passText;
+		switch (passPattern.test(password)) {
+			case false:
+				this.setState({passErr: 'visible', passValid: false});
+				break;
+			case true:
+				return this.setState({passErr: 'invisible', passValid: true});
+			default:
+				break;
+		} //end password validation
 	} //end handlePassInput
-
-	handleVerifyPassInput = (evt) => {
-		this.setState({passVerifyText: evt.target.value});
-		let pass = this.state.passText;
-		let verifyPass = this.state.passVerifyText;
-		(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(verifyPass))
-			? this.setState({passVerifyErr: 'invisible', passVerifyValid: true})
-			: this.setState({passVerifyErr: 'visible', passVerifyValid: false});
-		(verifyPass === pass)
-			? this.setState({passMatchErr: 'visible', passMatchValid: false})
-			: this.setState({passMatchErr: 'invisible', passMatchValid: true});
-		//end verify password validation
-	} //end handleVerifyPassInput
 
 	renderName() {
 		if (this.state.nameErr === 'visible' && this.state.nameValid === false) {
@@ -104,7 +113,7 @@ class SignUp extends React.Component {
 					<div className="field">
 						<label className="label is-small">UserName</label>
 						<p className="control has-icons-left has-icons-right icon-danger">
-							<input className="input is-danger" defaultValue={this.state.nameText} placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
+							<input className="input is-danger" value={this.state.nameText} placeholder="Your Name" title="Minimum 3 characters, First Letter Uppercase." onChange={this.handleNameInput.bind(this)} required autoComplete="username" autoFocus/>
 							<span className="icon is-small is-left">
 								<i className="fa fa-user"></i>
 							</span>
@@ -112,7 +121,7 @@ class SignUp extends React.Component {
 								<i className="fa fa-warning"></i>
 							</span>
 						</p>
-						<span className="help is-danger">Please enter a valid name longer than 3 chars, first letter must be Uppercase.</span>
+						<span className="help is-danger">Minimum 3 characters, First Letter uppercase</span>
 					</div>
 				</div>
 			);
@@ -121,7 +130,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">UserName</label>
 					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.nameText} placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
+						<input className="input is-success" value={this.state.nameText} placeholder="Your Name" title="Minimum 3 characters, First Letter Uppercase." onChange={this.handleNameInput.bind(this)} required autoComplete="username" autoFocus/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-user"></i>
 						</span>
@@ -136,7 +145,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">UserName</label>
 					<p className="control has-icons-left icon-default">
-						<input className="input" defaultValue={this.state.nameText} placeholder="Your Name" onChange={this.handleNameInput.bind(this)} required/>
+						<input className="input" value={this.state.nameText} placeholder="Your Name" title="Minimum 3 characters, First Letter Uppercase." onChange={this.handleNameInput.bind(this)} required autoComplete="username" autoFocus/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-user"></i>
 						</span>
@@ -152,7 +161,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Email Address</label>
 					<p className="control has-icons-left has-icons-right icon-danger">
-						<input className="input is-danger" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
+						<input className="input is-danger" value={this.state.emailText} type="email" title="Please enter your email address" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-envelope"></i>
 						</span>
@@ -160,7 +169,7 @@ class SignUp extends React.Component {
 							<i className="fa fa-warning"></i>
 						</span>
 					</p>
-					<span className="help is-danger">Please enter a valid email address</span>
+					<span className="help is-danger">Please enter a valid Email Address</span>
 				</div>
 			);
 		} else if (this.state.emailErr === 'invisible' && this.state.emailValid === true) {
@@ -168,7 +177,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Email Address</label>
 					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
+						<input className="input is-success" value={this.state.emailText} type="email" title="Please enter your email address" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-envelope"></i>
 						</span>
@@ -183,7 +192,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Email Address</label>
 					<p className="control has-icons-left icon-default">
-						<input className="input" defaultValue={this.state.emailText} type="email" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
+						<input className="input" value={this.state.emailText} type="email" title="Please enter your email address" placeholder="your@email" onChange={this.handleEmailInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-envelope"></i>
 						</span>
@@ -199,7 +208,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Password</label>
 					<p className="control has-icons-left icon-default">
-						<input className="input" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<input className="input" value={this.state.passText} type="password" title="Password must contain Minimum 8 characters, Recommend least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character." placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-key"></i>
 						</span>
@@ -211,7 +220,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Password</label>
 					<p className="control has-icons-left has-icons-right icon-danger">
-						<input className="input is-danger" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<input className="input is-danger" value={this.state.passText} type="password" title="Password must contain Minimum 8 characters, Recommend least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character." placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-key"></i>
 						</span>
@@ -219,7 +228,7 @@ class SignUp extends React.Component {
 							<i className="fa fa-warning"></i>
 						</span>
 					</p>
-					<span className="help is-danger">Password must contain Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character.</span>
+					<span className="help is-danger">Too Short, Password must contain Minimum 8 characters.</span>
 				</div>
 			);
 		} else if (this.state.passErr === 'invisible' && this.state.passValid === true) {
@@ -227,7 +236,7 @@ class SignUp extends React.Component {
 				<div className="field">
 					<label className="label is-small">Password</label>
 					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.passText} type="password" placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
+						<input className="input is-success" value={this.state.passText} type="password" title="Password must contain Minimum 8 characters, Recommend least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character." placeholder="******" onChange={this.handlePassInput.bind(this)} required/>
 						<span className="icon is-small is-left">
 							<i className="fa fa-key"></i>
 						</span>
@@ -240,101 +249,21 @@ class SignUp extends React.Component {
 		} // password if/else
 	} //end renderPass
 
-	renderPassVerify() {
-		if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === false) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left icon-default">
-						<input className="input" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-					</p>
-				</div>
-			);
-		} else if (this.state.passVerifyErr === 'visible' && this.state.passVerifyValid === false) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left has-icons-right icon-danger">
-						<input className="input is-danger" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-						<span className="icon is-small is-right">
-							<i className="fa fa-warning"></i>
-						</span>
-					</p>
-					<span className="help is-danger">Password must contain Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character.</span>
-				</div>
-			);
-		} else if (this.state.passMatchErr === 'visible' && this.state.passMatchValid === false) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left has-icons-right icon-danger">
-						<input className="input is-danger" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-						<span className="icon is-small is-right">
-							<i className="fa fa-times"></i>
-						</span>
-					</p>
-					<span className="help is-danger">Passwords Do not Match</span>
-				</div>
-			);
-		} else if (this.state.passMatchErr === 'invisible' && this.state.passMatchValid === true) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-						<span className="icon is-small is-right">
-							<i className="fa fa-check"></i>
-						</span>
-					</p>
-				</div>
-			);
-		} else if (this.state.passVerifyErr === 'invisible' && this.state.passVerifyValid === true) {
-			return (
-				<div className="field">
-					<label className="label is-small">Verify Password</label>
-					<p className="control has-icons-left has-icons-right icon-success">
-						<input className="input is-success" defaultValue={this.state.passVerifyText} type="password" placeholder="******" onChange={this.handleVerifyPassInput.bind(this)} required/>
-						<span className="icon is-small is-left">
-							<i className="fa fa-key"></i>
-						</span>
-						<span className="icon is-small is-right">
-							<i className="fa fa-check"></i>
-						</span>
-					</p>
-				</div>
-			);
-		} // end verifyPass if/else
-
-	} //end renderPassVerify
-
 	render() {
 		return (
 			<div className="">
 				<div className="login-container is-overlay">
 					<div className="signIn-card">
-						<header className="modal-card-head">
-							<h3 className="modal-card-title has-text-centered">Sign Up</h3>
+						<header className="">
+							<h3 className="title has-text-centered">Sign Up</h3>
 						</header>
-						<form className="modal-card-body" onSubmit={this.handleUserSignUp.bind(this)}>
+						<form onSubmit={this.handleUserSignUp.bind(this)}>
 							{this.renderName()}
 							{this.renderEmail()}
 							{this.renderPass()}
-							{this.renderPassVerify()}
 							<div className="field is-group">
 								<p className="control">
-									<input type="submit" className="button is-success is-outlined" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid && !this.state.passVerifyValid && !this.state.passMatchValid} value="Sign Up"/>
+									<input type="submit" className="button is-success" value="Sign Up" disabled={!this.state.nameValid && !this.state.emailValid && !this.state.passValid}/>
 								</p>
 								<p className="control">
 									<button onClick={this.handleCancel} className="button is-light is-outlined">Cancel</button>
