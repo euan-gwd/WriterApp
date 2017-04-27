@@ -25,10 +25,11 @@ class Home extends React.Component {
 			//retrieve user profile data from firebase for currentUser
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
 				const bannerPhoto = res.val();
-				this.setState({bannerPhoto: bannerPhoto})
+				(bannerPhoto === '' || null) ? this.setState({bannerPhoto: null}) :	this.setState({bannerPhoto: bannerPhoto})
 			});
+
 			// retrieve total number of scribes for currentUser
 			firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
 				const userScribeData = res.val();

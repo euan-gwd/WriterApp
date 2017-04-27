@@ -167,7 +167,6 @@ class SignIn extends React.Component {
 							<h3 className="title has-text-centered">Sign In</h3>
 						</header>
 						<form onSubmit={this.handleUserSignIn.bind(this)}>
-							{this.renderName()}
 							{this.renderEmail()}
 							{this.renderPass()}
 							<div className="field is-group">

@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 import "./layout.css";
 import './icon-colors.css';
 
@@ -25,22 +25,25 @@ class SignUp extends React.Component {
 		let email = this.state.emailText;
 		let pass = this.state.passText;
 
-		console.log(name, email, pass);
-		// let newUserKey = firebase.database().ref('users/').push().key;
-		// let updates = {};
-		// let userData = {
-		//   displayName: name,
-		// 		email: email,
-		//   photoUrl: null,
-		// 		followingCount: 0,
-		// 		followerCount: 0,
-		// 		bannerPhotoUrl: null
-		// }
-		// updates['/users/' + newUserKey] = userData;
-		// firebase.database().ref().update(updates);
-		// firebase.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
-		//   console.log(err);
-		// });
+		firebase.auth().createUserWithEmailAndPassword(email, pass).then(res => {
+			let newUserKey = res.uid;
+			let updates = {};
+			let userData = {
+				displayName: name,
+				email: res.email,
+				photoUrl: '',
+				followingCount: 0,
+				followerCount: 0,
+				bannerPhotoUrl: ''
+			}
+			updates['/users/' + newUserKey] = userData;
+			firebase.database().ref().update(updates);
+			firebase.auth().currentUser.updateProfile({displayName: name}).then(() => {}, (err) => {
+				console.log(err)
+			});
+		}).catch(err => {
+			console.log(err);
+		});
 
 	} //end handleUserSignUp
 

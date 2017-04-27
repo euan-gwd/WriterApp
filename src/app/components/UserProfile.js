@@ -28,7 +28,7 @@ class UserProfile extends React.Component {
 		const userId = user.uid;
 		firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
 			const bannerPhoto = res.val();
-			this.setState({bannerPhoto: bannerPhoto})
+			(bannerPhoto === '' || null) ? this.setState({bannerPhoto: null}) :	this.setState({bannerPhoto: bannerPhoto})
 		});
 
 		// retrieve total following count

@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "balloon-css": "^0.4.0",
-    "firebase": "^3.8.0",
+    "firebase": "^3.9.0",
     "font-awesome": "^4.7.0",
     "jsx-switch": "0.0.3",
     "moment": "^2.18.1",
