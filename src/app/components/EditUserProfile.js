@@ -102,7 +102,7 @@ class EditUserProfile extends React.Component {
 		let input_chars = newDisplayName.length;
 
 		if (file !== '' && input_chars === 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
+			let storageRef = firebase.storage().ref('/users/' + userId + '/profile-images/' + file.name);
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
 				// Handle unsuccessful uploads
@@ -122,7 +122,7 @@ class EditUserProfile extends React.Component {
 				firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
 			});
 		} else if (bannerFile !== '' && input_chars === 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
+			let storageRef = firebase.storage().ref('/users/' + userId + '/profile-images/' + bannerFile.name);
 			let uploadTask = storageRef.put(bannerFile);
 			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
 				// Handle unsuccessful uploads
