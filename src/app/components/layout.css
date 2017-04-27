@@ -307,6 +307,8 @@ label.label {
 		display: grid;
 		grid-template-columns: 1fr 3fr 0.5fr 0.5fr;
 		grid-column-gap: 2vw;
+		align-items: center;
+		margin-top: 1.25rem;
 }
 
 .grow-item {

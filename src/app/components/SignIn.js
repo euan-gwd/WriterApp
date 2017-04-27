@@ -12,7 +12,8 @@ class SignIn extends React.Component {
 			emailErr: 'invisible',
 			passErr: 'invisible',
 			emailValid: false,
-			passValid: false
+			passValid: false,
+			submitErr: ''
 		};
 	}
 
@@ -21,7 +22,7 @@ class SignIn extends React.Component {
 		let email = this.state.emailText;
 		let pass = this.state.passText;
 		firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
-			console.log(err);
+			this.setState({submitErr: err.message});
 		});
 
 	} //end handleUserSignIn
@@ -30,7 +31,7 @@ class SignIn extends React.Component {
 		this.setState({emailText: evt.target.value});
 		let emailInput = this.state.emailText;
 		(/[\w\-._]+@[\w\-._]+\.\w{2,10}/.test(emailInput))
-			? this.setState({emailErr: 'invisible', emailValid: true})
+			? this.setState({emailErr: 'invisible', emailValid: true, submitErr: ''})
 			: this.setState({emailErr: 'visible', emailValid: false});
 		//end email validation
 	} //end handleEmailInput
@@ -44,7 +45,7 @@ class SignIn extends React.Component {
 				this.setState({passErr: 'visible', passValid: false});
 				break;
 			case true:
-				return this.setState({passErr: 'invisible', passValid: true});
+				return this.setState({passErr: 'invisible', passValid: true, submitErr: ''});
 			default:
 				break;
 		} //end password validation
@@ -139,6 +140,9 @@ class SignIn extends React.Component {
 							<i className="fa fa-check"></i>
 						</span>
 					</p>
+					{(this.state.submitErr === '')
+						? null
+						: <span className="help is-danger">{this.state.submitErr}</span>}
 				</div>
 			);
 		} // password if/else
