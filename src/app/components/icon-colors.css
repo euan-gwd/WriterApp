@@ -1,0 +1,103 @@
+:root {
+		--base-icon: grey;
+		--blue-grey: #e5eaef;
+		--white: white;
+		--primary: #a7cfdf;
+}
+
+.remove {
+		color: var(--base-icon);
+}
+
+.remove:hover {
+		color: red;
+}
+
+.reply {
+		color: var(--base-icon);
+}
+
+.reply:hover {
+		color: blue;
+}
+
+.edit {
+		color: var(--base-icon);
+}
+
+.edit:hover {
+		color: var(--primary);
+}
+
+.follow {
+		color: var(--base-icon);
+}
+
+.follow:hover {
+		color: var(--primary);
+}
+
+.unfollow {
+		color: var(--primary);
+}
+
+.unfollow:hover {
+		color: var(--primary);
+}
+
+.star {
+		color: var(--base-icon);
+}
+
+.star:hover {
+		color: green;
+}
+
+.flag {
+		color: var(--base-icon);
+}
+
+.flag:hover {
+		color: #ddda00;
+}
+
+.liked {
+		color: green;
+}
+
+.replytext {
+		color: #275c99;
+		font-size: 1rem;
+}
+
+.editImg {
+		color: white;
+}
+
+.editImg:hover {
+		color: var(--primary);
+}
+
+.icon-primary {
+		color: var(--primary);
+}
+
+.icon-info {
+		color: #3273dc;
+}
+
+.icon-success {
+		color: #23d160;
+}
+
+.icon-warning {
+		color: #ffdd57;
+}
+
+.icon-danger {
+		color: #ff3860;
+}
+
+.icon-default {
+	color: var(--base-icon);
+}

@@ -6,7 +6,7 @@ import AddReply from './AddReply';
 import ReplyList from './ReplyList';
 import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class UserScribe extends React.Component {
 	constructor(props) {
@@ -44,6 +44,7 @@ class UserScribe extends React.Component {
 			: <span className="icon is-small">
 				<i className="fa fa-star" aria-hidden="true"></i>
 			</span>;
+		//end showLikesTotal
 		return (
 			<li className="selected-scribe card">
 				<article className="media scribe-spacing">
@@ -57,59 +58,84 @@ class UserScribe extends React.Component {
 							</figure>}
 					</div>
 					<div className="media-content">
-						<div className="content">
-							<div>
-								<span className="title is-5 pr">{this.props.thread.userName}</span>
-								<span className="subtitle is-6 pr">{this.props.thread.userEmail}</span>
-								<span className="subtitle is-7 has-text-right">{moment(this.props.thread.datetime).fromNow()}</span>
-							</div>
-							<div className="">
-								{this.props.thread.hasOwnProperty("replyTo")
-									? <small>in Reply to:
-											<span className="replytext py">{this.props.thread.replyTo}</span>
-										</small>
-									: null}
-							</div>
-							<div>
-								{this.props.thread.scribe}
-								{this.props.thread.hasOwnProperty("scribeImage")
-									? <div className="media-content px">
-											<figure className="">
-												<img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image"/>
-											</figure>
-										</div>
-									: null}
-							</div>
-							<div className="scribe-actions-leveled">
-								<a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)} data-balloon="Reply" data-balloon-pos="up">
-									<span className="icon is-small">
-										<i className="fa fa-reply" aria-hidden="true"></i>
-									</span>
-								</a>
-								<a className="star" onClick={this.props.favScribe.bind(null)} data-balloon="Favourite" data-balloon-pos="up">
-									{showLikesTotal}
-								</a>
-								{(currentUser === this.props.thread.userName)
-									? <a className="edit" onClick={this.handleEditBtnClick.bind(this)} data-balloon="Edit" data-balloon-pos="up">
-											<span className="icon is-small">
-												<i className="fa fa-pencil" aria-hidden="true"></i>
-											</span>
-										</a>
-									: null}
-								<a className="flag" data-balloon="Report" data-balloon-pos="up">
-									<span className="icon is-small">
-										<i className="fa fa-flag" aria-hidden="true"></i>
-									</span>
-								</a>
-								{(currentUser === this.props.thread.userName)
-									? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="delete" data-balloon-pos="up">
-											<span className="icon is-small">
-												<i className="fa fa-times" aria-hidden="true"></i>
-											</span>
-										</a>
-									: null}
-							</div>
-						</div>
+						{this.props.thread.hasOwnProperty("reported")
+							? <div className="content">
+									<div>
+										<span className="title is-5 pr">{this.props.thread.userName}</span>
+										<span className="subtitle is-6 pr">{this.props.thread.userEmail}</span>
+										<span className="subtitle is-7 has-text-right">{moment(this.props.thread.datetime).fromNow()}</span>
+									</div>
+									<div>
+										{this.props.thread.hasOwnProperty("replyTo")
+											? <small>in Reply to:
+													<span className="replytext py">{this.props.thread.replyTo}</span>
+												</small>
+											: null}
+									</div>
+									<p className="has-text-danger">This item has been Reported</p>
+									<div className="scribe-actions-leveled">
+										{(currentUser === this.props.thread.userName)
+											? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="Delete" data-balloon-pos="up">
+													<span className="icon is-small">
+														<i className="fa fa-times" aria-hidden="true"></i>
+													</span>
+												</a>
+											: null}
+									</div>
+								</div>
+							: <div className="content">
+								<div>
+									<span className="title is-5 pr">{this.props.thread.userName}</span>
+									<span className="subtitle is-6 pr">{this.props.thread.userEmail}</span>
+									<span className="subtitle is-7 has-text-right">{moment(this.props.thread.datetime).fromNow()}</span>
+								</div>
+								<div>
+									{this.props.thread.hasOwnProperty("replyTo")
+										? <small>in Reply to:
+												<span className="replytext py">{this.props.thread.replyTo}</span>
+											</small>
+										: null}
+								</div>
+								<div>
+									{this.props.thread.scribe}
+									{this.props.thread.hasOwnProperty("scribeImage")
+										? <div className="media-content px">
+												<figure>
+													<img src={this.props.thread.scribeImage} alt="scribeImage" className="image-rounded image"/>
+												</figure>
+											</div>
+										: null}
+								</div>
+								<div className="scribe-actions-leveled">
+									<a className="pl reply" onClick={this.handleReplyBtnClick.bind(this)} data-balloon="Reply" data-balloon-pos="up">
+										<span className="icon is-small">
+											<i className="fa fa-reply" aria-hidden="true"></i>
+										</span>
+									</a>
+									<a className="star" onClick={this.props.favScribe.bind(null)} data-balloon="Favourite" data-balloon-pos="up">
+										{showLikesTotal}
+									</a>
+									{(currentUser === this.props.thread.userName)
+										? <a className="edit" onClick={this.handleEditBtnClick.bind(this)} data-balloon="Edit" data-balloon-pos="up">
+												<span className="icon is-small">
+													<i className="fa fa-pencil" aria-hidden="true"></i>
+												</span>
+											</a>
+										: null}
+									<a className="flag" data-balloon="Resolved Report" data-balloon-pos="up">
+										<span className="icon is-small">
+											<i className="fa fa-flag" aria-hidden="true"></i>
+										</span>
+									</a>
+									{(currentUser === this.props.thread.userName)
+										? <a onClick={this.props.removeScribe.bind(null)} className="remove" data-balloon="Delete" data-balloon-pos="up">
+												<span className="icon is-small">
+													<i className="fa fa-times" aria-hidden="true"></i>
+												</span>
+											</a>
+										: null}
+								</div>
+							</div>}
 						{this.state.edited
 							? <EditScribe currentScribe={this.props.thread} initialState={this.state.edited} callbackParent={(newState) => this.onScribeEdited(newState)}/>
 							: null}

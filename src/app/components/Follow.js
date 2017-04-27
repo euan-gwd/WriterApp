@@ -1,7 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class Follow extends React.Component {
 	constructor(props) {
@@ -43,11 +43,6 @@ class Follow extends React.Component {
 		this.updateState();
 	} //end onClick
 
-	componentWillUnmount() {
-		let userId = this.props.UserID;
-		firebase.database().ref('users/' + userId).off();
-	} //end componentWillUnmount
-
 	render() {
 		let currentUser = firebase.auth().currentUser.uid;
 		return (
@@ -64,10 +59,17 @@ class Follow extends React.Component {
 									<p className="subtitle is-6">{this.state.userName}</p>
 								</div>
 								<div className="media-right">
-									<a className="follow" data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onClick.bind(null)}>
-										<span className="icon is-medium">
-											<i className="fa fa-user-plus" aria-hidden="true"></i>
-										</span>
+									<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onClick.bind(null)}>
+										{(this.state.following === "unfollow")
+											? <span className="icon is-medium">
+													<i className="fa fa-user-times" aria-hidden="true"></i>
+												</span>
+											: null}
+										{(this.state.following === "follow")
+											? <span className="icon is-medium">
+													<i className="fa fa-user-plus" aria-hidden="true"></i>
+												</span>
+											: null}
 									</a>
 								</div>
 							</div>

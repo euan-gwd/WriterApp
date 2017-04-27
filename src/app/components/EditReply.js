@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class EditReply extends React.Component {
 
@@ -72,7 +72,7 @@ class EditReply extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="">
+            <div>
               <p className="control">
                 <textarea ref='scribe' defaultValue={this.state.replyText} className='textarea' onChange={this.handleInput.bind(this)} required/>
                 <span className="help is-primary has-text-centered" id="uploadBar" ref="uploadNotif">Updating scribe now...</span>

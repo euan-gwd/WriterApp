@@ -6,7 +6,7 @@ import Follow from './Follow';
 import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class Home extends React.Component {
 	constructor(props) {
@@ -25,10 +25,13 @@ class Home extends React.Component {
 			//retrieve user profile data from firebase for currentUser
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
 				const bannerPhoto = res.val();
-				this.setState({bannerPhoto: bannerPhoto})
+				(bannerPhoto === '' || null)
+					? this.setState({bannerPhoto: null})
+					: this.setState({bannerPhoto: bannerPhoto})
 			});
+
 			// retrieve total number of scribes for currentUser
 			firebase.database().ref('userTL/' + userId + '/').on('value', (res) => {
 				const userScribeData = res.val();
@@ -75,14 +78,14 @@ class Home extends React.Component {
 		if (item.hasOwnProperty("scribeImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(item.key).remove(); //removes item from mainTL
+				userTLRef.child(item.key).remove(); //removes item from userTL
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				mainTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				mainTLRef.child(item.key).remove(); //removes item from mainTL
+				userTLRef.child(item.key).remove(); //removes item from userTL
 			}
 		}
 	}; // end deletes scribe
@@ -108,7 +111,7 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		})
+		}); // end mainTL transaction
 
 		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
@@ -125,7 +128,7 @@ class Home extends React.Component {
 				}
 			}
 			return post;
-		})
+		}); // end end userTL transaction
 	} // end toggleLikes
 
 	toggleFollow(item) {
@@ -147,7 +150,8 @@ class Home extends React.Component {
 				}
 			}
 			return user;
-		})
+		}) // end mainTL transaction
+
 		itemRef.transaction(function (user) {
 			if (user) {
 				if (user.follower && user.follower[userId]) {
@@ -162,84 +166,89 @@ class Home extends React.Component {
 				}
 			}
 			return user;
-		})
-
+		}) // end end userTL transaction
 	}; // end toggleFollow
+
+	reportScribe(item, evt) {
+		evt.preventDefault();
+		firebase.database().ref('mainTL/' + item.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
+		firebase.database().ref('userTL/' + item.userId + '/' + item.key).update({reported: true}); //sets reported as true on userTL
+	} // end reportScribe
 
 	render() {
 		//Display all scribes to screen
 		let scribes = this.state.scribes.map((item) => {
-			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
+			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
 		});
 		//Display all users to screen
 		let usr = this.state.usersList.map((item, index) => {
 			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
 		});
 		return (
-			<div className="scribe-container">
-				<div className="scribe-layout pt-1">
-					<div className="">
-						<div className="profile-card is-hidden-mobile">
-							<div className="card-image">
-								{(this.state.bannerPhoto === null)
-									? <figure className="image">
-											<img src={defaultBannerPic} alt="defaultBannerPic" className="image-top-borders-rounded"/>
-										</figure>
-									: <figure className="image">
-										<img src={this.state.bannerPhoto} alt="bannerPic" className="image-top-borders-rounded"/>
-									</figure>}
-							</div>
-							<div className="card-content">
-								<div className="media">
-									<div className="media-left">
-										{(this.state.userPhoto === null)
-											? <figure className="image is-48x48 is-border-image">
-													<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
-												</figure>
-											: <figure className="image is-48x48 is-border-image">
-												<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
-											</figure>}
-									</div>
-									<div className="media-content">
-										<p className="title is-5 pr">{this.state.userName}</p>
-										<p className="subtitle is-6 lh-1">{this.state.userEmail}</p>
-									</div>
+				<div className="scribe-container">
+					<div className="scribe-layout pt-1">
+						<div>
+							<div className="profile-card is-hidden-mobile">
+								<div className="card-image">
+									{(this.state.bannerPhoto === null)
+										? <figure className="image">
+												<img src={defaultBannerPic} alt="defaultBannerPic" className="image-top-borders-rounded"/>
+											</figure>
+										: <figure className="image">
+											<img src={this.state.bannerPhoto} alt="bannerPic" className="image-top-borders-rounded"/>
+										</figure>}
 								</div>
-								<footer className="leveled">
-									<div className="has-text-left">
-										<div className="pr-1">
-											<p className="subtitle-text-is-2 lh-1">Scribes</p>
-											<p className="text-is-primary">{this.state.totalUserScribes}</p>
+								<div className="card-content">
+									<div className="media">
+										<div className="media-left">
+											{(this.state.userPhoto === null)
+												? <figure className="image is-48x48 is-border-image">
+														<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+													</figure>
+												: <figure className="image is-48x48 is-border-image">
+													<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
+												</figure>}
+										</div>
+										<div className="media-content">
+											<p className="title is-5 pr">{this.state.userName}</p>
+											<p className="subtitle is-6 lh-1">{this.state.userEmail}</p>
 										</div>
 									</div>
-									<div className="has-text-left">
-										<div className="">
-											<p className="subtitle-text-is-2 lh-1">Following</p>
-											<p className="text-is-primary">{this.state.followingTotal}</p>
+									<footer className="leveled">
+										<div className="has-text-left">
+											<div className="pr-1">
+												<p className="subtitle-text-is-2 lh-1">Scribes</p>
+												<p className="text-is-primary">{this.state.totalUserScribes}</p>
+											</div>
 										</div>
-									</div>
-									<div className="has-text-left">
-										<div className="pl-1">
-											<p className="subtitle-text-is-2 lh-1">Followers</p>
-											<p className="text-is-primary">{this.state.followersTotal}</p>
+										<div className="has-text-left">
+											<div>
+												<p className="subtitle-text-is-2 lh-1">Following</p>
+												<p className="text-is-primary">{this.state.followingTotal}</p>
+											</div>
 										</div>
-									</div>
-								</footer>
+										<div className="has-text-left">
+											<div className="pl-1">
+												<p className="subtitle-text-is-2 lh-1">Followers</p>
+												<p className="text-is-primary">{this.state.followersTotal}</p>
+											</div>
+										</div>
+									</footer>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="">
-						<AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
-						<ul className="">{scribes}</ul>
-					</div>
-					<div className="">
-						<div className="follow-card">
-							<h6 className="title is-5 borderline">Writers:</h6>
-							<div>{usr}</div>
+						<div>
+							<AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
+							<ul>{scribes}</ul>
+						</div>
+						<div>
+							<div className="follow-card">
+								<h6 className="title is-5 borderline">Writers:</h6>
+								<div>{usr}</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 		);
 	}
 }

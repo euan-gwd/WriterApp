@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as firebase from "firebase";
 import defaultUserPic from '../Default_User_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class AddScribe extends React.Component {
 
@@ -144,7 +144,7 @@ class AddScribe extends React.Component {
               </figure>}
           </div>
           <div className="media-content">
-            <div className="">
+            <div>
               <div className="control">
                 {$imagePreview}
                 <textarea ref='scribe' defaultValue={this.state.bodyText} placeholder="What's happening?" className='textarea' onChange={this.handleInput.bind(this)} required/>

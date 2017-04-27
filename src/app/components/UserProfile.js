@@ -5,7 +5,7 @@ import UserScribeList from './UserScribeList';
 import defaultUserPic from '../Default_User_Pic.svg';
 import defaultBannerPic from '../Default_Banner_Pic.svg';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class UserProfile extends React.Component {
 	constructor(props) {
@@ -24,22 +24,37 @@ class UserProfile extends React.Component {
 	componentDidMount() {
 		// load current user and retrieve user profile data from firebase for currentUser
 		let user = firebase.auth().currentUser;
-		this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
-		const userId = user.uid;
-		firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
-			const bannerPhoto = res.val();
-			this.setState({bannerPhoto: bannerPhoto})
-		});
+		if (user !== null) {
+			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+			const userId = user.uid;
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
+				const bannerPhoto = res.val();
+				(bannerPhoto === '' || null)
+					? this.setState({bannerPhoto: null})
+					: this.setState({bannerPhoto: bannerPhoto})
+			});
 
-		// retrieve total number of scribes for currentUser
-		firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
-			const userScribeData = res.val();
-			let totalScribes;
-			(userScribeData !== null)
-				? totalScribes = Object.keys(userScribeData).length
-				: totalScribes = 0;
-			this.setState({totalUserScribes: totalScribes});
-		});
+			// retrieve total following count
+			firebase.database().ref('users/' + userId + '/').child('followingCount').on('value', (res) => {
+				const totalFollowing = res.val();
+				this.setState({followingTotal: totalFollowing})
+			});
+			// retrieve total follower count
+			firebase.database().ref('users/' + userId + '/').child('followerCount').on('value', (res) => {
+				const totalFollowers = res.val();
+				this.setState({followersTotal: totalFollowers})
+			});
+
+			// retrieve total number of scribes for currentUser
+			firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
+				const userScribeData = res.val();
+				let totalScribes;
+				(userScribeData !== null)
+					? totalScribes = Object.keys(userScribeData).length
+					: totalScribes = 0;
+				this.setState({totalUserScribes: totalScribes});
+			});
+		}
 	}
 
 	handleEditBtnClick() {
@@ -48,6 +63,10 @@ class UserProfile extends React.Component {
 
 	onEdited(newState) {
 		this.setState({userUpdated: newState})
+	}
+
+	handleSignedOutUser = (user) => {
+		firebase.auth().signOut();
 	}
 
 	render() {
@@ -88,23 +107,29 @@ class UserProfile extends React.Component {
 													</div>
 												</div>
 												<div className="has-text-centered">
-													<div className="">
+													<div>
 														<p className="subtitle-text-is-2 lh-1">Following</p>
-														<p className="text-is-primary">123</p>
+														<p className="text-is-primary">{this.state.followingTotal}</p>
 													</div>
 												</div>
 												<div className="has-text-centered">
 													<div className="pl-1">
 														<p className="subtitle-text-is-2 lh-1">Followers</p>
-														<p className="text-is-primary">456K</p>
+														<p className="text-is-primary">{this.state.followersTotal}</p>
 													</div>
 												</div>
 											</div>
-											<button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)}>
+											<button className="button is-primary is-outlined" onClick={this.handleEditBtnClick.bind(this)} data-balloon="Edit User" data-balloon-pos="down">
 												<span className="icon is-small is-hidden-mobile">
 													<i className="fa fa-cloud-upload fa-fw" aria-hidden="true"/>
 												</span>
 												<span>Edit Profile</span>
+											</button>
+											<button className="button is-danger is-outlined" onClick={this.handleSignedOutUser} data-balloon="Sign Out" data-balloon-pos="down">
+												<span className="icon is-small">
+													<i className="fa fa-sign-out fa-fw" aria-hidden="true"/>
+												</span>
+												<span>Sign Out</span>
 											</button>
 										</div>
 									</div>

@@ -2,7 +2,7 @@ import React from 'react';
 import * as firebase from "firebase";
 import UserScribe from './UserScribe';
 import "./layout.css";
-import './colors.css';
+import './icon-colors.css';
 
 class UserScribeList extends React.Component {
 	constructor(props) {
@@ -31,13 +31,7 @@ class UserScribeList extends React.Component {
 			}
 			this.setState({userScribe: userScribeDataArray})
 		});
-	};
-
-	//remove listener
-	componentWillUnmount() {
-		const keyRef = firebase.auth().currentUser.uid;
-		firebase.database().ref('userTL/' + keyRef + '/').off();
-	}
+	} // end componentDidMount
 
 	deleteScribe(item, evt) {
 		evt.stopPropagation();
@@ -46,15 +40,15 @@ class UserScribeList extends React.Component {
 		if (item.hasOwnProperty("scribeImage")) {
 			let deleteImgRef = firebase.storage().refFromURL(item.scribeImage);
 			if (window.confirm("Do you really want to delete this?")) {
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(item.key).remove(); //removes item from userTL
 				deleteImgRef.delete(); //removes item from storageBucket
 			}
 		} else {
 			if (window.confirm("Do you really want to delete this?")) {
-				userTLRef.child(item.key).remove(); //removes item from firebase RTdatabase
+				userTLRef.child(item.key).remove(); //removes item from userTL
 			}
 		}
-	}
+	} // end deleteScribe
 
 	// likes click handler
 	toggleLikes(item, evt) {
@@ -78,7 +72,7 @@ class UserScribeList extends React.Component {
 				}
 			}
 			return post;
-		});
+		}); // end mainTL transaction
 
 		// handles implementation of starCount for userTL
 		userTLRef.transaction(function (post) {
@@ -95,13 +89,13 @@ class UserScribeList extends React.Component {
 				}
 			}
 			return post;
-		});
-	}
+		}); // end end userTL transaction
+	} // end toggleFollow
 
 	render() {
 		let userScribe = this.state.userScribe.map((item) => {
 			return (<UserScribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} key={item.key}/>);
-		})
+		});
 		return (
 			<div className="scribe-container">
 				<div className="columns pt-1">
