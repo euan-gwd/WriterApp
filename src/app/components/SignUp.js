@@ -17,7 +17,7 @@ class SignUp extends React.Component {
 			emailValid: false,
 			passValid: false
 		};
-	}
+	} //end constructor
 
 	handleUserSignUp = (evt) => {
 		evt.preventDefault();
@@ -44,7 +44,6 @@ class SignUp extends React.Component {
 		}).catch(err => {
 			console.log(err);
 		});
-
 	} //end handleUserSignUp
 
 	handleNameInput = (evt) => {

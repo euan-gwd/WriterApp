@@ -14,27 +14,27 @@ class SignedOut extends React.Component {
 			signUpUser: false,
 			route: 'Home'
 		}
-	}
+	} //end constructor
 
 	handleHomeRoute = (evt) => {
 		this.setState({route: 'Home'})
-	}
+	} //end handleHomeRoute
 
 	handleSignInRoute = (evt) => {
 		this.setState({route: 'SignIn', signInUser: true})
-	}
+	} //end handleSignInRoute
 
 	handleSignUpRoute = (evt) => {
 		this.setState({route: 'SignUp', signUpUser: true})
-	}
+	} //end handleSignUpRoute
 
 	onUserSignIn(newState) {
 		this.setState({signInUser: newState})
-	}
+	} //end onUserSignIn
 
 	onUserSignUp(newState) {
 		this.setState({signUpUser: newState})
-	}
+	} //end onUserSignUp
 
 	Home() {
 		return (
@@ -51,7 +51,7 @@ class SignedOut extends React.Component {
 				</div>
 			</section>
 		);
-	}
+	} //end Home
 
 	render() {
 		return (
@@ -83,20 +83,18 @@ class SignedOut extends React.Component {
 				</nav>
 				<Switch>
 					<Case expr={this.state.route === 'SignIn'}>
-						<SignIn />
+						<SignIn/>
 					</Case>
 					<Case expr={this.state.route === 'SignUp'}>
-						<SignUp />
+						<SignUp/>
 					</Case>
 					<Default>
 						{this.Home()}
 					</Default>
 				</Switch>
-
 			</div>
 		);
-	}
-
+	} //end render
 }
 
 export default SignedOut;

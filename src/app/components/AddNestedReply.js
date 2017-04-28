@@ -16,19 +16,19 @@ class AddNestedReply extends React.Component {
 			reply_imagePreviewUrl: '',
 			reply_imageUrl: ''
 		};
-	}
+	} //end constructor
 
 	componentDidMount() {
 		this.replyTimerID = setInterval(() => this.tick(), 1000);
-	}
+	} //end componentDidMount
 
 	componentWillUnmount() {
 		clearInterval(this.replyTimerID);
-	}
+	} //end componentWillUnmount
 
 	tick() {
 		this.setState({reply_date: new Date().toISOString()});
-	}
+	} //end tick
 
 	handleSubmit(evt) {
 		evt.preventDefault();
@@ -109,11 +109,11 @@ class AddNestedReply extends React.Component {
 		ReactDOM.findDOMNode(this.refs.replyScribe).value = '';
 		const newState = !this.state.replied;
 		this.props.callbackParent(newState);
-	}
+	} //end handleSubmit
 
 	handleInput = (evt) => {
 		this.setState({reply_bodyText: evt.target.value});
-	}
+	} //end handleInput
 
 	handleReplyImgUpload = (evt) => {
 		evt.preventDefault();
@@ -123,19 +123,19 @@ class AddNestedReply extends React.Component {
 			this.setState({reply_file: reply_file, reply_imagePreviewUrl: reader.result});
 		}
 		reader.readAsDataURL(reply_file)
-	}
+	} //end handleReplyImgUpload
 
 	removeReplyImgUpload = (evt) => {
 		evt.preventDefault();
 		ReactDOM.findDOMNode(this.refs.reply_fileUpload).value = '';
 		this.setState({reply_file: '', reply_imagePreviewUrl: ''});
-	}
+	} //end removeReplyImgUpload
 
 	handleReplyCancel = (evt) => {
 		const newState = !this.state.replied;
 		this.setState({replied: newState});
 		this.props.callbackParent(newState);
-	}
+	} //end handleReplyCancel
 
 	render() {
 		let $replyImagePreview = null;
@@ -153,7 +153,7 @@ class AddNestedReply extends React.Component {
 			);
 		} else {
 			$replyImagePreview = null;
-		}
+		} //end imagePreview
 		return (
 			<form onSubmit={this.handleSubmit.bind(this)}>
 				<article className="media nested-flat-box">
@@ -178,7 +178,7 @@ class AddNestedReply extends React.Component {
 								<div className="column is-narrow">
 									<div className="control">
 										<input type="file" accept="image/*" name="reply_fileUploader" ref="reply_fileUpload" id="reply_fileUpload" className="input-file" onChange={this.handleReplyImgUpload}/>
-										<label htmlFor="reply_fileUpload" className="button is-primary is-inverted is-outlined" type="button" data-balloon="upload photo" data-balloon-pos="up">
+										<label htmlFor="reply_fileUpload" className="button is-primary is-outlined" type="button" data-balloon="upload photo" data-balloon-pos="up">
 											<i className="fa fa-camera" aria-hidden="true"/>
 										</label>
 									</div>
@@ -207,7 +207,7 @@ class AddNestedReply extends React.Component {
 				</article>
 			</form>
 		);
-	}
+	} //end render
 }
 
 export default AddNestedReply;

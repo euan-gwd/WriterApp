@@ -17,9 +17,10 @@ class UserProfile extends React.Component {
 			user_imageUrl: '',
 			banner_file: '',
 			banner_imagePreviewUrl: '',
-			banner_imageUrl: ''
+			banner_imageUrl: '',
+			totalUserScribes: 0
 		};
-	}
+	} //end constructor
 
 	componentDidMount() {
 		// load current user and retrieve user profile data from firebase for currentUser
@@ -27,13 +28,12 @@ class UserProfile extends React.Component {
 		if (user !== null) {
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
 				const bannerPhoto = res.val();
 				(bannerPhoto === '' || null)
 					? this.setState({bannerPhoto: null})
 					: this.setState({bannerPhoto: bannerPhoto})
 			});
-
 			// retrieve total following count
 			firebase.database().ref('users/' + userId + '/').child('followingCount').on('value', (res) => {
 				const totalFollowing = res.val();
@@ -44,7 +44,6 @@ class UserProfile extends React.Component {
 				const totalFollowers = res.val();
 				this.setState({followersTotal: totalFollowers})
 			});
-
 			// retrieve total number of scribes for currentUser
 			firebase.database().ref('userTL/' + userId + '/').once('value', (res) => {
 				const userScribeData = res.val();
@@ -55,19 +54,19 @@ class UserProfile extends React.Component {
 				this.setState({totalUserScribes: totalScribes});
 			});
 		}
-	}
+	} //end componentDidMount
 
 	handleEditBtnClick() {
 		this.setState({userUpdated: true})
-	}
+	} //end handleEditBtnClick
 
 	onEdited(newState) {
 		this.setState({userUpdated: newState})
-	}
+	} //end onEdited
 
 	handleSignedOutUser = (user) => {
 		firebase.auth().signOut();
-	}
+	} //end handleSignedOutUser
 
 	render() {
 		return (
@@ -142,8 +141,7 @@ class UserProfile extends React.Component {
 				</main>
 			</div>
 		);
-	}
-
+	} //end render
 }
 
 export default UserProfile;

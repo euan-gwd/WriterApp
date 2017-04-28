@@ -18,14 +18,22 @@ class EditUserProfile extends React.Component {
 			user_imageUrl: '',
 			banner_file: '',
 			banner_imagePreviewUrl: '',
-			banner_imageUrl: ''
+			banner_imageUrl: '',
+			uploadBar: 'invisible'
 		};
-	}
+	} //end constructor
 
 	componentDidMount() {
 		let user = firebase.auth().currentUser;
 		if (user !== null) {
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
+			const userId = user.uid;
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('child_added', (res) => {
+				const bannerPhoto = res.val();
+				(bannerPhoto === '' || null)
+					? this.setState({bannerPhoto: null})
+					: this.setState({bannerPhoto: bannerPhoto})
+			});
 		}
 	} //end componentDidMount
 
@@ -56,6 +64,38 @@ class EditUserProfile extends React.Component {
 		}
 	} //end handleProfileImgUpload
 
+	saveProfileImgUpload = (evt) => {
+		evt.preventDefault();
+		let userId = this.state.userId;
+		let currentUserName = firebase.auth().currentUser.displayName;
+		let currentPhoto = firebase.auth().currentUser.photoUrl;
+		let selectedFile = this.state.user_file;
+		let storageRef = firebase.storage().ref('/users/' + userId + '/profile-images/' + selectedFile.name);
+		let uploadTask = storageRef.put(selectedFile);
+		uploadTask.on('state_changed', (snapshot) => {
+			let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			(progress < 100)
+				? this.setState({uploadBar: 'visible'})
+				: this.setState({uploadBar: 'invisible'});
+		}, (error) => {
+			// Handle unsuccessful uploads
+			console.log(error);
+		}, () => {
+			// Handle successful uploads on complete
+			let downloadURL = uploadTask.snapshot.downloadURL;
+			let photoData = {
+				photoUrl: downloadURL
+			}
+			currentPhoto = this.state.userPhoto;
+			if (currentPhoto !== null) {
+				let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
+				deleteImgRef.delete();
+			}
+			firebase.database().ref('/users/' + userId + '/').update(photoData);
+			firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
+		});
+	} //end saveProfileImgUpload
+
 	removeProfileImgUpload = (evt) => {
 		evt.preventDefault();
 		ReactDOM.findDOMNode(this.refs.user_fileUpload).value = '';
@@ -85,6 +125,41 @@ class EditUserProfile extends React.Component {
 		}
 	} //end handleBannerImgUpload
 
+	saveBannerImgUpload = (evt) => {
+		evt.preventDefault();
+		let userId = this.state.userId;
+		let selectedBannerFile = this.state.banner_file;
+		let storageRef = firebase.storage().ref('/users/' + userId + '/profile-images/' + selectedBannerFile.name);
+		let uploadTask = storageRef.put(selectedBannerFile);
+		uploadTask.on('state_changed', (snapshot) => {
+			let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			(progress < 100)
+				? this.setState({uploadBar: 'visible'})
+				: this.setState({uploadBar: 'invisible'});
+		}, (error) => {
+			// Handle unsuccessful uploads
+			console.log(error);
+		}, () => {
+			// Handle successful uploads on complete
+			let downloadURL = uploadTask.snapshot.downloadURL;
+			let bannerData = {
+				bannerPhotoUrl: downloadURL
+			}
+			let currentBannerPhoto = this.state.bannerPhoto;
+			if (currentBannerPhoto !== null) {
+				let deleteImgRef = firebase.storage().refFromURL(currentBannerPhoto);
+				deleteImgRef.delete();
+			}
+			firebase.database().ref('/users/' + userId + '/').update(bannerData);
+		}); //end uploadTask
+		firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('child_changed', (res) => {
+			const bannerPhoto = res.val();
+			(bannerPhoto === '' || null)
+				? this.setState({bannerPhoto: null})
+				: this.setState({bannerPhoto: bannerPhoto})
+		});
+	} //end saveBannerImgUpload
+
 	removeBannerImgUpload = (evt) => {
 		evt.preventDefault();
 		ReactDOM.findDOMNode(this.refs.banner_fileUpload).value = '';
@@ -94,49 +169,10 @@ class EditUserProfile extends React.Component {
 	handleSubmit(evt) {
 		evt.preventDefault();
 		let userId = this.state.userId;
-		let currentUserName = firebase.auth().currentUser.displayName;
 		let currentPhoto = firebase.auth().currentUser.photoUrl;
 		let newDisplayName = this.state.displayNameText;
-		let file = this.state.user_file;
-		let bannerFile = this.state.banner_file;
 		let input_chars = newDisplayName.length;
-
-		if (file !== '' && input_chars === 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + file.name);
-			let uploadTask = storageRef.put(file);
-			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
-				// Handle unsuccessful uploads
-				console.log(error);
-			}, () => {
-				// Handle successful uploads on complete
-				let downloadURL = uploadTask.snapshot.downloadURL;
-				let photoData = {
-					photoUrl: downloadURL
-				}
-				currentPhoto = this.state.userPhoto;
-				let deleteImgRef = firebase.storage().refFromURL(currentPhoto);
-				deleteImgRef.delete();
-				firebase.database().ref('/users/' + userId + '/').update(photoData);
-				firebase.auth().currentUser.updateProfile({displayName: currentUserName, photoURL: downloadURL});
-			});
-		} else if (bannerFile !== '' && input_chars === 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/profile-images/' + bannerFile.name);
-			let uploadTask = storageRef.put(bannerFile);
-			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
-				// Handle unsuccessful uploads
-				console.log(error);
-			}, () => {
-				// Handle successful uploads on complete
-				let downloadURL = uploadTask.snapshot.downloadURL;
-				let bannerData = {
-					bannerPhotoUrl: downloadURL
-				}
-				let currentBannerPhoto = this.state.bannerPhoto;
-				let deleteImgRef = firebase.storage().refFromURL(currentBannerPhoto);
-				deleteImgRef.delete();
-				firebase.database().ref('/users/' + userId + '/').update(bannerData);
-			});
-		} else if (input_chars > 0) {
+		if (input_chars > 0) {
 			let displayNameData = {
 				displayName: newDisplayName
 			}
@@ -144,7 +180,6 @@ class EditUserProfile extends React.Component {
 			firebase.database().ref('/users/' + userId + '/').update(displayNameData);
 			firebase.auth().currentUser.updateProfile({displayName: newDisplayName, photoURL: currentPhoto});
 		}
-
 		let newState = !this.state.userUpdated;
 		this.props.callbackParent(newState);
 	} //end handleSubmit
@@ -165,9 +200,15 @@ class EditUserProfile extends React.Component {
 			return (
 				<div>
 					<img src={user_imagePreviewUrl} className="image is-128x128 image-rounded is-border-image-large" alt={this.state.user_file.name}/>
-					<a className="remove icon-topright" onClick={this.removeProfileImgUpload} data-balloon="undo" data-balloon-pos="up">
+					<span className={`upload-bar ${this.state.uploadBar}`}>Updating photo...</span>
+					<a className="remove icon-topright" onClick={this.removeProfileImgUpload} data-balloon="remove" data-balloon-pos="up">
 						<span className="icon">
 							<i className="fa fa-times" aria-hidden="true"></i>
+						</span>
+					</a>
+					<a className="save icon-topleft" onClick={this.saveProfileImgUpload} data-balloon="save" data-balloon-pos="up">
+						<span className="icon">
+							<i className="fa fa-check" aria-hidden="true"></i>
 						</span>
 					</a>
 				</div>
@@ -197,9 +238,15 @@ class EditUserProfile extends React.Component {
 			return (
 				<div>
 					<img src={banner_imagePreviewUrl} alt={this.state.banner_file.name}/>
-					<a className="remove banner-topright" onClick={this.removeBannerImgUpload} data-balloon="undo" data-balloon-pos="up">
+					<span className={`upload-bar ${this.state.uploadBar}`}>Updating banner...</span>
+					<a className="remove banner-topright" onClick={this.removeBannerImgUpload}>
 						<span className="icon">
 							<i className="fa fa-times" aria-hidden="true"></i>
+						</span>
+					</a>
+					<a className="save banner-topleft" onClick={this.saveBannerImgUpload}>
+						<span className="icon">
+							<i className="fa fa-check" aria-hidden="true"></i>
 						</span>
 					</a>
 				</div>
@@ -258,7 +305,7 @@ class EditUserProfile extends React.Component {
 											<span className="icon is-small is-hidden-mobile">
 												<i className="fa fa-cloud fa-fw" aria-hidden="true"/>
 											</span>
-											<span>Save</span>
+											<span>Done Editing</span>
 										</button>
 									</div>
 									<div className="narrow-item">
