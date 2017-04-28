@@ -16,7 +16,7 @@ class Home extends React.Component {
 			usersList: [],
 			totalUserScribes: 0
 		};
-	};
+	}; // end constructor
 
 	componentDidMount() {
 		let user = firebase.auth().currentUser;
@@ -88,7 +88,7 @@ class Home extends React.Component {
 				userTLRef.child(item.key).remove(); //removes item from userTL
 			}
 		}
-	}; // end deletes scribe
+	}; // end deletesScribe
 
 	toggleLikes(item, evt) {
 		evt.preventDefault();
@@ -185,72 +185,72 @@ class Home extends React.Component {
 			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
 		});
 		return (
-				<div className="scribe-container">
-					<div className="scribe-layout pt-1">
-						<div>
-							<div className="profile-card is-hidden-mobile">
-								<div className="card-image">
-									{(this.state.bannerPhoto === null)
-										? <figure className="image">
-												<img src={defaultBannerPic} alt="defaultBannerPic" className="image-top-borders-rounded"/>
-											</figure>
-										: <figure className="image">
-											<img src={this.state.bannerPhoto} alt="bannerPic" className="image-top-borders-rounded"/>
-										</figure>}
+			<div className="scribe-container">
+				<div className="scribe-layout pt-1">
+					<div>
+						<div className="profile-card is-hidden-mobile">
+							<div className="card-image">
+								{(this.state.bannerPhoto === null)
+									? <figure className="image">
+											<img src={defaultBannerPic} alt="defaultBannerPic" className="image-top-borders-rounded"/>
+										</figure>
+									: <figure className="image">
+										<img src={this.state.bannerPhoto} alt="bannerPic" className="image-top-borders-rounded"/>
+									</figure>}
+							</div>
+							<div className="card-content">
+								<div className="media">
+									<div className="media-left">
+										{(this.state.userPhoto === null)
+											? <figure className="image is-48x48 is-border-image">
+													<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+												</figure>
+											: <figure className="image is-48x48 is-border-image">
+												<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
+											</figure>}
+									</div>
+									<div className="media-content">
+										<p className="title is-5 pr">{this.state.userName}</p>
+										<p className="subtitle is-6 lh-1">{this.state.userEmail}</p>
+									</div>
 								</div>
-								<div className="card-content">
-									<div className="media">
-										<div className="media-left">
-											{(this.state.userPhoto === null)
-												? <figure className="image is-48x48 is-border-image">
-														<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
-													</figure>
-												: <figure className="image is-48x48 is-border-image">
-													<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
-												</figure>}
-										</div>
-										<div className="media-content">
-											<p className="title is-5 pr">{this.state.userName}</p>
-											<p className="subtitle is-6 lh-1">{this.state.userEmail}</p>
+								<footer className="leveled">
+									<div className="has-text-left">
+										<div className="pr-1">
+											<p className="subtitle-text-is-2 lh-1">Scribes</p>
+											<p className="text-is-primary">{this.state.totalUserScribes}</p>
 										</div>
 									</div>
-									<footer className="leveled">
-										<div className="has-text-left">
-											<div className="pr-1">
-												<p className="subtitle-text-is-2 lh-1">Scribes</p>
-												<p className="text-is-primary">{this.state.totalUserScribes}</p>
-											</div>
+									<div className="has-text-left">
+										<div>
+											<p className="subtitle-text-is-2 lh-1">Following</p>
+											<p className="text-is-primary">{this.state.followingTotal}</p>
 										</div>
-										<div className="has-text-left">
-											<div>
-												<p className="subtitle-text-is-2 lh-1">Following</p>
-												<p className="text-is-primary">{this.state.followingTotal}</p>
-											</div>
+									</div>
+									<div className="has-text-left">
+										<div className="pl-1">
+											<p className="subtitle-text-is-2 lh-1">Followers</p>
+											<p className="text-is-primary">{this.state.followersTotal}</p>
 										</div>
-										<div className="has-text-left">
-											<div className="pl-1">
-												<p className="subtitle-text-is-2 lh-1">Followers</p>
-												<p className="text-is-primary">{this.state.followersTotal}</p>
-											</div>
-										</div>
-									</footer>
-								</div>
-							</div>
-						</div>
-						<div>
-							<AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
-							<ul>{scribes}</ul>
-						</div>
-						<div>
-							<div className="follow-card">
-								<h6 className="title is-5 borderline">Writers:</h6>
-								<div>{usr}</div>
+									</div>
+								</footer>
 							</div>
 						</div>
 					</div>
+					<div>
+						<AddScribe mainTL={this.state.scribes} userName={this.state.userName} userId={this.state.userId} userEmail={this.state.userEmail} userPhoto={this.state.userPhoto}/>
+						<ul>{scribes}</ul>
+					</div>
+					<div>
+						<div className="follow-card">
+							<h6 className="title is-5 borderline">Writers:</h6>
+							<div>{usr}</div>
+						</div>
+					</div>
 				</div>
+			</div>
 		);
-	}
+	} //end render
 }
 
 export default Home;

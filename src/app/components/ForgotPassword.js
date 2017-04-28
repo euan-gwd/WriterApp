@@ -13,7 +13,7 @@ class ForgotPassword extends React.Component {
 			emailValid: false,
 			submitErr: ''
 		};
-	}
+	} //end constructor
 
 	handleForgotPassword = (evt) => {
 		evt.preventDefault();
@@ -21,7 +21,6 @@ class ForgotPassword extends React.Component {
 		firebase.auth().sendPasswordResetEmail(email).catch(err => {
 			this.setState({submitErr: err.message});
 		});
-
 	} //end handleForgotPassword
 
 	handleEmailInput = (evt) => {

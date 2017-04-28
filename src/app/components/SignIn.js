@@ -17,7 +17,7 @@ class SignIn extends React.Component {
 			passValid: false,
 			submitErr: ''
 		};
-	}
+	} //end constructor
 
 	handleUserSignIn = (evt) => {
 		evt.preventDefault();
@@ -26,7 +26,6 @@ class SignIn extends React.Component {
 		firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
 			this.setState({submitErr: err.message});
 		});
-
 	} //end handleUserSignIn
 
 	handleEmailInput = (evt) => {
@@ -59,7 +58,7 @@ class SignIn extends React.Component {
 
 	onUserReset(newState) {
 		this.setState({resetUser: newState})
-	}
+	} //end onUserReset
 
 	renderEmail() {
 		if (this.state.emailErr === 'visible' && this.state.emailValid === false) {

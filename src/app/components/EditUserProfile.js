@@ -21,7 +21,7 @@ class EditUserProfile extends React.Component {
 			banner_imageUrl: '',
 			uploadBar: 'invisible'
 		};
-	}
+	} //end constructor
 
 	componentDidMount() {
 		let user = firebase.auth().currentUser;

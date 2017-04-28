@@ -105,7 +105,7 @@ class UserScribeList extends React.Component {
 				</div>
 			</div>
 		);
-	}
+	} //end render
 }
 
 export default UserScribeList;
