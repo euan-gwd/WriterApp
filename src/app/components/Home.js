@@ -140,7 +140,7 @@ class Home extends React.Component {
 			if (user) {
 				if (user.following && user.following[uid]) {
 					user.followingCount--;
-					user.following[uid] = false;
+					user.following[uid] = null;
 				} else {
 					user.followingCount++;
 					if (!user.follower) {
@@ -156,7 +156,7 @@ class Home extends React.Component {
 			if (user) {
 				if (user.follower && user.follower[userId]) {
 					user.followerCount--;
-					user.follower[userId] = false;
+					user.follower[userId] = null;
 				} else {
 					user.followerCount++;
 					if (!user.follower) {
@@ -181,8 +181,8 @@ class Home extends React.Component {
 			return (<Scribe thread={item} removeScribe={this.deleteScribe.bind(this, item)} favScribe={this.toggleLikes.bind(this, item)} reportScribe={this.reportScribe.bind(this, item)} key={item.key}/>);
 		});
 		//Display all users to screen
-		let usr = this.state.usersList.map((item, index) => {
-			return (<Follow followUser={this.toggleFollow.bind(this, item)} UserID={item} key={index}/>);
+		let usr = this.state.usersList.map((item) => {
+			return (<Follow followUser={this.toggleFollow.bind(this, item)} User={item} key={item}/>);
 		});
 		return (
 			<div className="scribe-container">

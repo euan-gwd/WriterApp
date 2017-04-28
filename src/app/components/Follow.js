@@ -8,7 +8,7 @@ class Follow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userId: this.props.UserID,
+			userId: null,
 			userName: null,
 			userPhoto: null,
 			following: null
@@ -16,28 +16,20 @@ class Follow extends React.Component {
 	}; //end constructor
 
 	componentDidMount() {
-		let userId = this.props.UserID;
-		firebase.database().ref('users/' + userId).on('value', (snap) => {
-			const followerData = snap.val();
-			const {displayName, photoUrl} = followerData;
+		let users = this.props.User;
+		const dbRootRef = firebase.database().ref('users/' + users);
+		dbRootRef.on('value', (snap) => {
+			let followerData = snap.val();
+			let usrId = snap.key;
+			let {displayName, photoUrl} = followerData;
 			(photoUrl === "")
-				? this.setState({userName: displayName, userPhoto: null})
-				: this.setState({userName: displayName, userPhoto: photoUrl});
-		})
-		const dbRefList = firebase.database().ref('users/' + userId + '/').child('following');
-		dbRefList.on('value', (snap) => {
-			let following = snap.val();
-			if (following === null) {
-				this.setState({following: "follow"})
+				? this.setState({userName: displayName, userPhoto: null, userId: usrId})
+				: this.setState({userName: displayName, userPhoto: photoUrl, userId: usrId});
+			if (followerData.hasOwnProperty('following') === false) {
+				this.setState({following: "follow"});
 			}
-		})
-		dbRefList.on('child_added', (snap) => {
-			if (snap.val() === true) {
-				this.setState({following: "unfollow"})
-			} else if (snap.val() === false) {
-				this.setState({following: "follow"})
-			} 
-		})
+			console.log(this.state.following);
+		});
 	} //end componentDidMount
 
 	updateState() {
@@ -49,43 +41,47 @@ class Follow extends React.Component {
 	} // end updateState
 
 	onBtnClick = (evt) => {
-		this.props.followUser();
+		evt.preventDefault();
+		this.props.followUser(this.state.userId);
 		this.updateState();
 	} //end onClick
 
 	render() {
+		let currentUser = firebase.auth().currentUser.uid;
 		return (
 			<div>
-				<div className="selected-scribe mb">
-					<div className="media">
-						<div className="media-left">
-							{(this.state.userPhoto === null)
-								? <figure className="image is-32x32">
-										<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
-									</figure>
-								: <figure className="image is-32x32">
-									<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
-								</figure>}
+				{(this.state.userId !== currentUser)
+					? <div className="selected-scribe mb">
+							<div className="media">
+								<div className="media-left">
+									{(this.state.userPhoto === null)
+										? <figure className="image is-32x32">
+												<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+											</figure>
+										: <figure className="image is-32x32">
+											<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
+										</figure>}
+								</div>
+								<div className="media-content">
+									<p className="subtitle is-6">{this.state.userName}</p>
+								</div>
+								<div className="media-right">
+									<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onBtnClick.bind(this)}>
+										{(this.state.following === "unfollow")
+											? <span className="icon is-medium">
+													<i className="fa fa-user-times" aria-hidden="true"></i>
+												</span>
+											: null}
+										{(this.state.following === "follow")
+											? <span className="icon is-medium">
+													<i className="fa fa-user-plus" aria-hidden="true"></i>
+												</span>
+											: null}
+									</a>
+								</div>
+							</div>
 						</div>
-						<div className="media-content">
-							<p className="subtitle is-6">{this.state.userName}</p>
-						</div>
-						<div className="media-right">
-							<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onBtnClick.bind(null)}>
-								{(this.state.following === "unfollow")
-									? <span className="icon is-medium">
-											<i className="fa fa-user-times" aria-hidden="true"></i>
-										</span>
-									: null}
-								{(this.state.following === "follow")
-									? <span className="icon is-medium">
-											<i className="fa fa-user-plus" aria-hidden="true"></i>
-										</span>
-									: null}
-							</a>
-						</div>
-					</div>
-				</div>
+					: null}
 			</div>
 		);
 	} //end render
