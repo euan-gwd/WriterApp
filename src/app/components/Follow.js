@@ -28,7 +28,6 @@ class Follow extends React.Component {
 			if (followerData.hasOwnProperty('following') === false) {
 				this.setState({following: "follow"});
 			}
-			console.log(this.state.following);
 		});
 	} //end componentDidMount
 
