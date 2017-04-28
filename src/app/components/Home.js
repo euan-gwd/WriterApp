@@ -137,13 +137,13 @@ class Home extends React.Component {
 		let usersRef = firebase.database().ref('users/' + userId + '/');
 		usersRef.transaction(function (user) {
 			if (user) {
+				if (!user.following) {
+					user.following = {};
+				}
 				if (user.following && user.following[uid]) {
 					user.followingCount--;
 					user.following[uid] = null;
 				} else {
-					if (!user.follower) {
-						user.following = {};
-					}
 					user.followingCount++;
 					user.following[uid] = true;
 				}
@@ -154,20 +154,19 @@ class Home extends React.Component {
 		let itemRef = firebase.database().ref('users/' + item + '/');
 		itemRef.transaction(function (user) {
 			if (user) {
+				if (!user.follower) {
+					user.follower = {};
+				}
 				if (user.follower && user.follower[userId]) {
 					user.followerCount--;
 					user.follower[userId] = null;
 				} else {
-					if (!user.follower) {
-						user.follower = {};
-					}
 					user.followerCount++;
 					user.follower[userId] = true;
 				}
 			}
 			return user;
 		}) // end end userTL transaction
-		
 	}; // end toggleFollow
 
 	reportScribe(item, evt) {

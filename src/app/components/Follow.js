@@ -27,23 +27,25 @@ class Follow extends React.Component {
 				: this.setState({userName: displayName, userPhoto: photoUrl, userId: usrId});
 			if (followerData.hasOwnProperty('following') === false) {
 				this.setState({following: "follow"});
+			} else {
+					console.log(followerData);
 			}
 		});
 	} //end componentDidMount
 
-	updateState() {
+	updateFollowingState() {
 		if (this.state.following === "follow") {
 			this.setState({following: "unfollow"})
 		} else if (this.state.following === "unfollow") {
 			this.setState({following: "follow"})
 		}
-	} // end updateState
+	} // end updateFollowingState
 
-	onBtnClick = (evt) => {
+	followWriter = (evt) => {
 		evt.preventDefault();
 		this.props.followUser(this.state.userId);
-		this.updateState();
-	} //end onClick
+		this.updateFollowingState();
+	} //end followWriter
 
 	render() {
 		let currentUser = firebase.auth().currentUser.uid;
@@ -65,17 +67,14 @@ class Follow extends React.Component {
 									<p className="subtitle is-6">{this.state.userName}</p>
 								</div>
 								<div className="media-right">
-									<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onBtnClick.bind(this)}>
+									<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.followWriter}>
 										{(this.state.following === "unfollow")
 											? <span className="icon is-medium">
 													<i className="fa fa-user-times" aria-hidden="true"></i>
 												</span>
-											: null}
-										{(this.state.following === "follow")
-											? <span className="icon is-medium">
-													<i className="fa fa-user-plus" aria-hidden="true"></i>
-												</span>
-											: null}
+											: <span className="icon is-medium">
+												<i className="fa fa-user-plus" aria-hidden="true"></i>
+											</span>}
 									</a>
 								</div>
 							</div>
