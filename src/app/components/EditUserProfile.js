@@ -305,7 +305,7 @@ class EditUserProfile extends React.Component {
 											<span className="icon is-small is-hidden-mobile">
 												<i className="fa fa-cloud fa-fw" aria-hidden="true"/>
 											</span>
-											<span>Save</span>
+											<span>Done Editing</span>
 										</button>
 									</div>
 									<div className="narrow-item">
