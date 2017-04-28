@@ -75,13 +75,13 @@
 
 .media.flat-box {
 		padding: 0.625rem;
-		background-color: var(--blue-grey);
+		background-color: white;
 }
 
 .media.nested-flat-box {
 		padding: 0.625rem;
 		border-radius: 5px;
-		background-color: var(--blue-grey);
+		background-color: white;
 }
 
 li.card:last-of-type {

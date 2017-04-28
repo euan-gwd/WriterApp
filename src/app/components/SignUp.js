@@ -34,6 +34,8 @@ class SignUp extends React.Component {
 				photoUrl: '',
 				followingCount: 0,
 				followerCount: 0,
+				following: '',
+				follower: '',
 				bannerPhotoUrl: ''
 			}
 			updates['/users/' + newUserKey] = userData;
