@@ -26,6 +26,8 @@ class Follow extends React.Component {
 				this.setState({following: "unfollow"})
 			} else if (snap.val() === false) {
 				this.setState({following: "follow"})
+			} else if (snap.val() === null) {
+				this.setState({following: "follow"})
 			}
 		})
 	} //end componentDidMount
