@@ -27,20 +27,17 @@ class Follow extends React.Component {
 		const dbRefList = firebase.database().ref('users/' + userId + '/').child('following');
 		dbRefList.on('value', (snap) => {
 			let following = snap.val();
-			console.log(following);
 			if (following === null) {
 				this.setState({following: "follow"})
 			}
 		})
-		// dbRefList.on('child_added', (snap) => {
-		// 	if (snap.val() === true) {
-		// 		this.setState({following: "unfollow"})
-		// 	} else if (snap.val() === false) {
-		// 		this.setState({following: "follow"})
-		// 	} else if (snap.val() === null) {
-		// 		this.setState({following: "follow"})
-		// 	}
-		// })
+		dbRefList.on('child_added', (snap) => {
+			if (snap.val() === true) {
+				this.setState({following: "unfollow"})
+			} else if (snap.val() === false) {
+				this.setState({following: "follow"})
+			} 
+		})
 	} //end componentDidMount
 
 	updateState() {
