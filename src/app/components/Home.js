@@ -140,10 +140,10 @@ class Home extends React.Component {
 			if (user) {
 				if (user.following && user.following[uid]) {
 					user.followingCount--;
-					user.following[uid] = null;
+					user.following[uid] = false;
 				} else {
 					user.followingCount++;
-					if (!user.following) {
+					if (!user.follower) {
 						user.following = {};
 					}
 					user.following[uid] = true;
@@ -156,7 +156,7 @@ class Home extends React.Component {
 			if (user) {
 				if (user.follower && user.follower[userId]) {
 					user.followerCount--;
-					user.follower[userId] = null;
+					user.follower[userId] = false;
 				} else {
 					user.followerCount++;
 					if (!user.follower) {

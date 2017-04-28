@@ -10,7 +10,8 @@ class Follow extends React.Component {
 		this.state = {
 			userId: this.props.UserID,
 			userName: null,
-			userPhoto: null
+			userPhoto: null,
+			following: null
 		};
 	}; //end constructor
 
@@ -24,13 +25,22 @@ class Follow extends React.Component {
 				: this.setState({userName: displayName, userPhoto: photoUrl});
 		})
 		const dbRefList = firebase.database().ref('users/' + userId + '/').child('following');
-		dbRefList.on('child_added', (snap) => {
-			if (snap.val() === true) {
-				this.setState({following: "unfollow"})
-			} else if (snap.val() === false ) {
+		dbRefList.on('value', (snap) => {
+			let following = snap.val();
+			console.log(following);
+			if (following === null) {
 				this.setState({following: "follow"})
 			}
 		})
+		// dbRefList.on('child_added', (snap) => {
+		// 	if (snap.val() === true) {
+		// 		this.setState({following: "unfollow"})
+		// 	} else if (snap.val() === false) {
+		// 		this.setState({following: "follow"})
+		// 	} else if (snap.val() === null) {
+		// 		this.setState({following: "follow"})
+		// 	}
+		// })
 	} //end componentDidMount
 
 	updateState() {
@@ -41,7 +51,7 @@ class Follow extends React.Component {
 		}
 	} // end updateState
 
-	onClick = (evt) => {
+	onBtnClick = (evt) => {
 		this.props.followUser();
 		this.updateState();
 	} //end onClick
@@ -64,7 +74,7 @@ class Follow extends React.Component {
 							<p className="subtitle is-6">{this.state.userName}</p>
 						</div>
 						<div className="media-right">
-							<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onClick.bind(null)}>
+							<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.onBtnClick.bind(null)}>
 								{(this.state.following === "unfollow")
 									? <span className="icon is-medium">
 											<i className="fa fa-user-times" aria-hidden="true"></i>
