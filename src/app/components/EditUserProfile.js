@@ -28,7 +28,7 @@ class EditUserProfile extends React.Component {
 		if (user !== null) {
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('child_added', (res) => {
 				const bannerPhoto = res.val();
 				(bannerPhoto === '' || null)
 					? this.setState({bannerPhoto: null})
@@ -152,6 +152,12 @@ class EditUserProfile extends React.Component {
 			}
 			firebase.database().ref('/users/' + userId + '/').update(bannerData);
 		}); //end uploadTask
+		firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('child_changed', (res) => {
+			const bannerPhoto = res.val();
+			(bannerPhoto === '' || null)
+				? this.setState({bannerPhoto: null})
+				: this.setState({bannerPhoto: bannerPhoto})
+		});
 	} //end saveBannerImgUpload
 
 	removeBannerImgUpload = (evt) => {
@@ -174,7 +180,6 @@ class EditUserProfile extends React.Component {
 			firebase.database().ref('/users/' + userId + '/').update(displayNameData);
 			firebase.auth().currentUser.updateProfile({displayName: newDisplayName, photoURL: currentPhoto});
 		}
-
 		let newState = !this.state.userUpdated;
 		this.props.callbackParent(newState);
 	} //end handleSubmit
