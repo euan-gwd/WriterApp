@@ -42,7 +42,7 @@ class AddScribe extends React.Component {
 		let chars_left = 160 - this.state.bodyText.length;
 
 		if (file !== '' && chars_left >= 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/' + file.name);
+			let storageRef = firebase.storage().ref('/users/' + userId + '/' + file.name);
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', (snapshot) => {
 				let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

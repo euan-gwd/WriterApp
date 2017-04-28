@@ -44,7 +44,7 @@ class AddReply extends React.Component {
 		let chars_left = 160 - this.state.reply_bodyText.length;
 
 		if (file !== '' && chars_left >= 0) {
-			let storageRef = firebase.storage().ref('/images/' + userId + '/' + currentScribeKey + '/' + file.name);
+			let storageRef = firebase.storage().ref('/users/' + userId + '/' + currentScribeKey + '/' + file.name);
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
 				// Handle unsuccessful uploads
