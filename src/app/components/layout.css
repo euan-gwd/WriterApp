@@ -170,10 +170,24 @@ li.card:last-of-type {
 		z-index: 2;
 }
 
+.icon-topleft {
+		position: absolute;
+		top: -10rem;
+		right: 1.25rem;
+		z-index: 2;
+}
+
 .banner-topright {
 		position: absolute;
-		top: -16.5rem;
-		left: 98%;
+		top: .5rem;
+		left: 95%;
+		z-index: 2;
+}
+
+.banner-topleft {
+		position: absolute;
+		top: .5rem;
+		right: 95%;
 		z-index: 2;
 }
 

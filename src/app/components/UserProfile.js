@@ -17,7 +17,8 @@ class UserProfile extends React.Component {
 			user_imageUrl: '',
 			banner_file: '',
 			banner_imagePreviewUrl: '',
-			banner_imageUrl: ''
+			banner_imageUrl: '',
+			totalUserScribes: 0
 		};
 	}
 
@@ -27,7 +28,7 @@ class UserProfile extends React.Component {
 		if (user !== null) {
 			this.setState({userId: user.uid, userName: user.displayName, userEmail: user.email, userPhoto: user.photoURL})
 			const userId = user.uid;
-			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').once('value', (res) => {
+			firebase.database().ref('users/' + userId + '/').child('bannerPhotoUrl').on('value', (res) => {
 				const bannerPhoto = res.val();
 				(bannerPhoto === '' || null)
 					? this.setState({bannerPhoto: null})

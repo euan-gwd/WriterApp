@@ -61,6 +61,14 @@
 		color: #ddda00;
 }
 
+.save {
+		color: var(--base-icon);
+}
+
+.save:hover {
+		color: #23d160;
+}
+
 .liked {
 		color: green;
 }
