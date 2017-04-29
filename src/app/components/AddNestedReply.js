@@ -45,7 +45,7 @@ class AddNestedReply extends React.Component {
 
 		if (file !== '' && chars_left >= 0) {
 			let newScribeReplyImgKey = firebase.database().ref('mainTL/' + parentScribeKey + '/scribeReplies/').push().key;
-			let storageRef = firebase.storage().ref('/images/' + userId + '/' + newScribeReplyImgKey + '/' + file.name);
+			let storageRef = firebase.storage().ref('/users/' + userId + '/' + newScribeReplyImgKey + '/' + file.name);
 			let uploadTask = storageRef.put(file);
 			uploadTask.on('state_changed', (snapshot) => {}, (error) => {
 				// Handle unsuccessful uploads
