@@ -31,7 +31,6 @@ class Follow extends React.Component {
 		let userId = firebase.auth().currentUser.uid;
 		let followerRef = firebase.database().ref('users/' + userId + '/following/' + uid);
 		followerRef.on('value', (data) => {
-			console.log(data.val());
 			(data.val())
 				? this.setState({following: "unfollow"})
 				: this.setState({following: "follow"});
@@ -42,7 +41,6 @@ class Follow extends React.Component {
 		let userId = firebase.auth().currentUser.uid;
 		let followerRef = firebase.database().ref('users/' + userId + '/following/' + uid);
 		followerRef.on('value', (data) => {
-			console.log(data.val());
 			(data.val())
 				? this.setState({following: "unfollow"})
 				: this.setState({following: "follow"});

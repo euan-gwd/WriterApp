@@ -131,44 +131,6 @@ class Home extends React.Component {
 		}); // end end userTL transaction
 	} // end toggleLikes
 
-	toggleFollow(item) {
-		let uid = item;
-		let userId = firebase.auth().currentUser.uid;
-		let usersRef = firebase.database().ref('users/' + userId + '/');
-		usersRef.transaction(function (user) {
-			if (user) {
-				if (!user.following) {
-					user.following = {};
-				}
-				if (user.following && user.following[uid]) {
-					user.followingCount--;
-					user.following[uid] = null;
-				} else {
-					user.followingCount++;
-					user.following[uid] = true;
-				}
-			}
-			return user;
-		}) // end mainTL transaction
-
-		let itemRef = firebase.database().ref('users/' + item + '/');
-		itemRef.transaction(function (user) {
-			if (user) {
-				if (!user.follower) {
-					user.follower = {};
-				}
-				if (user.follower && user.follower[userId]) {
-					user.followerCount--;
-					user.follower[userId] = null;
-				} else {
-					user.followerCount++;
-					user.follower[userId] = true;
-				}
-			}
-			return user;
-		}) // end end userTL transaction
-	}; // end toggleFollow
-
 	reportScribe(item, evt) {
 		evt.preventDefault();
 		firebase.database().ref('mainTL/' + item.key).update({reported: true}); //sets reported as true and removes item from mainTL upon render
