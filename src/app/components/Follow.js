@@ -10,76 +10,122 @@ class Follow extends React.Component {
 		this.state = {
 			userId: null,
 			userName: null,
-			userPhoto: null,
-			following: null
+			userPhoto: null
 		};
 	}; //end constructor
 
 	componentDidMount() {
-		let users = this.props.User;
+		let users = this.props.Users;
+		let usrId;
 		const dbRootRef = firebase.database().ref('users/' + users);
 		dbRootRef.on('value', (snap) => {
 			let followerData = snap.val();
-			let usrId = snap.key;
+			usrId = snap.key;
 			let {displayName, photoUrl} = followerData;
 			(photoUrl === "")
 				? this.setState({userName: displayName, userPhoto: null, userId: usrId})
 				: this.setState({userName: displayName, userPhoto: photoUrl, userId: usrId});
-			if (followerData.hasOwnProperty('following') === false) {
-				this.setState({following: "follow"});
-			} else {
-					console.log(followerData);
-			}
 		});
+		let uid = usrId;
+		let userId = firebase.auth().currentUser.uid;
+		let followerRef = firebase.database().ref('users/' + userId + '/following/' + uid);
+		followerRef.on('value', (data) => {
+			console.log(data.val());
+			(data.val())
+				? this.setState({following: "unfollow"})
+				: this.setState({following: "follow"});
+		})
 	} //end componentDidMount
 
-	updateFollowingState() {
-		if (this.state.following === "follow") {
-			this.setState({following: "unfollow"})
-		} else if (this.state.following === "unfollow") {
-			this.setState({following: "follow"})
-		}
+	updateFollowingState(uid) {
+		let userId = firebase.auth().currentUser.uid;
+		let followerRef = firebase.database().ref('users/' + userId + '/following/' + uid);
+		followerRef.on('value', (data) => {
+			console.log(data.val());
+			(data.val())
+				? this.setState({following: "unfollow"})
+				: this.setState({following: "follow"});
+		})
 	} // end updateFollowingState
 
 	followWriter = (evt) => {
-		evt.preventDefault();
-		this.props.followUser(this.state.userId);
-		this.updateFollowingState();
+		this.toggleFollow(this.state.userId);
+		this.updateFollowingState(this.state.userId);
 	} //end followWriter
 
+	toggleFollow(uid) {
+		let userId = firebase.auth().currentUser.uid;
+		let usersRef = firebase.database().ref('users/' + userId + '/');
+		usersRef.transaction(function (user) {
+			if (user) {
+				if (!user.following) {
+					user.following = {};
+				}
+				if (user.following && user.following[uid]) {
+					user.followingCount--;
+					user.following[uid] = null;
+				} else {
+					user.followingCount++;
+					user.following[uid] = true;
+				}
+			}
+			return user;
+		}) // end mainTL transaction
+
+		let itemRef = firebase.database().ref('users/' + uid + '/');
+		itemRef.transaction(function (user) {
+			if (user) {
+				if (!user.follower) {
+					user.follower = {};
+				}
+				if (user.follower && user.follower[userId]) {
+					user.followerCount--;
+					user.follower[userId] = null;
+				} else {
+					user.followerCount++;
+					user.follower[userId] = true;
+				}
+			}
+			return user;
+		}) // end end userTL transaction
+	}; // end toggleFollow
+
 	render() {
-		let currentUser = firebase.auth().currentUser.uid;
 		return (
 			<div>
-				{(this.state.userId !== currentUser)
-					? <div className="selected-scribe mb">
-							<div className="media">
-								<div className="media-left">
-									{(this.state.userPhoto === null)
-										? <figure className="image is-32x32">
-												<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
-											</figure>
-										: <figure className="image is-32x32">
-											<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
-										</figure>}
-								</div>
-								<div className="media-content">
-									<p className="subtitle is-6">{this.state.userName}</p>
-								</div>
-								<div className="media-right">
-									<a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.followWriter}>
-										{(this.state.following === "unfollow")
+				<div className="selected-scribe mb">
+					<div className="media">
+						<div className="media-left">
+							{(this.state.userPhoto === null)
+								? <figure className="image is-32x32">
+										<img src={defaultUserPic} alt="defaultProfilePic" className="image-rounded"/>
+									</figure>
+								: <figure className="image is-32x32">
+									<img src={this.state.userPhoto} alt="profilePic" className="image-rounded"/>
+								</figure>}
+						</div>
+						<div className="media-content">
+							<p className="subtitle is-6">{this.state.userName}</p>
+						</div>
+						<div className="media-right">
+							{(this.state.following !== undefined)
+								? <a className={this.state.following} data-balloon={this.state.following} data-balloon-pos="left" onClick={this.followWriter.bind(this)}>
+										{(this.state.following === "follow")
 											? <span className="icon is-medium">
-													<i className="fa fa-user-times" aria-hidden="true"></i>
+													<i className="fa fa-user-plus" aria-hidden="true"></i>
 												</span>
 											: <span className="icon is-medium">
-												<i className="fa fa-user-plus" aria-hidden="true"></i>
+												<i className="fa fa-user-times" aria-hidden="true"></i>
 											</span>}
 									</a>
-								</div>
-							</div>
+								: <a className="follow" data-balloon="follow" data-balloon-pos="left" onClick={this.followWriter.bind(this)}>
+									<span className="icon is-medium">
+										<i className="fa fa-user-plus" aria-hidden="true"></i>
+									</span>
+								</a>}
 						</div>
-					: null}
+					</div>
+				</div>
 			</div>
 		);
 	} //end render

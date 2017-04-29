@@ -182,7 +182,7 @@ class Home extends React.Component {
 		});
 		//Display all users to screen
 		let usr = this.state.usersList.map((item) => {
-			return (<Follow followUser={this.toggleFollow.bind(this, item)} User={item} key={item}/>);
+			return (<Follow Users={item} key={item}/>);
 		});
 		return (
 			<div className="scribe-container">
