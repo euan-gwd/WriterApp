@@ -1,4 +1,4 @@
-Microblogging App(Twitter Clone) with editing feature. - Work in Progress.
+Microblogging App(Twitter-like) with editing feature. - Work in Progress.
 
 TODO:
 1. MVP features - done
@@ -7,3 +7,4 @@ TODO:
 4. Add Direct Messages Feature - still to do
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+View Deployed Project at https://react-chat-app-f64bb.firebaseapp.com/
