@@ -7,4 +7,4 @@ TODO:
 4. Add Direct Messages Feature - still to do
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-View Deployed Project at https://react-chat-app-f64bb.firebaseapp.com/
+<br>View Deployed Project at https://react-chat-app-f64bb.firebaseapp.com/
