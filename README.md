@@ -1,4 +1,4 @@
-Microblogging App(Twitter-Clone) with editing feature.
+Microblogging App(Twitter-Clone) with edit tweet feature.
 
 TODO:
 1. MVP features - done
