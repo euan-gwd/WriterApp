@@ -1,4 +1,4 @@
-Microblogging App(Twitter-like) with editing feature. - Work in Progress.
+Microblogging App(Twitter-Clone) with editing feature.
 
 TODO:
 1. MVP features - done
