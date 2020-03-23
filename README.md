@@ -8,4 +8,3 @@ TODO:
 4. Add Direct Messages Feature - still to do
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-<br>View Deployed Project at https://writersapp-react.web.app/
