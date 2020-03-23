@@ -9,4 +9,4 @@ TODO:
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Site was originally deployed to firebase - changes to firebase meant site is no longer deployed.
+Site was originally deployed to firebase - changes to firebase meant site is no longer available.
