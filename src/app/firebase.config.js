@@ -1,5 +1,5 @@
 const config = {
-  apiKey: 'AIzaSyATHUCfAr1OT8LwtUarJyLDxXbLf2UymIU',
+  apiKey: '',
   authDomain: 'writersapp-react.firebaseapp.com',
   databaseURL: 'https://writersapp-react.firebaseio.com',
   projectId: 'writersapp-react',
