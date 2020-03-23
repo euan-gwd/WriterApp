@@ -8,3 +8,5 @@ TODO:
 4. Add Direct Messages Feature - still to do
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+Site was originally deployed to firebase - changes to firebase meant site is no longer deployed.
